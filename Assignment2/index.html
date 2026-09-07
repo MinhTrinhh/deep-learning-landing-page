@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignment 2 | Deep Learning & Its Applications</title>
+  <meta name="description" content="Assignment 2: Deep Learning on Large-Scale Data and Specialized Tasks - Specialized Computer Vision / Language Track.">
+  <link rel="stylesheet" href="../docs/assets/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="../docs/index.html" class="nav-brand">
+        <span class="brand-badge">HCMUT</span>
+        <span>CO3133 · Deep Learning</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../docs/index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="../Assignment1/index.html" class="nav-link"><i class="fa-solid fa-layer-group"></i> Assignment 1</a></li>
+        <li><a href="index.html" class="nav-link active"><i class="fa-solid fa-brain"></i> Assignment 2</a></li>
+        <li><a href="../Assignment3/index.html" class="nav-link"><i class="fa-solid fa-diagram-project"></i> Assignment 3</a></li>
+        <li><a href="../docs/AI_USAGE.md" class="nav-link" target="_blank"><i class="fa-solid fa-robot"></i> AI Disclosure</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="hero" style="padding: 3rem 0 2rem 0;">
+    <div class="container">
+      <div class="hero-pill">
+        <i class="fa-solid fa-brain"></i> Assignment 2 (Course Weight: 30%)
+      </div>
+      <h1 class="hero-title" style="font-size: 2.4rem;">Deep Learning on Large-Scale Data & Specialized Tasks</h1>
+      <p class="hero-subtitle">
+        Topic: Deep Learning on Large-Scale Data for Specialized Computer Vision or Language Tasks
+      </p>
+
+      <div class="hero-meta">
+        <div class="meta-item"><i class="fa-solid fa-user-tie"></i> Instructor: Lê Thành Sách</div>
+        <div class="meta-item"><i class="fa-solid fa-layer-group"></i> Track: [Object Detection / Segmentation / Classification]</div>
+        <div class="meta-item"><span class="card-badge badge-pending">Dataset Proposal: Pending Approval</span></div>
+      </div>
+
+      <div class="card-footer" style="justify-content: center; margin-top: 1.5rem;">
+        <a href="./code/" target="_blank" class="btn btn-secondary btn-sm"><i class="fa-brands fa-github"></i> Source Code</a>
+        <a href="#video-section" class="btn btn-primary btn-sm"><i class="fa-solid fa-video"></i> YouTube Video</a>
+        <a href="./Presentation/" class="btn btn-secondary btn-sm"><i class="fa-solid fa-file-pdf"></i> Proposal / Report PDF</a>
+        <a href="./checkpoints/" class="btn btn-secondary btn-sm"><i class="fa-solid fa-box-archive"></i> Checkpoints</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area (Handbook Section 2.2) -->
+  <main class="container">
+
+    <!-- Interactive Navigation Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="tab-proposal"><i class="fa-solid fa-file-signature"></i> Dataset Proposal & Track</button>
+      <button class="tab-btn" data-tab="tab-data"><i class="fa-solid fa-database"></i> Task-Specific Data & EDA</button>
+      <button class="tab-btn" data-tab="tab-methodology"><i class="fa-solid fa-gears"></i> Methodology & Fine-Tuning</button>
+      <button class="tab-btn" data-tab="tab-results"><i class="fa-solid fa-chart-column"></i> Results & Controlled Experiments</button>
+      <button class="tab-btn" data-tab="tab-analysis"><i class="fa-solid fa-microscope"></i> Error Analysis & Compute Cost</button>
+      <button class="tab-btn" data-tab="tab-video"><i class="fa-solid fa-play"></i> Video & Deliverables</button>
+      <button class="tab-btn" data-tab="tab-ai"><i class="fa-solid fa-robot"></i> AI Disclosure</button>
+    </div>
+
+    <!-- TAB 1: Dataset Proposal -->
+    <div class="tab-content active" id="tab-proposal">
+      <div class="card">
+        <h2 class="section-title"><i class="fa-solid fa-clipboard-check"></i> Dataset Proposal & Approval Gate (A2-M1)</h2>
+        <div class="card-body" style="margin-top: 1rem;">
+          
+          <div class="callout callout-warning">
+            <div class="callout-title"><i class="fa-solid fa-lock"></i> Approval Status: Pending Instructor Review</div>
+            <p>
+              Per Section 18 of the handbook, main implementation experiments begin only after the Dataset Proposal is <strong>Approved</strong> or <strong>Approved with conditions</strong> by the instructor.
+            </p>
+          </div>
+
+          <h3 style="margin-top: 1.5rem; color: var(--secondary-light); font-size: 1.15rem;">Selected Track Specification</h3>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Property</th>
+                  <th>Proposal Specification</th>
+                  <th>Handbook Requirement Threshold</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Selected Track</strong></td>
+                  <td>Object Detection / Segmentation / Classification / Re-ID</td>
+                  <td>One specialized track</td>
+                </tr>
+                <tr>
+                  <td><strong>Dataset Name & License</strong></td>
+                  <td>COCO 2017 / Pascal VOC / Cityscapes / Custom</td>
+                  <td>Publicly accessible & documented license</td>
+                </tr>
+                <tr>
+                  <td><strong>Sample Volume</strong></td>
+                  <td>5,000+ training images / 10,000+ instances</td>
+                  <td>Meets track default threshold (Section 19)</td>
+                </tr>
+                <tr>
+                  <td><strong>Leakage Prevention Unit</strong></td>
+                  <td>Scene / Sequence / Group ID split</td>
+                  <td>Strict split unit to prevent data leakage</td>
+                </tr>
+                <tr>
+                  <td><strong>Baseline & Pretrained Model</strong></td>
+                  <td>Simple Baseline vs. Faster R-CNN / YOLO / ResNet-50</td>
+                  <td>Simple baseline + fine-tuned modern model</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: Task-Specific Data & EDA -->
+    <div class="tab-content" id="tab-data">
+      <div class="card">
+        <h2 class="section-title"><i class="fa-solid fa-chart-line"></i> Task-Specific EDA & Distribution</h2>
+        <div class="card-body" style="margin-top: 1rem;">
+          <p>Exploratory data analysis focused on task specificities (bounding box distributions, pixel ratios, mask quality, or text token lengths).</p>
+          
+          <div class="grid-2" style="margin-top: 1.5rem;">
+            <div style="background: rgba(0,0,0,0.3); border: 1px dashed var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; text-align: center; color: var(--text-muted);">
+              <i class="fa-solid fa-chart-bar" style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--secondary);"></i>
+              <p>[Bounding Box Size / Class Distribution Plot]</p>
+            </div>
+            <div style="background: rgba(0,0,0,0.3); border: 1px dashed var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; text-align: center; color: var(--text-muted);">
+              <i class="fa-solid fa-shapes" style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--accent);"></i>
+              <p>[Sample Annotations & Mask Overlays]</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: Methodology -->
+    <div class="tab-content" id="tab-methodology">
+      <div class="card">
+        <h2 class="section-title"><i class="fa-solid fa-sliders"></i> Baseline, Pretrained Backbone & Fine-Tuning Protocol</h2>
+        <div class="card-body" style="margin-top: 1rem;">
+          <p>Documented fine-tuning protocol (frozen backbone vs layer-wise unfreezing, learning rate schedulers, data augmentation strategies).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: Results & Controlled Experiments -->
+    <div class="tab-content" id="tab-results">
+      <div class="card">
+        <h2 class="section-title"><i class="fa-solid fa-flask"></i> Controlled Factor Experiments & Metrics</h2>
+        <div class="card-body" style="margin-top: 1rem;">
+          
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Experiment ID</th>
+                  <th>Changed Factor</th>
+                  <th>Primary Metric (mAP / mIoU / Acc)</th>
+                  <th>Secondary Metric (F1 / Dice)</th>
+                  <th>Compute Cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>EXP-1</strong></td>
+                  <td>Baseline (Scratch training)</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                </tr>
+                <tr>
+                  <td><strong>EXP-2</strong></td>
+                  <td>Pretrained Backbone (Frozen)</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                </tr>
+                <tr>
+                  <td><strong>EXP-3</strong></td>
+                  <td>Pretrained Backbone (Full Fine-Tune)</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: Error Analysis & Compute Cost -->
+    <div class="tab-content" id="tab-analysis">
+      <div class="card">
+        <h2 class="section-title"><i class="fa-solid fa-bug"></i> Error Taxonomy & Compute-Cost Breakdown</h2>
+        <div class="card-body" style="margin-top: 1rem;">
+          <p>Failure category breakdown, qualitative failure cases, and hardware compute utilization analysis (GPU hours, memory footprint).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 6: Video & Deliverables -->
+    <div class="tab-content" id="tab-video">
+      <div class="card" id="video-section">
+        <h2 class="section-title"><i class="fa-solid fa-video"></i> Presentation Video & Deliverables</h2>
+        <div class="card-body" style="margin-top: 1rem;">
+          <div class="callout callout-info">
+            <div class="callout-title">YouTube Title Standard</div>
+            <p><code>CO3133-Semester-261 - Group [ID] - Assignment 2</code></p>
+          </div>
+
+          <div class="video-responsive">
+            <div class="video-placeholder">
+              <i class="fa-brands fa-youtube"></i>
+              <p><strong>YouTube Video Embed Placeholder (Assignment 2)</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 7: AI Disclosure -->
+    <div class="tab-content" id="tab-ai">
+      <div class="card">
+        <h2 class="section-title"><i class="fa-solid fa-robot"></i> Assignment 2 AI Disclosure</h2>
+        <div class="card-body" style="margin-top: 1rem;">
+          <p>AI usage records for Assignment 2 per Section 5 of the handbook.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Group [ID] · Assignment 2 Page · CO3133 Deep Learning</p>
+    </div>
+  </footer>
+
+  <script src="../docs/assets/js/main.js"></script>
+</body>
+</html>

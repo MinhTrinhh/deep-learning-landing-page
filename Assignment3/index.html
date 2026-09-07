@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignment 3 | Deep Learning & Its Applications</title>
+  <meta name="description" content="Assignment 3: Multimodal Deep Learning - Representation, Fusion, and Evaluation.">
+  <link rel="stylesheet" href="../docs/assets/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="../docs/index.html" class="nav-brand">
+        <span class="brand-badge">HCMUT</span>
+        <span>CO3133 · Deep Learning</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../docs/index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="../Assignment1/index.html" class="nav-link"><i class="fa-solid fa-layer-group"></i> Assignment 1</a></li>
+        <li><a href="../Assignment2/index.html" class="nav-link"><i class="fa-solid fa-brain"></i> Assignment 2</a></li>
+        <li><a href="index.html" class="nav-link active"><i class="fa-solid fa-diagram-project"></i> Assignment 3</a></li>
+        <li><a href="../docs/AI_USAGE.md" class="nav-link" target="_blank"><i class="fa-solid fa-robot"></i> AI Disclosure</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="hero" style="padding: 3rem 0 2rem 0;">
+    <div class="container">
+      <div class="hero-pill">
+        <i class="fa-solid fa-diagram-project"></i> Assignment 3 (Course Weight: 30%)
+      </div>
+      <h1 class="hero-title" style="font-size: 2.4rem;">Multimodal Deep Learning</h1>
+      <p class="hero-subtitle">
+        Topic: Multimodal Deep Learning: Representation, Fusion, and Evaluation
+      </p>
+
+      <div class="hero-meta">
+        <div class="meta-item"><i class="fa-solid fa-user-tie"></i> Instructor: Lê Thành Sách</div>
+        <div class="meta-item"><i class="fa-solid fa-code-merge"></i> Task Option: [Image-Text / VQA / Captioning / RGB-D]</div>
+        <div class="meta-item"><span class="card-badge badge-pending">Dataset Proposal: Pending Approval</span></div>
+      </div>
+
+      <div class="card-footer" style="justify-content: center; margin-top: 1.5rem;">
+        <a href="./code/" target="_blank" class="btn btn-secondary btn-sm"><i class="fa-brands fa-github"></i> Source Code</a>
+        <a href="#video-section" class="btn btn-primary btn-sm"><i class="fa-solid fa-video"></i> YouTube Video</a>
+        <a href="./Presentation/" class="btn btn-secondary btn-sm"><i class="fa-solid fa-file-pdf"></i> Report & Slides</a>
+        <a href="./checkpoints/" class="btn btn-secondary btn-sm"><i class="fa-solid fa-box-archive"></i> Checkpoints</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area (Handbook Section 2.2) -->
+  <main class="container">
+
+    <!-- Interactive Navigation Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="tab-task"><i class="fa-solid fa-link"></i> Task & Paired Dataset</button>
+      <button class="tab-btn" data-tab="tab-architecture"><i class="fa-solid fa-diagram-next"></i> Multimodal Architecture</button>
+      <button class="tab-btn" data-tab="tab-results"><i class="fa-solid fa-table-columns"></i> Results & Baseline Comparison</button>
+      <button class="tab-btn" data-tab="tab-interaction"><i class="fa-solid fa-shuffle"></i> Modality Support vs. Conflict</button>
+      <button class="tab-btn" data-tab="tab-video"><i class="fa-solid fa-play"></i> Video & Deliverables</button>
+      <button class="tab-btn" data-tab="tab-ai"><i class="fa-solid fa-robot"></i> AI Disclosure</button>
+    </div>
+
+    <!-- TAB 1: Task & Paired Dataset -->
+    <div class="tab-content active" id="tab-task">
+      <div class="card">
+        <h2 class="section-title"><i class="fa-solid fa-circle-nodes"></i> Multimodal Task & Validity Constraints (A3-M1)</h2>
+        <div class="card-body" style="margin-top: 1rem;">
+          
+          <div class="callout callout-info">
+            <div class="callout-title"><i class="fa-solid fa-shield-cat"></i> Section 28.1 Cross-Modal Validity Requirements</div>
+            <ul style="padding-left: 1.25rem; margin-top: 0.5rem;">
+              <li>Every sample must contain at least two modalities linked by the <strong>same entity, event, scene, or timestamp</strong>.</li>
+              <li>Data from two independent datasets must <strong>never be paired randomly</strong>.</li>
+              <li>Leakage prevention: Split by entity/event/scene (if an entity has multiple records, all must remain in the same split).</li>
+            </ul>
+          </div>
+
+          <h3 style="margin-top: 1.5rem; color: var(--secondary-light); font-size: 1.15rem;">Selected Multimodal Task Specification</h3>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th>Description / Choice</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Selected Task Option</strong></td>
+                  <td>Image–Text Classification / Visual Question Answering (VQA) / Captioning</td>
+                </tr>
+                <tr>
+                  <td><strong>Modality A (Visual)</strong></td>
+                  <td>Image Tensor / Feature Map (e.g., ResNet / ViT patch embeddings)</td>
+                </tr>
+                <tr>
+                  <td><strong>Modality B (Textual/Depth)</strong></td>
+                  <td>Text Token Sequence / Token Embeddings (e.g., BERT / CLIP text encoder)</td>
+                </tr>
+                <tr>
+                  <td><strong>Paired Sample Count</strong></td>
+                  <td>5,000+ paired samples (Meets Section 28.2 default size threshold)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: Multimodal Architecture -->
+    <div class="tab-content" id="tab-architecture">
+      <div class="card">
+        <h2 class="section-title"><i class="fa-solid fa-gears"></i> Encoders, Data Alignment & Fusion Strategies</h2>
+        <div class="card-body" style="margin-top: 1rem;">
+          
+          <div class="callout callout-info">
+            <div class="callout-title"><i class="fa-solid fa-route"></i> Multimodal Pipeline Flow</div>
+            <pre>Raw Paired Data → Preprocessing → DataLoader → Modality Encoders → Fusion Stage → Loss → Optimization → Prediction → Evaluation</pre>
+          </div>
+
+          <h3 style="margin-top: 1.5rem; color: var(--secondary-light); font-size: 1.15rem;">Fusion Stage & Operation Options</h3>
+          <div class="grid-3" style="margin-top: 1rem;">
+            <div class="callout callout-info" style="margin: 0;">
+              <div class="callout-title">Early Fusion</div>
+              <p style="font-size: 0.875rem;">Concatenation or joint projection of raw/low-level features prior to main representation encoding.</p>
+            </div>
+            <div class="callout callout-info" style="margin: 0;">
+              <div class="callout-title">Intermediate Fusion</div>
+              <p style="font-size: 0.875rem;">Cross-attention, bilinear pooling, or element-wise fusion at intermediate feature layers.</p>
+            </div>
+            <div class="callout callout-info" style="margin: 0;">
+              <div class="callout-title">Late Fusion</div>
+              <p style="font-size: 0.875rem;">Weighted ensemble or decision-level combination of unimodal output logit vectors.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: Results & Baseline Comparison -->
+    <div class="tab-content" id="tab-results">
+      <div class="card">
+        <h2 class="section-title"><i class="fa-solid fa-table-list"></i> Unimodal vs. Multimodal Comparison Matrix</h2>
+        <div class="card-body" style="margin-top: 1rem;">
+          
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Model Configuration</th>
+                  <th>Modalities Used</th>
+                  <th>Primary Metric (Acc / Recall@1 / BLEU)</th>
+                  <th>Secondary Metric</th>
+                  <th>Parameters</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>1. Unimodal Baseline A</strong></td>
+                  <td>Modality A Only (Image)</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                </tr>
+                <tr>
+                  <td><strong>2. Unimodal Baseline B</strong></td>
+                  <td>Modality B Only (Text)</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                </tr>
+                <tr>
+                  <td><strong>3. Simple Fusion Baseline</strong></td>
+                  <td>Modality A + B (Concat)</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                </tr>
+                <tr>
+                  <td><strong>4. Improved Multimodal Model</strong></td>
+                  <td>Modality A + B (Cross-Attention)</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: Modality Support vs. Conflict -->
+    <div class="tab-content" id="tab-interaction">
+      <div class="card">
+        <h2 class="section-title"><i class="fa-solid fa-arrows-split-up-and-left"></i> Modality Interaction & Ablation Analysis</h2>
+        <div class="card-body" style="margin-top: 1rem;">
+          
+          <div class="grid-2">
+            <div class="callout callout-info">
+              <div class="callout-title"><i class="fa-solid fa-circle-check" style="color: var(--status-approved);"></i> Support Cases</div>
+              <p style="font-size: 0.9rem;">
+                Samples where combining both modalities corrects single-modality errors (e.g. ambiguous image clarified by text caption).
+              </p>
+            </div>
+            <div class="callout callout-warning">
+              <div class="callout-title"><i class="fa-solid fa-triangle-exclamation"></i> Conflict Cases</div>
+              <p style="font-size: 0.9rem;">
+                Samples where noisy or misleading information in one modality degrades multimodal accuracy below unimodal performance.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: Video & Deliverables -->
+    <div class="tab-content" id="tab-video">
+      <div class="card" id="video-section">
+        <h2 class="section-title"><i class="fa-solid fa-video"></i> Presentation Video & Deliverables</h2>
+        <div class="card-body" style="margin-top: 1rem;">
+          <div class="callout callout-info">
+            <div class="callout-title">YouTube Title Standard</div>
+            <p><code>CO3133-Semester-261 - Group [ID] - Assignment 3</code></p>
+          </div>
+
+          <div class="video-responsive">
+            <div class="video-placeholder">
+              <i class="fa-brands fa-youtube"></i>
+              <p><strong>YouTube Video Embed Placeholder (Assignment 3)</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 6: AI Disclosure -->
+    <div class="tab-content" id="tab-ai">
+      <div class="card">
+        <h2 class="section-title"><i class="fa-solid fa-robot"></i> Assignment 3 AI Disclosure</h2>
+        <div class="card-body" style="margin-top: 1rem;">
+          <p>AI usage logs for Assignment 3 according to Section 5 of the handbook.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Group [ID] · Assignment 3 Page · CO3133 Deep Learning</p>
+    </div>
+  </footer>
+
+  <script src="../docs/assets/js/main.js"></script>
+</body>
+</html>
