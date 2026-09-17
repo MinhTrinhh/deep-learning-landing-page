@@ -27,7 +27,7 @@ class FashionMNISTDataset(Dataset):
     def __len__(self):
         return self.dataset.__len__()
     
-def get_dataloaders(batch_size=16, num_workers=1):
+def get_dataloaders(batch_size=256, num_workers=1):
     # Dataset creation
     nottest_set = FashionMNISTDataset(True)
     test_set = FashionMNISTDataset(False)
@@ -47,23 +47,23 @@ def get_dataloaders(batch_size=16, num_workers=1):
     val_set = Subset(nottest_set, val_idx)
 
     # Dataloader
-    train_loader = DataLoader(dataset=train_set(),
+    train_loader = DataLoader(dataset=train_set,
                                   batch_size=batch_size,
                                   shuffle=True,
                                   num_workers=num_workers,
-                                  pin_memory=True
+                                  pin_memory=False
                                   )
     val_loader = DataLoader(dataset=val_set,
                                   batch_size=batch_size,
                                   shuffle=False,
                                   num_workers=num_workers,
-                                  pin_memory=True
+                                  pin_memory=False
                                   )
     test_loader = DataLoader(dataset=test_set,
                                   batch_size=batch_size,
                                   shuffle=False,
                                   num_workers=num_workers,
-                                  pin_memory=True
+                                  pin_memory=False
                                   )
     
     return train_loader, val_loader, test_loader

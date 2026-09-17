@@ -15,10 +15,10 @@ class LinearModel(nn.Module):
 class MLPModel(nn.Module):
     def __init__(self, dropout=0.02):
         super().__init__()
-        self.fc1 = nn.Linear(784, 256)
+        self.fc1 = nn.Linear(784, 1024)
         self.relu = nn.ReLU()
         self.dropout = nn.Dropout(p=dropout)
-        self.fc2 = nn.Linear(256, 10)
+        self.fc2 = nn.Linear(1024, 10)
 
     def forward(self, images):
         vectors = torch.flatten(images, 1)
