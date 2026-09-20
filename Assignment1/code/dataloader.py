@@ -1,69 +1,66 @@
-import torch
-import numpy as np
-from torchvision import datasets, transforms
-from torch.utils.data import DataLoader, Dataset
+from torchvision.transforms import Compose, ToTensor, Normalize
+from torchvision.datasets import FashionMNIST
+from config import MEAN_TUP, SD_TUP, DATA_PATH, VAL_SIZE, SEED, BATCH_SIZE, NUM_WORKERS
 from sklearn.model_selection import train_test_split
-from torch.utils.data import Subset
-from config import SEED
+import numpy
+from torch.utils.data import Subset, DataLoader
 
-class FashionMNISTDataset(Dataset):
-    # This whole class is actually not needed but imma put in it anyway for educational purposes ;)
-    def __init__(self, train: bool):
-        self.train = train
-        self.transform = self.get_base_transform()
-        self.dataset = datasets.FashionMNIST(root='./data', train=train, download=True, transform=self.transform)
-        self.targets = self.dataset.targets
+class FashionMNISTDataLoader():
+    def __init__(self, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS):
 
-    def get_base_transform(self):
-        train_transform = transforms.Compose([
-            transforms.ToTensor(),
-            transforms.Normalize((0.5,), (0.5,))
-        ])
-        return train_transform
-    
-    def __getitem__(self, idx):
-        return self.dataset.__getitem__(idx)
-    
-    def __len__(self):
-        return self.dataset.__len__()
-    
-def get_dataloaders(batch_size=256, num_workers=1):
-    # Dataset creation
-    nottest_set = FashionMNISTDataset(True)
-    test_set = FashionMNISTDataset(False)
+        def dataset_transform():
+            return Compose([
+                ToTensor(),
+                Normalize(MEAN_TUP, SD_TUP)
+            ])
 
-    # Stratification and splitting
-    indices = np.arange(nottest_set.__len__())
-    targets = np.array(nottest_set.targets)
+        self.test_set = FashionMNIST(root=DATA_PATH,
+                                     train=False,
+                                     download=True,
+                                     transform=dataset_transform(),
+                                     target_transform=None)
 
-    train_idx, val_idx = train_test_split(  
-        indices,
-        test_size=0.1,
-        random_state=SEED,
-        stratify=targets
-    )
+        nottest_set = FashionMNIST(root=DATA_PATH,
+                                   train=True,
+                                   download=True,
+                                   transform=dataset_transform(),
+                                   target_transform=None)
 
-    train_set = Subset(nottest_set, train_idx)
-    val_set = Subset(nottest_set, val_idx)
+        indices = numpy.arange(len(nottest_set))
+        targets = numpy.array(nottest_set.targets)
 
-    # Dataloader
-    train_loader = DataLoader(dataset=train_set,
+        train_idx, val_idx = train_test_split(indices,
+                                              test_size=VAL_SIZE,
+                                              random_state=SEED,
+                                              stratify=targets)
+
+        self.train_set = Subset(nottest_set, train_idx)
+        self.val_set = Subset(nottest_set, val_idx)
+
+        # Dataloader
+        self.train_loader = DataLoader(dataset=self.train_set,
                                   batch_size=batch_size,
                                   shuffle=True,
                                   num_workers=num_workers,
-                                  pin_memory=False
-                                  )
-    val_loader = DataLoader(dataset=val_set,
-                                  batch_size=batch_size,
-                                  shuffle=False,
-                                  num_workers=num_workers,
-                                  pin_memory=False
-                                  )
-    test_loader = DataLoader(dataset=test_set,
-                                  batch_size=batch_size,
-                                  shuffle=False,
-                                  num_workers=num_workers,
-                                  pin_memory=False
-                                  )
+                                  pin_memory=False)
+
+        self.val_loader = DataLoader(dataset=self.val_set,
+                                     batch_size=batch_size,
+                                     shuffle=False,
+                                     num_workers=num_workers,
+                                     pin_memory=False)
+
+        self.test_loader = DataLoader(dataset=self.test_set,
+                                      batch_size=batch_size,
+                                      shuffle=False,
+                                      num_workers=num_workers,
+                                      pin_memory=False)
+
+    def get_train_loader(self):
+        return self.train_loader
     
-    return train_loader, val_loader, test_loader
+    def get_val_loader(self):
+        return self.val_loader
+    
+    def get_test_loader(self):
+        return self.test_loader               
