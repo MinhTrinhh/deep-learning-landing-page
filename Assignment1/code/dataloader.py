@@ -1,48 +1,74 @@
-from torchvision.transforms import Compose, ToTensor, Normalize
-from torchvision.datasets import FashionMNIST
-from config import MEAN_TUP, SD_TUP, DATA_PATH, VAL_SIZE, SEED, BATCH_SIZE, NUM_WORKERS
-from sklearn.model_selection import train_test_split
+import hashlib
+import random
+
 import numpy
-from torch.utils.data import Subset, DataLoader
+import torch
+from sklearn.model_selection import train_test_split
+from torch.utils.data import DataLoader, Subset
+from torchvision.datasets import FashionMNIST
+from torchvision.transforms import Compose, Normalize, RandomAffine, RandomHorizontalFlip, ToTensor
+
+from config import MEAN_TUP, SD_TUP, DATA_PATH, VAL_SIZE, SEED, BATCH_SIZE, NUM_WORKERS
+
+
+def seed_worker(worker_id):
+    """Seed Python and NumPy inside each DataLoader worker."""
+    del worker_id
+    worker_seed = torch.initial_seed() % (2 ** 32)
+    random.seed(worker_seed)
+    numpy.random.seed(worker_seed)
 
 class FashionMNISTDataLoader():
     def __init__(self, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS):
+        self.train_generator = torch.Generator()
+        self.train_generator.manual_seed(SEED)
 
-        def dataset_transform():
-            return Compose([
-                ToTensor(),
-                Normalize(MEAN_TUP, SD_TUP)
-            ])
+        val_transform = [ToTensor(), Normalize(MEAN_TUP, SD_TUP)]
+        # augmentation
+        train_transform = [
+            RandomHorizontalFlip(p=0.5),
+            RandomAffine(degrees=(-10, 10), translate=(0.1, 0.1), scale=(0.9, 1.1))]
 
         self.test_set = FashionMNIST(root=DATA_PATH,
                                      train=False,
                                      download=True,
-                                     transform=dataset_transform(),
+                                     transform=Compose(val_transform),
                                      target_transform=None)
 
-        nottest_set = FashionMNIST(root=DATA_PATH,
+        self.val_set = FashionMNIST(root=DATA_PATH,
                                    train=True,
                                    download=True,
-                                   transform=dataset_transform(),
+                                   transform=Compose(val_transform),
                                    target_transform=None)
 
-        indices = numpy.arange(len(nottest_set))
-        targets = numpy.array(nottest_set.targets)
+        self.train_set = FashionMNIST(root=DATA_PATH,
+                                      train=True,
+                                      download=True,
+                                      transform=Compose(train_transform + val_transform),
+                                      target_transform=None)
+
+        indices = numpy.arange(len(self.train_set))
+        targets = numpy.array(self.train_set.targets)
 
         train_idx, val_idx = train_test_split(indices,
                                               test_size=VAL_SIZE,
                                               random_state=SEED,
                                               stratify=targets)
 
-        self.train_set = Subset(nottest_set, train_idx)
-        self.val_set = Subset(nottest_set, val_idx)
+        self.train_indices = train_idx
+        self.val_indices = val_idx
+
+        self.train_set = Subset(self.train_set, train_idx)
+        self.val_set = Subset(self.val_set, val_idx)
 
         # Dataloader
         self.train_loader = DataLoader(dataset=self.train_set,
                                   batch_size=batch_size,
                                   shuffle=True,
                                   num_workers=num_workers,
-                                  pin_memory=False)
+                                  pin_memory=False,
+                                  worker_init_fn=seed_worker,
+                                  generator=self.train_generator)
 
         self.val_loader = DataLoader(dataset=self.val_set,
                                      batch_size=batch_size,
@@ -63,4 +89,22 @@ class FashionMNISTDataLoader():
         return self.val_loader
     
     def get_test_loader(self):
-        return self.test_loader               
+        return self.test_loader
+
+    def reset_train_generator(self, seed=SEED):
+        """Reset shuffle and worker seeds before training a model."""
+        self.train_generator.manual_seed(seed)
+
+    def get_split_metadata(self):
+        """Return split sizes and hashes so a run can verify the exact split."""
+        return {
+            "train_size": len(self.train_indices),
+            "validation_size": len(self.val_indices),
+            "test_size": len(self.test_set),
+            "train_indices_sha256": hashlib.sha256(
+                self.train_indices.tobytes()
+            ).hexdigest(),
+            "validation_indices_sha256": hashlib.sha256(
+                self.val_indices.tobytes()
+            ).hexdigest(),
+        }

@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from config import OUTPUT_PATH
 
 class Plotter():
     def __init__(self):
@@ -7,7 +8,8 @@ class Plotter():
              epoch_train_loss,
              epoch_train_accuracies,
              epoch_val_loss,
-             epoch_val_accuracies):       
+             epoch_val_accuracies,
+             model_name):
         # Plotting
         fig, ax = plt.subplots(1, 2, figsize=(12, 5))
 
@@ -24,4 +26,9 @@ class Plotter():
         ax[1].legend()
 
         plt.tight_layout()
-        plt.show()
+        output_dir = OUTPUT_PATH / "learning_curves"
+        output_dir.mkdir(parents=True, exist_ok=True)
+        output_path = output_dir / f"{model_name.lower()}_learning_curves.png"
+        fig.savefig(output_path, dpi=150)
+        plt.close(fig)
+        print(f"Learning curves saved to: {output_path}")
