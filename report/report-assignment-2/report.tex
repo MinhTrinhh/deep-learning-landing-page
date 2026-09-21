@@ -1,0 +1,213 @@
+\documentclass[a4paper]{article}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{pifont}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{url}
+% Optional but recommended: geometry package gives you slightly wider margins 
+% which is great for algorithmic reports
+% Geometry is configured later with explicit top/bottom/left/right values.
+
+% Define custom colors
+\definecolor{codegreen}{RGB}{34,139,34}
+\definecolor{codegray}{RGB}{110,118,129}
+\definecolor{codepurple}{RGB}{163,73,164}
+\definecolor{backcolour}{RGB}{247,248,250}
+\definecolor{codeblue}{RGB}{0,92,197}
+\definecolor{codeorange}{RGB}{191,97,15}
+\definecolor{codeteal}{RGB}{0,128,128}
+\definecolor{codered}{RGB}{196,43,28}
+
+% Global setup for listings
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{codeblue}\bfseries,
+    keywordstyle=[2]\color{codered}\bfseries,
+    commentstyle=\color{codegreen}\itshape,
+    stringstyle=\color{codepurple},
+    numberstyle=\scriptsize\color{codegray},
+    identifierstyle=\color{black},
+    emph={add_bulb,remove_bulb,has_bulb,can_place_bulb,is_goal_state,compute_illumination,count_adjacent_bulbs,number_constraint_violations},
+    emphstyle=\color{codeorange}\bfseries,
+    morekeywords=[2]{self,True,False,None},
+    numbers=left,
+    numbersep=10pt,
+    stepnumber=1,
+    backgroundcolor=\color{backcolour},
+    frame=single,
+    framerule=0.5pt,
+    rulecolor=\color{codegray},
+    xleftmargin=12pt,
+    framexleftmargin=10pt,
+    framesep=6pt,
+    breaklines=true,
+    breakatwhitespace=false,
+    showstringspaces=false,
+    showspaces=false,
+    showtabs=false,
+    keepspaces=true,
+    tabsize=4,
+    captionpos=b,
+    upquote=true
+}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{CJKutf8}
+\usepackage[english,vietnamese]{babel}
+\usepackage{tocloft}
+\usepackage{a4wide,amssymb,epsfig,latexsym,multicol,array,hhline,fancyhdr}
+\usepackage{lastpage}
+\usepackage[lined,boxed,commentsnumbered]{algorithm2e}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tabularx, caption}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{rotating}
+\usepackage{placeins}
+\usepackage[
+    a4paper,
+    left=2cm,
+    right=2cm,
+    top=2.5cm,
+    bottom=2.5cm,
+    includeheadfoot,
+    headsep=0.8cm,
+    footskip=0.8cm
+]{geometry}
+\usepackage{setspace}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\usepackage{xfrac}
+\usepackage{bm}
+
+\usepackage{biblatex}
+\addbibresource{references.bib}
+
+\usepackage[colorlinks]{hyperref}
+\usepackage{mdframed}
+\captionsetup[table]{name=Table}
+\captionsetup[figure]{name=Figure}
+\hypersetup{urlcolor=blue,linkcolor=black,citecolor=black,colorlinks=true}
+\usetikzlibrary{arrows,backgrounds}
+\definecolor{mathblue}{RGB}{0,114,188}
+\newtheorem{theorem}{{\bf Theorem}}
+\newtheorem{property}{{\bf Property}}
+\newtheorem{proposition}{{\bf Proposition}}
+\newtheorem{corollary}[proposition]{{\bf Corollary}}
+\newtheorem{lemma}[proposition]{{\bf Lemma}}
+\AtBeginDocument{\renewcommand{\listfigurename}{List of Figures}}
+\AtBeginDocument{\renewcommand{\listtablename}{List of Tables}}
+\AtBeginDocument{\renewcommand*\contentsname{Contents}}
+\AtBeginDocument{\renewcommand*\refname{References}}
+\AtBeginDocument{\renewcommand{\partname}{Part}}
+\setlength{\headheight}{40pt}
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[L]{
+ \begin{tabular}{rl}
+    \begin{picture}(25pt,15pt)
+        \put(0,-8pt){\includegraphics[width=20pt]{bia/logo.png}}
+      \end{picture}
+    &
+\hspace*{-0.9cm}\begin{tabular}{l}
+\textbf{\ttfamily Ho Chi Minh City University of Technology (HCMUT)}\\
+\textbf{\ttfamily Faculty of Computer Science and Engineering}
+\end{tabular}
+ \end{tabular}
+}
+\fancyfoot{}
+\fancyfoot[L]{\scriptsize \ttfamily \hyperref[tocpage]{CC01 - Group 36}}
+\fancyfoot[R]{\scriptsize \ttfamily Page {\thepage}/\pageref{LastPage}}
+
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0.3pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+
+\usepackage{float}
+\usepackage{caption}
+\usepackage{calc}
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+\usepackage{longtable}
+\setlength{\tabcolsep}{8pt} % Giảm khoảng cách cột để bảng dễ vừa trang hơn
+\renewcommand{\arraystretch}{1.5}
+
+\usepackage{titlesec}
+\renewcommand{\partname}{Part}
+\titleformat{\part}[display]
+    {\normalfont\huge\bfseries\centering}
+    {\partname~\thepart}
+    {20pt}
+    {\Huge}
+\titlespacing*{\part}{0pt}{0pt}{40pt}
+\usepackage{tcolorbox}
+\usepackage{amsmath}
+\DeclareMathOperator{\arccot}{arccot}
+\usepackage{url}
+
+\usepackage{listings}
+\usepackage{pdflscape}
+
+\newcommand{\zh}[1]{{\begin{CJK*}{UTF8}{bsmi}#1\end{CJK*}}}
+
+\captionsetup[table]{skip=2pt}
+
+\begin{document}
+
+\input{bia}
+\vspace{1em}
+
+\clearpage
+
+\label{tocpage}
+\tableofcontents
+\listoffigures
+\listoftables
+
+\newpage
+\input{workload.tex}
+\clearpage
+
+\part{Problem and Data Description}
+\input{part1/problem_formulation.tex}
+\input{part1/dataset_description.tex}
+\input{part1/eda.tex}
+\input{part1/data_splitting.tex}
+\input{part1/preprocessing.tex}
+
+\clearpage
+\part{Methodology}
+\input{part2/pipeline_overview.tex}
+\input{part2/baseline_and_methods.tex}
+\input{part2/training_setup.tex}
+\input{part2/experimental_design.tex}
+
+\clearpage
+\part{Implementation Results}
+\input{part3/training_behavior.tex}
+\input{part3/quantitative_results.tex}
+\input{part3/qualitative_results.tex}
+\input{part3/comparison_and_discussion.tex}
+\input{part3/error_analysis.tex}
+\input{part3/ablation_study.tex}
+\input{part3/limitations_and_conclusion.tex}
+
+\clearpage
+\input{AI_Usage_Disclosure.tex}
+
+
+% \section*{GitHub Repositories}
+% \addcontentsline{toc}{section}{GitHub Repositories}
+
+\printbibliography
+
+\nocite{*}
+
+\end{document}
