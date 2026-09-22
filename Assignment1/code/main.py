@@ -26,7 +26,9 @@ def set_seed(seed):
     torch.manual_seed(seed)
     torch.use_deterministic_algorithms(True)
 
-def process_linear_model(data_loader, model_trainer, result_plotter, metric_calculator):
+def process_linear_model(
+    data_loader, model_trainer, result_plotter, metric_calculator, run_label
+):
     set_seed(SEED)
     data_loader.reset_train_generator(SEED)
     linear_model = models.LinearModel()
@@ -43,7 +45,7 @@ def process_linear_model(data_loader, model_trainer, result_plotter, metric_calc
         loss_func=linear_loss_func,
         optimizer=linear_optimizer,
         epochs=NUM_EPOCHS,
-        model_name="linear")
+        model_name=f"linear_{run_label}")
 
     test_loss, test_targets, test_predictions = model_trainer.test_model(
         model=linear_model,
@@ -53,7 +55,7 @@ def process_linear_model(data_loader, model_trainer, result_plotter, metric_calc
     metric_results = metric_calculator.report(
         test_targets,
         test_predictions,
-        model_name="Linear",
+        model_name=f"Linear_{run_label}",
         test_loss=test_loss,
         resource_metrics=metric_calculator.calculate_resource_metrics(
             model=linear_model,
@@ -62,7 +64,7 @@ def process_linear_model(data_loader, model_trainer, result_plotter, metric_calc
         ),
     )
     result_plotter.plot_confusion_matrix(
-        metric_results["confusion_matrix"], model_name="Linear"
+        metric_results["confusion_matrix"], model_name=f"Linear_{run_label}"
     )
 
     result_plotter.plot_learning_curves(
@@ -70,9 +72,11 @@ def process_linear_model(data_loader, model_trainer, result_plotter, metric_calc
         epoch_train_accuracies,
         epoch_val_loss,
         epoch_val_accuracies,
-        model_name="Linear")
+        model_name=f"Linear_{run_label}")
 
-def process_mlp_model(data_loader, model_trainer, result_plotter, metric_calculator):
+def process_mlp_model(
+    data_loader, model_trainer, result_plotter, metric_calculator, run_label
+):
     set_seed(SEED)
     data_loader.reset_train_generator(SEED)
     mlp_model = models.MLPModel(dropout=DROP_OUT)
@@ -89,7 +93,7 @@ def process_mlp_model(data_loader, model_trainer, result_plotter, metric_calcula
         loss_func=mlp_loss_func,
         optimizer=mlp_optimizer,
         epochs=NUM_EPOCHS,
-        model_name="mlp")
+        model_name=f"mlp_{run_label}")
 
     test_loss, test_targets, test_predictions = model_trainer.test_model(
         model=mlp_model,
@@ -99,7 +103,7 @@ def process_mlp_model(data_loader, model_trainer, result_plotter, metric_calcula
     metric_results = metric_calculator.report(
         test_targets,
         test_predictions,
-        model_name="MLP",
+        model_name=f"MLP_{run_label}",
         test_loss=test_loss,
         resource_metrics=metric_calculator.calculate_resource_metrics(
             model=mlp_model,
@@ -108,7 +112,7 @@ def process_mlp_model(data_loader, model_trainer, result_plotter, metric_calcula
         ),
     )
     result_plotter.plot_confusion_matrix(
-        metric_results["confusion_matrix"], model_name="MLP"
+        metric_results["confusion_matrix"], model_name=f"MLP_{run_label}"
     )
 
     result_plotter.plot_learning_curves(
@@ -116,7 +120,7 @@ def process_mlp_model(data_loader, model_trainer, result_plotter, metric_calcula
         epoch_train_accuracies,
         epoch_val_loss,
         epoch_val_accuracies,
-        model_name="MLP")
+        model_name=f"MLP_{run_label}")
 
 def parse_args():
     parser = argparse.ArgumentParser(description="FashionMNIST experiment pipeline")
@@ -130,6 +134,20 @@ def parse_args():
         choices=("linear", "mlp", "all"),
         help="Model family to train (default: mlp)",
     )
+    augmentation_group = parser.add_mutually_exclusive_group()
+    augmentation_group.add_argument(
+        "--aug",
+        dest="use_augmentation",
+        action="store_true",
+        help="Train with data augmentation (default)",
+    )
+    augmentation_group.add_argument(
+        "--no-aug",
+        dest="use_augmentation",
+        action="store_false",
+        help="Train without data augmentation",
+    )
+    parser.set_defaults(use_augmentation=True)
     return parser.parse_args()
 
 if __name__ == "__main__":
@@ -144,15 +162,18 @@ if __name__ == "__main__":
             eda_results["example_images"], eda_results["example_labels"]
         )
 
-    data_loader = dataloader.FashionMNISTDataLoader()
+    run_label = "aug" if args.use_augmentation else "no_aug"
+    data_loader = dataloader.FashionMNISTDataLoader(
+        use_augmentation=args.use_augmentation
+    )
     model_trainer = trainer.Trainer()
     metric_calculator = metrics.MetricCalculator()
 
     if args.model in ("linear", "all"):
         process_linear_model(
-            data_loader, model_trainer, result_plotter, metric_calculator
+            data_loader, model_trainer, result_plotter, metric_calculator, run_label
         )
     if args.model in ("mlp", "all"):
         process_mlp_model(
-            data_loader, model_trainer, result_plotter, metric_calculator
+            data_loader, model_trainer, result_plotter, metric_calculator, run_label
         )

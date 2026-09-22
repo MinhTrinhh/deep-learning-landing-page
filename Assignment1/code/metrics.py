@@ -85,7 +85,7 @@ class MetricCalculator:
             "inference_ms_per_sample": float(inference_ms_per_batch / batch_size),
             "flops_b": float((macs * 2 / batch_size) / 1e9),
             "model_size_mb": float(total_bytes / (1024 * 1024)),
-            "params_m": int(parameters),
+            "params_m": int(parameters) / 1e6,
         }
 
     def report(

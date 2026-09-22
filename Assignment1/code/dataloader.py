@@ -10,15 +10,17 @@ from torchvision.transforms import Compose, Normalize, RandomAffine, RandomHoriz
 from config import MEAN_TUP, SD_TUP, DATA_PATH, VAL_SIZE, SEED, BATCH_SIZE, NUM_WORKERS
 
 class FashionMNISTDataLoader():
-    def __init__(self, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS):
+    def __init__(self, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS, use_augmentation=True):
         self.train_generator = torch.Generator()
         self.train_generator.manual_seed(SEED)
 
         val_transform = [ToTensor(), Normalize(MEAN_TUP, SD_TUP)]
-        # augmentation
-        train_transform = [
-            RandomHorizontalFlip(p=0.5),
-            RandomAffine(degrees=(-10, 10), translate=(0.1, 0.1), scale=(0.9, 1.1))]
+        train_transform = []
+        if use_augmentation:
+            train_transform = [
+                RandomHorizontalFlip(p=0.5),
+                RandomAffine(degrees=(-10, 10),translate=(0.1, 0.1), scale=(0.9, 1.1))
+            ]
 
         self.test_set = FashionMNIST(root=DATA_PATH,
                                      train=False,
