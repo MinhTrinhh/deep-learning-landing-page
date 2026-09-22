@@ -1,6 +1,6 @@
 \section{Quantitative Results}
 
-Report primary and secondary metrics, parameter counts, training and inference time, configurations, and mean $\pm$ standard deviation over multiple runs when feasible.
+The following values are from the saved test metric JSON files for the single reproducible run with seed 42. Inference time is reported per sample; no multi-run mean and standard deviation were recorded.
 
 \begin{table}[H]
     \centering
@@ -8,10 +8,10 @@ Report primary and secondary metrics, parameter counts, training and inference t
     \label{tab:quantitative-results}
     \begin{tabular}{@{}lrrrr@{}}
         \toprule
-        Method & Primary metric & Secondary metric & Parameters & Inference time \\
+        Method & Accuracy & Macro-F1 & Parameters & Inference time \\
         \midrule
-        Baseline & TODO & TODO & TODO & TODO \\
-        Main method & TODO & TODO & TODO & TODO \\
+        Linear & 0.7351 & 0.7280 & 7,850 & 0.000261 ms/sample \\
+        MLP & 0.8319 & 0.8269 & 567,434 & 0.004166 ms/sample \\
         \bottomrule
     \end{tabular}
 \end{table}

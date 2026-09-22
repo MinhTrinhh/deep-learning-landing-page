@@ -1,5 +1,7 @@
 \section{Comparison and Discussion}
 
-Explain which method is better and by how much; where differences appear; causes related to data, architecture, loss, or training; accuracy--speed--parameter trade-offs; whether hypotheses are supported; and which conclusions cannot yet be drawn.
+The MLP is the stronger classifier in this experiment: its test accuracy is 0.8319 versus 0.7351 for the Linear model, an absolute improvement of 0.0968, and its macro-F1 is 0.8269 versus 0.7280, an improvement of 0.0989. This is consistent with the hypothesis that nonlinear hidden layers can model relationships that a single linear mapping cannot capture.
+
+The improvement comes at a substantial parameter cost: 567,434 parameters for the MLP versus 7,850 for the Linear model. The measured training times are similar, while the MLP has higher per-sample inference time (0.004166 ms versus 0.000261 ms). The confusion matrices indicate that both models struggle most with visually similar upper-body classes, especially Shirt; the MLP nevertheless improves the Shirt recall from 0.2720 to 0.4190. These conclusions describe this seed and configuration only; they do not establish performance variance across repeated runs.
 
 A list of metrics alone is insufficient: connect observed differences to the experimental design and evidence.

@@ -1,6 +1,6 @@
 \section{Baseline and Main Methods}
 
-Describe each method's architecture, input representation, loss, metrics, strengths, limitations, and parameter count. State which components were self-implemented and which came from libraries.
+Both models receive normalized $1\times28\times28$ images, flatten them to 784 features, and are implemented in PyTorch. They use cross-entropy loss and are evaluated with accuracy, macro-precision, macro-recall, macro-F1, test loss, and resource metrics.
 
 \begin{table}[H]
     \centering
@@ -10,8 +10,8 @@ Describe each method's architecture, input representation, loss, metrics, streng
         \toprule
         Method & Architecture / input & Loss & Metrics & Parameters \\
         \midrule
-        Baseline & TODO & TODO & TODO & TODO \\
-        Main method & TODO & TODO & TODO & TODO \\
+        Linear & One linear layer, $784\rightarrow10$ & Cross-entropy & Accuracy, macro-F1 & 7,850 \\
+        MLP & Four linear layers, $784\rightarrow512\rightarrow256\rightarrow128\rightarrow10$, ReLU and dropout 0.2 & Cross-entropy & Accuracy, macro-F1 & 567,434 \\
         \bottomrule
     \end{tabularx}
 \end{table}

@@ -1,6 +1,6 @@
 \section{Preprocessing}
 
-Describe cleaning, resizing, normalization, tokenization, padding, augmentation, invalid annotation handling, and the input tensor shape(s).
+Images are converted to tensors and normalized using the training-split statistics. Training images additionally receive random horizontal flips and small affine transformations; validation and test images use deterministic preprocessing.
 
 \begin{table}[H]
     \centering
@@ -10,19 +10,13 @@ Describe cleaning, resizing, normalization, tokenization, padding, augmentation,
         \toprule
         Stage & Operation & Configuration \\
         \midrule
-        Cleaning & TODO & TODO \\
-        Transformation & TODO & TODO \\
-        Normalization & TODO & TODO \\
-        Augmentation & TODO & TODO \\
-        Tensor shape & TODO & TODO \\
+        Cleaning & No additional cleaning & Fashion-MNIST images and labels are consumed through torchvision. \\
+        Transformation & `ToTensor` & Converts images to floating-point tensors with shape $1\times28\times28$. \\
+        Normalization & Train-split mean and standard deviation & Statistics are computed on training images only, then applied to train, validation, and test inputs. \\
+        Augmentation & Random flip and affine transform & Training only: horizontal flip with $p=0.5$; rotation $[-10,10]^{\circ}$, translation 0.1, scale $[0.9,1.1]$. \\
+        Tensor shape & $1\times28\times28$ (then 784 features) & The linear and MLP models flatten the image inside `forward`. \\
         \bottomrule
     \end{tabularx}
 \end{table}
 
-\begin{figure}[H]
-    \centering
-    % Suggested image filename: graphics/preprocessed-batch.png
-    \includegraphics[width=0.9\textwidth]{graphics/placeholder.png}
-    \caption{Example batch after preprocessing.}
-    \label{fig:preprocessed-batch}
-\end{figure}
+

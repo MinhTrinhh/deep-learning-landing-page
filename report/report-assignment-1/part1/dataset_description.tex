@@ -8,16 +8,24 @@
         \toprule
         Property & Description \\
         \midrule
-        Source and version & TODO \\
+        Source and version & Fashion-MNIST, loaded through the torchvision dataset interface. \\
         License & TODO \\
-        Collection and labeling & TODO \\
-        Number of samples & TODO \\
-        Annotation format & TODO \\
-        Storage size and formats & TODO \\
-        Biases and limitations & TODO \\
+        Collection and labeling & 28-by-28 grayscale clothing images with integer labels from 0 to 9. \\
+        Number of samples & 60,000 official training images and 10,000 official test images. \\
+        Annotation format & One class label per image; ten classes are used. \\
+        Storage size and formats & Downloaded and stored by torchvision under `Assignment1/data/FashionMNIST`. \\
+        Biases and limitations & Low-resolution grayscale images; visually similar classes remain difficult to separate. \\
         \bottomrule
     \end{tabularx}
 \end{table}
+
+\begin{figure}[H]
+    \centering
+    % Suggested image filename: graphics/preprocessed-batch.png
+    \includegraphics[width=0.9\textwidth]{../../Assignment1/outputs/eda/random_examples.png}
+    \caption{Example batch after preprocessing.}
+    \label{fig:preprocessed-batch}
+\end{figure}
 
 \begin{table}[H]
     \centering
@@ -27,9 +35,17 @@
         \toprule
         Class / target & Count & Percentage \\
         \midrule
-        Class A & TODO & TODO \\
-        Class B & TODO & TODO \\
-        Total & TODO & 100\% \\
+        T-shirt/top & 6,000 & 10\% \\
+        Trouser & 6,000 & 10\% \\
+        Pullover & 6,000 & 10\% \\
+        Dress & 6,000 & 10\% \\
+        Coat & 6,000 & 10\% \\
+        Sandal & 6,000 & 10\% \\
+        Shirt & 6,000 & 10\% \\
+        Sneaker & 6,000 & 10\% \\
+        Bag & 6,000 & 10\% \\
+        Ankle boot & 6,000 & 10\% \\
+        Total & 60,000 & 100\% \\
         \bottomrule
     \end{tabular}
 \end{table}

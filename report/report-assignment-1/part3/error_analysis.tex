@@ -1,6 +1,6 @@
 \section{Error Analysis}
 
-For each error group, describe the error, its frequency or rate, examples, hypothesized cause, and improvement ideas.
+The confusion matrices provide class-level error evidence. The largest recurring errors are concentrated among visually similar upper-body categories.
 
 \begin{table}[H]
     \centering
@@ -10,8 +10,8 @@ For each error group, describe the error, its frequency or rate, examples, hypot
         \toprule
         Error group & Description & Frequency / rate & Hypothesized cause & Improvement idea \\
         \midrule
-        Group A & TODO & TODO & TODO & TODO \\
-        Group B & TODO & TODO & TODO & TODO \\
+        Upper-body confusion & MLP Shirt examples are frequently predicted as T-shirt/top, Pullover, or Coat; Shirt recall is 0.4190. & 581/1,000 Shirt examples are errors & Similar silhouettes and low-resolution grayscale input. & Convolutional features, stronger augmentation, or a targeted class analysis. \\
+        Footwear confusion & MLP errors include Sandal/Sneaker/Ankle boot confusions; Sneaker recall is 0.9050 and Ankle boot recall is 0.9460. & 95/1,000 Sneaker examples are errors & Similar footwear shapes and pose variation. & Inspect hard examples and tune augmentation or architecture. \\
         \bottomrule
     \end{tabularx}
 \end{table}

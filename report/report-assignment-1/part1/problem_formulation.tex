@@ -1,11 +1,10 @@
 \section{Problem Formulation}
 
-% Real-world context and motivation.
-\textbf{Motivation.} Describe the real-world problem and why it matters.
+\textbf{Motivation.} Fashion-MNIST is a standard image-classification benchmark for evaluating machine-learning pipelines on grayscale clothing images. The task provides a controlled setting for comparing a linear classifier with a multilayer perceptron while preserving challenges such as visually similar clothing categories.
 
-\textbf{Input.} Describe the input data and its representation.
+\textbf{Input.} Each input is a grayscale image with shape $1\times28\times28$. Pixel intensities are represented as floating-point values in $[0,1]$ before normalization and are flattened to 784 features by both models.
 
-\textbf{Output.} Describe the prediction target and the prediction unit.
+\textbf{Output.} The target is one of ten Fashion-MNIST classes. Each prediction corresponds to one image and is obtained from the class with the largest output logit.
 
 \textbf{Mathematical formulation.}
 \begin{equation}
@@ -15,6 +14,6 @@
     \mathcal{L}\bigl(f_{\theta}(x_i), y_i\bigr).
     \label{eq:problem-formulation}
 \end{equation}
-Replace this placeholder with the formulation appropriate to the assignment.
+For a batch of images, the models minimize the cross-entropy loss over the ten-class target distribution.
 
-\textbf{Main difficulties.} List the main technical and data-related challenges.
+\textbf{Main difficulties.} The main challenges are distinguishing visually similar classes such as Shirt, T-shirt/top, Pullover, and Coat; handling the high-dimensional flattened input; and controlling overfitting while using a fully connected architecture.

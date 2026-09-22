@@ -1,6 +1,8 @@
 \section{Data Splitting}
 
-Describe the train, validation, and test partitions. State whether the split is official or custom, the random seed, stratification strategy, split unit, leakage prevention, and any subset selection rules.
+\subsection{Train/Val/Test Split Strategy}
+
+The official 60,000-image training pool is split into 54,000 training images and 6,000 validation images using a stratified 90/10 split with random seed 42. The official 10,000-image test set is kept separate and is used only for final evaluation. Splitting is performed at image level before training, with no overlap between partitions.
 
 \begin{table}[H]
     \centering
@@ -10,9 +12,24 @@ Describe the train, validation, and test partitions. State whether the split is 
         \toprule
         Split & Samples & Percentage & Selection rule \\
         \midrule
-        Train & TODO & TODO & TODO \\
-        Validation & TODO & TODO & TODO \\
-        Test & TODO & TODO & TODO \\
+        Train & 54,000 & 90\% of official train pool & Stratified custom split, seed 42 \\
+        Validation & 6,000 & 10\% of official train pool & Stratified custom split, seed 42 \\
+        Test & 10,000 & 100\% of official test set & Official Fashion-MNIST test partition \\
         \bottomrule
     \end{tabular}
 \end{table}
+
+    \subsection{Leakage Awareness \& Mitigation}
+
+    The data pipeline applies the following leakage-prevention checklist:
+
+    \begin{itemize}
+        \item \textbf{Split before fitting preprocessing:} the training and validation indices are created before any normalization statistics are estimated.
+        \item \textbf{Training-only feature scaling:} the mean and standard deviation are computed from the 54,000 training images only. These statistics are then reused unchanged for validation and test inputs.
+        \item \textbf{Validation isolation:} validation images are used for model selection and early stopping, but their pixel values do not affect normalization parameters or gradient updates.
+        \item \textbf{Test isolation:} the official test set is accessed only for final evaluation and is not used for training, hyperparameter selection, or preprocessing fitting.
+        \item \textbf{No sample overlap:} train, validation, and test partitions are disjoint at the image level.
+        \item \textbf{Train-only augmentation:} random flips and affine transformations are applied only to training images; validation and test inputs use deterministic transforms.
+    \end{itemize}
+
+    This procedure follows the principle of \emph{Feature Scaling Leakage Prevention}: preprocessing parameters must be learned from the training set only, then applied to all other partitions without refitting.

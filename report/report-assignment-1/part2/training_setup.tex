@@ -8,19 +8,19 @@
         \toprule
         Setting & Value \\
         \midrule
-        Optimizer & TODO \\
-        Learning rate & TODO \\
-        Batch size & TODO \\
-        Epochs & TODO \\
-        Scheduler & TODO \\
-        Regularization & TODO \\
-        Early stopping & TODO \\
-        Checkpoint criterion & TODO \\
-        Random seed & TODO \\
+        Optimizer & AdamW \\
+        Learning rate & 0.001 \\
+        Batch size & 256 \\
+        Epochs & 10 maximum \\
+        Scheduler & None \\
+        Regularization & Weight decay 0.1; MLP dropout 0.2 \\
+        Early stopping & Patience-style counter of 10 non-improving validation epochs \\
+        Checkpoint criterion & Lowest validation loss \\
+        Random seed & 42, with deterministic PyTorch algorithms enabled \\
         Hardware & TODO \\
-        Mixed precision & TODO \\
-        Training time & TODO \\
-        Hyperparameter selection & TODO \\
+        Mixed precision & Not used \\
+        Training time & Linear: 176.43 s; MLP: 178.11 s \\
+        Hyperparameter selection & Fixed configuration in `config.py`; no search results recorded \\
         \bottomrule
     \end{tabularx}
 \end{table}
