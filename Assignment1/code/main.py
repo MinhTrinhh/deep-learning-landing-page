@@ -49,12 +49,17 @@ def process_linear_model(data_loader, model_trainer, result_plotter, metric_calc
         model=linear_model,
         test_loader=data_loader.get_test_loader(),
         loss_func=linear_loss_func)
-    
+    sample_batch_images, _ = next(iter(data_loader.get_test_loader())) #to get a sample batch of images for resource metrics calculation
     metric_results = metric_calculator.report(
         test_targets,
         test_predictions,
         model_name="Linear",
         test_loss=test_loss,
+        resource_metrics=metric_calculator.calculate_resource_metrics(
+            model=linear_model,
+            sample_input=sample_batch_images,
+            train_time_seconds=model_trainer.last_train_time,
+        ),
     )
     result_plotter.plot_confusion_matrix(
         metric_results["confusion_matrix"], model_name="Linear"
@@ -90,11 +95,17 @@ def process_mlp_model(data_loader, model_trainer, result_plotter, metric_calcula
         model=mlp_model,
         test_loader=data_loader.get_test_loader(),
         loss_func=mlp_loss_func)
+    sample_batch_images, _ = next(iter(data_loader.get_test_loader()))
     metric_results = metric_calculator.report(
         test_targets,
         test_predictions,
         model_name="MLP",
         test_loss=test_loss,
+        resource_metrics=metric_calculator.calculate_resource_metrics(
+            model=mlp_model,
+            sample_input=sample_batch_images,
+            train_time_seconds=model_trainer.last_train_time,
+        ),
     )
     result_plotter.plot_confusion_matrix(
         metric_results["confusion_matrix"], model_name="MLP"

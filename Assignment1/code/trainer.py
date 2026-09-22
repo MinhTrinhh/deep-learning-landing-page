@@ -1,4 +1,5 @@
 import pickle
+import time
 
 import numpy
 import torch
@@ -11,6 +12,7 @@ class Trainer():
     def __init__(self, checkpoint_dir=CHECKPOINT_PATH):
         self.checkpoint_dir = checkpoint_dir
         self.checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        self.last_train_time = None
     
     def train_model(
         self,
@@ -30,6 +32,7 @@ class Trainer():
         model_name = model_name or model.__class__.__name__
         checkpoint_path = self.checkpoint_dir / f"best_{model_name.lower()}.pt"
         best_val_loss = float("inf")
+        train_start = time.perf_counter()
 
         ticking_clock = MAX_ATTEMPT
 
@@ -85,6 +88,7 @@ class Trainer():
                     break
 
         checkpoint = self.load_checkpoint(checkpoint_path, model)
+        self.last_train_time = time.perf_counter() - train_start
         print(
             f"Restored best {model_name} checkpoint from epoch "
             f"{checkpoint['epoch']} "
