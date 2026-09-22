@@ -1,10 +1,10 @@
 import json
 
+import torch
 from torchvision.datasets import FashionMNIST
 from torchvision.transforms import ToTensor
+
 from config import CLASS_NAMES, DATA_PATH, OUTPUT_PATH, SEED
-import torch
-import matplotlib.pyplot as plt
 
 """
 How many images are available?
@@ -39,39 +39,24 @@ class EDAWorker():
             transform=ToTensor()
         )
 
-    def display_distribution(self):
+    def calculate_class_distribution(self):
         counts = torch.bincount(self.train_eval_data.targets)
 
         for class_id, count in enumerate(counts):
             print(CLASS_NAMES[class_id], count.item())
 
-        fig, ax = plt.subplots(figsize=(10, 5))
-        ax.bar(CLASS_NAMES, counts.numpy())
-        ax.tick_params(axis="x", rotation=45)
-        ax.set_ylabel("Number of images")
-        ax.set_title("FashionMNIST training-pool class distribution")
-        fig.tight_layout()
-        path = self.output_dir / "class_distribution.png"
-        fig.savefig(path, dpi=150)
-        plt.close(fig)
         return counts
 
-    def show_examples(self):
-        fig, axes = plt.subplots(3, 5, figsize=(10, 6))
-
+    def select_examples(self):
         generator = torch.Generator().manual_seed(SEED)
         indices = torch.randperm(len(self.train_eval_data), generator=generator)[:15]
-        for ax, index in zip(axes.flat, indices):
+        images = []
+        labels = []
+        for index in indices:
             image, label = self.train_eval_data[index.item()]
-            ax.imshow(image.squeeze(), cmap="gray")
-            ax.set_title(CLASS_NAMES[label])
-            ax.axis("off")
-
-        plt.tight_layout()
-        path = self.output_dir / "random_examples.png"
-        fig.savefig(path, dpi=150)
-        plt.close(fig)
-        return indices
+            images.append(image)
+            labels.append(label)
+        return indices, images, labels
 
     def calculate_data_statistics(self):
         print(f"Official training samples: {len(self.train_eval_data)}")
@@ -99,17 +84,22 @@ class EDAWorker():
         return statistics
 
     def run(self):
-        """Run the reproducible EDA steps and save their figures."""
+        """Calculate reproducible EDA results and save their numeric summary."""
         print("\n=== Exploratory data analysis ===")
         statistics = self.calculate_data_statistics()
-        class_counts = self.display_distribution()
-        self.show_examples()
-        results = {
+        class_counts = self.calculate_class_distribution()
+        example_indices, example_images, example_labels = self.select_examples()
+        summary = {
             "statistics": statistics,
             "class_counts": class_counts.tolist(),
+            "example_indices": example_indices.tolist(),
             "seed": SEED,
         }
         with (self.output_dir / "eda_summary.json").open("w", encoding="utf-8") as file:
-            json.dump(results, file, indent=2)
-        print(f"EDA figures saved to: {self.output_dir}")
-        return results
+            json.dump(summary, file, indent=2)
+        print(f"EDA summary saved to: {self.output_dir / 'eda_summary.json'}")
+        return {
+            **summary,
+            "example_images": example_images,
+            "example_labels": example_labels,
+        }

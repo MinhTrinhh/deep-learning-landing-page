@@ -1,9 +1,7 @@
 import json
 from pathlib import Path
 
-import matplotlib.pyplot as plt
 from sklearn.metrics import (
-    ConfusionMatrixDisplay,
     accuracy_score,
     classification_report,
     confusion_matrix,
@@ -38,7 +36,7 @@ class MetricCalculator:
         }
 
     def report(self, targets, predictions, model_name, test_loss=None):
-        """Print metrics and save a confusion matrix for a named model."""
+        """Print and save numeric metrics for a named model."""
         results = self.calculate(targets, predictions)
 
         print(f"\n=== {model_name} test results ===")
@@ -47,19 +45,6 @@ class MetricCalculator:
         print(f"Test accuracy: {results['accuracy']:.4f}")
         print(f"Macro-F1: {results['macro_f1']:.4f}")
         print(results["classification_report"])
-
-        fig, ax = plt.subplots(figsize=(9, 8))
-        display = ConfusionMatrixDisplay(
-            confusion_matrix=results["confusion_matrix"],
-            display_labels=CLASS_NAMES,
-        )
-        display.plot(ax=ax, cmap="Blues", xticks_rotation=45, colorbar=False)
-        ax.set_title(f"{model_name} confusion matrix")
-        fig.tight_layout()
-        output_path = self.output_dir / f"{model_name.lower()}_confusion_matrix.png"
-        fig.savefig(output_path, dpi=150)
-        plt.close(fig)
-        print(f"Confusion matrix saved to: {output_path}")
 
         serializable_results = {
             "test_loss": float(test_loss) if test_loss is not None else None,

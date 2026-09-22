@@ -1,11 +1,10 @@
 import pickle
-import hashlib
 
 import numpy
 import torch
 from sklearn.metrics import accuracy_score
 from torch import no_grad, argmax
-from config import CHECKPOINT_PATH, NUM_EPOCHS, SEED
+from config import CHECKPOINT_PATH, NUM_EPOCHS, SEED, MAX_ATTEMPT
 
 # torch.utils.data.Dataset/Dataloader is already a class
 class Trainer():
@@ -31,6 +30,8 @@ class Trainer():
         model_name = model_name or model.__class__.__name__
         checkpoint_path = self.checkpoint_dir / f"best_{model_name.lower()}.pt"
         best_val_loss = float("inf")
+
+        ticking_clock = MAX_ATTEMPT
 
         for epoch in range(epochs):
             train_losses, train_preds, train_targets = [], [], []
@@ -77,12 +78,17 @@ class Trainer():
                     val_accuracy=val_accuracy,
                 )
                 print(f"Saved new best checkpoint: {checkpoint_path}")
+                ticking_clock = MAX_ATTEMPT
+            else:
+                ticking_clock = ticking_clock - 1
+                if ticking_clock == 0:
+                    break
 
         checkpoint = self.load_checkpoint(checkpoint_path, model)
         print(
             f"Restored best {model_name} checkpoint from epoch "
-            f"{checkpoint['epoch']} (validation loss={checkpoint['val_loss']:.4f}, "
-            f"parameter fingerprint={checkpoint['model_state_sha256']})"
+            f"{checkpoint['epoch']} "
+            f"(validation loss={checkpoint['val_loss']:.4f})"
         )
 
         return epoch_train_loss, epoch_train_accuracies, epoch_val_loss, epoch_val_accuracies
@@ -106,45 +112,20 @@ class Trainer():
                 "val_loss": float(val_loss),
                 "val_accuracy": float(val_accuracy),
                 "model_state_dict": model_state,
-                "model_state_sha256": self.hash_model_state(model_state),
                 "optimizer_state_dict": optimizer.state_dict(),
                 "seed": SEED,
             },
             checkpoint_path,
         )
 
-    @staticmethod
-    def hash_model_state(model_state):
-        """Create a stable fingerprint of all named model parameter tensors."""
-        digest = hashlib.sha256()
-        for name in sorted(model_state):
-            tensor = model_state[name].detach().cpu().contiguous()
-            digest.update(name.encode("utf-8"))
-            digest.update(str(tensor.dtype).encode("utf-8"))
-            digest.update(str(tuple(tensor.shape)).encode("utf-8"))
-            digest.update(tensor.numpy().tobytes())
-        return digest.hexdigest()
-
     def load_checkpoint(self, checkpoint_path, model, optimizer=None):
         """Load model parameters and optionally optimizer state for resuming."""
-        try:
-            checkpoint = torch.load(
-                checkpoint_path,
-                map_location="cpu",
-                weights_only=True,
-            )
-        except pickle.UnpicklingError:
-            # Compatibility for checkpoints created before validation metrics
-            # were converted from NumPy scalars to plain Python floats.
-            safe_numpy_types = [numpy._core.multiarray.scalar, numpy.dtype]
-            if hasattr(numpy, "dtypes"):
-                safe_numpy_types.append(numpy.dtypes.Float64DType)
-            with torch.serialization.safe_globals(safe_numpy_types):
-                checkpoint = torch.load(
-                    checkpoint_path,
-                    map_location="cpu",
-                    weights_only=True,
-                )
+        checkpoint = torch.load(
+            checkpoint_path,
+            map_location="cpu",
+            weights_only=True,
+        )
+
         model.load_state_dict(checkpoint["model_state_dict"])
         if optimizer is not None:
             optimizer.load_state_dict(checkpoint["optimizer_state_dict"])

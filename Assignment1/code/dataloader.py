@@ -1,4 +1,3 @@
-import hashlib
 import random
 
 import numpy
@@ -9,14 +8,6 @@ from torchvision.datasets import FashionMNIST
 from torchvision.transforms import Compose, Normalize, RandomAffine, RandomHorizontalFlip, ToTensor
 
 from config import MEAN_TUP, SD_TUP, DATA_PATH, VAL_SIZE, SEED, BATCH_SIZE, NUM_WORKERS
-
-
-def seed_worker(worker_id):
-    """Seed Python and NumPy inside each DataLoader worker."""
-    del worker_id
-    worker_seed = torch.initial_seed() % (2 ** 32)
-    random.seed(worker_seed)
-    numpy.random.seed(worker_seed)
 
 class FashionMNISTDataLoader():
     def __init__(self, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS):
@@ -55,9 +46,6 @@ class FashionMNISTDataLoader():
                                               random_state=SEED,
                                               stratify=targets)
 
-        self.train_indices = train_idx
-        self.val_indices = val_idx
-
         self.train_set = Subset(self.train_set, train_idx)
         self.val_set = Subset(self.val_set, val_idx)
 
@@ -67,7 +55,7 @@ class FashionMNISTDataLoader():
                                   shuffle=True,
                                   num_workers=num_workers,
                                   pin_memory=False,
-                                  worker_init_fn=seed_worker,
+                                  worker_init_fn=self.seed_worker,
                                   generator=self.train_generator)
 
         self.val_loader = DataLoader(dataset=self.val_set,
@@ -95,16 +83,9 @@ class FashionMNISTDataLoader():
         """Reset shuffle and worker seeds before training a model."""
         self.train_generator.manual_seed(seed)
 
-    def get_split_metadata(self):
-        """Return split sizes and hashes so a run can verify the exact split."""
-        return {
-            "train_size": len(self.train_indices),
-            "validation_size": len(self.val_indices),
-            "test_size": len(self.test_set),
-            "train_indices_sha256": hashlib.sha256(
-                self.train_indices.tobytes()
-            ).hexdigest(),
-            "validation_indices_sha256": hashlib.sha256(
-                self.val_indices.tobytes()
-            ).hexdigest(),
-        }
+    def seed_worker(self, worker_id):
+        """Seed Python and NumPy inside each DataLoader worker."""
+        del worker_id
+        worker_seed = torch.initial_seed() % (2 ** 32)
+        random.seed(worker_seed)
+        numpy.random.seed(worker_seed)
