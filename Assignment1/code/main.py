@@ -157,10 +157,13 @@ if __name__ == "__main__":
 
     if args.eda:
         eda_results = edaworker.EDAWorker().run()
-        result_plotter.plot_class_distribution(eda_results["class_counts"])
-        result_plotter.plot_examples(
-            eda_results["example_images"], eda_results["example_labels"]
-        )
+        core_eda = eda_results["core_eda"]
+        task_specific_eda = eda_results["task_specific_eda"]
+        result_plotter.plot_class_distribution(core_eda["class_counts"])
+        result_plotter.plot_examples(eda_results["example_images"], eda_results["example_labels"])
+        result_plotter.plot_dimensionality_reduction(task_specific_eda["instance_level"])
+        result_plotter.plot_similarity_matrix(task_specific_eda["class_level"]["similarity_matrix"])
+        result_plotter.plot_dendrogram(task_specific_eda["class_level"]["linkage_matrix"])
 
     run_label = "aug" if args.use_augmentation else "no_aug"
     data_loader = dataloader.FashionMNISTDataLoader(

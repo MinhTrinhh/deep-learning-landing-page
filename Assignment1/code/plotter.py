@@ -1,10 +1,14 @@
 from pathlib import Path
 
 import matplotlib
+import numpy as np
+import seaborn as sns
+from scipy.cluster.hierarchy import dendrogram
 
 matplotlib.use("Agg")
 
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 from sklearn.metrics import ConfusionMatrixDisplay
 
 from config import CLASS_NAMES, OUTPUT_PATH
@@ -95,3 +99,102 @@ class Plotter:
         fig.savefig(output_path, dpi=150)
         plt.close(fig)
         print(f"Confusion matrix saved to: {output_path}")
+
+    def plot_dimensionality_reduction(self, instance_data):
+        labels = np.array(instance_data["labels"])
+        methods = [
+            ("PCA", instance_data["pca_2d"]),
+            ("t-SNE", instance_data["tsne_2d"]),
+            ("UMAP", instance_data["umap_2d"]),
+        ]
+
+        fig, axes = plt.subplots(1, 3, figsize=(20, 6))
+        colors = plt.get_cmap("tab10")(np.arange(len(CLASS_NAMES)))
+
+        for ax, (name, coords) in zip(axes, methods):
+            coords = np.array(coords)
+            ax.scatter(
+                coords[:, 0],
+                coords[:, 1],
+                c=labels,
+                cmap="tab10",
+                s=5,
+                alpha=0.7,
+                vmin=0,
+                vmax=len(CLASS_NAMES) - 1,
+            )
+            ax.set_title(f"{name} 2D Projection")
+            ax.set_xticks([])
+            ax.set_yticks([])
+
+        legend_handles = [
+            Line2D(
+                [0],
+                [0],
+                marker="o",
+                color="none",
+                markerfacecolor=color,
+                markersize=7,
+                label=class_name,
+            )
+            for class_name, color in zip(CLASS_NAMES, colors)
+        ]
+        fig.legend(
+            handles=legend_handles,
+            title="Class",
+            loc="center left",
+            bbox_to_anchor=(0.89, 0.5),
+            frameon=True,
+            fontsize=11,
+            title_fontsize=12,
+            markerscale=1.3,
+        )
+        fig.tight_layout(rect=(0, 0, 0.88, 1))
+        output_dir = self.output_dir / "eda"
+        output_dir.mkdir(parents=True, exist_ok=True)
+        output_path = output_dir / "dimensionality_reduction.png"
+        fig.savefig(output_path, dpi=150)
+        plt.close(fig)
+        print(f"Dimensionality reduction plots saved to: {output_path}")
+
+    def plot_similarity_matrix(self, similarity_matrix):
+        fig, ax = plt.subplots(figsize=(8, 6))
+        sns.heatmap(
+            similarity_matrix,
+            annot=True,
+            fmt=".2f",
+            cmap="Blues",
+            xticklabels=CLASS_NAMES,
+            yticklabels=CLASS_NAMES,
+            ax=ax,
+        )
+        ax.set_title("Class Similarity Matrix (Cosine)")
+        fig.tight_layout()
+
+        output_dir = self.output_dir / "eda"
+        output_dir.mkdir(parents=True, exist_ok=True)
+        output_path = output_dir / "class_similarity_matrix.png"
+        fig.savefig(output_path, dpi=150)
+        plt.close(fig)
+        print(f"Class similarity matrix saved to: {output_path}")
+
+    def plot_dendrogram(self, linkage_matrix):
+        fig, ax = plt.subplots(figsize=(10, 5))
+        dendrogram(
+            linkage_matrix,
+            labels=CLASS_NAMES,
+            leaf_rotation=45,
+            leaf_font_size=10,
+            ax=ax,
+        )
+        ax.set_title("Agglomerative Clustering Dendrogram")
+        ax.set_xlabel("Classes")
+        ax.set_ylabel("Distance")
+        fig.tight_layout()
+
+        output_dir = self.output_dir / "eda"
+        output_dir.mkdir(parents=True, exist_ok=True)
+        output_path = output_dir / "class_dendrogram.png"
+        fig.savefig(output_path, dpi=150)
+        plt.close(fig)
+        print(f"Dendrogram saved to: {output_path}")
