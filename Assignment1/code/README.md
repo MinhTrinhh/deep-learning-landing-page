@@ -14,7 +14,7 @@ Run these commands from `Assignment1/code`:
 
 ```bash
 # Generate EDA statistics and figures without training
-PYTHONHASHSEED=42 python main.py --eda-only
+PYTHONHASHSEED=42 python main.py --eda
 
 # Train and evaluate one model
 PYTHONHASHSEED=42 python main.py --model linear
