@@ -7,6 +7,7 @@
   <meta name="description" content="Official website for CO3133 Deep Learning and Its Applications course project - HCMUT Semester-261.">
   <link rel="stylesheet" href="assets/css/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
 
@@ -299,50 +300,58 @@
     <section class="section" id="ai-disclosure">
       <div class="section-header">
         <h2 class="section-title"><i class="fa-solid fa-robot"></i> Shared AI Usage Disclosure Summary</h2>
-        <p class="section-desc">Compliance record according to Section 5 of the Course Project Handbook.</p>
+        <p class="section-desc">Compliance record according to Section 5 of the Course Project Handbook. Per-assignment disclosure files are linked below.</p>
       </div>
 
       <div class="callout callout-info">
         <div class="callout-title"><i class="fa-solid fa-circle-info"></i> AI Academic Integrity Policy</div>
         <p>
-          Generative AI tools are used strictly in compliance with Section 5 of the handbook. All AI assistance is documented, verified against PyTorch documentation and experimental benchmarks, and assigned to a responsible team member for final verification.
+          Generative AI tools are used strictly in compliance with Section 5 of the handbook. All AI assistance is documented, verified against PyTorch documentation and experimental benchmarks, and assigned to a responsible team member for final verification. No unchecked AI outputs are submitted; all results are from actual code execution.
         </p>
       </div>
 
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Tool & Model</th>
-              <th>Used By</th>
-              <th>Stage / Task</th>
-              <th>Purpose & AI Contribution</th>
-              <th>Student Verification</th>
-              <th>Responsible Member</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>Gemini 3.6 Flash / Antigravity</code></td>
-              <td>Member 1</td>
-              <td>Pages Skeleton Setup</td>
-              <td>HTML/CSS landing page structure creation following handbook rules</td>
-              <td>Verified DOM layout, broken links, CSS responsiveness manually</td>
-              <td>Member 1</td>
-            </tr>
-            <tr>
-              <td><code>ChatGPT / Claude 3.5</code></td>
-              <td>Member 2</td>
-              <td>EDA & Visualization</td>
-              <td>Generated template plotting scripts for class distribution</td>
-              <td>Cross-checked data shapes with Matplotlib/Seaborn output</td>
-              <td>Member 2</td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Per-assignment disclosure quick links -->
+      <div class="grid-3" style="margin-bottom: 2rem;">
+        <div class="card" style="text-align: center;">
+          <div class="card-header">
+            <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-layer-group"></i> Assignment 1</h3>
+          </div>
+          <div class="card-body" style="font-size: 0.875rem; color: var(--text-muted);">
+            2 entries — Pages skeleton setup, ViT patch embedding implementation
+          </div>
+          <div class="card-footer" style="justify-content: center;">
+            <a href="../Assignment1/AI_USAGE.md" target="_blank" class="btn btn-secondary btn-sm"><i class="fa-solid fa-file-lines"></i> AI_USAGE.md</a>
+          </div>
+        </div>
+        <div class="card" style="text-align: center; opacity: 0.55;">
+          <div class="card-header">
+            <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-brain"></i> Assignment 2</h3>
+          </div>
+          <div class="card-body" style="font-size: 0.875rem; color: var(--text-muted);">
+            Disclosure log — coming after M1 Proposal
+          </div>
+          <div class="card-footer" style="justify-content: center;">
+            <span class="card-badge badge-pending">Pending</span>
+          </div>
+        </div>
+        <div class="card" style="text-align: center; opacity: 0.55;">
+          <div class="card-header">
+            <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-diagram-project"></i> Assignment 3</h3>
+          </div>
+          <div class="card-body" style="font-size: 0.875rem; color: var(--text-muted);">
+            Disclosure log — coming after M1 Proposal
+          </div>
+          <div class="card-footer" style="justify-content: center;">
+            <span class="card-badge badge-pending">Pending</span>
+          </div>
+        </div>
       </div>
+
+      <!-- Consolidated disclosure log — rendered from Assignment1/AI_USAGE.md -->
+      <div id="ai-md-landing" style="font-size: 0.88rem; color: var(--text-muted);"><i class="fa-solid fa-spinner fa-spin"></i> Loading AI_USAGE.md…</div>
+
       <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">
-        For full detailed prompt logs and repository-wide disclosure, see <a href="AI_USAGE.md" target="_blank" style="color: var(--secondary-light);">AI_USAGE.md</a>.
+        Assignment 1 detailed log: <a href="../Assignment1/AI_USAGE.md" target="_blank" style="color: var(--secondary-light);">Assignment1/AI_USAGE.md</a>
       </p>
     </section>
 
@@ -359,5 +368,21 @@
   </footer>
 
   <script src="assets/js/main.js"></script>
+  <script>
+    // Fetch and render Assignment1/AI_USAGE.md
+    fetch('../Assignment1/AI_USAGE.md')
+      .then(r => r.text())
+      .then(md => {
+        const el = document.getElementById('ai-md-landing');
+        el.innerHTML = marked.parse(md);
+        // Style code blocks to match the site's pre aesthetic
+        el.querySelectorAll('pre').forEach(pre => {
+          pre.style.cssText = "font-family:'Courier New',Courier,monospace;font-size:0.78rem;background:rgba(0,0,0,0.28);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.1rem 1.4rem;line-height:1.8;overflow-x:auto;white-space:pre-wrap;word-break:break-word;margin-bottom:1.25rem;";
+        });
+      })
+      .catch(() => {
+        document.getElementById('ai-md-landing').innerHTML = '<p style="color:var(--text-muted)">Could not load AI_USAGE.md. <a href="../Assignment1/AI_USAGE.md" target="_blank" style="color:var(--secondary-light)">View raw file →</a></p>';
+      });
+  </script>
 </body>
 </html>

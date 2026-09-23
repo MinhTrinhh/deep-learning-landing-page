@@ -1,62 +1,73 @@
 \section*{AI Usage Disclosure}
 \addcontentsline{toc}{section}{AI Usage Disclosure}
 
-This section records the use of generative AI tools in this assignment. All AI-assisted
-content was reviewed, edited, and verified by the students. Experimental results,
-performance numbers, and figures are based on actual code execution and should not be
-reported solely from unverified AI output.
+This section records all generative AI tool usage for this assignment, per the course
+Academic Integrity and AI-Use Policy. All AI-assisted content was reviewed, edited,
+and verified by the students. Experimental results, performance numbers, and figures
+are based on actual code execution.
 
-\subsection*{Mandatory Fields per AI Tool}
+% -----------------------------------------------------------------------
+% Detailed log — single continuous monospace block
+% -----------------------------------------------------------------------
+\subsection*{Detailed Log}
 
-For each AI tool used, record all of the following fields:
+\begin{lstlisting}[language={}, basicstyle=\ttfamily\small, frame=single,
+    rulecolor=\color{codegray}, backgroundcolor=\color{backcolour},
+    breaklines=true, breakatwhitespace=false, numbers=none]
+Tool: Gemini
+Used by: Trinh Le Minh (M1)
+Task: Implementing model checkpointing and analyzing loss curves
+Prompt summary: Asked for PyTorch checkpoint code and analysis of a loss/accuracy graph
+AI contribution: Provided save/load checkpoint logic based on val loss; analyzed training
+graphs confirming healthy training with no overfitting
+Student verification: Verified training/val loss curves; integrated checkpointing into
+trainer.py and confirmed correct behavior
+Affected files/sections: trainer.py
+Responsible member: Trinh Le Minh (M1)
+
+Tool: OpenAI Codex (GPT-5)
+Used by: Trinh Le Minh (M1)
+Task: Building a reproducible FashionMNIST training and evaluation pipeline
+Prompt summary: Asked for EDA, train/val/test split, preprocessing, Linear/MLP training,
+metrics, checkpointing, reproducibility; reported a checkpoint-loading error
+AI contribution: Connected EDA and metrics modules to main workflow; added deterministic
+seeding, confusion matrices, best-val-loss checkpoints, experiment metadata; diagnosed
+NumPy scalar metadata checkpoint error and provided fix
+Student verification: Ran MLP training; inspected metric files and checkpoints; confirmed
+best_mlp.pt loaded successfully; passed syntax/static checks
+Affected files/sections: main.py, config.py, dataloader.py, edaworker.py, metrics.py,
+trainer.py, plotter.py; checkpoints/README.md
+Responsible member: Trinh Le Minh (M1)
+
+Tool: GPT (via VSCode)
+Used by: Tran Phuoc Sang
+Task: Coding assistance for metrics and plotter files -- task-specific EDA
+Prompt summary: Asked for help implementing metric computation and EDA plot functions
+AI contribution: Suggested structure for metric aggregation and matplotlib plot helpers
+Student verification: Ran outputs against expected values; visually verified EDA plots
+Affected files/sections: Assignment1/code/metrics.py; Assignment1/code/edaworker.py
+Responsible member: Tran Phuoc Sang
+
+Tool: Claude Sonnet 4.6 (Antigravity IDE)
+Used by: Tran Phuoc Sang
+Task: LaTeX report writing assistance
+Prompt summary: Asked for help drafting methodology and results sections in LaTeX
+AI contribution: Suggested LaTeX structure, table formatting, phrasing for Sec. 3--4
+Student verification: Cross-checked all claims against actual experiment outputs and code
+Affected files/sections: report/report-assignment-1/ (Methodology, Results sections)
+Responsible member: Tran Phuoc Sang
+\end{lstlisting}
+
+% -----------------------------------------------------------------------
+% Student Responsibility Acknowledgement
+% -----------------------------------------------------------------------
+\subsection*{Student Responsibility Acknowledgement}
 
 \begin{itemize}
-    \item Tool name and version or model, if known.
-    \item Member who used the tool.
-    \item Time or development stage.
-    \item Purpose.
-    \item Affected assignment section(s).
-    \item Representative prompt example or prompt-log link.
-    \item How the AI output was edited and verified.
-    \item Member responsible for final verification.
-    \item Sources used for verification, such as documentation, papers, or tests.
+    \item[$\boxtimes$] All members understand and can explain every part of the submission.
+    \item[$\boxtimes$] No unchecked AI-generated code or text was submitted as-is.
+    \item[$\boxtimes$] AI was not used to fabricate data, experimental results, citations, or references.
+    \item[$\boxtimes$] No experiments were claimed that were not actually run.
+    \item[$\boxtimes$] No private, restricted, or credential-bearing data was pasted into AI tools.
+    \item[$\boxtimes$] All AI-assisted content was verified via source code, real runs, official docs, or scholarly sources.
 \end{itemize}
-
-Suggested categories include literature search, concept explanation, architecture or
-experiment design, coding assistance, debugging, test generation, report writing,
-grammar checks, figure or slide generation, and result analysis.
-
-\begin{longtable}{@{}p{0.15\textwidth}p{0.22\textwidth}p{0.25\textwidth}p{0.28\textwidth}@{}}
-    \caption{AI usage disclosure log.}
-    \label{tab:ai-usage-log}\\
-    \toprule
-    Field & Entry 1 & Entry 2 & Entry 3 \\
-    \midrule
-    Tool and version/model & TODO & TODO & TODO \\
-    Used by & TODO & TODO & TODO \\
-    Time / development stage & TODO & TODO & TODO \\
-    Purpose & TODO & TODO & TODO \\
-    Affected sections & TODO & TODO & TODO \\
-    Prompt example or log link & TODO & TODO & TODO \\
-    Editing and verification & TODO & TODO & TODO \\
-    Responsible member & TODO & TODO & TODO \\
-    Verification sources & TODO & TODO & TODO \\
-    \bottomrule
-\end{longtable}
-
-\subsection*{Disclosure Example}
-
-\begin{description}
-    \item[Tool:] [Tool/model name]
-    \item[Used by:] [Member name]
-    \item[Development stage:] [Time or stage]
-    \item[Task:] Debugging the validation loop in \texttt{train.py}
-    \item[Prompt summary:] Asked why validation loss was accumulated incorrectly.
-    \item[AI contribution:] Suggested sample-weighted loss accumulation.
-    \item[Student verification:] Compared the suggestion with PyTorch documentation and tested it on a small controlled set.
-    \item[Affected files/sections:] \texttt{src/train.py}; Report Sec.~3.2.
-    \item[Responsible member:] [Member name]
-    \item[Sources used for verification:] [Documentation, papers, or tests]
-\end{description}
-
-
