@@ -23,7 +23,10 @@ datasets/
 
 # Generated training runs; publish selected results separately
 Assignment*/runs/
-Assignment*/outputs/
+Assignment*/outputs/*
+!Assignment*/outputs/eda/
+!Assignment*/outputs/learning_curves/
+!Assignment*/outputs/metrics/
 Assignment*/checkpoints/*.pt
 Assignment*/checkpoints/*.pth
 Assignment*/checkpoints/*.ckpt
