@@ -1,5 +1,3 @@
-import json
-
 import torch
 from torchvision.datasets import FashionMNIST
 from torchvision.transforms import ToTensor
@@ -12,7 +10,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from scipy.spatial.distance import pdist
 from scipy.cluster.hierarchy import linkage
 
-from config import CLASS_NAMES, DATA_PATH, OUTPUT_PATH, SEED
+from config import CLASS_NAMES, DATA_PATH, SEED
 
 """
 How many images are available?
@@ -29,10 +27,7 @@ What preprocessing and augmentation make sense?
 """
 
 class EDAWorker():
-    def __init__(self, output_dir=OUTPUT_PATH / "eda"):
-        self.output_dir = output_dir
-        self.output_dir.mkdir(parents=True, exist_ok=True)
-
+    def __init__(self):
         self.train_eval_data = FashionMNIST(
             root=DATA_PATH,
             train=True,
@@ -91,7 +86,7 @@ class EDAWorker():
         print("Standard deviation:", statistics["standard_deviation"])
         return statistics
 
-    def calculate_instance_level_features(self, num_samples=2000):
+    def calculate_instance_level_features(self, num_samples=60000):
         generator = torch.Generator().manual_seed(SEED)
         indices = torch.randperm(len(self.train_eval_data), generator=generator)[:num_samples]
         
@@ -163,15 +158,15 @@ class EDAWorker():
         }
 
     def run(self):
-        """Calculate reproducible EDA results and save their numeric summary."""
+        """Calculate and return reproducible EDA results."""
         print("\n=== Exploratory data analysis ===")
         statistics = self.calculate_data_statistics()
         class_counts = self.calculate_class_distribution()
         example_indices, example_images, example_labels = self.select_examples()
-        instance_level_data = self.calculate_instance_level_features(num_samples=2000)
+        instance_level_data = self.calculate_instance_level_features(num_samples=60000)
         class_level_data = self.calculate_class_level_similarity()
 
-        summary = {
+        results = {
             "seed": SEED,
             "core_eda": {
                 "statistics": statistics,
@@ -187,12 +182,8 @@ class EDAWorker():
                 }
             }
         }
-        
-        with (self.output_dir / "eda_summary.json").open("w",encoding="utf-8") as file:
-            json.dump(summary, file, indent=2)
-        print(f"EDA summary saved to: {self.output_dir / 'eda_summary.json'}")
         return {
-            **summary,
+            **results,
             "example_images": example_images,
             "example_labels": example_labels,
         }

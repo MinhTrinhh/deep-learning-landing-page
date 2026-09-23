@@ -33,6 +33,7 @@ class FashionMNISTDataLoader():
         train_pixels = train_data.data[train_idx].float() / 255.0
         train_mean = train_pixels.mean().item()
         train_std = train_pixels.std().item()
+
         val_transform = [ToTensor(), Normalize((train_mean,), (train_std,))]
         train_transform = []
         if use_augmentation:

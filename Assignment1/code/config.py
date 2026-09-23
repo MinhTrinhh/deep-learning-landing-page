@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 SEED = 42
 
 # dataset and data loader
@@ -9,15 +8,15 @@ DATA_PATH = ASSIGNMENT_PATH / "data"
 OUTPUT_PATH = ASSIGNMENT_PATH / "outputs"
 CHECKPOINT_PATH = ASSIGNMENT_PATH / "checkpoints"
 
-MEAN_TUP = (0.2860,)
-SD_TUP = (0.3530,)
+# MEAN_TUP = (0.2860,)
+# SD_TUP = (0.3530,)
 VAL_SIZE = 0.1 # 6000 data samples
 BATCH_SIZE = 256
 NUM_WORKERS = 1
 
 LEARNING_RATE = 0.001
 WD = 0.1
-NUM_EPOCHS = 10
+NUM_EPOCHS = 5
 MAX_ATTEMPT = 10
 
 # LinearModel

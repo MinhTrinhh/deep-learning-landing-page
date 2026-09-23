@@ -51,7 +51,9 @@ def process_linear_model(
         model=linear_model,
         test_loader=data_loader.get_test_loader(),
         loss_func=linear_loss_func)
+    
     sample_batch_images, _ = next(iter(data_loader.get_test_loader())) #to get a sample batch of images for resource metrics calculation
+
     metric_results = metric_calculator.report(
         test_targets,
         test_predictions,
@@ -99,7 +101,9 @@ def process_mlp_model(
         model=mlp_model,
         test_loader=data_loader.get_test_loader(),
         loss_func=mlp_loss_func)
+    
     sample_batch_images, _ = next(iter(data_loader.get_test_loader()))
+
     metric_results = metric_calculator.report(
         test_targets,
         test_predictions,
@@ -131,8 +135,9 @@ def parse_args():
     )
     parser.add_argument(
         "--model",
+        default="all",
         choices=("linear", "mlp", "all"),
-        help="Model family to train (default: mlp)",
+        help="Model family to train (default: all)",
     )
     augmentation_group = parser.add_mutually_exclusive_group()
     augmentation_group.add_argument(
