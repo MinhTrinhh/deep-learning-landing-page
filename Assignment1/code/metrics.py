@@ -1,6 +1,4 @@
-import json
 import time
-from pathlib import Path
 
 import torch
 from thop import profile
@@ -13,14 +11,10 @@ from sklearn.metrics import (
     recall_score,
 )
 
-from config import CLASS_NAMES, OUTPUT_PATH
+from config import CLASS_NAMES
 
 
 class MetricCalculator:
-    def __init__(self, output_dir=OUTPUT_PATH / "metrics"):
-        self.output_dir = Path(output_dir)
-        self.output_dir.mkdir(parents=True, exist_ok=True)
-
     def calculate(self, targets, predictions):
         """Calculate classification metrics from one complete dataset pass."""
         labels = list(range(len(CLASS_NAMES)))
@@ -96,7 +90,7 @@ class MetricCalculator:
         test_loss=None,
         resource_metrics=None,
     ):
-        """Print and save numeric metrics for a named model."""
+        """Calculate and print numeric metrics for a named model."""
         results = self.calculate(targets, predictions)
 
         print(f"\n=== {model_name} test results ===")
@@ -119,20 +113,5 @@ class MetricCalculator:
             print(f"Model size: {resource_metrics['model_size_mb']:.3f} MB")
 
         print(results["classification_report"])
-
-        serializable_results = {
-            "test_loss": float(test_loss) if test_loss is not None else None,
-            "accuracy": float(results["accuracy"]),
-            "macro_precision": float(results["macro_precision"]),
-            "macro_recall": float(results["macro_recall"]),
-            "macro_f1": float(results["macro_f1"]),
-            "resource_metrics": resource_metrics,
-            "confusion_matrix": results["confusion_matrix"].tolist(),
-            "classification_report": results["classification_report"],
-        }
-        metrics_path = self.output_dir / f"{model_name.lower()}_metrics.json"
-        with metrics_path.open("w", encoding="utf-8") as file:
-            json.dump(serializable_results, file, indent=2)
-        print(f"Numeric metrics saved to: {metrics_path}")
 
         return results
