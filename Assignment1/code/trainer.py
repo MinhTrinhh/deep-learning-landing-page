@@ -5,7 +5,7 @@ import numpy
 import torch
 from sklearn.metrics import accuracy_score
 from torch import no_grad, argmax
-from config import CHECKPOINT_PATH, NUM_EPOCHS, SEED, MAX_ATTEMPT
+from config import CHECKPOINT_PATH, NUM_EPOCHS, SEED, MAX_ATTEMPT, MIN_DELTA
 
 # torch.utils.data.Dataset/Dataloader is already a class
 class Trainer():
@@ -69,7 +69,7 @@ class Trainer():
             epoch_train_accuracies.append(accuracy_score(train_targets, train_preds))
             epoch_val_accuracies.append(val_accuracy)
 
-            if mean_val_losses < best_val_loss:
+            if mean_val_losses < best_val_loss - MIN_DELTA:
                 best_val_loss = mean_val_losses
                 self.save_checkpoint(
                     checkpoint_path=checkpoint_path,

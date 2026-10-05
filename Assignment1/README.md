@@ -11,6 +11,7 @@ Fashion-MNIST classification experiments for the Linear/Softmax and multilayer p
 Assignment1/
 ├── AI_USAGE.md              # Assignment-specific AI disclosure
 ├── README.md                # Installation and execution guide
+├── colab_runner.ipynb       # CPU-only Google Colab runner
 ├── index.html               # Assignment website
 ├── code/
 │   ├── config.py            # Paths and experiment configuration
