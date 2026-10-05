@@ -23,7 +23,7 @@
         <li><a href="index.html" class="nav-link active"><i class="fa-solid fa-layer-group"></i> Assignment 1</a></li>
         <li><a href="../Assignment2/index.html" class="nav-link"><i class="fa-solid fa-brain"></i> Assignment 2</a></li>
         <li><a href="../Assignment3/index.html" class="nav-link"><i class="fa-solid fa-diagram-project"></i> Assignment 3</a></li>
-        <li><a href="../docs/AI_USAGE.md" class="nav-link" target="_blank"><i class="fa-solid fa-robot"></i> AI Disclosure</a></li>
+        <li><a href="../docs/index.html#ai-disclosure" class="nav-link"><i class="fa-solid fa-robot"></i> AI Disclosure</a></li>
       </ul>
     </div>
   </nav>
@@ -41,7 +41,7 @@
 
       <div class="hero-meta">
         <div class="meta-item"><i class="fa-solid fa-user-tie"></i> Instructor: Lê Thành Sách</div>
-        <div class="meta-item"><i class="fa-solid fa-users"></i> Group [ID]</div>
+        <div class="meta-item"><i class="fa-solid fa-users"></i> G-10</div>
         <div class="meta-item"><i class="fa-solid fa-calendar-check"></i> Due: 21 Oct 2026 (M2 Final)</div>
       </div>
 
@@ -92,58 +92,99 @@
 
     <!-- TAB 2: Data & EDA -->
     <div class="tab-content" id="tab-data">
-      <div class="card">
-        <h2 class="section-title"><i class="fa-solid fa-chart-pie"></i> Dataset Description & Exploratory Data Analysis</h2>
-        <div class="card-body" style="margin-top: 1rem;">
-          <p><strong>Primary Dataset:</strong> Fashion-MNIST (70,000 images total — 60,000 train, 10,000 test).</p>
-          <p><strong>Split Policy:</strong> 54,000 Train / 6,000 Validation (10%, stratified) / 10,000 Test (official). Seed: <code>42</code>.</p>
-
-          <div class="grid-2" style="margin-top: 1.5rem;">
-            <div class="callout callout-info">
-              <div class="callout-title"><i class="fa-solid fa-list-check"></i> EDA Checklist</div>
-              <ul style="padding-left: 1.25rem; margin-top: 0.5rem; font-size: 0.9rem;">
-                <li><strong>Class distribution:</strong> Balanced (6,000 train samples per class)</li>
-                <li><strong>Input tensor shape:</strong> <code>[B, 1, 28, 28]</code> — grayscale 28×28</li>
-                <li><strong>Pixel range:</strong> Normalized via <code>ToTensor()</code> → <code>[0.0, 1.0]</code></li>
-                <li><strong>Train augmentations:</strong> RandomHorizontalFlip, RandomRotation(10°)</li>
-                <li><strong>Validation/Test:</strong> No augmentation, same normalization</li>
-                <li><strong>Classes:</strong> 10 clothing categories (T-shirt, Trouser, Pullover, Dress, Coat, Sandal, Shirt, Sneaker, Bag, Ankle boot)</li>
-              </ul>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-              <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 0.75rem; font-size: 0.85rem; color: var(--text-muted);">
-                <strong style="color: var(--text-main);"><i class="fa-solid fa-code"></i> Data path:</strong> <code>Assignment1/data/FashionMNIST/</code><br>
-                Auto-downloaded via <code>torchvision.datasets.FashionMNIST</code>
-              </div>
-              <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 0.75rem; font-size: 0.85rem; color: var(--text-muted);">
-                <strong style="color: var(--text-main);"><i class="fa-solid fa-file-code"></i> Config:</strong> <code>Assignment1/code/config.py</code><br>
-                <code>SEED=42</code>, <code>VAL_SIZE=0.1</code>, <code>BATCH_SIZE=256</code>
-              </div>
-            </div>
+      <section class="data-eda-panel" aria-labelledby="data-eda-title">
+        <div class="data-eda-header">
+          <div>
+            <span class="section-eyebrow">Dataset profile</span>
+            <h2 class="section-title" id="data-eda-title"><i class="fa-solid fa-chart-pie"></i> Fashion-MNIST Data &amp; EDA</h2>
+            <p>A reproducible view of the data split, preprocessing pipeline, and the structure observed before training.</p>
           </div>
-
-          <!-- EDA Plots from outputs/ -->
-          <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-chart-bar"></i> EDA Outputs</h3>
-          <div class="grid-2" style="margin-top: 1rem;">
-            <div style="text-align: center;">
-              <img src="./outputs/eda/class_distribution.png" alt="Fashion-MNIST Class Distribution" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Class Distribution — Balanced (6,000 / class in train split)</p>
-            </div>
-            <div style="text-align: center;">
-              <img src="./outputs/eda/random_examples.png" alt="Random Dataset Examples" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Random Dataset Samples — 28×28 grayscale, 10 classes</p>
-            </div>
-          </div>
-          <div style="margin-top: 1.25rem; text-align: center;">
-            <img src="./outputs/eda/class_similarity_matrix.png" alt="Class Similarity Matrix" style="max-width: 560px; width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Class Similarity Matrix — pixel-space cosine similarity between class prototypes</p>
-          </div>
-          <div style="margin-top: 1.25rem; text-align: center;">
-            <img src="./outputs/eda/dimensionality_reduction.png" alt="Dimensionality Reduction (UMAP/t-SNE)" style="max-width: 720px; width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Dimensionality Reduction — UMAP/t-SNE projection of Fashion-MNIST embeddings (10 classes)</p>
-          </div>
+          <span class="dataset-badge"><i class="fa-solid fa-database"></i> 70,000 images</span>
         </div>
-      </div>
+
+        <div class="dataset-stats" aria-label="Dataset summary">
+          <div class="dataset-stat"><span>Training</span><strong>54,000</strong><small>stratified subset</small></div>
+          <div class="dataset-stat"><span>Validation</span><strong>6,000</strong><small>10% held out</small></div>
+          <div class="dataset-stat"><span>Test</span><strong>10,000</strong><small>official split</small></div>
+          <div class="dataset-stat"><span>Input</span><strong>28 × 28</strong><small>1 grayscale channel</small></div>
+        </div>
+
+        <div class="data-detail-grid">
+          <article class="data-detail-card preprocessing-card">
+            <div class="data-card-heading">
+              <span class="data-card-icon"><i class="fa-solid fa-sliders"></i></span>
+              <div><span class="section-eyebrow">Preprocessing</span><h3>Pixel transformation pipeline</h3></div>
+            </div>
+            <div class="transform-flow" aria-label="Pixel preprocessing steps">
+              <div class="transform-step">
+                <span class="transform-index">01</span>
+                <div><strong>Raw image</strong><p><code>uint8</code> pixels in <code>[0, 255]</code></p></div>
+              </div>
+              <i class="fa-solid fa-arrow-right transform-arrow" aria-hidden="true"></i>
+              <div class="transform-step">
+                <span class="transform-index">02</span>
+                <div><strong><code>ToTensor()</code></strong><p>Converts to float and rescales to <code>[0, 1]</code></p></div>
+              </div>
+              <i class="fa-solid fa-arrow-right transform-arrow" aria-hidden="true"></i>
+              <div class="transform-step">
+                <span class="transform-index">03</span>
+                <div><strong><code>Normalize(μ, σ)</code></strong><p>Standardizes with <code>(x − μ<sub>train</sub>) / σ<sub>train</sub></code></p></div>
+              </div>
+            </div>
+            <div class="normalization-note">
+              <i class="fa-solid fa-circle-info"></i>
+              <p><strong>The final values are not restricted to [0, 1].</strong> Normalization centers the training pixels near zero and scales them to roughly unit variance. The same training-set statistics are reused for validation and test data to avoid leakage.</p>
+            </div>
+          </article>
+
+          <aside class="data-detail-card setup-card">
+            <div class="data-card-heading">
+              <span class="data-card-icon"><i class="fa-solid fa-list-check"></i></span>
+              <div><span class="section-eyebrow">Experiment setup</span><h3>Loader configuration</h3></div>
+            </div>
+            <dl class="setup-list">
+              <div><dt>Tensor shape</dt><dd><code>[B, 1, 28, 28]</code></dd></div>
+              <div><dt>Class balance</dt><dd>5,400 train / class</dd></div>
+              <div><dt>Split seed</dt><dd><code>42</code></dd></div>
+              <div><dt>Batch size</dt><dd><code>256</code></dd></div>
+              <div><dt>Training only</dt><dd>Flip + affine transform</dd></div>
+              <div><dt>Val / test</dt><dd>No augmentation</dd></div>
+            </dl>
+            <div class="source-note">
+              <i class="fa-solid fa-folder-open"></i>
+              <span><strong>Source</strong><code>Assignment1/data/FashionMNIST/</code></span>
+            </div>
+          </aside>
+        </div>
+
+        <div class="eda-section-heading">
+          <div><span class="section-eyebrow">Exploratory analysis</span><h3>What the dataset reveals</h3></div>
+          <p>Distribution, visual samples, class similarity, and low-dimensional structure.</p>
+        </div>
+
+        <div class="eda-gallery">
+          <figure class="eda-figure">
+            <div class="eda-figure-label"><i class="fa-solid fa-chart-column"></i> Distribution</div>
+            <img src="./outputs/eda/class_distribution.png" alt="Fashion-MNIST class distribution chart">
+            <figcaption><strong>Balanced labels</strong><span>The official training set contains 6,000 images per class; stratification preserves 5,400 per class in the training subset.</span></figcaption>
+          </figure>
+          <figure class="eda-figure">
+            <div class="eda-figure-label"><i class="fa-regular fa-images"></i> Samples</div>
+            <img src="./outputs/eda/random_examples.png" alt="Random Fashion-MNIST image samples">
+            <figcaption><strong>Visual inspection</strong><span>Seeded examples verify image-label alignment across all ten clothing categories.</span></figcaption>
+          </figure>
+          <figure class="eda-figure">
+            <div class="eda-figure-label"><i class="fa-solid fa-table-cells"></i> Similarity</div>
+            <img src="./outputs/eda/class_similarity_matrix.png" alt="Cosine similarity matrix between Fashion-MNIST class prototypes">
+            <figcaption><strong>Class similarity</strong><span>Pixel-space cosine similarity highlights categories whose average silhouettes overlap.</span></figcaption>
+          </figure>
+          <figure class="eda-figure">
+            <div class="eda-figure-label"><i class="fa-solid fa-circle-nodes"></i> Projection</div>
+            <img src="./outputs/eda/dimensionality_reduction.png" alt="PCA, t-SNE, and UMAP projections of Fashion-MNIST">
+            <figcaption><strong>Low-dimensional structure</strong><span>PCA, t-SNE, and UMAP expose separable groups and ambiguous class boundaries.</span></figcaption>
+          </figure>
+        </div>
+      </section>
     </div>
 
     <!-- TAB 3: Methodology -->
@@ -152,51 +193,23 @@
         <h2 class="section-title"><i class="fa-solid fa-gears"></i> End-to-End Pipeline & Architecture Definitions</h2>
         <div class="card-body" style="margin-top: 1rem;">
 
-          <!-- Visual Pipeline Diagram -->
-          <h3 style="color: var(--secondary-light); font-size: 1.15rem; margin-bottom: 1rem;"><i class="fa-solid fa-diagram-project"></i> Unified Pipeline Structure</h3>
-          <div style="overflow-x: auto; padding: 0.5rem 0;">
-            <div style="display: flex; align-items: center; gap: 0; min-width: 760px; justify-content: center; flex-wrap: nowrap;">
-              <!-- Step 1 -->
-              <div style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem;">
-                <div style="background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white; border-radius: var(--radius-md); padding: 0.6rem 1rem; font-size: 0.82rem; font-weight: 700; text-align: center; min-width: 90px; box-shadow: 0 4px 10px rgba(15,130,223,0.3);"><i class="fa-solid fa-database"></i><br>Raw Data<br><span style="font-weight: 400; font-size: 0.72rem; opacity: 0.9;">Fashion-MNIST</span></div>
-              </div>
-              <div style="color: var(--primary-light); font-size: 1.1rem; padding: 0 0.3rem;">→</div>
-              <!-- Step 2 -->
-              <div style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem;">
-                <div style="background: linear-gradient(135deg, #1e3a5f, #2a5298); color: white; border-radius: var(--radius-md); padding: 0.6rem 1rem; font-size: 0.82rem; font-weight: 700; text-align: center; min-width: 90px; box-shadow: 0 4px 10px rgba(42,82,152,0.3);"><i class="fa-solid fa-sliders"></i><br>Preprocess<br><span style="font-weight: 400; font-size: 0.72rem; opacity: 0.9;">Normalize + Aug</span></div>
-              </div>
-              <div style="color: var(--primary-light); font-size: 1.1rem; padding: 0 0.3rem;">→</div>
-              <!-- Step 3 -->
-              <div style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem;">
-                <div style="background: linear-gradient(135deg, #1a3a4a, #1e5f74); color: white; border-radius: var(--radius-md); padding: 0.6rem 1rem; font-size: 0.82rem; font-weight: 700; text-align: center; min-width: 90px; box-shadow: 0 4px 10px rgba(30,95,116,0.3);"><i class="fa-solid fa-cubes"></i><br>DataLoader<br><span style="font-weight: 400; font-size: 0.72rem; opacity: 0.9;">Batch=256, Seed=42</span></div>
-              </div>
-              <div style="color: var(--primary-light); font-size: 1.1rem; padding: 0 0.3rem;">→</div>
-              <!-- Step 4 -->
-              <div style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem;">
-                <div style="background: linear-gradient(135deg, #2d1b4e, #553d94); color: white; border-radius: var(--radius-md); padding: 0.6rem 1rem; font-size: 0.82rem; font-weight: 700; text-align: center; min-width: 90px; box-shadow: 0 4px 10px rgba(85,61,148,0.3);"><i class="fa-solid fa-brain"></i><br>Model<br><span style="font-weight: 400; font-size: 0.72rem; opacity: 0.9;">Linear/MLP/CNN…</span></div>
-              </div>
-              <div style="color: var(--primary-light); font-size: 1.1rem; padding: 0 0.3rem;">→</div>
-              <!-- Step 5 -->
-              <div style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem;">
-                <div style="background: linear-gradient(135deg, #3a1a1a, #8b2020); color: white; border-radius: var(--radius-md); padding: 0.6rem 1rem; font-size: 0.82rem; font-weight: 700; text-align: center; min-width: 90px; box-shadow: 0 4px 10px rgba(139,32,32,0.3);"><i class="fa-solid fa-calculator"></i><br>Loss<br><span style="font-weight: 400; font-size: 0.72rem; opacity: 0.9;">CrossEntropyLoss</span></div>
-              </div>
-              <div style="color: var(--primary-light); font-size: 1.1rem; padding: 0 0.3rem;">→</div>
-              <!-- Step 6 -->
-              <div style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem;">
-                <div style="background: linear-gradient(135deg, #1a3a1a, #2e7d32); color: white; border-radius: var(--radius-md); padding: 0.6rem 1rem; font-size: 0.82rem; font-weight: 700; text-align: center; min-width: 90px; box-shadow: 0 4px 10px rgba(46,125,50,0.3);"><i class="fa-solid fa-rotate"></i><br>Optimizer<br><span style="font-weight: 400; font-size: 0.72rem; opacity: 0.9;">AdamW, lr=0.001</span></div>
-              </div>
-              <div style="color: var(--primary-light); font-size: 1.1rem; padding: 0 0.3rem;">→</div>
-              <!-- Step 7 -->
-              <div style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem;">
-                <div style="background: linear-gradient(135deg, #3a2a10, #b36b00); color: white; border-radius: var(--radius-md); padding: 0.6rem 1rem; font-size: 0.82rem; font-weight: 700; text-align: center; min-width: 90px; box-shadow: 0 4px 10px rgba(179,107,0,0.3);"><i class="fa-solid fa-box-archive"></i><br>Checkpoint<br><span style="font-weight: 400; font-size: 0.72rem; opacity: 0.9;">Best Val Loss</span></div>
-              </div>
-              <div style="color: var(--primary-light); font-size: 1.1rem; padding: 0 0.3rem;">→</div>
-              <!-- Step 8 -->
-              <div style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem;">
-                <div style="background: linear-gradient(135deg, #0a2a2a, #006064); color: white; border-radius: var(--radius-md); padding: 0.6rem 1rem; font-size: 0.82rem; font-weight: 700; text-align: center; min-width: 90px; box-shadow: 0 4px 10px rgba(0,96,100,0.3);"><i class="fa-solid fa-chart-line"></i><br>Evaluation<br><span style="font-weight: 400; font-size: 0.72rem; opacity: 0.9;">Acc / F1 / CM</span></div>
-              </div>
+          <!-- Activity Diagram -->
+          <div class="method-heading">
+            <div>
+              <span class="section-eyebrow">Reproducible workflow</span>
+              <h3><i class="fa-solid fa-diagram-project"></i> Unified Experiment Activity Diagram</h3>
             </div>
+            <p>Validation controls model selection; the test set remains isolated until the best checkpoint has been restored.</p>
           </div>
+
+          <figure class="pipeline-diagram">
+            <a href="./diagram-pipeline/pipeline-dl1.drawio.svg" target="_blank" aria-label="Open the full-size experiment activity diagram">
+              <img src="./diagram-pipeline/pipeline-dl1.drawio.svg" alt="Activity diagram of the Fashion-MNIST data, model development, checkpoint selection, testing, and evaluation workflow">
+            </a>
+            <figcaption>
+              <span>Unified activity diagram for the data, model-development, and evaluation phases.</span>
+            </figcaption>
+          </figure>
 
           <!-- Training Setup callout -->
           <div class="callout callout-info" style="margin-top: 1.5rem;">
@@ -205,7 +218,8 @@
               <ul style="padding-left: 1.25rem; margin: 0;">
                 <li><strong>Optimizer:</strong> AdamW (<code>lr=0.001</code>, <code>wd=0.1</code>)</li>
                 <li><strong>Batch size:</strong> 256</li>
-                <li><strong>Max epochs:</strong> 5 (+ early stopping patience 10)</li>
+                <li><strong>Max epochs:</strong> 10000</li>
+                <li><strong>Early-stopping patience:</strong> 10</li>
                 <li><strong>Checkpoint criterion:</strong> Lowest validation loss</li>
               </ul>
               <ul style="padding-left: 1.25rem; margin: 0;">
@@ -218,46 +232,59 @@
           </div>
 
           <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-layer-group"></i> Mandatory Architecture Configurations</h3>
+          <p class="section-desc">The Linear and MLP rows reflect the current implementation. The remaining mandatory model families are retained as planned work without claiming configurations that have not yet been implemented.</p>
           <div class="table-responsive">
             <table class="table">
               <thead>
                 <tr>
                   <th>Architecture</th>
+                  <th>Status</th>
                   <th>Input Representation</th>
-                  <th>Key Component / Layers</th>
+                  <th>Implemented Configuration</th>
                   <th>Loss Function</th>
+                  <th>Parameters</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td><strong>1. Linear / Softmax</strong></td>
-                  <td>Flattened Vector (784)</td>
-                  <td>Single Linear Layer <code>[784 → 10]</code></td>
-                  <td>CrossEntropyLoss (logits directly)</td>
+                  <td><span class="card-badge badge-approved">Implemented</span></td>
+                  <td>Flattened tensor <code>[B, 784]</code></td>
+                  <td><code>Linear(784, 10)</code>; returns ten unnormalized class logits</td>
+                  <td><code>CrossEntropyLoss</code></td>
+                  <td>7,850</td>
                 </tr>
                 <tr>
                   <td><strong>2. MLP</strong></td>
-                  <td>Flattened Vector (784)</td>
-                  <td>3-layer FC: <code>784 → 256 → 128 → 10</code> + ReLU + Dropout(0.2)</td>
-                  <td>CrossEntropyLoss</td>
+                  <td><span class="card-badge badge-approved">Implemented</span></td>
+                  <td>Flattened tensor <code>[B, 784]</code></td>
+                  <td>Four linear layers: <code>784 → 512 → 256 → 128 → 10</code>. Each of the three hidden layers uses ReLU followed by <code>Dropout(0.2)</code>; the output layer returns logits without an activation.</td>
+                  <td><code>CrossEntropyLoss</code></td>
+                  <td>567,434</td>
                 </tr>
                 <tr>
-                  <td><strong>3. CNN</strong> <span class="card-badge badge-pending" style="font-size: 0.7rem;">TBD</span></td>
-                  <td>2D Spatial Tensor <code>[1, 28, 28]</code></td>
-                  <td>Self-designed 3-stage Conv2D + BatchNorm + MaxPool + FC Head</td>
-                  <td>CrossEntropyLoss</td>
+                  <td><strong>3. CNN</strong></td>
+                  <td><span class="card-badge badge-pending">Pending</span></td>
+                  <td>2D image tensor <code>[B, 1, 28, 28]</code></td>
+                  <td>Not yet implemented; convolutional architecture is TBD.</td>
+                  <td>TBD</td>
+                  <td>TBD</td>
                 </tr>
                 <tr>
-                  <td><strong>4. LSTM / GRU</strong> <span class="card-badge badge-pending" style="font-size: 0.7rem;">TBD</span></td>
-                  <td>Row Sequence (28 steps × 28 features)</td>
-                  <td>2-layer Bidirectional LSTM/GRU (hidden 128) + FC Classifier</td>
-                  <td>CrossEntropyLoss</td>
+                  <td><strong>4. LSTM / GRU</strong></td>
+                  <td><span class="card-badge badge-pending">Pending</span></td>
+                  <td>Sequence representation is not yet finalized</td>
+                  <td>Not yet implemented; recurrent architecture is TBD.</td>
+                  <td>TBD</td>
+                  <td>TBD</td>
                 </tr>
                 <tr>
-                  <td><strong>5. Vision Transformer</strong> <span class="card-badge badge-pending" style="font-size: 0.7rem;">TBD</span></td>
-                  <td>Patch Sequence (4×4 patches → 49 tokens + CLS)</td>
-                  <td>Linear Patch Projection → Positional Encoding → Multi-Head Self-Attention → MLP Head</td>
-                  <td>CrossEntropyLoss</td>
+                  <td><strong>5. Vision Transformer</strong></td>
+                  <td><span class="card-badge badge-pending">Pending</span></td>
+                  <td>Patch representation is not yet finalized</td>
+                  <td>Not yet implemented; patch size and transformer configuration are TBD.</td>
+                  <td>TBD</td>
+                  <td>TBD</td>
                 </tr>
               </tbody>
             </table>
@@ -303,7 +330,7 @@
                   <td>0.030 MB</td>
                 </tr>
                 <tr style="background: rgba(15,130,223,0.06);">
-                  <td><strong>MLP (2 hidden layers)</strong> ✅</td>
+                  <td><strong>MLP (3 hidden layers)</strong> ✅</td>
                   <td><strong>83.19%</strong></td>
                   <td>0.8269</td>
                   <td>567,434</td>
@@ -397,7 +424,7 @@
           
           <div class="callout callout-warning">
             <div class="callout-title"><i class="fa-solid fa-triangle-exclamation"></i> Mandatory Video Requirements</div>
-            <p><strong>Title Format:</strong> <code>CO3133-Semester-261 - Group [ID] - Assignment 1</code></p>
+            <p><strong>Title Format:</strong> <code>CO3133-Semester-261 - G-10 - Assignment 1</code></p>
             <p><strong>Visibility:</strong> Public or Unlisted (All members must present or defend part of the content).</p>
           </div>
 
@@ -435,7 +462,7 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <p>© 2026 Group [ID] · Assignment 1 Page · CO3133 Deep Learning</p>
+      <p>© 2026 G-10 · Assignment 1 Page · CO3133 Deep Learning</p>
     </div>
   </footer>
 

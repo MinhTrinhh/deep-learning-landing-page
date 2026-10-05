@@ -63,6 +63,5 @@ Responsible member: Tran Phuoc Sang
 ---
 
 > **Consistency note:** The AI usage entries above are consistent with the disclosure in
-> [`docs/index.html`](../docs/index.html) (landing page),
 > the AI Disclosure tab in [`Assignment1/index.html`](index.html), and
 > the `AI_Usage_Disclosure.tex` section of the Assignment 1 LaTeX report.

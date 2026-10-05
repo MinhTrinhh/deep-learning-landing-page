@@ -635,6 +635,260 @@ body {
   gap: 0.5rem;
 }
 
+/* Assignment 1: Data & EDA */
+.method-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1.25rem;
+}
+
+.method-heading h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text-main);
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+}
+
+.method-heading h3 i { color: var(--primary); }
+.method-heading p { max-width: 510px; color: var(--text-muted); font-size: 0.85rem; text-align: right; }
+
+.pipeline-diagram {
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  box-shadow: 0 8px 24px rgba(31, 41, 55, 0.05);
+}
+
+.pipeline-diagram > a { display: block; padding: 1.25rem; background: #f8fafc; }
+.pipeline-diagram img { display: block; width: 100%; height: auto; max-height: 1100px; object-fit: contain; }
+.pipeline-diagram figcaption { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.85rem 1.1rem; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.78rem; }
+
+.data-eda-panel {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--glass-shadow);
+  overflow: hidden;
+}
+
+.data-eda-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2rem 2rem 1.5rem;
+  background: linear-gradient(135deg, rgba(15, 130, 223, 0.08), rgba(13, 188, 209, 0.04));
+  border-bottom: 1px solid var(--border-color);
+}
+
+.data-eda-header p,
+.eda-section-heading p {
+  max-width: 720px;
+  margin-top: 0.55rem;
+  color: var(--text-muted);
+}
+
+.section-eyebrow {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--primary-dark);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.dataset-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 0 0 auto;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid rgba(15, 130, 223, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--primary-dark);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.dataset-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.dataset-stat {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 1.35rem 2rem;
+  border-right: 1px solid var(--border-color);
+}
+
+.dataset-stat:last-child { border-right: 0; }
+.dataset-stat span { color: var(--text-subtle); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; }
+.dataset-stat strong { color: var(--text-main); font-family: var(--font-heading); font-size: 1.65rem; line-height: 1.35; }
+.dataset-stat small { color: var(--text-muted); font-size: 0.78rem; }
+
+.data-detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.75fr) minmax(280px, 0.85fr);
+  gap: 1.25rem;
+  padding: 2rem;
+}
+
+.data-detail-card {
+  padding: 1.4rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  box-shadow: 0 8px 24px rgba(31, 41, 55, 0.04);
+}
+
+.data-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.data-card-heading h3,
+.eda-section-heading h3 {
+  color: var(--text-main);
+  font-family: var(--font-heading);
+  font-size: 1.08rem;
+}
+
+.data-card-icon {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(15, 130, 223, 0.1);
+  color: var(--primary);
+}
+
+.transform-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1.2fr;
+  align-items: stretch;
+  gap: 0.6rem;
+}
+
+.transform-step {
+  display: flex;
+  gap: 0.7rem;
+  min-width: 0;
+  padding: 0.9rem;
+  border: 1px solid rgba(15, 130, 223, 0.13);
+  border-radius: var(--radius-md);
+  background: #f8fbfd;
+}
+
+.transform-step p { margin-top: 0.25rem; color: var(--text-muted); font-size: 0.78rem; line-height: 1.5; }
+.transform-index { color: var(--primary); font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; }
+.transform-arrow { align-self: center; color: var(--primary-light); font-size: 0.78rem; }
+
+.normalization-note {
+  display: flex;
+  gap: 0.7rem;
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius-md);
+  background: rgba(169, 209, 63, 0.1);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.normalization-note i { margin-top: 0.2rem; color: var(--status-approved); }
+.normalization-note strong { color: var(--text-main); }
+
+.setup-list { display: grid; gap: 0; }
+.setup-list div { display: flex; justify-content: space-between; gap: 1rem; padding: 0.62rem 0; border-bottom: 1px dashed var(--border-color); }
+.setup-list dt { color: var(--text-muted); font-size: 0.82rem; }
+.setup-list dd { color: var(--text-main); font-size: 0.82rem; font-weight: 600; text-align: right; }
+
+.source-note {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  background: rgba(15, 130, 223, 0.06);
+  color: var(--primary-dark);
+  font-size: 0.76rem;
+}
+
+.source-note span { display: flex; flex-direction: column; min-width: 0; }
+.source-note code { overflow-wrap: anywhere; color: var(--text-muted); }
+
+.eda-section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 0.5rem 2rem 1rem;
+}
+
+.eda-section-heading p { max-width: 420px; margin: 0; font-size: 0.85rem; text-align: right; }
+
+.eda-gallery {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+  padding: 0 2rem 2rem;
+}
+
+.eda-figure {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  box-shadow: 0 8px 24px rgba(31, 41, 55, 0.04);
+}
+
+.eda-figure-label {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.8rem;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid rgba(15, 130, 223, 0.15);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--primary-dark);
+  font-size: 0.72rem;
+  font-weight: 700;
+  backdrop-filter: blur(8px);
+}
+
+.eda-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  padding: 1rem;
+  background: #f8fafc;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.eda-figure figcaption { display: flex; flex-direction: column; gap: 0.25rem; padding: 1rem 1.1rem 1.15rem; }
+.eda-figure figcaption strong { color: var(--text-main); font-family: var(--font-heading); font-size: 0.92rem; }
+.eda-figure figcaption span { color: var(--text-muted); font-size: 0.8rem; line-height: 1.5; }
+
 /* Code Snippets */
 pre, code {
   font-family: var(--font-mono);
@@ -703,4 +957,18 @@ pre {
   .hero-title { font-size: 2.2rem; }
   .nav-links { display: none; }
   .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  .data-eda-header, .eda-section-heading { align-items: flex-start; flex-direction: column; gap: 0.8rem; }
+  .data-eda-header, .data-detail-grid, .eda-gallery { padding-left: 1.1rem; padding-right: 1.1rem; }
+  .dataset-stats { grid-template-columns: repeat(2, 1fr); }
+  .dataset-stat { padding: 1rem 1.1rem; }
+  .dataset-stat:nth-child(2) { border-right: 0; }
+  .dataset-stat:nth-child(-n+2) { border-bottom: 1px solid var(--border-color); }
+  .data-detail-grid, .eda-gallery { grid-template-columns: 1fr; }
+  .transform-flow { grid-template-columns: 1fr; }
+  .transform-arrow { transform: rotate(90deg); justify-self: center; }
+  .eda-section-heading p { text-align: left; }
+  .method-heading { align-items: flex-start; flex-direction: column; gap: 0.6rem; }
+  .method-heading p { text-align: left; }
+  .pipeline-diagram > a { padding: 0.5rem; }
+  .pipeline-diagram figcaption { align-items: flex-start; flex-direction: column; }
 }
