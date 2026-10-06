@@ -94,6 +94,20 @@ python main.py --model all --no-aug
 
 Use `--aug` explicitly when desired; augmentation is enabled by default.
 
+## Evaluation-Only Commands
+
+Load an existing best checkpoint and evaluate it without retraining:
+
+```bash
+python main.py --model linear --aug --eval-only
+python main.py --model mlp --aug --eval-only
+python main.py --model cnn --aug --eval-only
+```
+
+The augmentation flag selects the matching checkpoint name (`*_aug.pt` or
+`*_no_aug.pt`). Evaluation-only mode regenerates test metrics and the confusion
+matrix while preserving the learning curve from the original training run.
+
 ## Evaluation Commands
 
 Evaluation is automatic after every training command. The trainer restores the checkpoint with the lowest validation loss, evaluates it on the official test set, prints the metrics, and writes the generated artifacts under `Assignment1/outputs/`.

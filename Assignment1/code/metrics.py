@@ -75,7 +75,9 @@ class MetricCalculator:
         inference_ms_per_batch = (time.perf_counter() - start_time) / 50 * 1000 #in milliseconds
 
         return {
-            "train_time_seconds": float(train_time_seconds),
+            "train_time_seconds": (
+                None if train_time_seconds is None else float(train_time_seconds)
+            ),
             "inference_ms_per_sample": float(inference_ms_per_batch / batch_size),
             "flops_b": float((macs * 2 / batch_size) / 1e9),
             "model_size_mb": float(total_bytes / (1024 * 1024)),
@@ -103,7 +105,10 @@ class MetricCalculator:
 
         #for resource metrics
         if resource_metrics is not None:
-            print(f"Train time: {resource_metrics['train_time_seconds']:.2f}s")
+            if resource_metrics["train_time_seconds"] is None:
+                print("Train time: not measured (evaluation-only)")
+            else:
+                print(f"Train time: {resource_metrics['train_time_seconds']:.2f}s")
             print(
                 "Inference time: "
                 f"{resource_metrics['inference_ms_per_sample']:.6f} ms/sample"

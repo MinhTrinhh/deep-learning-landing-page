@@ -668,6 +668,59 @@ body {
 .pipeline-diagram img { display: block; width: 100%; height: auto; max-height: 1100px; object-fit: contain; }
 .pipeline-diagram figcaption { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.85rem 1.1rem; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.78rem; }
 
+.architecture-diagrams { margin-top: 2.25rem; }
+.architecture-diagrams .method-heading { margin-bottom: 1rem; }
+.architecture-diagram-grid { display: grid; gap: 1.25rem; }
+.architecture-diagram-card {
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  box-shadow: 0 8px 24px rgba(31, 41, 55, 0.05);
+}
+.architecture-diagram-card > a { display: block; overflow-x: auto; padding: 1rem; background: #f8fafc; }
+.architecture-diagram-card img { display: block; width: 100%; min-width: 760px; height: auto; color-scheme: only light; }
+.architecture-diagram-card figcaption {
+  padding: 0.85rem 1.1rem;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+.architecture-diagram-summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.architecture-diagram-summary strong { color: var(--text-main); }
+.architecture-diagram-card figcaption p { margin-top: 0.65rem; line-height: 1.65; }
+.compact-points {
+  margin: 0.6rem 0 0;
+  padding-left: 1.15rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+.compact-points li + li { margin-top: 0.25rem; }
+.section-desc.compact-points { margin-bottom: 1.25rem; }
+
+.result-figure-stack { display: grid; gap: 1.25rem; margin-top: 1rem; }
+.result-figure-card {
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  box-shadow: 0 8px 24px rgba(31, 41, 55, 0.05);
+}
+.result-figure-card > a { display: flex; justify-content: center; padding: 1rem; background: #f8fafc; }
+.result-figure-card img { display: block; width: 100%; max-width: 1200px; height: auto; object-fit: contain; }
+.result-figure-card--matrix img { max-width: 820px; }
+.result-figure-card figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.1rem;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+.result-figure-card figcaption strong { color: var(--text-main); }
+
 .data-eda-panel {
   background: rgba(255, 255, 255, 0.82);
   border: 1px solid var(--border-color);
@@ -971,4 +1024,9 @@ pre {
   .method-heading p { text-align: left; }
   .pipeline-diagram > a { padding: 0.5rem; }
   .pipeline-diagram figcaption { align-items: flex-start; flex-direction: column; }
+  .architecture-diagram-card > a { padding: 0.5rem; }
+  .architecture-diagram-card img { min-width: 900px; }
+  .architecture-diagram-summary { align-items: flex-start; flex-direction: column; gap: 0.25rem; }
+  .result-figure-card > a { padding: 0.5rem; }
+  .result-figure-card figcaption { align-items: flex-start; flex-direction: column; gap: 0.25rem; }
 }

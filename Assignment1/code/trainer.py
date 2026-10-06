@@ -24,6 +24,8 @@ class Trainer():
         epochs=NUM_EPOCHS,
         model_name=None,
     ):
+        if epochs < 1:
+            raise ValueError("epochs must be at least 1; use --eval-only to evaluate a checkpoint")
 
         epoch_train_loss = []
         epoch_val_loss = []
@@ -87,13 +89,8 @@ class Trainer():
                 if ticking_clock == 0:
                     break
 
-        checkpoint = self.load_checkpoint(checkpoint_path, model)
+        checkpoint = self.restore_best_checkpoint(model, model_name)
         self.last_train_time = time.perf_counter() - train_start
-        print(
-            f"Restored best {model_name} checkpoint from epoch "
-            f"{checkpoint['epoch']} "
-            f"(validation loss={checkpoint['val_loss']:.4f})"
-        )
 
         return epoch_train_loss, epoch_train_accuracies, epoch_val_loss, epoch_val_accuracies
 
@@ -133,6 +130,24 @@ class Trainer():
         model.load_state_dict(checkpoint["model_state_dict"])
         if optimizer is not None:
             optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
+        return checkpoint
+
+    def restore_best_checkpoint(self, model, model_name):
+        """Restore the best checkpoint for a named experiment."""
+        checkpoint_path = self.checkpoint_dir / f"best_{model_name.lower()}.pt"
+        if not checkpoint_path.is_file():
+            raise FileNotFoundError(
+                f"Checkpoint not found: {checkpoint_path}. "
+                "Train this model configuration before using --eval-only."
+            )
+
+        checkpoint = self.load_checkpoint(checkpoint_path, model)
+        self.last_train_time = None
+        print(
+            f"Restored best {model_name} checkpoint from epoch "
+            f"{checkpoint['epoch']} "
+            f"(validation loss={checkpoint['val_loss']:.4f})"
+        )
         return checkpoint
 
     def validate_model(self, model, val_loader, loss_func, return_predictions=False):

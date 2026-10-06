@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="480" viewBox="0 0 1600 480" role="img" aria-labelledby="title description" style="color-scheme: only light">
+  <title id="title">Multilayer perceptron model architecture</title>
+  <desc id="description">Fashion-MNIST images are flattened and processed by hidden layers of 512, 256, and 128 units with ReLU and dropout, followed by 10 output logits.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0f82df"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 15px Arial, sans-serif; fill: #64748b; }
+      .label { font: 700 17px Arial, sans-serif; fill: #0f172a; }
+      .detail { font: 14px Arial, sans-serif; fill: #475569; }
+      .shape { font: 700 14px Arial, sans-serif; fill: #0f82df; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="480" rx="22" fill="#f8fafc"/>
+  <text x="50" y="54" class="title">Multilayer Perceptron</text>
+  <text x="50" y="82" class="subtitle">Three nonlinear hidden layers learn increasingly compact representations of flattened pixels.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="35" y="150" width="190" height="170" rx="18" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+    <rect x="285" y="150" width="180" height="170" rx="18" fill="#eaf6fc" stroke="#0f82df" stroke-width="2"/>
+    <rect x="525" y="125" width="250" height="220" rx="18" fill="#dbeafe" stroke="#0f82df" stroke-width="2"/>
+    <rect x="835" y="125" width="250" height="220" rx="18" fill="#dbeafe" stroke="#0f82df" stroke-width="2"/>
+    <rect x="1145" y="125" width="250" height="220" rx="18" fill="#dbeafe" stroke="#0f82df" stroke-width="2"/>
+    <rect x="1450" y="150" width="120" height="170" rx="18" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+  </g>
+
+  <text x="130" y="198" text-anchor="middle" class="label">Input</text>
+  <text x="130" y="233" text-anchor="middle" class="shape">[B, 1, 28, 28]</text>
+  <text x="130" y="268" text-anchor="middle" class="detail">Normalized image</text>
+
+  <text x="375" y="198" text-anchor="middle" class="label">Flatten</text>
+  <text x="375" y="233" text-anchor="middle" class="shape">[B, 784]</text>
+  <text x="375" y="268" text-anchor="middle" class="detail">Pixel vector</text>
+
+  <text x="650" y="172" text-anchor="middle" class="label">Hidden layer 1</text>
+  <text x="650" y="207" text-anchor="middle" class="shape">Linear 784 → 512</text>
+  <text x="650" y="242" text-anchor="middle" class="detail">ReLU</text>
+  <text x="650" y="270" text-anchor="middle" class="detail">Dropout(p = 0.2)</text>
+  <text x="650" y="308" text-anchor="middle" class="detail">401,920 parameters</text>
+
+  <text x="960" y="172" text-anchor="middle" class="label">Hidden layer 2</text>
+  <text x="960" y="207" text-anchor="middle" class="shape">Linear 512 → 256</text>
+  <text x="960" y="242" text-anchor="middle" class="detail">ReLU</text>
+  <text x="960" y="270" text-anchor="middle" class="detail">Dropout(p = 0.2)</text>
+  <text x="960" y="308" text-anchor="middle" class="detail">131,328 parameters</text>
+
+  <text x="1270" y="172" text-anchor="middle" class="label">Hidden layer 3</text>
+  <text x="1270" y="207" text-anchor="middle" class="shape">Linear 256 → 128</text>
+  <text x="1270" y="242" text-anchor="middle" class="detail">ReLU</text>
+  <text x="1270" y="270" text-anchor="middle" class="detail">Dropout(p = 0.2)</text>
+  <text x="1270" y="308" text-anchor="middle" class="detail">32,896 parameters</text>
+
+  <text x="1510" y="198" text-anchor="middle" class="label">Logits</text>
+  <text x="1510" y="233" text-anchor="middle" class="shape">128 → 10</text>
+  <text x="1510" y="268" text-anchor="middle" class="detail">1,290 params</text>
+
+  <g fill="none" stroke="#0f82df" stroke-width="3" marker-end="url(#arrow)">
+    <path d="M 225 235 H 275"/>
+    <path d="M 465 235 H 515"/>
+    <path d="M 775 235 H 825"/>
+    <path d="M 1085 235 H 1135"/>
+    <path d="M 1395 235 H 1440"/>
+  </g>
+
+  <text x="50" y="410" class="label">Total trainable parameters: 567,434</text>
+  <text x="50" y="439" class="subtitle">Every output is a raw class logit; softmax is handled implicitly by CrossEntropyLoss.</text>
+</svg>

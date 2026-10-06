@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="600" viewBox="0 0 1800 600" role="img" aria-labelledby="title description" style="color-scheme: only light">
+  <title id="title">Convolutional neural network model architecture</title>
+  <desc id="description">Fashion-MNIST images pass through two convolution, ReLU, and max pooling blocks, then are flattened and classified by two hidden fully connected layers and a 10-logit output layer.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0f82df"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 15px Arial, sans-serif; fill: #64748b; }
+      .section { font: 700 13px Arial, sans-serif; fill: #0369a1; letter-spacing: 1.5px; }
+      .label { font: 700 16px Arial, sans-serif; fill: #0f172a; }
+      .detail { font: 13px Arial, sans-serif; fill: #475569; }
+      .shape { font: 700 13px Arial, sans-serif; fill: #0f82df; }
+    </style>
+  </defs>
+
+  <rect width="1800" height="600" rx="22" fill="#f8fafc"/>
+  <text x="50" y="54" class="title">Convolutional Neural Network</text>
+  <text x="50" y="82" class="subtitle">Local 3×3 filters preserve spatial structure before a fully connected classifier produces ten logits.</text>
+
+  <rect x="220" y="110" width="620" height="330" rx="24" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2" stroke-dasharray="8 7"/>
+  <text x="245" y="140" class="section">FEATURE EXTRACTOR</text>
+  <rect x="1000" y="110" width="750" height="330" rx="24" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="2" stroke-dasharray="8 7"/>
+  <text x="1025" y="140" class="section" fill="#047857">CLASSIFIER</text>
+
+  <g filter="url(#shadow)">
+    <rect x="30" y="190" width="150" height="180" rx="18" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+    <rect x="255" y="165" width="250" height="230" rx="18" fill="#dbeafe" stroke="#0f82df" stroke-width="2"/>
+    <rect x="560" y="165" width="250" height="230" rx="18" fill="#dbeafe" stroke="#0f82df" stroke-width="2"/>
+    <rect x="865" y="190" width="120" height="180" rx="18" fill="#eaf6fc" stroke="#0f82df" stroke-width="2"/>
+    <rect x="1035" y="165" width="250" height="230" rx="18" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+    <rect x="1340" y="165" width="250" height="230" rx="18" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+    <rect x="1645" y="190" width="125" height="180" rx="18" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+  </g>
+
+  <text x="105" y="235" text-anchor="middle" class="label">Input</text>
+  <text x="105" y="271" text-anchor="middle" class="shape">[B, 1, 28, 28]</text>
+  <text x="105" y="310" text-anchor="middle" class="detail">Grayscale image</text>
+
+  <text x="380" y="207" text-anchor="middle" class="label">Convolution block 1</text>
+  <text x="380" y="241" text-anchor="middle" class="shape">Conv2d 1 → 32</text>
+  <text x="380" y="266" text-anchor="middle" class="detail">3×3, stride 1, padding 1</text>
+  <text x="380" y="296" text-anchor="middle" class="detail">ReLU + MaxPool 2×2</text>
+  <text x="380" y="326" text-anchor="middle" class="shape">[B, 32, 14, 14]</text>
+  <text x="380" y="360" text-anchor="middle" class="detail">320 parameters</text>
+
+  <text x="685" y="207" text-anchor="middle" class="label">Convolution block 2</text>
+  <text x="685" y="241" text-anchor="middle" class="shape">Conv2d 32 → 64</text>
+  <text x="685" y="266" text-anchor="middle" class="detail">3×3, stride 1, padding 1</text>
+  <text x="685" y="296" text-anchor="middle" class="detail">ReLU + MaxPool 2×2</text>
+  <text x="685" y="326" text-anchor="middle" class="shape">[B, 64, 7, 7]</text>
+  <text x="685" y="360" text-anchor="middle" class="detail">18,496 parameters</text>
+
+  <text x="925" y="235" text-anchor="middle" class="label">Flatten</text>
+  <text x="925" y="271" text-anchor="middle" class="shape">[B, 3136]</text>
+  <text x="925" y="310" text-anchor="middle" class="detail">64 × 7 × 7</text>
+
+  <text x="1160" y="207" text-anchor="middle" class="label">Dense block 1</text>
+  <text x="1160" y="241" text-anchor="middle" class="shape">3136 → 512</text>
+  <text x="1160" y="276" text-anchor="middle" class="detail">ReLU</text>
+  <text x="1160" y="304" text-anchor="middle" class="detail">Dropout(p = 0.2)</text>
+  <text x="1160" y="346" text-anchor="middle" class="detail">1,606,144 parameters</text>
+
+  <text x="1465" y="207" text-anchor="middle" class="label">Dense block 2</text>
+  <text x="1465" y="241" text-anchor="middle" class="shape">512 → 128</text>
+  <text x="1465" y="276" text-anchor="middle" class="detail">ReLU</text>
+  <text x="1465" y="304" text-anchor="middle" class="detail">Dropout(p = 0.2)</text>
+  <text x="1465" y="346" text-anchor="middle" class="detail">65,664 parameters</text>
+
+  <text x="1707" y="235" text-anchor="middle" class="label">Logits</text>
+  <text x="1707" y="271" text-anchor="middle" class="shape">128 → 10</text>
+  <text x="1707" y="310" text-anchor="middle" class="detail">1,290 params</text>
+
+  <g fill="none" stroke="#0f82df" stroke-width="3" marker-end="url(#arrow)">
+    <path d="M 180 280 H 245"/>
+    <path d="M 505 280 H 550"/>
+    <path d="M 810 280 H 855"/>
+    <path d="M 985 280 H 1025"/>
+    <path d="M 1285 280 H 1330"/>
+    <path d="M 1590 280 H 1635"/>
+  </g>
+
+  <text x="50" y="505" class="label">Total trainable parameters: 1,691,914</text>
+  <text x="50" y="534" class="subtitle">The convolutional blocks contribute 18,816 parameters; most capacity is in the first dense layer.</text>
+  <text x="50" y="560" class="subtitle">Output remains ten raw logits for CrossEntropyLoss.</text>
+</svg>

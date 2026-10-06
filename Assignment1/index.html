@@ -199,7 +199,7 @@
               <span class="section-eyebrow">Reproducible workflow</span>
               <h3><i class="fa-solid fa-diagram-project"></i> Unified Experiment Activity Diagram</h3>
             </div>
-            <p>Validation controls model selection; the test set remains isolated until the best checkpoint has been restored.</p>
+            <p>Train → validate → restore the best checkpoint → test once.</p>
           </div>
 
           <figure class="pipeline-diagram">
@@ -233,7 +233,7 @@
           </div>
 
           <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-layer-group"></i> Mandatory Architecture Configurations</h3>
-          <p class="section-desc">The Linear and MLP rows reflect the current implementation. The remaining mandatory model families are retained as planned work without claiming configurations that have not yet been implemented.</p>
+          <p class="section-desc">Linear, MLP, and CNN are implemented; recurrent and transformer models remain planned work.</p>
           <div class="table-responsive">
             <table class="table">
               <thead>
@@ -265,11 +265,11 @@
                 </tr>
                 <tr>
                   <td><strong>3. CNN</strong></td>
-                  <td><span class="card-badge badge-pending">Pending</span></td>
+                  <td><span class="card-badge badge-approved">Implemented</span></td>
                   <td>2D image tensor <code>[B, 1, 28, 28]</code></td>
-                  <td>Not yet implemented; convolutional architecture is TBD.</td>
-                  <td>TBD</td>
-                  <td>TBD</td>
+                  <td>Two <code>3×3</code> convolution blocks (<code>1 → 32 → 64</code> channels), each followed by ReLU and <code>MaxPool2d(2)</code>; classifier <code>3136 → 512 → 128 → 10</code> with ReLU and <code>Dropout(0.2)</code> after both hidden layers.</td>
+                  <td><code>CrossEntropyLoss</code></td>
+                  <td>1,691,914</td>
                 </tr>
                 <tr>
                   <td><strong>4. LSTM / GRU</strong></td>
@@ -290,6 +290,57 @@
               </tbody>
             </table>
           </div>
+
+          <section class="architecture-diagrams" aria-labelledby="architecture-diagrams-title">
+            <div class="method-heading">
+              <div>
+                <span class="section-eyebrow">Layer-by-layer reference</span>
+                <h3 id="architecture-diagrams-title"><i class="fa-solid fa-sitemap"></i> Implemented Architecture Diagrams</h3>
+              </div>
+              <p>Diagrams summarize the implemented layers, tensor shapes, and parameter counts.</p>
+            </div>
+
+            <div class="architecture-diagram-grid">
+              <figure class="architecture-diagram-card">
+                <a href="./diagram-models/linear-model.svg" target="_blank" aria-label="Open the full-size Linear model architecture diagram">
+                  <img src="./diagram-models/linear-model.svg" alt="Linear Softmax architecture: Fashion-MNIST image, flatten to 784 values, and linear projection to 10 logits">
+                </a>
+                <figcaption>
+                  <div class="architecture-diagram-summary"><strong>Linear / Softmax</strong><span>Single affine projection · 7,850 parameters</span></div>
+                  <ul class="compact-points">
+                    <li>Flattens each <code>28×28</code> image into 784 features.</li>
+                    <li>Maps features directly to 10 logits as the baseline model.</li>
+                  </ul>
+                </figcaption>
+              </figure>
+
+              <figure class="architecture-diagram-card">
+                <a href="./diagram-models/mlp-model.svg" target="_blank" aria-label="Open the full-size MLP architecture diagram">
+                  <img src="./diagram-models/mlp-model.svg" alt="MLP architecture with hidden widths 512, 256, and 128, ReLU activations, dropout, and 10 output logits">
+                </a>
+                <figcaption>
+                  <div class="architecture-diagram-summary"><strong>Multilayer Perceptron</strong><span>Three nonlinear hidden layers · 567,434 parameters</span></div>
+                  <ul class="compact-points">
+                    <li>Uses hidden layers <code>512 → 256 → 128</code> with ReLU activation.</li>
+                    <li><code>Dropout(0.2)</code> reduces overfitting during training.</li>
+                  </ul>
+                </figcaption>
+              </figure>
+
+              <figure class="architecture-diagram-card">
+                <a href="./diagram-models/cnn-model.svg" target="_blank" aria-label="Open the full-size CNN architecture diagram">
+                  <img src="./diagram-models/cnn-model.svg" alt="CNN architecture with two convolution and max-pooling blocks followed by a fully connected classifier and 10 output logits">
+                </a>
+                <figcaption>
+                  <div class="architecture-diagram-summary"><strong>Convolutional Neural Network</strong><span>Two spatial feature-extraction blocks · 1,691,914 parameters</span></div>
+                  <ul class="compact-points">
+                    <li>Trained from scratch with two <code>Conv 3×3 → ReLU → MaxPool</code> blocks.</li>
+                    <li>Creates 32 then 64 feature maps; pooling halves the spatial size.</li>
+                  </ul>
+                </figcaption>
+              </figure>
+            </div>
+          </section>
         </div>
       </div>
     </div>
@@ -300,11 +351,17 @@
         <h2 class="section-title"><i class="fa-solid fa-table-list"></i> Quantitative & Qualitative Comparison</h2>
         <div class="card-body" style="margin-top: 1rem;">
 
-          <p class="section-desc">Measured performance for the two implemented models under the same augmented training pipeline and evaluation protocol. Seed: <code>42</code>. Runtime: Google Colab CPU. Split: 54K train / 6K validation / 10K test.</p>
+          <ul class="compact-points section-desc">
+            <li>Same augmented pipeline and evaluation protocol for every completed model.</li>
+            <li>Seed <code>42</code> · Colab CPU · 54K train / 6K validation / 10K test.</li>
+          </ul>
 
           <div class="callout callout-warning" style="margin-bottom: 1.5rem;">
             <div class="callout-title"><i class="fa-solid fa-triangle-exclamation"></i> Milestone 1 Status</div>
-            <p>Linear and MLP results are final (from actual code execution). CNN, LSTM/GRU, and ViT results are <strong>TBD</strong> — to be completed for M2 Final (21 Oct 2026).</p>
+            <ul class="compact-points">
+              <li>Linear and MLP results are measured and final.</li>
+              <li>CNN is implemented; CNN, LSTM/GRU, and ViT results remain <strong>TBD</strong>.</li>
+            </ul>
           </div>
 
           <div class="table-responsive">
@@ -372,40 +429,56 @@
 
           <div class="callout callout-info" style="margin-top: 1.5rem;">
             <div class="callout-title"><i class="fa-solid fa-magnifying-glass-chart"></i> Comparison from the completed run</div>
-            <p>The MLP improves test accuracy by <strong>12.02 percentage points</strong> and macro F1 by <strong>0.1274</strong> over the linear baseline. The trade-off is substantially higher capacity (567,434 vs. 7,850 parameters), a 1.48× longer measured training time, and slower measured inference. These timings are specific to this Colab session and batched CPU benchmark; they should not be treated as hardware-independent constants.</p>
-            <p style="margin-top: 0.65rem;">The MLP improves the F1 score for every class. <em>Shirt</em> remains the hardest category (F1 0.6135 for MLP versus 0.3040 for Linear), consistent with its visual overlap with T-shirt/top, Pullover, and Coat. The best checkpoints were selected at epoch 20 for Linear and epoch 31 for MLP using validation loss, before final evaluation on the untouched test set.</p>
+            <ul class="compact-points">
+              <li>MLP gains <strong>12.02 accuracy points</strong> and <strong>0.1274 macro F1</strong> over Linear.</li>
+              <li>Trade-off: more parameters, 1.48× longer CPU training, and slower inference.</li>
+              <li><em>Shirt</em> remains the hardest class because it resembles several upper-body categories.</li>
+              <li>Best validation-loss checkpoints: Linear epoch 20; MLP epoch 31.</li>
+            </ul>
           </div>
 
           <!-- Learning Curves -->
           <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-chart-line"></i> Learning Curves</h3>
-          <div class="grid-2" style="margin-top: 1rem;">
-            <div style="text-align: center;">
-              <img src="./outputs/learning_curves/linear_aug_learning_curves.png" alt="Linear model learning curves with training augmentation" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Linear / Softmax — Training & Validation Loss + Accuracy</p>
-            </div>
-            <div style="text-align: center;">
-              <img src="./outputs/learning_curves/mlp_aug_learning_curves.png" alt="MLP learning curves with training augmentation" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">MLP — Training & Validation Loss + Accuracy</p>
-            </div>
+          <div class="result-figure-stack">
+            <figure class="result-figure-card">
+              <a href="./outputs/learning_curves/linear_aug_learning_curves.png" target="_blank" aria-label="Open the full-size Linear model learning curves">
+                <img src="./outputs/learning_curves/linear_aug_learning_curves.png" alt="Linear model learning curves with training augmentation">
+              </a>
+              <figcaption><strong>Linear / Softmax</strong><span>Training and validation loss and accuracy</span></figcaption>
+            </figure>
+            <figure class="result-figure-card">
+              <a href="./outputs/learning_curves/mlp_aug_learning_curves.png" target="_blank" aria-label="Open the full-size MLP learning curves">
+                <img src="./outputs/learning_curves/mlp_aug_learning_curves.png" alt="MLP learning curves with training augmentation">
+              </a>
+              <figcaption><strong>Multilayer Perceptron</strong><span>Training and validation loss and accuracy</span></figcaption>
+            </figure>
           </div>
 
           <!-- Confusion Matrices -->
           <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-border-all"></i> Confusion Matrices (Test Set)</h3>
-          <div class="grid-2" style="margin-top: 1rem;">
-            <div style="text-align: center;">
-              <img src="./outputs/metrics/linear_aug_confusion_matrix.png" alt="Linear model confusion matrix with training augmentation" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Linear / Softmax — 10×10 Confusion Matrix (10,000 test samples)</p>
-            </div>
-            <div style="text-align: center;">
-              <img src="./outputs/metrics/mlp_aug_confusion_matrix.png" alt="MLP confusion matrix with training augmentation" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">MLP — 10×10 Confusion Matrix (10,000 test samples)</p>
-            </div>
+          <div class="result-figure-stack">
+            <figure class="result-figure-card result-figure-card--matrix">
+              <a href="./outputs/metrics/linear_aug_confusion_matrix.png" target="_blank" aria-label="Open the full-size Linear model confusion matrix">
+                <img src="./outputs/metrics/linear_aug_confusion_matrix.png" alt="Linear model confusion matrix with training augmentation">
+              </a>
+              <figcaption><strong>Linear / Softmax</strong><span>10×10 confusion matrix · 10,000 test samples</span></figcaption>
+            </figure>
+            <figure class="result-figure-card result-figure-card--matrix">
+              <a href="./outputs/metrics/mlp_aug_confusion_matrix.png" target="_blank" aria-label="Open the full-size MLP confusion matrix">
+                <img src="./outputs/metrics/mlp_aug_confusion_matrix.png" alt="MLP confusion matrix with training augmentation">
+              </a>
+              <figcaption><strong>Multilayer Perceptron</strong><span>10×10 confusion matrix · 10,000 test samples</span></figcaption>
+            </figure>
           </div>
 
           <!-- Traceability callout -->
           <div class="callout callout-info" style="margin-top: 2rem;">
             <div class="callout-title"><i class="fa-solid fa-fingerprint"></i> Result Traceability</div>
-            <p style="font-size: 0.88rem;">All reported values are traceable through <code>config.py</code> (<code>SEED=42</code>, <code>VAL_SIZE=0.1</code>, <code>BATCH_SIZE=256</code>), the saved <code>best_*_aug.pt</code> checkpoints, and the complete console record in <a href="./outputs/log.txt" target="_blank"><code>outputs/log.txt</code></a>. The log records a CPU-only PyTorch build and reports that CUDA drivers were unavailable for this run.</p>
+            <ul class="compact-points">
+              <li>Configuration: <code>config.py</code>; models: <code>best_*_aug.pt</code>.</li>
+              <li>Full console record: <a href="./outputs/log.txt" target="_blank"><code>outputs/log.txt</code></a>.</li>
+              <li>This run used a CPU-only PyTorch build with no CUDA driver available.</li>
+            </ul>
           </div>
 
         </div>

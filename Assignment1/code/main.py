@@ -27,25 +27,30 @@ def set_seed(seed):
     torch.use_deterministic_algorithms(True)
 
 def process_linear_model(
-    data_loader, model_trainer, result_plotter, metric_calculator, run_label
+    data_loader, model_trainer, result_plotter, metric_calculator, run_label,
+    eval_only=False,
 ):
     set_seed(SEED)
     data_loader.reset_train_generator(SEED)
     linear_model = models.LinearModel()
     linear_loss_func = torch.nn.CrossEntropyLoss()
-    linear_optimizer = torch.optim.AdamW(linear_model.parameters(), lr=LEARNING_RATE, weight_decay=WD)
+    model_name = f"linear_{run_label}"
+    learning_history = None
 
-    epoch_train_loss,\
-        epoch_train_accuracies,\
-            epoch_val_loss,\
-                epoch_val_accuracies = model_trainer.train_model(
-        model=linear_model,
-        train_loader=data_loader.get_train_loader(),
-        val_loader=data_loader.get_val_loader(),
-        loss_func=linear_loss_func,
-        optimizer=linear_optimizer,
-        epochs=NUM_EPOCHS,
-        model_name=f"linear_{run_label}")
+    if eval_only:
+        model_trainer.restore_best_checkpoint(linear_model, model_name)
+    else:
+        linear_optimizer = torch.optim.AdamW(
+            linear_model.parameters(), lr=LEARNING_RATE, weight_decay=WD
+        )
+        learning_history = model_trainer.train_model(
+            model=linear_model,
+            train_loader=data_loader.get_train_loader(),
+            val_loader=data_loader.get_val_loader(),
+            loss_func=linear_loss_func,
+            optimizer=linear_optimizer,
+            epochs=NUM_EPOCHS,
+            model_name=model_name)
 
     test_loss, test_targets, test_predictions = model_trainer.test_model(
         model=linear_model,
@@ -69,33 +74,36 @@ def process_linear_model(
         metric_results["confusion_matrix"], model_name=f"Linear_{run_label}"
     )
 
-    result_plotter.plot_learning_curves(
-        epoch_train_loss,
-        epoch_train_accuracies,
-        epoch_val_loss,
-        epoch_val_accuracies,
-        model_name=f"Linear_{run_label}")
+    if learning_history is not None:
+        result_plotter.plot_learning_curves(
+            *learning_history,
+            model_name=f"Linear_{run_label}")
 
 def process_mlp_model(
-    data_loader, model_trainer, result_plotter, metric_calculator, run_label
+    data_loader, model_trainer, result_plotter, metric_calculator, run_label,
+    eval_only=False,
 ):
     set_seed(SEED)
     data_loader.reset_train_generator(SEED)
     mlp_model = models.MLPModel(dropout=DROP_OUT)
     mlp_loss_func = torch.nn.CrossEntropyLoss()
-    mlp_optimizer = torch.optim.AdamW(mlp_model.parameters(), lr=LEARNING_RATE, weight_decay=WD)
+    model_name = f"mlp_{run_label}"
+    learning_history = None
 
-    epoch_train_loss,\
-        epoch_train_accuracies,\
-            epoch_val_loss,\
-                epoch_val_accuracies = model_trainer.train_model(
-        model=mlp_model,
-        train_loader=data_loader.get_train_loader(),
-        val_loader=data_loader.get_val_loader(),
-        loss_func=mlp_loss_func,
-        optimizer=mlp_optimizer,
-        epochs=NUM_EPOCHS,
-        model_name=f"mlp_{run_label}")
+    if eval_only:
+        model_trainer.restore_best_checkpoint(mlp_model, model_name)
+    else:
+        mlp_optimizer = torch.optim.AdamW(
+            mlp_model.parameters(), lr=LEARNING_RATE, weight_decay=WD
+        )
+        learning_history = model_trainer.train_model(
+            model=mlp_model,
+            train_loader=data_loader.get_train_loader(),
+            val_loader=data_loader.get_val_loader(),
+            loss_func=mlp_loss_func,
+            optimizer=mlp_optimizer,
+            epochs=NUM_EPOCHS,
+            model_name=model_name)
 
     test_loss, test_targets, test_predictions = model_trainer.test_model(
         model=mlp_model,
@@ -119,35 +127,36 @@ def process_mlp_model(
         metric_results["confusion_matrix"], model_name=f"MLP_{run_label}"
     )
 
-    result_plotter.plot_learning_curves(
-        epoch_train_loss,
-        epoch_train_accuracies,
-        epoch_val_loss,
-        epoch_val_accuracies,
-        model_name=f"MLP_{run_label}")
+    if learning_history is not None:
+        result_plotter.plot_learning_curves(
+            *learning_history,
+            model_name=f"MLP_{run_label}")
 
 def process_cnn_model(
-    data_loader, model_trainer, result_plotter, metric_calculator, run_label
+    data_loader, model_trainer, result_plotter, metric_calculator, run_label,
+    eval_only=False,
 ):
     set_seed(SEED)
     data_loader.reset_train_generator(SEED)
     cnn_model = models.CNNModel(dropout=DROP_OUT)
     cnn_loss_func = torch.nn.CrossEntropyLoss()
-    cnn_optimizer = torch.optim.AdamW(
-        cnn_model.parameters(), lr=LEARNING_RATE, weight_decay=WD
-    )
+    model_name = f"cnn_{run_label}"
+    learning_history = None
 
-    epoch_train_loss,\
-        epoch_train_accuracies,\
-            epoch_val_loss,\
-                epoch_val_accuracies = model_trainer.train_model(
-        model=cnn_model,
-        train_loader=data_loader.get_train_loader(),
-        val_loader=data_loader.get_val_loader(),
-        loss_func=cnn_loss_func,
-        optimizer=cnn_optimizer,
-        epochs=NUM_EPOCHS,
-        model_name=f"cnn_{run_label}")
+    if eval_only:
+        model_trainer.restore_best_checkpoint(cnn_model, model_name)
+    else:
+        cnn_optimizer = torch.optim.AdamW(
+            cnn_model.parameters(), lr=LEARNING_RATE, weight_decay=WD
+        )
+        learning_history = model_trainer.train_model(
+            model=cnn_model,
+            train_loader=data_loader.get_train_loader(),
+            val_loader=data_loader.get_val_loader(),
+            loss_func=cnn_loss_func,
+            optimizer=cnn_optimizer,
+            epochs=NUM_EPOCHS,
+            model_name=model_name)
 
     test_loss, test_targets, test_predictions = model_trainer.test_model(
         model=cnn_model,
@@ -171,12 +180,10 @@ def process_cnn_model(
         metric_results["confusion_matrix"], model_name=f"CNN_{run_label}"
     )
 
-    result_plotter.plot_learning_curves(
-        epoch_train_loss,
-        epoch_train_accuracies,
-        epoch_val_loss,
-        epoch_val_accuracies,
-        model_name=f"CNN_{run_label}")
+    if learning_history is not None:
+        result_plotter.plot_learning_curves(
+            *learning_history,
+            model_name=f"CNN_{run_label}")
 
 def parse_args():
     parser = argparse.ArgumentParser(description="FashionMNIST experiment pipeline")
@@ -190,6 +197,11 @@ def parse_args():
         default="all",
         choices=("linear", "mlp", "cnn", "all"),
         help="Model family to train (default: all)",
+    )
+    parser.add_argument(
+        "--eval-only",
+        action="store_true",
+        help="Load the matching best checkpoint and evaluate without training",
     )
     augmentation_group = parser.add_mutually_exclusive_group()
     augmentation_group.add_argument(
@@ -230,13 +242,16 @@ if __name__ == "__main__":
 
     if args.model in ("linear", "all"):
         process_linear_model(
-            data_loader, model_trainer, result_plotter, metric_calculator, run_label
+            data_loader, model_trainer, result_plotter, metric_calculator, run_label,
+            eval_only=args.eval_only,
         )
     if args.model in ("mlp", "all"):
         process_mlp_model(
-            data_loader, model_trainer, result_plotter, metric_calculator, run_label
+            data_loader, model_trainer, result_plotter, metric_calculator, run_label,
+            eval_only=args.eval_only,
         )
     if args.model in ("cnn", "all"):
         process_cnn_model(
-            data_loader, model_trainer, result_plotter, metric_calculator, run_label
+            data_loader, model_trainer, result_plotter, metric_calculator, run_label,
+            eval_only=args.eval_only,
         )
