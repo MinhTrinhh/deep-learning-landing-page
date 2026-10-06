@@ -28,7 +28,7 @@ Assignment*/outputs/*
 !Assignment*/outputs/eda/
 !Assignment*/outputs/learning_curves/
 !Assignment*/outputs/metrics/
-Assignment*/checkpoints/*.pt
+!Assignment*/checkpoints/*.pt
 Assignment*/checkpoints/*.pth
 Assignment*/checkpoints/*.ckpt
 Assignment*/checkpoints/*.safetensors

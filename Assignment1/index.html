@@ -356,11 +356,11 @@
             <li>Seed <code>42</code> · Colab CPU · 54K train / 6K validation / 10K test.</li>
           </ul>
 
-          <div class="callout callout-warning" style="margin-bottom: 1.5rem;">
-            <div class="callout-title"><i class="fa-solid fa-triangle-exclamation"></i> Milestone 1 Status</div>
+          <div class="callout callout-info" style="margin-bottom: 1.5rem;">
+            <div class="callout-title"><i class="fa-solid fa-circle-check"></i> Completed Experiment Status</div>
             <ul class="compact-points">
-              <li>Linear and MLP results are measured and final.</li>
-              <li>CNN is implemented; CNN, LSTM/GRU, and ViT results remain <strong>TBD</strong>.</li>
+              <li>Linear, MLP, and CNN results are measured from the same augmented training pipeline and are final.</li>
+              <li>LSTM/GRU and ViT experiments remain <strong>TBD</strong>.</li>
             </ul>
           </div>
 
@@ -396,14 +396,14 @@
                   <td>0.018203 ms</td>
                   <td>2.165 MB</td>
                 </tr>
-                <tr style="opacity: 0.6;">
-                  <td><strong>CNN</strong> <span class="card-badge badge-pending">TBD</span></td>
-                  <td>—</td>
-                  <td>—</td>
-                  <td>—</td>
-                  <td>—</td>
-                  <td>—</td>
-                  <td>—</td>
+                <tr style="background: rgba(15,130,223,0.1);">
+                  <td><strong>CNN (2 convolution blocks)</strong> ✅</td>
+                  <td><strong>92.55%</strong></td>
+                  <td>0.9259</td>
+                  <td>1,691,914</td>
+                  <td>2,025.71 s</td>
+                  <td>0.044741 ms</td>
+                  <td>6.454 MB</td>
                 </tr>
                 <tr style="opacity: 0.6;">
                   <td><strong>LSTM / GRU</strong> <span class="card-badge badge-pending">TBD</span></td>
@@ -430,10 +430,10 @@
           <div class="callout callout-info" style="margin-top: 1.5rem;">
             <div class="callout-title"><i class="fa-solid fa-magnifying-glass-chart"></i> Comparison from the completed run</div>
             <ul class="compact-points">
-              <li>MLP gains <strong>12.02 accuracy points</strong> and <strong>0.1274 macro F1</strong> over Linear.</li>
-              <li>Trade-off: more parameters, 1.48× longer CPU training, and slower inference.</li>
-              <li><em>Shirt</em> remains the hardest class because it resembles several upper-body categories.</li>
-              <li>Best validation-loss checkpoints: Linear epoch 20; MLP epoch 31.</li>
+              <li>CNN ranks first with <strong>92.55% test accuracy</strong> and <strong>0.9259 macro F1</strong>, improving on MLP by 6.75 accuracy points and 0.0699 macro F1.</li>
+              <li>Its spatial inductive bias improves accuracy substantially, with the trade-off of 1.69M parameters, 1.79× the MLP training time, and 2.46× its per-sample inference time.</li>
+              <li><em>Shirt</em> remains the hardest CNN class (F1 0.7762), while <em>Trouser</em>, <em>Bag</em>, and <em>Sandal</em> each exceed 0.98 F1.</li>
+              <li>Best validation-loss checkpoints: Linear epoch 20; MLP epoch 31; CNN epoch 55 (validation loss 0.1702).</li>
             </ul>
           </div>
 
@@ -452,6 +452,12 @@
               </a>
               <figcaption><strong>Multilayer Perceptron</strong><span>Training and validation loss and accuracy</span></figcaption>
             </figure>
+            <figure class="result-figure-card">
+              <a href="./outputs/learning_curves/cnn_aug_learning_curves.png" target="_blank" aria-label="Open the full-size CNN learning curves">
+                <img src="./outputs/learning_curves/cnn_aug_learning_curves.png" alt="CNN learning curves with training augmentation">
+              </a>
+              <figcaption><strong>Convolutional Neural Network</strong><span>Best validation loss 0.1702 at epoch 55 · early stopped after epoch 65</span></figcaption>
+            </figure>
           </div>
 
           <!-- Confusion Matrices -->
@@ -468,6 +474,12 @@
                 <img src="./outputs/metrics/mlp_aug_confusion_matrix.png" alt="MLP confusion matrix with training augmentation">
               </a>
               <figcaption><strong>Multilayer Perceptron</strong><span>10×10 confusion matrix · 10,000 test samples</span></figcaption>
+            </figure>
+            <figure class="result-figure-card result-figure-card--matrix">
+              <a href="./outputs/metrics/cnn_aug_confusion_matrix.png" target="_blank" aria-label="Open the full-size CNN confusion matrix">
+                <img src="./outputs/metrics/cnn_aug_confusion_matrix.png" alt="CNN confusion matrix with training augmentation">
+              </a>
+              <figcaption><strong>Convolutional Neural Network</strong><span>92.55% accuracy · 10×10 matrix · 10,000 test samples</span></figcaption>
             </figure>
           </div>
 
@@ -490,7 +502,74 @@
       <div class="card">
         <h2 class="section-title"><i class="fa-solid fa-brain"></i> Architectural Inductive Bias & Analysis</h2>
         <div class="card-body" style="margin-top: 1rem;">
-          
+          <p class="section-desc">Each architecture encodes different assumptions about how pixels relate to one another. The measured results below are reported only for completed experiments; LSTM/GRU and ViT remain planned models.</p>
+
+          <div class="model-discussion-stack">
+            <section class="model-discussion-card">
+              <div class="model-discussion-heading">
+                <span class="model-number">01</span>
+                <div>
+                  <span class="section-eyebrow">Implemented baseline</span>
+                  <h3>Linear / Softmax</h3>
+                </div>
+                <span class="model-result">73.78% accuracy</span>
+              </div>
+              <p><strong>Inductive bias.</strong> After flattening the image, each class score is an additive weighted sum of individual pixels. The model assumes a single linear decision boundary and treats every pixel position independently, with no explicit notion of locality, edges, or translation.</p>
+              <p><strong>Observed behavior.</strong> Its 7,850 parameters make it the smallest and fastest model, but its limited capacity produces the lowest macro F1 (<strong>0.7286</strong>). Shirt is especially difficult (F1 0.3040), showing that a linear boundary cannot separate visually overlapping upper-body classes well.</p>
+            </section>
+
+            <section class="model-discussion-card">
+              <div class="model-discussion-heading">
+                <span class="model-number">02</span>
+                <div>
+                  <span class="section-eyebrow">Implemented dense model</span>
+                  <h3>Multilayer Perceptron</h3>
+                </div>
+                <span class="model-result">85.80% accuracy</span>
+              </div>
+              <p><strong>Inductive bias.</strong> ReLU hidden layers allow nonlinear combinations of all 784 pixels, so the MLP can learn more complex global decision boundaries than the Linear model. However, flattening still removes the explicit 2D neighborhood structure, and dense layers do not share weights across image locations.</p>
+              <p><strong>Observed behavior.</strong> The MLP improves macro F1 to <strong>0.8560</strong>, a gain of 0.1274 over Linear, but grows to 567,434 parameters. Dropout helps regularize the larger network. Shirt remains the hardest class (F1 0.6135), although performance improves substantially over the baseline.</p>
+            </section>
+
+            <section class="model-discussion-card model-discussion-card--highlight">
+              <div class="model-discussion-heading">
+                <span class="model-number">03</span>
+                <div>
+                  <span class="section-eyebrow">Implemented spatial model</span>
+                  <h3>Convolutional Neural Network</h3>
+                </div>
+                <span class="model-result">92.55% accuracy</span>
+              </div>
+              <p><strong>Inductive bias.</strong> Local <code>3×3</code> receptive fields preserve the 2D image layout, while shared convolution filters detect the same feature at different positions. Pooling adds approximate translation invariance and builds a hierarchy from edges to clothing parts and shapes.</p>
+              <p><strong>Observed behavior.</strong> This image-specific bias produces the best macro F1 (<strong>0.9259</strong>) and raises Shirt F1 to 0.7762. The gain comes with the largest completed model (1.69M parameters), 2,025.71 seconds of CPU training, and the slowest measured inference.</p>
+            </section>
+
+            <section class="model-discussion-card model-discussion-card--pending">
+              <div class="model-discussion-heading">
+                <span class="model-number">04</span>
+                <div>
+                  <span class="section-eyebrow">Planned experiment</span>
+                  <h3>LSTM / GRU</h3>
+                </div>
+                <span class="card-badge badge-pending">Results TBD</span>
+              </div>
+              <p><strong>Inductive bias.</strong> A recurrent model would interpret each image as an ordered sequence, for example 28 rows of 28 features. Shared recurrent weights favor sequential dependencies and the hidden state carries information from earlier rows to later rows.</p>
+              <p><strong>Expected trade-off.</strong> Recurrence can model long-range relationships, but the chosen scan order introduces a directional bias and represents 2D neighborhoods less naturally than convolution. Accuracy and efficiency claims are deferred until the architecture and experiment are completed.</p>
+            </section>
+
+            <section class="model-discussion-card model-discussion-card--pending">
+              <div class="model-discussion-heading">
+                <span class="model-number">05</span>
+                <div>
+                  <span class="section-eyebrow">Planned experiment</span>
+                  <h3>Vision Transformer</h3>
+                </div>
+                <span class="card-badge badge-pending">Results TBD</span>
+              </div>
+              <p><strong>Inductive bias.</strong> ViT would divide the image into patches and use self-attention to model pairwise relationships between all patch tokens. Positional embeddings supply spatial order, while attention provides a flexible global receptive field with weaker built-in locality than a CNN.</p>
+              <p><strong>Expected trade-off.</strong> Global attention can capture distant interactions directly, but its weaker image-specific prior often requires more data or stronger regularization. Patch size, depth, parameter count, and measured performance remain TBD.</p>
+            </section>
+          </div>
 
         </div>
       </div>
