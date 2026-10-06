@@ -7,8 +7,6 @@ from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 import umap
 from sklearn.metrics.pairwise import cosine_similarity
-from scipy.spatial.distance import pdist
-from scipy.cluster.hierarchy import linkage
 
 from config import CLASS_NAMES, DATA_PATH, SEED
 
@@ -148,13 +146,9 @@ class EDAWorker():
                 if len(top_pairs) == 5:
                     break
                     
-        dist_array = pdist(class_means, metric='cosine')
-        linkage_matrix = linkage(dist_array, method='average')
-
         return {
             "similarity_matrix": sim_matrix.tolist(),
             "top_confusing_pairs": top_pairs,
-            "linkage_matrix": linkage_matrix.tolist()
         }
 
     def run(self):
@@ -178,7 +172,6 @@ class EDAWorker():
                 "class_level": {
                     "similarity_matrix": class_level_data["similarity_matrix"],
                     "top_confusing_pairs": class_level_data["top_confusing_pairs"],
-                    "linkage_matrix": class_level_data["linkage_matrix"]
                 }
             }
         }

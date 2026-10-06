@@ -204,7 +204,7 @@
 
           <figure class="pipeline-diagram">
             <a href="./diagram-pipeline/pipeline-dl1.drawio.svg" target="_blank" aria-label="Open the full-size experiment activity diagram">
-              <img src="./diagram-pipeline/pipeline-dl1.drawio.svg" alt="Activity diagram of the Fashion-MNIST data, model development, checkpoint selection, testing, and evaluation workflow">
+              <img src="./diagram-pipeline/pipeline-dl1.drawio.svg" alt="Activity diagram of the Fashion-MNIST data, model development, checkpoint selection, testing, and evaluation workflow" style="color-scheme: only light;">
             </a>
             <figcaption>
               <span>Unified activity diagram for the data, model-development, and evaluation phases.</span>
@@ -226,7 +226,7 @@
               <ul style="padding-left: 1.25rem; margin: 0;">
                 <li><strong>Random seed:</strong> 42 (global, deterministic mode ON)</li>
                 <li><strong>MLP dropout:</strong> 0.2</li>
-                <li><strong>Hardware:</strong> CPU (Intel laptop / Apple MacBook)</li>
+                <li><strong>Hardware:</strong> Google Colab CPU runtime (exact CPU model not recorded)</li>
                 <li><strong>Mixed precision:</strong> Not used</li>
               </ul>
             </div>
@@ -300,7 +300,7 @@
         <h2 class="section-title"><i class="fa-solid fa-table-list"></i> Quantitative & Qualitative Comparison</h2>
         <div class="card-body" style="margin-top: 1rem;">
 
-          <p class="section-desc">Performance summary across all 5 models under matched data split & evaluation protocol. Seed: <code>42</code>. Hardware: CPU. Split: 54K train / 6K val / 10K test.</p>
+          <p class="section-desc">Measured performance for the two implemented models under the same augmented training pipeline and evaluation protocol. Seed: <code>42</code>. Runtime: Google Colab CPU. Split: 54K train / 6K validation / 10K test.</p>
 
           <div class="callout callout-warning" style="margin-bottom: 1.5rem;">
             <div class="callout-title"><i class="fa-solid fa-triangle-exclamation"></i> Milestone 1 Status</div>
@@ -323,20 +323,20 @@
               <tbody>
                 <tr style="background: rgba(15,130,223,0.06);">
                   <td><strong>Linear / Softmax</strong> ✅</td>
-                  <td><strong>73.51%</strong></td>
-                  <td>0.7280</td>
+                  <td><strong>73.78%</strong></td>
+                  <td>0.7286</td>
                   <td>7,850</td>
-                  <td>176.4 s</td>
-                  <td>0.00026 ms</td>
+                  <td>762.21 s</td>
+                  <td>0.000822 ms</td>
                   <td>0.030 MB</td>
                 </tr>
                 <tr style="background: rgba(15,130,223,0.06);">
                   <td><strong>MLP (3 hidden layers)</strong> ✅</td>
-                  <td><strong>83.19%</strong></td>
-                  <td>0.8269</td>
+                  <td><strong>85.80%</strong></td>
+                  <td>0.8560</td>
                   <td>567,434</td>
-                  <td>178.1 s</td>
-                  <td>0.00417 ms</td>
+                  <td>1,130.64 s</td>
+                  <td>0.018203 ms</td>
                   <td>2.165 MB</td>
                 </tr>
                 <tr style="opacity: 0.6;">
@@ -370,15 +370,21 @@
             </table>
           </div>
 
+          <div class="callout callout-info" style="margin-top: 1.5rem;">
+            <div class="callout-title"><i class="fa-solid fa-magnifying-glass-chart"></i> Comparison from the completed run</div>
+            <p>The MLP improves test accuracy by <strong>12.02 percentage points</strong> and macro F1 by <strong>0.1274</strong> over the linear baseline. The trade-off is substantially higher capacity (567,434 vs. 7,850 parameters), a 1.48× longer measured training time, and slower measured inference. These timings are specific to this Colab session and batched CPU benchmark; they should not be treated as hardware-independent constants.</p>
+            <p style="margin-top: 0.65rem;">The MLP improves the F1 score for every class. <em>Shirt</em> remains the hardest category (F1 0.6135 for MLP versus 0.3040 for Linear), consistent with its visual overlap with T-shirt/top, Pullover, and Coat. The best checkpoints were selected at epoch 20 for Linear and epoch 31 for MLP using validation loss, before final evaluation on the untouched test set.</p>
+          </div>
+
           <!-- Learning Curves -->
           <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-chart-line"></i> Learning Curves</h3>
           <div class="grid-2" style="margin-top: 1rem;">
             <div style="text-align: center;">
-              <img src="./outputs/learning_curves/linear_learning_curves.png" alt="Linear Model Learning Curves" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <img src="./outputs/learning_curves/linear_aug_learning_curves.png" alt="Linear model learning curves with training augmentation" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
               <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Linear / Softmax — Training & Validation Loss + Accuracy</p>
             </div>
             <div style="text-align: center;">
-              <img src="./outputs/learning_curves/mlp_learning_curves.png" alt="MLP Model Learning Curves" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <img src="./outputs/learning_curves/mlp_aug_learning_curves.png" alt="MLP learning curves with training augmentation" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
               <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">MLP — Training & Validation Loss + Accuracy</p>
             </div>
           </div>
@@ -387,11 +393,11 @@
           <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-border-all"></i> Confusion Matrices (Test Set)</h3>
           <div class="grid-2" style="margin-top: 1rem;">
             <div style="text-align: center;">
-              <img src="./outputs/metrics/linear_confusion_matrix.png" alt="Linear Confusion Matrix" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <img src="./outputs/metrics/linear_aug_confusion_matrix.png" alt="Linear model confusion matrix with training augmentation" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
               <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Linear / Softmax — 10×10 Confusion Matrix (10,000 test samples)</p>
             </div>
             <div style="text-align: center;">
-              <img src="./outputs/metrics/mlp_confusion_matrix.png" alt="MLP Confusion Matrix" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <img src="./outputs/metrics/mlp_aug_confusion_matrix.png" alt="MLP confusion matrix with training augmentation" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
               <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">MLP — 10×10 Confusion Matrix (10,000 test samples)</p>
             </div>
           </div>
@@ -399,7 +405,7 @@
           <!-- Traceability callout -->
           <div class="callout callout-info" style="margin-top: 2rem;">
             <div class="callout-title"><i class="fa-solid fa-fingerprint"></i> Result Traceability</div>
-            <p style="font-size: 0.88rem;">All results above are traceable: <code>config.py</code> (SEED=42, VAL_SIZE=0.1, BATCH_SIZE=256) → split → checkpoint (<code>checkpoints/best_*.pt</code>) → metric log (<code>outputs/metrics/*_metrics.json</code>).</p>
+            <p style="font-size: 0.88rem;">All reported values are traceable through <code>config.py</code> (<code>SEED=42</code>, <code>VAL_SIZE=0.1</code>, <code>BATCH_SIZE=256</code>), the saved <code>best_*_aug.pt</code> checkpoints, and the complete console record in <a href="./outputs/log.txt" target="_blank"><code>outputs/log.txt</code></a>. The log records a CPU-only PyTorch build and reports that CUDA drivers were unavailable for this run.</p>
           </div>
 
         </div>

@@ -3,7 +3,6 @@ from pathlib import Path
 import matplotlib
 import numpy as np
 import seaborn as sns
-from scipy.cluster.hierarchy import dendrogram
 
 matplotlib.use("Agg")
 
@@ -177,24 +176,3 @@ class Plotter:
         fig.savefig(output_path, dpi=150)
         plt.close(fig)
         print(f"Class similarity matrix saved to: {output_path}")
-
-    def plot_dendrogram(self, linkage_matrix):
-        fig, ax = plt.subplots(figsize=(10, 5))
-        dendrogram(
-            linkage_matrix,
-            labels=CLASS_NAMES,
-            leaf_rotation=45,
-            leaf_font_size=10,
-            ax=ax,
-        )
-        ax.set_title("Agglomerative Clustering Dendrogram")
-        ax.set_xlabel("Classes")
-        ax.set_ylabel("Distance")
-        fig.tight_layout()
-
-        output_dir = self.output_dir / "eda"
-        output_dir.mkdir(parents=True, exist_ok=True)
-        output_path = output_dir / "class_dendrogram.png"
-        fig.savefig(output_path, dpi=150)
-        plt.close(fig)
-        print(f"Dendrogram saved to: {output_path}")
