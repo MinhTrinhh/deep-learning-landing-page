@@ -126,6 +126,58 @@ def process_mlp_model(
         epoch_val_accuracies,
         model_name=f"MLP_{run_label}")
 
+def process_cnn_model(
+    data_loader, model_trainer, result_plotter, metric_calculator, run_label
+):
+    set_seed(SEED)
+    data_loader.reset_train_generator(SEED)
+    cnn_model = models.CNNModel(dropout=DROP_OUT)
+    cnn_loss_func = torch.nn.CrossEntropyLoss()
+    cnn_optimizer = torch.optim.AdamW(
+        cnn_model.parameters(), lr=LEARNING_RATE, weight_decay=WD
+    )
+
+    epoch_train_loss,\
+        epoch_train_accuracies,\
+            epoch_val_loss,\
+                epoch_val_accuracies = model_trainer.train_model(
+        model=cnn_model,
+        train_loader=data_loader.get_train_loader(),
+        val_loader=data_loader.get_val_loader(),
+        loss_func=cnn_loss_func,
+        optimizer=cnn_optimizer,
+        epochs=NUM_EPOCHS,
+        model_name=f"cnn_{run_label}")
+
+    test_loss, test_targets, test_predictions = model_trainer.test_model(
+        model=cnn_model,
+        test_loader=data_loader.get_test_loader(),
+        loss_func=cnn_loss_func)
+
+    sample_batch_images, _ = next(iter(data_loader.get_test_loader()))
+
+    metric_results = metric_calculator.report(
+        test_targets,
+        test_predictions,
+        model_name=f"CNN_{run_label}",
+        test_loss=test_loss,
+        resource_metrics=metric_calculator.calculate_resource_metrics(
+            model=cnn_model,
+            sample_input=sample_batch_images,
+            train_time_seconds=model_trainer.last_train_time,
+        ),
+    )
+    result_plotter.plot_confusion_matrix(
+        metric_results["confusion_matrix"], model_name=f"CNN_{run_label}"
+    )
+
+    result_plotter.plot_learning_curves(
+        epoch_train_loss,
+        epoch_train_accuracies,
+        epoch_val_loss,
+        epoch_val_accuracies,
+        model_name=f"CNN_{run_label}")
+
 def parse_args():
     parser = argparse.ArgumentParser(description="FashionMNIST experiment pipeline")
     parser.add_argument(
@@ -136,7 +188,7 @@ def parse_args():
     parser.add_argument(
         "--model",
         default="all",
-        choices=("linear", "mlp", "all"),
+        choices=("linear", "mlp", "cnn", "all"),
         help="Model family to train (default: all)",
     )
     augmentation_group = parser.add_mutually_exclusive_group()
@@ -182,5 +234,9 @@ if __name__ == "__main__":
         )
     if args.model in ("mlp", "all"):
         process_mlp_model(
+            data_loader, model_trainer, result_plotter, metric_calculator, run_label
+        )
+    if args.model in ("cnn", "all"):
+        process_cnn_model(
             data_loader, model_trainer, result_plotter, metric_calculator, run_label
         )

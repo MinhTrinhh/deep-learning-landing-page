@@ -1,6 +1,6 @@
 # Assignment 1 — Foundations of Deep Learning Pipelines and Architectures
 
-Fashion-MNIST classification experiments for the Linear/Softmax and multilayer perceptron models.
+Fashion-MNIST classification experiments for the Linear/Softmax, multilayer perceptron, and convolutional neural network models.
 
 - [Assignment 1 website](https://MinhTrinhh.github.io/deep-learning-landing-page/Assignment1/)
 - [AI usage disclosure](AI_USAGE.md)
@@ -19,7 +19,7 @@ Assignment1/
 │   ├── edaworker.py         # EDA calculations
 │   ├── main.py              # Command-line entry point
 │   ├── metrics.py           # Predictive and resource metrics
-│   ├── models.py            # Linear and MLP architectures
+│   ├── models.py            # Linear, MLP, and CNN architectures
 │   ├── plotter.py           # EDA, learning-curve, and metric plots
 │   └── trainer.py           # Training, validation, testing, and checkpoints
 ├── checkpoints/             # Best-validation-loss model checkpoints
@@ -49,7 +49,7 @@ cd Assignment1/code
 
 No manual download is required. `torchvision` downloads Fashion-MNIST into `Assignment1/data/` the first time an experiment runs. The loader then creates the training and validation subsets automatically.
 
-To generate the EDA outputs before training both implemented models:
+To generate the EDA outputs before training all implemented models:
 
 ```bash
 python main.py --eda --model all
@@ -71,7 +71,13 @@ Train the MLP with the default augmentation:
 python main.py --model mlp
 ```
 
-Train both implemented models sequentially:
+Train the CNN with the default augmentation:
+
+```bash
+python main.py --model cnn
+```
+
+Train all implemented models sequentially:
 
 ```bash
 python main.py --model all
@@ -82,6 +88,7 @@ Disable augmentation for any model selection:
 ```bash
 python main.py --model linear --no-aug
 python main.py --model mlp --no-aug
+python main.py --model cnn --no-aug
 python main.py --model all --no-aug
 ```
 

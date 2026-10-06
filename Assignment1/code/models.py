@@ -48,3 +48,34 @@ class MLPModel(nn.Module):
         out = self.fc4(out)
 
         return out
+
+class CNNModel(nn.Module):
+    def __init__(self, dropout):
+        super().__init__()
+
+        self.features = nn.Sequential(
+            nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, padding=1, stride=1), # (B, 1, 28, 28) -> (B, 32, 28, 28)
+            nn.ReLU(), # (B, 32, 28, 28)
+            nn.MaxPool2d(kernel_size=2), # (B, 32, 14, 14)
+
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1, stride=1), # (B, 32, 14, 14) -> (B, 64, 14, 14)
+            nn.ReLU(), # (B, 64, 14, 14)
+            nn.MaxPool2d(kernel_size=2), # (B, 64, 7, 7)
+        )
+
+        self.classifier = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(64 * 7 * 7, 512),
+            nn.ReLU(),
+            nn.Dropout(p=dropout),
+            nn.Linear(512, 128),
+            nn.ReLU(),
+            nn.Dropout(p=dropout),
+            nn.Linear(128, OUTPUT_DIM)
+        )
+
+    def forward(self, images):
+        features = self.features(images)
+        logits = self.classifier(features)
+
+        return logits
