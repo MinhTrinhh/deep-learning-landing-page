@@ -1,0 +1,500 @@
+Running: /usr/bin/python3 -u main.py --model all --aug --eda
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791222826.695705    3132 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791222829.823606    3132 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+
+  0%|          | 0.00/26.4M [00:00<?, ?B/s]
+  0%|          | 65.5k/26.4M [00:00<01:09, 379kB/s]
+  1%|          | 229k/26.4M [00:00<00:36, 710kB/s] 
+  3%|▎         | 918k/26.4M [00:00<00:11, 2.19MB/s]
+ 14%|█▍        | 3.67M/26.4M [00:00<00:03, 7.57MB/s]
+ 35%|███▌      | 9.34M/26.4M [00:00<00:01, 16.6MB/s]
+ 56%|█████▌    | 14.8M/26.4M [00:01<00:00, 21.7MB/s]
+ 77%|███████▋  | 20.4M/26.4M [00:01<00:00, 25.1MB/s]
+100%|██████████| 26.4M/26.4M [00:01<00:00, 20.1MB/s]
+
+  0%|          | 0.00/29.5k [00:00<?, ?B/s]
+100%|██████████| 29.5k/29.5k [00:00<00:00, 335kB/s]
+
+  0%|          | 0.00/4.42M [00:00<?, ?B/s]
+  1%|▏         | 65.5k/4.42M [00:00<00:11, 374kB/s]
+  5%|▌         | 229k/4.42M [00:00<00:05, 703kB/s] 
+ 21%|██        | 918k/4.42M [00:00<00:01, 2.17MB/s]
+ 83%|████████▎ | 3.67M/4.42M [00:00<00:00, 7.50MB/s]
+100%|██████████| 4.42M/4.42M [00:00<00:00, 6.28MB/s]
+
+  0%|          | 0.00/5.15k [00:00<?, ?B/s]
+100%|██████████| 5.15k/5.15k [00:00<00:00, 30.0MB/s]
+
+=== Exploratory data analysis ===
+Official training samples: 60000
+Official test samples: 10000
+Image tensor shape: torch.Size([1, 28, 28])
+Label example: 9
+Minimum: 0.0
+Maximum: 1.0
+Mean: 0.2860405743122101
+Standard deviation: 0.3530242443084717
+T-shirt/top 6000
+Trouser 6000
+Pullover 6000
+Dress 6000
+Coat 6000
+Sandal 6000
+Shirt 6000
+Sneaker 6000
+Bag 6000
+Ankle boot 6000
+/usr/local/lib/python3.13/dist-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Class distribution saved to: /content/deep-learning-landing-page/Assignment1/outputs/eda/class_distribution.png
+Random examples saved to: /content/deep-learning-landing-page/Assignment1/outputs/eda/random_examples.png
+Dimensionality reduction plots saved to: /content/deep-learning-landing-page/Assignment1/outputs/eda/dimensionality_reduction.png
+Class similarity matrix saved to: /content/deep-learning-landing-page/Assignment1/outputs/eda/class_similarity_matrix.png
+Dendrogram saved to: /content/deep-learning-landing-page/Assignment1/outputs/eda/class_dendrogram.png
+Epoch 1/200:
+Mean train loss: 1.1048543631183028
+Train Accuracy: 0.6033888888888889
+Mean validate loss:  0.8088128243883451
+Validate Accuracy: 0.729
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_linear_aug.pt
+Epoch 2/200:
+Mean train loss: 0.9809312806310246
+Train Accuracy: 0.648425925925926
+Mean validate loss:  0.767603300511837
+Validate Accuracy: 0.7343333333333333
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_linear_aug.pt
+Epoch 3/200:
+Mean train loss: 0.9656477886918596
+Train Accuracy: 0.6564814814814814
+Mean validate loss:  0.7533759847283363
+Validate Accuracy: 0.7353333333333333
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_linear_aug.pt
+Epoch 4/200:
+Mean train loss: 0.9603459349175765
+Train Accuracy: 0.6594444444444445
+Mean validate loss:  0.7649599015712738
+Validate Accuracy: 0.7391666666666666
+Epoch 5/200:
+Mean train loss: 0.9580330012533902
+Train Accuracy: 0.6627222222222222
+Mean validate loss:  0.7471707041064898
+Validate Accuracy: 0.7506666666666667
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_linear_aug.pt
+Epoch 6/200:
+Mean train loss: 0.9575052269827133
+Train Accuracy: 0.6610185185185186
+Mean validate loss:  0.7566170717279116
+Validate Accuracy: 0.742
+Epoch 7/200:
+Mean train loss: 0.9541608083869608
+Train Accuracy: 0.6632777777777777
+Mean validate loss:  0.7385088726878166
+Validate Accuracy: 0.7511666666666666
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_linear_aug.pt
+Epoch 8/200:
+Mean train loss: 0.9565295794563836
+Train Accuracy: 0.6616481481481481
+Mean validate loss:  0.7339146956801414
+Validate Accuracy: 0.7523333333333333
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_linear_aug.pt
+Epoch 9/200:
+Mean train loss: 0.9517706155212005
+Train Accuracy: 0.662962962962963
+Mean validate loss:  0.7348303149143854
+Validate Accuracy: 0.7573333333333333
+Epoch 10/200:
+Mean train loss: 0.9499309384992337
+Train Accuracy: 0.6661481481481482
+Mean validate loss:  0.7438818489511808
+Validate Accuracy: 0.7368333333333333
+Epoch 11/200:
+Mean train loss: 0.9532078948066133
+Train Accuracy: 0.6614074074074074
+Mean validate loss:  0.7334692825873693
+Validate Accuracy: 0.7478333333333333
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_linear_aug.pt
+Epoch 12/200:
+Mean train loss: 0.9470130874647349
+Train Accuracy: 0.6652037037037037
+Mean validate loss:  0.7451588908831278
+Validate Accuracy: 0.7473333333333333
+Epoch 13/200:
+Mean train loss: 0.9474038998662578
+Train Accuracy: 0.6653888888888889
+Mean validate loss:  0.7422507678469022
+Validate Accuracy: 0.7333333333333333
+Epoch 14/200:
+Mean train loss: 0.9528268349679161
+Train Accuracy: 0.6610555555555555
+Mean validate loss:  0.7391248146692911
+Validate Accuracy: 0.7466666666666667
+Epoch 15/200:
+Mean train loss: 0.947784880043771
+Train Accuracy: 0.6635185185185185
+Mean validate loss:  0.7446554626027743
+Validate Accuracy: 0.7305
+Epoch 16/200:
+Mean train loss: 0.9430771450295833
+Train Accuracy: 0.6670925925925926
+Mean validate loss:  0.7398517380158106
+Validate Accuracy: 0.7475
+Epoch 17/200:
+Mean train loss: 0.9491049771625284
+Train Accuracy: 0.6645
+Mean validate loss:  0.7436293959617615
+Validate Accuracy: 0.7526666666666667
+Epoch 18/200:
+Mean train loss: 0.950947571704738
+Train Accuracy: 0.6621666666666667
+Mean validate loss:  0.7343187679847082
+Validate Accuracy: 0.753
+Epoch 19/200:
+Mean train loss: 0.9428638985371702
+Train Accuracy: 0.6661851851851852
+Mean validate loss:  0.7647339776158333
+Validate Accuracy: 0.7231666666666666
+Epoch 20/200:
+Mean train loss: 0.9457446766125648
+Train Accuracy: 0.6655
+Mean validate loss:  0.7313615108529726
+Validate Accuracy: 0.7591666666666667
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_linear_aug.pt
+Epoch 21/200:
+Mean train loss: 0.9475147317371098
+Train Accuracy: 0.6652222222222223
+Mean validate loss:  0.7459316303332647
+Validate Accuracy: 0.7495
+Epoch 22/200:
+Mean train loss: 0.9526302972676065
+Train Accuracy: 0.6632222222222223
+Mean validate loss:  0.7366638829310735
+Validate Accuracy: 0.7478333333333333
+Epoch 23/200:
+Mean train loss: 0.9453881100455731
+Train Accuracy: 0.6646296296296297
+Mean validate loss:  0.7502901976307234
+Validate Accuracy: 0.7368333333333333
+Epoch 24/200:
+Mean train loss: 0.9460680320929576
+Train Accuracy: 0.664
+Mean validate loss:  0.7513943860928217
+Validate Accuracy: 0.7373333333333333
+Epoch 25/200:
+Mean train loss: 0.9459745361341685
+Train Accuracy: 0.6652592592592592
+Mean validate loss:  0.7485176796714464
+Validate Accuracy: 0.7418333333333333
+Epoch 26/200:
+Mean train loss: 0.942814951259378
+Train Accuracy: 0.6676111111111112
+Mean validate loss:  0.7414533247550329
+Validate Accuracy: 0.7508333333333334
+Epoch 27/200:
+Mean train loss: 0.9463727050482944
+Train Accuracy: 0.6646851851851852
+Mean validate loss:  0.7385624845822653
+Validate Accuracy: 0.7513333333333333
+Epoch 28/200:
+Mean train loss: 0.9451593423341688
+Train Accuracy: 0.6661481481481482
+Mean validate loss:  0.7531966244180998
+Validate Accuracy: 0.7325
+Epoch 29/200:
+Mean train loss: 0.9495566269797736
+Train Accuracy: 0.6636111111111112
+Mean validate loss:  0.7463218346238136
+Validate Accuracy: 0.7415
+Epoch 30/200:
+Mean train loss: 0.9465239909587878
+Train Accuracy: 0.6637777777777778
+Mean validate loss:  0.7421696484088898
+Validate Accuracy: 0.7395
+Restored best linear_aug checkpoint from epoch 20 (validation loss=0.7314)
+
+=== Linear_aug test results ===
+Test loss: 0.7660
+Test accuracy: 0.7378
+Macro-Precision: 0.7305
+Macro-Recall: 0.7378
+Macro-F1: 0.7286
+Train time: 762.21s
+Inference time: 0.000822 ms/sample
+FLOPs: 0.000016 B/sample
+Parameters: 0.007850 M
+Model size: 0.030 MB
+              precision    recall  f1-score   support
+
+ T-shirt/top     0.7490    0.7370    0.7429      1000
+     Trouser     0.8835    0.8950    0.8892      1000
+    Pullover     0.6119    0.6560    0.6332      1000
+       Dress     0.6988    0.8330    0.7600      1000
+        Coat     0.6039    0.7440    0.6667      1000
+      Sandal     0.8293    0.7240    0.7731      1000
+       Shirt     0.4371    0.2330    0.3040      1000
+     Sneaker     0.7620    0.8710    0.8129      1000
+         Bag     0.9143    0.8210    0.8651      1000
+  Ankle boot     0.8151    0.8640    0.8388      1000
+
+    accuracy                         0.7378     10000
+   macro avg     0.7305    0.7378    0.7286     10000
+weighted avg     0.7305    0.7378    0.7286     10000
+
+Confusion matrix saved to: /content/deep-learning-landing-page/Assignment1/outputs/metrics/linear_aug_confusion_matrix.png
+Learning curves saved to: /content/deep-learning-landing-page/Assignment1/outputs/learning_curves/linear_aug_learning_curves.png
+Epoch 1/200:
+Mean train loss: 0.9054723887646933
+Train Accuracy: 0.6563888888888889
+Mean validate loss:  0.582764475295941
+Validate Accuracy: 0.7825
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_mlp_aug.pt
+Epoch 2/200:
+Mean train loss: 0.6912964057018407
+Train Accuracy: 0.7344444444444445
+Mean validate loss:  0.5345368882020315
+Validate Accuracy: 0.799
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_mlp_aug.pt
+Epoch 3/200:
+Mean train loss: 0.6459615546945147
+Train Accuracy: 0.7531296296296296
+Mean validate loss:  0.48409367352724075
+Validate Accuracy: 0.8158333333333333
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_mlp_aug.pt
+Epoch 4/200:
+Mean train loss: 0.620117050494063
+Train Accuracy: 0.7640370370370371
+Mean validate loss:  0.5002433049182097
+Validate Accuracy: 0.8063333333333333
+Epoch 5/200:
+Mean train loss: 0.6005158551496352
+Train Accuracy: 0.7695
+Mean validate loss:  0.4580654626091321
+Validate Accuracy: 0.8268333333333333
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_mlp_aug.pt
+Epoch 6/200:
+Mean train loss: 0.5854733726142142
+Train Accuracy: 0.7776666666666666
+Mean validate loss:  0.46549928064147633
+Validate Accuracy: 0.8266666666666667
+Epoch 7/200:
+Mean train loss: 0.57284545658324
+Train Accuracy: 0.7830185185185186
+Mean validate loss:  0.43157301594813663
+Validate Accuracy: 0.8388333333333333
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_mlp_aug.pt
+Epoch 8/200:
+Mean train loss: 0.5600413609454982
+Train Accuracy: 0.7860925925925926
+Mean validate loss:  0.4116190920273463
+Validate Accuracy: 0.8426666666666667
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_mlp_aug.pt
+Epoch 9/200:
+Mean train loss: 0.5504972369749964
+Train Accuracy: 0.7914444444444444
+Mean validate loss:  0.40418006479740143
+Validate Accuracy: 0.8511666666666666
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_mlp_aug.pt
+Epoch 10/200:
+Mean train loss: 0.5426108982608217
+Train Accuracy: 0.7929444444444445
+Mean validate loss:  0.41401676336924237
+Validate Accuracy: 0.8503333333333334
+Epoch 11/200:
+Mean train loss: 0.5360106019329686
+Train Accuracy: 0.7967407407407407
+Mean validate loss:  0.4019923433661461
+Validate Accuracy: 0.8543333333333333
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_mlp_aug.pt
+Epoch 12/200:
+Mean train loss: 0.5346300792637595
+Train Accuracy: 0.7981666666666667
+Mean validate loss:  0.38803471997380257
+Validate Accuracy: 0.8526666666666667
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_mlp_aug.pt
+Epoch 13/200:
+Mean train loss: 0.524290992891619
+Train Accuracy: 0.8035555555555556
+Mean validate loss:  0.41006938243905705
+Validate Accuracy: 0.8485
+Epoch 14/200:
+Mean train loss: 0.520829250321004
+Train Accuracy: 0.8029444444444445
+Mean validate loss:  0.3817899152636528
+Validate Accuracy: 0.8571666666666666
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_mlp_aug.pt
+Epoch 15/200:
+Mean train loss: 0.516166270767908
+Train Accuracy: 0.8056481481481481
+Mean validate loss:  0.3874441720545292
+Validate Accuracy: 0.8506666666666667
+Epoch 16/200:
+Mean train loss: 0.5093334538959214
+Train Accuracy: 0.8073888888888889
+Mean validate loss:  0.3857435993850231
+Validate Accuracy: 0.8598333333333333
+Epoch 17/200:
+Mean train loss: 0.5102884453054853
+Train Accuracy: 0.8070925925925926
+Mean validate loss:  0.38149020324150723
+Validate Accuracy: 0.8585
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_mlp_aug.pt
+Epoch 18/200:
+Mean train loss: 0.5038611701031996
+Train Accuracy: 0.8089814814814815
+Mean validate loss:  0.3753565748532613
+Validate Accuracy: 0.8608333333333333
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_mlp_aug.pt
+Epoch 19/200:
+Mean train loss: 0.502365105383769
+Train Accuracy: 0.811037037037037
+Mean validate loss:  0.3708038280407588
+Validate Accuracy: 0.8665
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_mlp_aug.pt
+Epoch 20/200:
+Mean train loss: 0.502564626141182
+Train Accuracy: 0.8104074074074074
+Mean validate loss:  0.3658388902743657
+Validate Accuracy: 0.8598333333333333
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_mlp_aug.pt
+Epoch 21/200:
+Mean train loss: 0.49703350069963537
+Train Accuracy: 0.8142592592592592
+Mean validate loss:  0.36921432117621106
+Validate Accuracy: 0.8646666666666667
+Epoch 22/200:
+Mean train loss: 0.4970840089976505
+Train Accuracy: 0.8142222222222222
+Mean validate loss:  0.3646676503121853
+Validate Accuracy: 0.868
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_mlp_aug.pt
+Epoch 23/200:
+Mean train loss: 0.49079049170299727
+Train Accuracy: 0.8128888888888889
+Mean validate loss:  0.373485970000426
+Validate Accuracy: 0.8613333333333333
+Epoch 24/200:
+Mean train loss: 0.49361087318280295
+Train Accuracy: 0.8132592592592592
+Mean validate loss:  0.3545740793148677
+Validate Accuracy: 0.8678333333333333
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_mlp_aug.pt
+Epoch 25/200:
+Mean train loss: 0.49304637877862034
+Train Accuracy: 0.8157037037037037
+Mean validate loss:  0.36030977840224904
+Validate Accuracy: 0.8686666666666667
+Epoch 26/200:
+Mean train loss: 0.4896328200661176
+Train Accuracy: 0.8172962962962963
+Mean validate loss:  0.355212992678086
+Validate Accuracy: 0.8696666666666667
+Epoch 27/200:
+Mean train loss: 0.48501944584304124
+Train Accuracy: 0.8162592592592592
+Mean validate loss:  0.34517394627134007
+Validate Accuracy: 0.8731666666666666
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_mlp_aug.pt
+Epoch 28/200:
+Mean train loss: 0.4843358420082743
+Train Accuracy: 0.8175
+Mean validate loss:  0.3603600263595581
+Validate Accuracy: 0.8656666666666667
+Epoch 29/200:
+Mean train loss: 0.47983514740003796
+Train Accuracy: 0.8193518518518519
+Mean validate loss:  0.36265933389465016
+Validate Accuracy: 0.871
+Epoch 30/200:
+Mean train loss: 0.4772199477064666
+Train Accuracy: 0.8205555555555556
+Mean validate loss:  0.3492972403764725
+Validate Accuracy: 0.8735
+Epoch 31/200:
+Mean train loss: 0.47895723779054616
+Train Accuracy: 0.822
+Mean validate loss:  0.3406061753630638
+Validate Accuracy: 0.8733333333333333
+Saved new best checkpoint: /content/deep-learning-landing-page/Assignment1/checkpoints/best_mlp_aug.pt
+Epoch 32/200:
+Mean train loss: 0.4763190588114951
+Train Accuracy: 0.8191111111111111
+Mean validate loss:  0.3411151133477688
+Validate Accuracy: 0.8758333333333334
+Epoch 33/200:
+Mean train loss: 0.4733198430583375
+Train Accuracy: 0.8216851851851852
+Mean validate loss:  0.34548411269982654
+Validate Accuracy: 0.8755
+Epoch 34/200:
+Mean train loss: 0.4733626802950674
+Train Accuracy: 0.8225740740740741
+Mean validate loss:  0.3569691466788451
+Validate Accuracy: 0.8681666666666666
+Epoch 35/200:
+Mean train loss: 0.472674236619642
+Train Accuracy: 0.8207962962962962
+Mean validate loss:  0.3450345980624358
+Validate Accuracy: 0.8701666666666666
+Epoch 36/200:
+Mean train loss: 0.46948435916719844
+Train Accuracy: 0.8236666666666667
+Mean validate loss:  0.34284943838914234
+Validate Accuracy: 0.8736666666666667
+Epoch 37/200:
+Mean train loss: 0.4734678822106095
+Train Accuracy: 0.8220740740740741
+Mean validate loss:  0.3445429640511672
+Validate Accuracy: 0.8786666666666667
+Epoch 38/200:
+Mean train loss: 0.46857514313611937
+Train Accuracy: 0.8250555555555555
+Mean validate loss:  0.34466343683501083
+Validate Accuracy: 0.873
+Epoch 39/200:
+Mean train loss: 0.4724825260480998
+Train Accuracy: 0.8211111111111111
+Mean validate loss:  0.3407197408378124
+Validate Accuracy: 0.8725
+Epoch 40/200:
+Mean train loss: 0.46614541628914424
+Train Accuracy: 0.8248333333333333
+Mean validate loss:  0.35005478747189045
+Validate Accuracy: 0.8733333333333333
+Epoch 41/200:
+Mean train loss: 0.46745019727408604
+Train Accuracy: 0.8236481481481481
+Mean validate loss:  0.34817388219137985
+Validate Accuracy: 0.8725
+Restored best mlp_aug checkpoint from epoch 31 (validation loss=0.3406)
+
+=== MLP_aug test results ===
+Test loss: 0.3756
+Test accuracy: 0.8580
+Macro-Precision: 0.8564
+Macro-Recall: 0.8580
+Macro-F1: 0.8560
+Train time: 1130.64s
+Inference time: 0.018203 ms/sample
+FLOPs: 0.001133 B/sample
+Parameters: 0.567434 M
+Model size: 2.165 MB
+              precision    recall  f1-score   support
+
+ T-shirt/top     0.7538    0.8540    0.8008      1000
+     Trouser     0.9807    0.9670    0.9738      1000
+    Pullover     0.7578    0.7790    0.7682      1000
+       Dress     0.8688    0.8810    0.8749      1000
+        Coat     0.7704    0.7750    0.7727      1000
+      Sandal     0.9237    0.9570    0.9401      1000
+       Shirt     0.6873    0.5540    0.6135      1000
+     Sneaker     0.9374    0.8840    0.9099      1000
+         Bag     0.9578    0.9760    0.9668      1000
+  Ankle boot     0.9261    0.9530    0.9394      1000
+
+    accuracy                         0.8580     10000
+   macro avg     0.8564    0.8580    0.8560     10000
+weighted avg     0.8564    0.8580    0.8560     10000
+
+Confusion matrix saved to: /content/deep-learning-landing-page/Assignment1/outputs/metrics/mlp_aug_confusion_matrix.png
+Learning curves saved to: /content/deep-learning-landing-page/Assignment1/outputs/learning_curves/mlp_aug_learning_curves.png

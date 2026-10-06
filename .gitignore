@@ -24,6 +24,7 @@ datasets/
 # Generated training runs; publish selected results separately
 Assignment*/runs/
 Assignment*/outputs/*
+!Assignment*/outputs/log.txt
 !Assignment*/outputs/eda/
 !Assignment*/outputs/learning_curves/
 !Assignment*/outputs/metrics/
