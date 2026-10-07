@@ -40,14 +40,12 @@
 
       <div class="hero-meta">
         <div class="meta-item"><i class="fa-solid fa-user-tie"></i> Instructor: Lê Thành Sách</div>
-        <div class="meta-item"><i class="fa-solid fa-layer-group"></i> Track: [Object Detection / Segmentation / Classification]</div>
-        <div class="meta-item"><span class="card-badge badge-pending">Dataset Proposal: Pending Approval</span></div>
       </div>
 
       <div class="card-footer" style="justify-content: center; margin-top: 1.5rem;">
         <a href="https://github.com/MinhTrinhh/deep-learning-landing-page/tree/main/Assignment2/code" target="_blank" class="btn btn-secondary btn-sm"><i class="fa-brands fa-github"></i> Source Code</a>
         <a href="#video-section" class="btn btn-primary btn-sm"><i class="fa-solid fa-video"></i> YouTube Video</a>
-        <a href="./Presentation/" class="btn btn-secondary btn-sm"><i class="fa-solid fa-file-pdf"></i> Proposal / Report PDF</a>
+        <a href="./dataproposal/dataproposal.pdf" target="_blank" class="btn btn-secondary btn-sm"><i class="fa-solid fa-file-pdf"></i> Dataset Proposal PDF</a>
         <a href="./checkpoints/" class="btn btn-secondary btn-sm"><i class="fa-solid fa-box-archive"></i> Checkpoints</a>
       </div>
     </div>
@@ -70,56 +68,11 @@
     <!-- TAB 1: Dataset Proposal -->
     <div class="tab-content active" id="tab-proposal">
       <div class="card">
-        <h2 class="section-title"><i class="fa-solid fa-clipboard-check"></i> Dataset Proposal & Approval Gate (A2-M1)</h2>
-        <div class="card-body" style="margin-top: 1rem;">
-          
-          <div class="callout callout-warning">
-            <div class="callout-title"><i class="fa-solid fa-lock"></i> Approval Status: Pending Instructor Review</div>
-            <p>
-              Per Section 18 of the handbook, main implementation experiments begin only after the Dataset Proposal is <strong>Approved</strong> or <strong>Approved with conditions</strong> by the instructor.
-            </p>
-          </div>
-
-          <h3 style="margin-top: 1.5rem; color: var(--secondary-light); font-size: 1.15rem;">Selected Track Specification</h3>
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Property</th>
-                  <th>Proposal Specification</th>
-                  <th>Handbook Requirement Threshold</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Selected Track</strong></td>
-                  <td>Object Detection / Segmentation / Classification / Re-ID</td>
-                  <td>One specialized track</td>
-                </tr>
-                <tr>
-                  <td><strong>Dataset Name & License</strong></td>
-                  <td>COCO 2017 / Pascal VOC / Cityscapes / Custom</td>
-                  <td>Publicly accessible & documented license</td>
-                </tr>
-                <tr>
-                  <td><strong>Sample Volume</strong></td>
-                  <td>5,000+ training images / 10,000+ instances</td>
-                  <td>Meets track default threshold (Section 19)</td>
-                </tr>
-                <tr>
-                  <td><strong>Leakage Prevention Unit</strong></td>
-                  <td>Scene / Sequence / Group ID split</td>
-                  <td>Strict split unit to prevent data leakage</td>
-                </tr>
-                <tr>
-                  <td><strong>Baseline & Pretrained Model</strong></td>
-                  <td>Simple Baseline vs. Faster R-CNN / YOLO / ResNet-50</td>
-                  <td>Simple baseline + fine-tuned modern model</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
+        <h2 class="section-title"><i class="fa-solid fa-file-pdf"></i> Dataset Proposal & Track</h2>
+        <div class="card-body" style="margin-top: 1rem; text-align: center;">
+          <a href="./dataproposal/dataproposal.pdf" target="_blank" class="btn btn-primary">
+            <i class="fa-solid fa-file-pdf"></i> Open Dataset Proposal PDF
+          </a>
         </div>
       </div>
     </div>
