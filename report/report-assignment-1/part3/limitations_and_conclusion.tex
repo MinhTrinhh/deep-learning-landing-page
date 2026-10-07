@@ -1,5 +1,11 @@
 \section{Limitations and Conclusion}
 
-Discuss data, method, and experimental limits; expected generalization; future work; and a short answer to the research question.
+\textbf{Data limitations.} Fashion-MNIST contains centered, low-resolution grayscale objects with balanced labels. Results may not transfer to color images, cluttered backgrounds, larger resolutions, or naturally imbalanced data. Several upper-body categories are intrinsically ambiguous at $28\times28$ resolution.
 
-\textbf{Conclusion.} Summarize the evidence-based answer and avoid claims that are not supported by the experiments.
+\textbf{Method limitations.} Four architecture families were completed, but the mandatory Transformer is not yet implemented. The Linear, MLP, CNN, and GRU configurations were fixed rather than exhaustively tuned, and model capacities are not matched. No formal augmentation, dropout, representation, or parameter-budget ablation was run.
+
+\textbf{Experimental limitations.} Results come from one deterministic seed, so run-to-run variance is unknown. The exact CPU model and complete session identity were not recorded; therefore, training and inference measurements indicate practical cost but are not hardware-controlled benchmarks. The qualitative set is deliberately small and illustrates behavior rather than estimating frequency.
+
+\textbf{Expected generalization and future work.} The relative advantage of spatial convolution is expected to persist on similar small image tasks, but its magnitude requires confirmation across seeds and datasets. Immediate future work is to implement the required Transformer with patch or row tokens, positional encoding, and self-attention; repeat every experiment across multiple seeds; log exact hardware and software automatically; and run the controlled ablations in Table~\ref{tab:ablation}.
+
+\textbf{Conclusion.} Under the shared Fashion-MNIST pipeline, architectural inductive bias materially changes both accuracy and efficiency. Linear is the cheapest but underfits; MLP gains substantially from nonlinear capacity; GRU provides a strong accuracy--parameter compromise by encoding row dependencies; and CNN is the best completed classifier because locality and weight sharing align with image structure. CNN achieves 92.55\% test accuracy and 0.9259 macro-F1, while GRU reaches 88.36\% with only 61,962 parameters. The evidence therefore answers the research question in favor of spatial inductive bias for predictive quality, while showing that the preferred architecture changes when size or latency is prioritized. The final five-family conclusion remains incomplete until the Transformer experiment is run.

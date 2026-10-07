@@ -1,17 +1,63 @@
 \section{Baseline and Main Methods}
 
-Both models receive normalized $1\times28\times28$ images, flatten them to 784 features, and are implemented in PyTorch. They use cross-entropy loss and are evaluated with accuracy, macro-precision, macro-recall, macro-F1, test loss, and resource metrics.
+All architectures were implemented directly with PyTorch modules \cite{paszke2019pytorch}. They receive the same normalized images, return ten raw logits, and optimize cross-entropy loss. The model-specific difference is the representation and inductive bias used before classification.
 
 \begin{table}[H]
     \centering
-    \caption{Compared methods.}
+    \caption{Implemented and evaluated methods.}
     \label{tab:methods}
-    \begin{tabularx}{\textwidth}{@{}lXlll@{}}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{@{}llllr@{}}
         \toprule
-        Method & Architecture / input & Loss & Metrics & Parameters \\
+        Method & Input representation & Architecture & Main inductive bias & Parameters \\
         \midrule
-        Linear & One linear layer, $784\rightarrow10$ & Cross-entropy & Accuracy, macro-F1 & 7,850 \\
-        MLP & Four linear layers, $784\rightarrow512\rightarrow256\rightarrow128\rightarrow10$, ReLU and dropout 0.2 & Cross-entropy & Accuracy, macro-F1 & 567,434 \\
+        Linear & Flattened $[B,784]$ & $784\rightarrow10$ & One global linear boundary & 7,850 \\
+        MLP & Flattened $[B,784]$ & $784\rightarrow512\rightarrow256\rightarrow128\rightarrow10$ & Nonlinear global feature interactions & 567,434 \\
+        CNN & Spatial $[B,1,28,28]$ & Two Conv--ReLU--Pool blocks; dense classifier & Locality and shared spatial filters & 1,691,914 \\
+        GRU & Row sequence $[B,28,28]$ & One GRU layer ($H=128$); final-state classifier & Ordered sequential dependence & 61,962 \\
         \bottomrule
-    \end{tabularx}
+    \end{tabular}}
 \end{table}
+
+\textbf{Linear / softmax baseline.} The image is flattened and mapped directly to ten logits. This model is fast and interpretable but cannot express nonlinear class boundaries or explicitly exploit nearby pixels.
+
+\textbf{Multilayer perceptron.} Three hidden layers of widths 512, 256, and 128 use ReLU activation followed by dropout $p=0.2$. Dense connectivity provides nonlinear capacity, but flattening still removes explicit two-dimensional neighborhood structure.
+
+\textbf{Convolutional neural network.} Two $3\times3$ convolutions create 32 and 64 feature maps. Each convolution is followed by ReLU and $2\times2$ max pooling, reducing the grid from $28\times28$ to $7\times7$. A $3136\rightarrow512\rightarrow128\rightarrow10$ classifier uses ReLU and dropout. Local receptive fields and weight sharing make this architecture naturally suited to images.
+
+\textbf{Gated recurrent unit.} Each image becomes 28 top-to-bottom timesteps with 28 pixel features per step. A one-layer GRU with hidden size 128 summarizes the sequence; the final hidden state passes through dropout and a $128\rightarrow10$ classifier. The recurrent stage has
+\[
+3HI+3H^2+6H
+=3(128)(28)+3(128)^2+6(128)=60{,}672
+\]
+learnable parameters, and the classifier adds 1,290. The row ordering enables long-range dependence but imposes a directional bias and does not preserve two-dimensional locality as directly as CNN.
+
+\textbf{Transformer status.} A patch/row token Transformer with projection, positional encoding, self-attention, and a classification head is required by the final handbook specification but was not implemented or run in the available experiment outputs. It is therefore excluded from numerical comparisons and recorded as a limitation rather than assigned estimated results.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{graphics/models/linear-model.pdf}
+    \caption{Linear / softmax architecture and parameter flow.}
+    \label{fig:linear-architecture}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{graphics/models/mlp-model.pdf}
+    \caption{MLP architecture, nonlinear hidden layers, and dropout.}
+    \label{fig:mlp-architecture}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{graphics/models/cnn-model.pdf}
+    \caption{CNN spatial feature extractor and dense classifier.}
+    \label{fig:cnn-architecture}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{graphics/models/gru-model.pdf}
+    \caption{GRU row-sequence representation, recurrent hidden state, and classifier.}
+    \label{fig:gru-architecture}
+\end{figure}

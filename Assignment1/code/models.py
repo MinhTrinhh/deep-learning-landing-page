@@ -1,6 +1,9 @@
 import torch
 from torch import nn
-from config import INPUT_DIM, OUTPUT_DIM, DROP_STEP
+from config import (
+    INPUT_DIM,
+    OUTPUT_DIM,
+)
 
 # Linear model
 class LinearModel(nn.Module):
@@ -77,5 +80,28 @@ class CNNModel(nn.Module):
     def forward(self, images):
         features = self.features(images)
         logits = self.classifier(features)
+
+        return logits
+
+
+class GRUModel(nn.Module):
+    def __init__(self,dropout):
+        super().__init__()
+
+        self.gru = nn.GRU(
+            input_size=28,
+            hidden_size=128,
+            num_layers=1,
+            batch_first=True,
+        ) # (B, 28, 28) -> (B, 28, 128) (1, B, 128)
+        self.dropout = nn.Dropout(p=dropout)
+        self.classifier = nn.Linear(128, OUTPUT_DIM) # (B, 128) -> (B, 10)
+
+    def forward(self, images):
+        sequences = images.squeeze(1) # (B, 1, 28, 28) -> (B, 28, 28)
+        _, hidden = self.gru(sequences) # (B, 28, 128), (1, B, 128)
+
+        final_hidden = self.dropout(hidden[-1, :, :]) # (B, 128)
+        logits = self.classifier(final_hidden) # (B, 10)
 
         return logits

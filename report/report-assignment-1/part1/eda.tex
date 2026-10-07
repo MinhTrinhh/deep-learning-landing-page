@@ -20,7 +20,7 @@ The class distribution is perfectly balanced, with 6,000 images for each of the 
     \label{fig:eda-random-examples}
 \end{figure}
 
-The sampled images confirm that the dataset contains centered grayscale clothing objects with visually meaningful class labels. They also illustrate within-class variation in pose, shape, and intensity, which motivates using both a linear baseline and a nonlinear MLP model.
+The sampled images confirm that the dataset contains centered grayscale clothing objects with visually meaningful class labels. They also illustrate within-class variation in pose, shape, texture, and intensity, motivating comparison of flattened-pixel, spatial, and row-sequence representations.
 
 \begin{table}[H]
     \centering
@@ -38,7 +38,7 @@ The sampled images confirm that the dataset contains centered grayscale clothing
     \end{tabular}
 \end{table}
 
-The images are represented as $1\times28\times28$ tensors with pixel values in $[0,1]$. The mean and standard deviation provide the normalization values used by the data-loading pipeline.
+The images are represented as $1\times28\times28$ tensors with pixel values in $[0,1]$ before normalization. The measured mean and standard deviation are consistent with the values used by the data-loading pipeline; the implementation recomputes them from the 54,000-image training subset to prevent leakage.
 
 \subsection{Task-Specific EDA (Classification)}
 

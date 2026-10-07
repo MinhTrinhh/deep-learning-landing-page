@@ -233,7 +233,7 @@
           </div>
 
           <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-layer-group"></i> Mandatory Architecture Configurations</h3>
-          <p class="section-desc">Linear, MLP, and CNN are implemented; recurrent and transformer models remain planned work.</p>
+          <p class="section-desc">Linear, MLP, CNN, and GRU are implemented; the transformer remains planned work.</p>
           <div class="table-responsive">
             <table class="table">
               <thead>
@@ -272,12 +272,12 @@
                   <td>1,691,914</td>
                 </tr>
                 <tr>
-                  <td><strong>4. LSTM / GRU</strong></td>
-                  <td><span class="card-badge badge-pending">Pending</span></td>
-                  <td>Sequence representation is not yet finalized</td>
-                  <td>Not yet implemented; recurrent architecture is TBD.</td>
-                  <td>TBD</td>
-                  <td>TBD</td>
+                  <td><strong>4. GRU</strong></td>
+                  <td><span class="card-badge badge-approved">Implemented</span></td>
+                  <td>Row sequence <code>[B, 28, 28]</code></td>
+                  <td>One unidirectional GRU layer with input size 28 and hidden size 128; final hidden state → <code>Dropout(0.2)</code> → <code>Linear(128, 10)</code>.</td>
+                  <td><code>CrossEntropyLoss</code></td>
+                  <td>61,962</td>
                 </tr>
                 <tr>
                   <td><strong>5. Vision Transformer</strong></td>
@@ -339,6 +339,19 @@
                   </ul>
                 </figcaption>
               </figure>
+
+              <figure class="architecture-diagram-card">
+                <a href="./diagram-models/gru-model.svg" target="_blank" aria-label="Open the full-size GRU model architecture diagram">
+                  <img src="./diagram-models/gru-model.svg" alt="GRU architecture that interprets each Fashion-MNIST image as 28 ordered rows, encodes them with 128 hidden units, and classifies the final hidden state">
+                </a>
+                <figcaption>
+                  <div class="architecture-diagram-summary"><strong>Gated Recurrent Unit</strong><span>28-step row sequence · 61,962 parameters</span></div>
+                  <ul class="compact-points">
+                    <li>Reads each image as 28 ordered rows with 28 pixel features per time step.</li>
+                    <li>Classifies the final 128-dimensional hidden state after <code>Dropout(0.2)</code>.</li>
+                  </ul>
+                </figcaption>
+              </figure>
             </div>
           </section>
         </div>
@@ -359,8 +372,8 @@
           <div class="callout callout-info" style="margin-bottom: 1.5rem;">
             <div class="callout-title"><i class="fa-solid fa-circle-check"></i> Completed Experiment Status</div>
             <ul class="compact-points">
-              <li>Linear, MLP, and CNN results are measured from the same augmented training pipeline and are final.</li>
-              <li>LSTM/GRU and ViT experiments remain <strong>TBD</strong>.</li>
+              <li>Linear, MLP, CNN, and GRU results are measured from the same augmented training pipeline and are final.</li>
+              <li>Only the Vision Transformer experiment remains <strong>TBD</strong>.</li>
             </ul>
           </div>
 
@@ -405,14 +418,14 @@
                   <td>0.044741 ms</td>
                   <td>6.454 MB</td>
                 </tr>
-                <tr style="opacity: 0.6;">
-                  <td><strong>LSTM / GRU</strong> <span class="card-badge badge-pending">TBD</span></td>
-                  <td>—</td>
-                  <td>—</td>
-                  <td>—</td>
-                  <td>—</td>
-                  <td>—</td>
-                  <td>—</td>
+                <tr style="background: rgba(15,130,223,0.06);">
+                  <td><strong>GRU (128 hidden units)</strong> ✅</td>
+                  <td><strong>88.36%</strong></td>
+                  <td>0.8821</td>
+                  <td>61,962</td>
+                  <td>1,316.61 s</td>
+                  <td>0.038619 ms</td>
+                  <td>0.236 MB</td>
                 </tr>
                 <tr style="opacity: 0.6;">
                   <td><strong>Vision Transformer (ViT)</strong> <span class="card-badge badge-pending">TBD</span></td>
@@ -430,10 +443,12 @@
           <div class="callout callout-info" style="margin-top: 1.5rem;">
             <div class="callout-title"><i class="fa-solid fa-magnifying-glass-chart"></i> Comparison from the completed run</div>
             <ul class="compact-points">
-              <li>CNN ranks first with <strong>92.55% test accuracy</strong> and <strong>0.9259 macro F1</strong>, improving on MLP by 6.75 accuracy points and 0.0699 macro F1.</li>
-              <li>Its spatial inductive bias improves accuracy substantially, with the trade-off of 1.69M parameters, 1.79× the MLP training time, and 2.46× its per-sample inference time.</li>
-              <li><em>Shirt</em> remains the hardest CNN class (F1 0.7762), while <em>Trouser</em>, <em>Bag</em>, and <em>Sandal</em> each exceed 0.98 F1.</li>
-              <li>Best validation-loss checkpoints: Linear epoch 20; MLP epoch 31; CNN epoch 55 (validation loss 0.1702).</li>
+              <li>CNN remains first with <strong>92.55% test accuracy</strong> and <strong>0.9259 macro F1</strong>; GRU ranks second at <strong>88.36%</strong> accuracy and <strong>0.8821</strong> macro F1.</li>
+              <li>GRU improves on MLP by 2.56 accuracy points and 0.0261 macro F1 while using 89.1% fewer parameters and an 89.1% smaller model file.</li>
+              <li>Despite its compact size, GRU's sequential computation takes 1.16× the MLP training time and 2.12× its per-sample inference time.</li>
+              <li>CNN improves on GRU by 4.19 accuracy points, but uses 27.3× as many parameters and takes 1.54× as long to train.</li>
+              <li><em>Shirt</em> remains the hardest GRU class (F1 0.6689), most often confused with <em>T-shirt/top</em>, <em>Coat</em>, and <em>Pullover</em>.</li>
+              <li>Best validation-loss checkpoints: Linear epoch 20; MLP epoch 31; CNN epoch 55; GRU epoch 53 (validation loss 0.2842).</li>
             </ul>
           </div>
 
@@ -458,6 +473,12 @@
               </a>
               <figcaption><strong>Convolutional Neural Network</strong><span>Best validation loss 0.1702 at epoch 55 · early stopped after epoch 65</span></figcaption>
             </figure>
+            <figure class="result-figure-card">
+              <a href="./outputs/learning_curves/gru_aug_learning_curves.png" target="_blank" aria-label="Open the full-size GRU learning curves">
+                <img src="./outputs/learning_curves/gru_aug_learning_curves.png" alt="GRU learning curves with training augmentation">
+              </a>
+              <figcaption><strong>Gated Recurrent Unit</strong><span>Best validation loss 0.2842 at epoch 53 · early stopped after epoch 63</span></figcaption>
+            </figure>
           </div>
 
           <!-- Confusion Matrices -->
@@ -481,6 +502,12 @@
               </a>
               <figcaption><strong>Convolutional Neural Network</strong><span>92.55% accuracy · 10×10 matrix · 10,000 test samples</span></figcaption>
             </figure>
+            <figure class="result-figure-card result-figure-card--matrix">
+              <a href="./outputs/metrics/gru_aug_confusion_matrix.png" target="_blank" aria-label="Open the full-size GRU confusion matrix">
+                <img src="./outputs/metrics/gru_aug_confusion_matrix.png" alt="GRU confusion matrix with training augmentation">
+              </a>
+              <figcaption><strong>Gated Recurrent Unit</strong><span>88.36% accuracy · 10×10 matrix · 10,000 test samples</span></figcaption>
+            </figure>
           </div>
 
           <!-- Traceability callout -->
@@ -502,7 +529,7 @@
       <div class="card">
         <h2 class="section-title"><i class="fa-solid fa-brain"></i> Architectural Inductive Bias & Analysis</h2>
         <div class="card-body" style="margin-top: 1rem;">
-          <p class="section-desc">Each architecture encodes different assumptions about how pixels relate to one another. The measured results below are reported only for completed experiments; LSTM/GRU and ViT remain planned models.</p>
+          <p class="section-desc">Each architecture encodes different assumptions about how pixels relate to one another. Linear, MLP, CNN, and GRU observations come from completed experiments; ViT remains planned.</p>
 
           <div class="model-discussion-stack">
             <section class="model-discussion-card">
@@ -544,17 +571,17 @@
               <p><strong>Observed behavior.</strong> This image-specific bias produces the best macro F1 (<strong>0.9259</strong>) and raises Shirt F1 to 0.7762. The gain comes with the largest completed model (1.69M parameters), 2,025.71 seconds of CPU training, and the slowest measured inference.</p>
             </section>
 
-            <section class="model-discussion-card model-discussion-card--pending">
+            <section class="model-discussion-card">
               <div class="model-discussion-heading">
                 <span class="model-number">04</span>
                 <div>
-                  <span class="section-eyebrow">Planned experiment</span>
-                  <h3>LSTM / GRU</h3>
+                  <span class="section-eyebrow">Implemented recurrent model</span>
+                  <h3>Gated Recurrent Unit</h3>
                 </div>
-                <span class="card-badge badge-pending">Results TBD</span>
+                <span class="model-result">88.36% accuracy</span>
               </div>
-              <p><strong>Inductive bias.</strong> A recurrent model would interpret each image as an ordered sequence, for example 28 rows of 28 features. Shared recurrent weights favor sequential dependencies and the hidden state carries information from earlier rows to later rows.</p>
-              <p><strong>Expected trade-off.</strong> Recurrence can model long-range relationships, but the chosen scan order introduces a directional bias and represents 2D neighborhoods less naturally than convolution. Accuracy and efficiency claims are deferred until the architecture and experiment are completed.</p>
+              <p><strong>Inductive bias.</strong> The GRU interprets each image as 28 ordered rows of 28 features. Shared recurrent weights favor sequential dependencies, and its 128-dimensional hidden state carries information from earlier rows to later rows.</p>
+              <p><strong>Observed behavior.</strong> GRU reaches <strong>0.8821 macro F1</strong>, outperforming MLP with about one-ninth as many parameters. Its sequential structure is useful, but recurrent processing is slower than dense computation and the top-to-bottom scan represents 2D locality less naturally than CNN. Shirt remains hardest (F1 0.6689), while Trouser, Bag, Ankle boot, and Sandal all exceed 0.96 F1.</p>
             </section>
 
             <section class="model-discussion-card model-discussion-card--pending">

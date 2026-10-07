@@ -1,17 +1,22 @@
 \section{Experimental Design}
 
-For each experiment, state the hypothesis, changed factor, fixed factors, metrics, and conclusion criteria.
+The comparison changes the architecture and its input representation while holding the data and evaluation pipeline fixed. Each hypothesis is evaluated on the official 10,000-image test set only after selection by validation loss.
 
 \begin{table}[H]
     \centering
-    \caption{Experimental design.}
+    \scriptsize
+    \caption{Experimental design for the completed model-family comparison.}
     \label{tab:experimental-design}
     \begin{tabularx}{\textwidth}{@{}lXXXX@{}}
         \toprule
         Experiment & Hypothesis & Changed factor & Fixed factors & Conclusion criteria \\
         \midrule
-        EXP-01 & TODO & TODO & TODO & TODO \\
-        EXP-02 & TODO & TODO & TODO & TODO \\
+        EXP-01 Linear & A linear classifier provides a low-cost reference but underfits overlapping clothing classes. & Single affine mapping on 784 flattened pixels. & Split, seed, transforms, optimizer, loss, checkpointing, and metrics. & Establish the minimum accuracy/F1 and resource cost. \\
+        EXP-02 MLP & Nonlinear dense layers improve on Linear despite losing spatial layout. & Three ReLU hidden layers and dropout. & Same shared protocol. & Higher accuracy and macro-F1 than Linear, interpreted with size/time cost. \\
+        EXP-03 CNN & Local filters and weight sharing give the best image-classification performance. & Spatial convolutions, pooling, and dense head. & Same shared protocol. & Highest accuracy/F1 and fewer upper-body errors, with resource trade-off reported. \\
+        EXP-04 GRU & Row-sequence recurrence beats flattened dense models with fewer parameters but remains below CNN. & 28 row timesteps and 128-dimensional recurrent state. & Same shared protocol. & Accuracy/F1 above MLP, parameter count below MLP, and timing compared explicitly. \\
         \bottomrule
     \end{tabularx}
 \end{table}
+
+The primary metric is test accuracy; macro-F1 is the secondary predictive metric. Parameter count, serialized model size, training time, inference time, learning curves, confusion matrices, and selected qualitative examples provide efficiency and behavioral evidence. No conclusion is based on accuracy alone. The Transformer hypothesis cannot yet be tested because no Transformer run is available.

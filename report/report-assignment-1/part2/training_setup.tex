@@ -2,25 +2,28 @@
 
 \begin{table}[H]
     \centering
-    \caption{Training configuration.}
+    \caption{Training configuration shared by the four completed experiments.}
     \label{tab:training-setup}
     \begin{tabularx}{\textwidth}{@{}lX@{}}
         \toprule
         Setting & Value \\
         \midrule
-        Optimizer & AdamW \\
-        Learning rate & 0.001 \\
-        Batch size & 256 \\
-        Epochs & 10 maximum \\
-        Scheduler & None \\
-        Regularization & Weight decay 0.1; MLP dropout 0.2 \\
-        Early stopping & Patience-style counter of 10 non-improving validation epochs \\
-        Checkpoint criterion & Lowest validation loss \\
-        Random seed & 42, with deterministic PyTorch algorithms enabled \\
-        Hardware & TODO \\
-        Mixed precision & Not used \\
-        Training time & Linear: 176.43 s; MLP: 178.11 s \\
-        Hyperparameter selection & Fixed configuration in `config.py`; no search results recorded \\
+        Framework & PyTorch 2.14.0; torchvision 0.29.0; dependency versions declared in \texttt{requirements.txt}. \\
+        Optimizer & AdamW \cite{loshchilov2019decoupled}. \\
+        Learning rate / weight decay & 0.001 / 0.1. \\
+        Batch size / workers & 256 / 1 worker. \\
+        Maximum epochs & 200. \\
+        Scheduler & None. \\
+        Regularization & Training augmentation for all models; dropout 0.2 in MLP, CNN, and GRU. \\
+        Early stopping & Stop after ten consecutive epochs without validation-loss improvement of at least $10^{-4}$. \\
+        Checkpoint criterion & Lowest validation loss; restore the selected checkpoint before testing. \\
+        Randomness & Seed 42 for Python, NumPy, PyTorch, splitting, and DataLoader shuffling; deterministic PyTorch algorithms enabled. \\
+        Hardware & CPU-only execution; CUDA was unavailable. The exact CPU model and full session identity were not recorded. \\
+        Mixed precision & Not used. \\
+        Train time & Linear 762.21 s; MLP 1,130.64 s; CNN 2,025.71 s; GRU 1,316.61 s. \\
+        Hyperparameter selection & One fixed configuration from \texttt{config.py}; no grid or Bayesian search. \\
         \bottomrule
     \end{tabularx}
 \end{table}
+
+Because the exact processor was not logged and output paths indicate that experiments may have been executed in more than one CPU session, training and inference times are reported as observed resource measurements, not hardware-normalized benchmarks. Predictive metrics remain comparable because the split, seed, preprocessing, loss, checkpoint rule, and evaluator are shared.

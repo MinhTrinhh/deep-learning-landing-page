@@ -1,6 +1,6 @@
 \section{Preprocessing}
 
-Images are converted to tensors and normalized using the training-split statistics. Training images additionally receive random horizontal flips and small affine transformations; validation and test images use deterministic preprocessing.
+Images are converted to tensors and normalized using statistics calculated from the 54,000-image training split. Training images additionally receive random horizontal flips and small affine transformations; validation and test images use deterministic preprocessing only.
 
 \begin{table}[H]
     \centering
@@ -10,13 +10,15 @@ Images are converted to tensors and normalized using the training-split statisti
         \toprule
         Stage & Operation & Configuration \\
         \midrule
-        Cleaning & No additional cleaning & Fashion-MNIST images and labels are consumed through torchvision. \\
-        Transformation & `ToTensor` & Converts images to floating-point tensors with shape $1\times28\times28$. \\
-        Normalization & Train-split mean and standard deviation & Statistics are computed on training images only, then applied to train, validation, and test inputs. \\
-        Augmentation & Random flip and affine transform & Training only: horizontal flip with $p=0.5$; rotation $[-10,10]^{\circ}$, translation 0.1, scale $[0.9,1.1]$. \\
-        Tensor shape & $1\times28\times28$ (then 784 features) & The linear and MLP models flatten the image inside `forward`. \\
+        Cleaning & No additional cleaning & Images and labels are read through torchvision; no missing or invalid records were detected. \\
+        Tensor conversion & \texttt{ToTensor()} & Converts \texttt{uint8} pixels from $[0,255]$ to floating point in $[0,1]$ with shape $[B,1,28,28]$. \\
+        Normalization & $(x-\mu_{\mathrm{train}})/\sigma_{\mathrm{train}}$ & Training-split statistics are reused unchanged for validation and test data. \\
+        Augmentation & Horizontal flip and affine transform & Training only: flip probability 0.5; rotation $[-10,10]^{\circ}$; translation 0.1; scale $[0.9,1.1]$. \\
+        Linear / MLP input & Flatten internally & $[B,1,28,28]\rightarrow[B,784]$. \\
+        CNN input & Preserve spatial grid & $[B,1,28,28]$. \\
+        GRU input & Remove channel axis & $[B,1,28,28]\rightarrow[B,28,28]$: 28 row timesteps with 28 features each. \\
         \bottomrule
     \end{tabularx}
 \end{table}
 
-
+Augmentation is intentionally excluded from validation and test data. Consequently, validation accuracy may exceed training accuracy because validation uses clean inputs and disables dropout, while training metrics are measured on augmented inputs with dropout active.

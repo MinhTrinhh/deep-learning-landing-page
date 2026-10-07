@@ -1,19 +1,19 @@
 \section{Problem Formulation}
 
-\textbf{Motivation.} Fashion-MNIST is a standard image-classification benchmark for evaluating machine-learning pipelines on grayscale clothing images. The task provides a controlled setting for comparing a linear classifier with a multilayer perceptron while preserving challenges such as visually similar clothing categories.
+\textbf{Motivation.} Fashion-MNIST is a controlled image-classification benchmark that is more visually demanding than digit recognition while remaining small enough for systematic architecture comparison. The assignment investigates how increasingly structured inductive biases---linear, dense nonlinear, spatial convolutional, and recurrent---affect predictive quality and computational cost under one shared pipeline.
 
-\textbf{Input.} Each input is a grayscale image with shape $1\times28\times28$. Pixel intensities are represented as floating-point values in $[0,1]$ before normalization and are flattened to 784 features by both models.
+\textbf{Input and prediction unit.} Each prediction concerns one grayscale clothing image $x\in\mathbb{R}^{1\times28\times28}$. Linear and MLP models flatten the image to 784 values; CNN preserves the two-dimensional grid; GRU reads the image as 28 ordered row vectors with 28 features per timestep. Pixel values are first scaled to $[0,1]$ and then normalized using statistics from the training split.
 
-\textbf{Output.} The target is one of ten Fashion-MNIST classes. Each prediction corresponds to one image and is obtained from the class with the largest output logit.
+\textbf{Output.} The target $y\in\{0,\ldots,9\}$ is one of ten Fashion-MNIST classes. Every model returns ten unnormalized logits, and the predicted class is the index of the largest logit. No softmax is applied before \texttt{CrossEntropyLoss}.
 
 \textbf{Mathematical formulation.}
 \begin{equation}
-    \hat{y} = f_{\theta}(x),
+    \hat{y}_i=\arg\max_{c\in\{0,\ldots,9\}} f_{\theta}(x_i)_c,
     \qquad
-    \theta^{*} = \arg\min_{\theta}\frac{1}{N}\sum_{i=1}^{N}
-    \mathcal{L}\bigl(f_{\theta}(x_i), y_i\bigr).
+    \theta^{*}=\arg\min_{\theta}\frac{1}{N}\sum_{i=1}^{N}
+    \mathcal{L}_{\mathrm{CE}}\!\left(f_{\theta}(x_i),y_i\right).
     \label{eq:problem-formulation}
 \end{equation}
-For a batch of images, the models minimize the cross-entropy loss over the ten-class target distribution.
+The research question is: \emph{How do representation choice and architectural inductive bias change Fashion-MNIST accuracy, macro-F1, model size, training cost, and class-level errors when the data split and evaluation protocol are fixed?}
 
-\textbf{Main difficulties.} The main challenges are distinguishing visually similar classes such as Shirt, T-shirt/top, Pullover, and Coat; handling the high-dimensional flattened input; and controlling overfitting while using a fully connected architecture.
+\textbf{Main difficulties.} Shirt, T-shirt/top, Pullover, and Coat have overlapping low-resolution silhouettes. Flattening discards explicit spatial neighborhoods, whereas row-wise recurrent processing introduces an ordering that is not fully natural for a two-dimensional image. The experiment must therefore separate genuine architectural benefits from differences in capacity and computational cost.

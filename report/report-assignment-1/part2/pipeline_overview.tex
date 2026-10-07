@@ -1,18 +1,12 @@
 \section{Pipeline Overview}
 
-The complete pipeline is summarized below:
+All trained architectures use the same split, preprocessing objects, optimizer family, trainer, checkpoint rule, and test evaluator. Figure~\ref{fig:pipeline-overview} shows the complete execution path. Training batches are augmented and normalized; validation and test batches are normalized without augmentation. At every epoch, the trainer records loss and accuracy, saves a checkpoint only when validation loss improves by at least $10^{-4}$, and stops after ten consecutive non-improving epochs. The best-validation-loss checkpoint is restored before the official test set is evaluated.
 
-\begin{center}
-    \fbox{\parbox{0.96\textwidth}{\centering
-    Raw data $\rightarrow$ preprocessing $\rightarrow$ data loader $\rightarrow$ model $\rightarrow$ loss\\
-    $\rightarrow$ optimization $\rightarrow$ prediction $\rightarrow$ post-processing $\rightarrow$ evaluation}}
-\end{center}
-
-Replace the placeholder above with a diagram when available.
 \begin{figure}[H]
     \centering
-    % Suggested image filename: graphics/pipeline-overview.png
-    \includegraphics[width=0.9\textwidth]{graphics/placeholder.png}
-    \caption{End-to-end pipeline.}
+    \includegraphics[width=\textwidth,height=0.72\textheight,keepaspectratio]{graphics/pipeline-overview.pdf}
+    \caption{End-to-end Fashion-MNIST experiment pipeline used by every completed architecture.}
     \label{fig:pipeline-overview}
 \end{figure}
+
+The implementation separates responsibilities across \texttt{dataloader.py} (splits and transforms), \texttt{models.py} (architectures), \texttt{trainer.py} (training, validation, early stopping, and checkpoints), \texttt{metrics.py} (predictive and resource metrics), and \texttt{plotter.py} (EDA and result figures). This separation allows the model family to change without changing the evaluation protocol.

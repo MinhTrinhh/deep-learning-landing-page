@@ -31,6 +31,24 @@ Student verification: Ran the MLP training workflow and supplied the resulting c
 Affected files/sections: Assignment1/code/main.py, config.py, dataloader.py, edaworker.py, metrics.py, trainer.py, plotter.py; Assignment1/code/README.md; Assignment1/checkpoints/README.md.
 Responsible member: Trịnh Lê Minh
 
+Tool: OpenAI Codex (GPT-5)
+Used by: Trịnh Lê Minh
+Task: Explaining and documenting the CNN and GRU architectures
+Prompt summary: Asked for help explaining how the CNN preserves spatial structure, how the GRU treats each image as a sequence of rows, why the GRU acts as a sequence encoder, and how its 60,672 recurrent parameters are calculated.
+AI contribution: Explained the architectural inductive biases and tensor transformations of both models; derived the GRU parameter count from its input-to-hidden weights, hidden-to-hidden weights, and two bias vectors; and helped prepare the CNN and GRU architecture descriptions and diagrams used on the Assignment 1 page.
+Student verification: Cross-checked every layer, tensor shape, and parameter count against models.py and verified the reported CNN and GRU metrics against outputs/log.txt and the generated result figures.
+Affected files/sections: Assignment1/index.html, Assignment1/diagram-models/cnn-model.svg, Assignment1/diagram-models/gru-model.svg; CNN and GRU methodology and inductive-bias sections.
+Responsible member: Trịnh Lê Minh
+
+Tool: OpenAI Codex (GPT-5)
+Used by: Trịnh Lê Minh
+Task: Completing the Assignment 1 LaTeX report from verified project evidence
+Prompt summary: Asked to use the course handbook, assignment page, source code, logs, checkpoints, diagrams, and generated outputs to complete the existing report without changing its structure.
+AI contribution: Replaced report placeholders and outdated metrics; integrated the pipeline and model diagrams, four-model methodology and results, learning curves, confusion matrices, qualitative checkpoint predictions, error counts, limitations, references, and evidence-based conclusion. Explicitly identified the missing Transformer and formal ablation rather than inventing results.
+Student verification: Compared all numeric claims with outputs/log.txt, checked architecture details against models.py, visually inspected generated figures, and compiled the LaTeX report to identify formatting and reference errors.
+Affected files/sections: report/report-assignment-1/; Assignment1/code/qualitative.py; Assignment1/outputs/metrics/qualitative_predictions.png.
+Responsible member: Trịnh Lê Minh
+
 Tool: GPT (via VSCode)
 Used by: Tran Phuoc Sang
 Task: Coding assistance for metrics and plotter files — task-specific EDA

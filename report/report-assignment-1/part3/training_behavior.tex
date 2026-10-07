@@ -1,14 +1,33 @@
 \section{Training Behavior}
 
-Learning-curve plots are generated for both models. The trainer records training and validation loss and accuracy for every epoch, then restores the checkpoint with the lowest validation loss before test evaluation. The recorded training times are 176.43 seconds for Linear and 178.11 seconds for MLP. The saved curves should be used to assess overfitting or underfitting; no separate multi-run timing analysis was performed.
+The trainer records loss and accuracy after every epoch, selects the lowest validation-loss checkpoint, restores it, and evaluates the test set once. Linear stopped after epoch 30 and restored epoch 20; MLP stopped after epoch 41 and restored epoch 31; CNN stopped after epoch 65 and restored epoch 55; GRU stopped after epoch 63 and restored epoch 53.
 
 \begin{figure}[H]
-	\centering
-	% Suggested image filename: graphics/training-curves.png
-	\includegraphics[width=0.9\textwidth]{../../Assignment1/outputs/learning_curves/mlp_learning_curves.png}
-	\caption{MLP training and validation curves.}
-	\label{fig:training-curves}
+    \centering
+    \includegraphics[width=0.92\textwidth]{../../Assignment1/outputs/learning_curves/linear_aug_learning_curves.png}
+    \caption{Linear training and validation curves. Validation loss plateaus early, indicating limited model capacity.}
+    \label{fig:linear-training-curves}
 \end{figure}
 
-The corresponding Linear learning curves are saved in 
-\texttt{Assignment1/outputs/learning\_curves/linear\_learning\_curves.png}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{../../Assignment1/outputs/learning_curves/mlp_aug_learning_curves.png}
+    \caption{MLP training and validation curves. Nonlinear capacity improves the validation trajectory over Linear.}
+    \label{fig:mlp-training-curves}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{../../Assignment1/outputs/learning_curves/cnn_aug_learning_curves.png}
+    \caption{CNN training and validation curves. The lowest validation loss, 0.1702, occurs at epoch 55.}
+    \label{fig:cnn-training-curves}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{../../Assignment1/outputs/learning_curves/gru_aug_learning_curves.png}
+    \caption{GRU training and validation curves. The selected epoch-53 checkpoint has validation loss 0.2842.}
+    \label{fig:gru-training-curves}
+\end{figure}
+
+Validation accuracy is often higher than training accuracy. This is expected because training accuracy is measured while random augmentation and dropout are active, whereas validation uses clean inputs and evaluation mode. The curves do not show a sustained validation-loss explosion; instead, early stopping prevents later fluctuations from replacing the best checkpoint. CNN converges to the strongest validation result, while Linear reaches a clear representational plateau.

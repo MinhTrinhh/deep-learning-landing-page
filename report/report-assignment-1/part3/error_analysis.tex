@@ -1,17 +1,21 @@
 \section{Error Analysis}
 
-The confusion matrices provide class-level error evidence. The largest recurring errors are concentrated among visually similar upper-body categories.
+The confusion matrices localize the main errors in visually similar categories. Table~\ref{tab:error-analysis} reports error counts derived from the class recalls in the 1,000-example-per-class test set.
 
 \begin{table}[H]
     \centering
-    \caption{Error groups.}
+    \scriptsize
+    \caption{Major error groups across completed models. Counts are errors within the indicated true-class subset.}
     \label{tab:error-analysis}
-    \begin{tabularx}{\textwidth}{@{}lXXXX@{}}
+    \begin{tabularx}{\textwidth}{@{}p{2.6cm}p{3.5cm}X@{}}
         \toprule
-        Error group & Description & Frequency / rate & Hypothesized cause & Improvement idea \\
+        Error group & Errors: Linear / MLP / CNN / GRU & Cause and improvement direction \\
         \midrule
-        Upper-body confusion & MLP Shirt examples are frequently predicted as T-shirt/top, Pullover, or Coat; Shirt recall is 0.4190. & 581/1,000 Shirt examples are errors & Similar silhouettes and low-resolution grayscale input. & Convolutional features, stronger augmentation, or a targeted class analysis. \\
-        Footwear confusion & MLP errors include Sandal/Sneaker/Ankle boot confusions; Sneaker recall is 0.9050 and Ankle boot recall is 0.9460. & 95/1,000 Sneaker examples are errors & Similar footwear shapes and pose variation. & Inspect hard examples and tune augmentation or architecture. \\
+        Shirt & 767 / 446 / 192 / 390 out of 1,000 & Shirt shares outlines and textures with T-shirt/top, Pullover, and Coat. Use class-aware hard-example sampling, stronger local features, and inspection of ambiguous annotations. \\
+        Pullover + Coat & 600 / 446 / 215 / 407 out of 2,000 & Similar sleeves, torso shapes, and low grayscale resolution. Test deeper convolutional features, attention, or targeted augmentation that preserves garment identity. \\
+        Sandal + Sneaker + Ankle boot & 541 / 206 / 77 / 126 out of 3,000 & Pose and sole shape overlap; row ordering is less natural for local boundaries. Prefer spatial or patch-based models and analyze high-confidence footwear mistakes separately. \\
         \bottomrule
     \end{tabularx}
 \end{table}
+
+For GRU, the most prominent single confusion is Shirt predicted as T-shirt/top (196 cases); Pullover and Coat are also frequently exchanged. CNN reduces these categories most strongly but does not eliminate them. The qualitative examples show that some residual errors are visually plausible even to a human at $28\times28$ resolution, so architecture changes alone may not resolve every case.

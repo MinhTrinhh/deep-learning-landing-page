@@ -2,8 +2,10 @@
 
 The training workflow automatically writes:
 
-- `best_linear.pt`
-- `best_mlp.pt`
+- `best_linear_aug.pt`
+- `best_mlp_aug.pt`
+- `best_cnn_aug.pt`
+- `best_gru_aug.pt`
 
 Each file is a PyTorch checkpoint dictionary containing:
 

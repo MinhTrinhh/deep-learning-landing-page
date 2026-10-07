@@ -882,3 +882,377 @@ weighted avg     0.9272    0.9255    0.9259     10000
 
 Confusion matrix saved to: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/outputs/metrics/cnn_aug_confusion_matrix.png
 Learning curves saved to: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/outputs/learning_curves/cnn_aug_learning_curves.png
+Epoch 1/200:
+Mean train loss: 1.2446564557428044
+Train Accuracy: 0.5303703703703704
+Mean validate loss:  0.7038219173749288
+Validate Accuracy: 0.7446666666666667
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 2/200:
+Mean train loss: 0.7438508184600215
+Train Accuracy: 0.7238888888888889
+Mean validate loss:  0.5731956325471401
+Validate Accuracy: 0.7941666666666667
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 3/200:
+Mean train loss: 0.6537562509848608
+Train Accuracy: 0.7577962962962963
+Mean validate loss:  0.5115679067869982
+Validate Accuracy: 0.8098333333333333
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 4/200:
+Mean train loss: 0.6097939891555298
+Train Accuracy: 0.7738333333333334
+Mean validate loss:  0.49309208368261653
+Validate Accuracy: 0.8135
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 5/200:
+Mean train loss: 0.5794291641757386
+Train Accuracy: 0.7840185185185186
+Mean validate loss:  0.4653327502310276
+Validate Accuracy: 0.8225
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 6/200:
+Mean train loss: 0.5538673580257814
+Train Accuracy: 0.7918518518518518
+Mean validate loss:  0.4357633392016093
+Validate Accuracy: 0.8385
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 7/200:
+Mean train loss: 0.5355587827650856
+Train Accuracy: 0.7989444444444445
+Mean validate loss:  0.4151206761598587
+Validate Accuracy: 0.8458333333333333
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 8/200:
+Mean train loss: 0.5198236785793756
+Train Accuracy: 0.8039814814814815
+Mean validate loss:  0.4042061244448026
+Validate Accuracy: 0.85
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 9/200:
+Mean train loss: 0.5011190769231715
+Train Accuracy: 0.8106296296296296
+Mean validate loss:  0.39943762371937436
+Validate Accuracy: 0.8501666666666666
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 10/200:
+Mean train loss: 0.4970872198800905
+Train Accuracy: 0.813037037037037
+Mean validate loss:  0.3987918434043725
+Validate Accuracy: 0.8476666666666667
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 11/200:
+Mean train loss: 0.48470870126480176
+Train Accuracy: 0.8183333333333334
+Mean validate loss:  0.381235059350729
+Validate Accuracy: 0.8551666666666666
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 12/200:
+Mean train loss: 0.4758551925844491
+Train Accuracy: 0.8207407407407408
+Mean validate loss:  0.36432722707589466
+Validate Accuracy: 0.8623333333333333
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 13/200:
+Mean train loss: 0.46561665444577477
+Train Accuracy: 0.8237777777777778
+Mean validate loss:  0.37674264361461
+Validate Accuracy: 0.8558333333333333
+Epoch 14/200:
+Mean train loss: 0.4655224744460029
+Train Accuracy: 0.8240740740740741
+Mean validate loss:  0.36224266700446606
+Validate Accuracy: 0.8633333333333333
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 15/200:
+Mean train loss: 0.45508197839791176
+Train Accuracy: 0.8285555555555556
+Mean validate loss:  0.3589959504703681
+Validate Accuracy: 0.8623333333333333
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 16/200:
+Mean train loss: 0.45040368115732454
+Train Accuracy: 0.8310925925925926
+Mean validate loss:  0.3520481511950493
+Validate Accuracy: 0.87
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 17/200:
+Mean train loss: 0.44673083941518416
+Train Accuracy: 0.8313333333333334
+Mean validate loss:  0.34390941138068837
+Validate Accuracy: 0.8683333333333333
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 18/200:
+Mean train loss: 0.44121954706607835
+Train Accuracy: 0.8314444444444444
+Mean validate loss:  0.34421003175278503
+Validate Accuracy: 0.874
+Epoch 19/200:
+Mean train loss: 0.43887817633660486
+Train Accuracy: 0.8346111111111111
+Mean validate loss:  0.3384716498355071
+Validate Accuracy: 0.8725
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 20/200:
+Mean train loss: 0.43421685370788754
+Train Accuracy: 0.8375
+Mean validate loss:  0.3455137573182583
+Validate Accuracy: 0.8696666666666667
+Epoch 21/200:
+Mean train loss: 0.4300065181831613
+Train Accuracy: 0.8378518518518518
+Mean validate loss:  0.34284045547246933
+Validate Accuracy: 0.8708333333333333
+Epoch 22/200:
+Mean train loss: 0.4279725247932271
+Train Accuracy: 0.8385185185185186
+Mean validate loss:  0.3251806578288476
+Validate Accuracy: 0.8765
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 23/200:
+Mean train loss: 0.4252832705658194
+Train Accuracy: 0.8393888888888889
+Mean validate loss:  0.3268844584623973
+Validate Accuracy: 0.8771666666666667
+Epoch 24/200:
+Mean train loss: 0.4184545827985375
+Train Accuracy: 0.8399629629629629
+Mean validate loss:  0.3240559784074624
+Validate Accuracy: 0.878
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 25/200:
+Mean train loss: 0.4188861259351974
+Train Accuracy: 0.8410740740740741
+Mean validate loss:  0.326150668784976
+Validate Accuracy: 0.8783333333333333
+Epoch 26/200:
+Mean train loss: 0.4136350278464539
+Train Accuracy: 0.8441111111111111
+Mean validate loss:  0.32742326396207017
+Validate Accuracy: 0.8775
+Epoch 27/200:
+Mean train loss: 0.4100676478367846
+Train Accuracy: 0.8452962962962963
+Mean validate loss:  0.32260195538401604
+Validate Accuracy: 0.8793333333333333
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 28/200:
+Mean train loss: 0.40382548135603774
+Train Accuracy: 0.8489629629629629
+Mean validate loss:  0.32027766729394597
+Validate Accuracy: 0.8798333333333334
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 29/200:
+Mean train loss: 0.40485140031547906
+Train Accuracy: 0.8472777777777778
+Mean validate loss:  0.3210261557251215
+Validate Accuracy: 0.8808333333333334
+Epoch 30/200:
+Mean train loss: 0.40403196794726837
+Train Accuracy: 0.8469814814814814
+Mean validate loss:  0.31439588343103725
+Validate Accuracy: 0.8826666666666667
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 31/200:
+Mean train loss: 0.40566471049570924
+Train Accuracy: 0.8469074074074074
+Mean validate loss:  0.30795962053040665
+Validate Accuracy: 0.8806666666666667
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 32/200:
+Mean train loss: 0.4033774041451549
+Train Accuracy: 0.8465185185185186
+Mean validate loss:  0.31306207242111367
+Validate Accuracy: 0.8828333333333334
+Epoch 33/200:
+Mean train loss: 0.39811607884569755
+Train Accuracy: 0.8493518518518518
+Mean validate loss:  0.30729831879337627
+Validate Accuracy: 0.8853333333333333
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 34/200:
+Mean train loss: 0.39779796193561284
+Train Accuracy: 0.849462962962963
+Mean validate loss:  0.3145537370194991
+Validate Accuracy: 0.8795
+Epoch 35/200:
+Mean train loss: 0.3949426226141329
+Train Accuracy: 0.8498703703703704
+Mean validate loss:  0.31496309985717136
+Validate Accuracy: 0.8798333333333334
+Epoch 36/200:
+Mean train loss: 0.3912532562610662
+Train Accuracy: 0.852574074074074
+Mean validate loss:  0.3094398466249307
+Validate Accuracy: 0.8851666666666667
+Epoch 37/200:
+Mean train loss: 0.3929133827652411
+Train Accuracy: 0.8522222222222222
+Mean validate loss:  0.30755928965906304
+Validate Accuracy: 0.8868333333333334
+Epoch 38/200:
+Mean train loss: 0.3937903435026865
+Train Accuracy: 0.8518148148148148
+Mean validate loss:  0.30863744641343754
+Validate Accuracy: 0.8823333333333333
+Epoch 39/200:
+Mean train loss: 0.389392049532931
+Train Accuracy: 0.8527037037037037
+Mean validate loss:  0.30254504705468815
+Validate Accuracy: 0.886
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 40/200:
+Mean train loss: 0.38801116351550224
+Train Accuracy: 0.8512222222222222
+Mean validate loss:  0.30826095926264924
+Validate Accuracy: 0.8845
+Epoch 41/200:
+Mean train loss: 0.3872493222991437
+Train Accuracy: 0.8539629629629629
+Mean validate loss:  0.3166652185221513
+Validate Accuracy: 0.8825
+Epoch 42/200:
+Mean train loss: 0.38321427471264846
+Train Accuracy: 0.8553518518518518
+Mean validate loss:  0.3050358754893144
+Validate Accuracy: 0.882
+Epoch 43/200:
+Mean train loss: 0.3839848722326812
+Train Accuracy: 0.8553333333333333
+Mean validate loss:  0.29131321671108407
+Validate Accuracy: 0.8928333333333334
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 44/200:
+Mean train loss: 0.38269568831434747
+Train Accuracy: 0.856537037037037
+Mean validate loss:  0.2957858871668577
+Validate Accuracy: 0.89
+Epoch 45/200:
+Mean train loss: 0.37983022891514673
+Train Accuracy: 0.8561481481481481
+Mean validate loss:  0.3031613032023112
+Validate Accuracy: 0.8865
+Epoch 46/200:
+Mean train loss: 0.38273083655190127
+Train Accuracy: 0.856037037037037
+Mean validate loss:  0.29455686671038467
+Validate Accuracy: 0.89
+Epoch 47/200:
+Mean train loss: 0.38391542152205915
+Train Accuracy: 0.854574074074074
+Mean validate loss:  0.304441428432862
+Validate Accuracy: 0.8841666666666667
+Epoch 48/200:
+Mean train loss: 0.3790736616505266
+Train Accuracy: 0.8566111111111111
+Mean validate loss:  0.3050948629776637
+Validate Accuracy: 0.8868333333333334
+Epoch 49/200:
+Mean train loss: 0.3739377789164042
+Train Accuracy: 0.858537037037037
+Mean validate loss:  0.3109124234567086
+Validate Accuracy: 0.8813333333333333
+Epoch 50/200:
+Mean train loss: 0.37490435163556685
+Train Accuracy: 0.8572592592592593
+Mean validate loss:  0.29563387607534725
+Validate Accuracy: 0.8911666666666667
+Epoch 51/200:
+Mean train loss: 0.3767177259187563
+Train Accuracy: 0.858
+Mean validate loss:  0.29747215285897255
+Validate Accuracy: 0.8931666666666667
+Epoch 52/200:
+Mean train loss: 0.3750049087673567
+Train Accuracy: 0.8590740740740741
+Mean validate loss:  0.2977031661818425
+Validate Accuracy: 0.8861666666666667
+Epoch 53/200:
+Mean train loss: 0.3738291743101102
+Train Accuracy: 0.8577222222222223
+Mean validate loss:  0.2841557903836171
+Validate Accuracy: 0.8938333333333334
+Saved new best checkpoint: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/checkpoints/best_gru_aug.pt
+Epoch 54/200:
+Mean train loss: 0.3717221006115466
+Train Accuracy: 0.8608148148148148
+Mean validate loss:  0.2901178126533826
+Validate Accuracy: 0.8916666666666667
+Epoch 55/200:
+Mean train loss: 0.3711035594132274
+Train Accuracy: 0.861462962962963
+Mean validate loss:  0.2907350032279889
+Validate Accuracy: 0.8933333333333333
+Epoch 56/200:
+Mean train loss: 0.36752491525564146
+Train Accuracy: 0.8603148148148149
+Mean validate loss:  0.2850494099160035
+Validate Accuracy: 0.8918333333333334
+Epoch 57/200:
+Mean train loss: 0.3732601364641958
+Train Accuracy: 0.859037037037037
+Mean validate loss:  0.287224209556977
+Validate Accuracy: 0.8946666666666667
+Epoch 58/200:
+Mean train loss: 0.36998098029344567
+Train Accuracy: 0.8603148148148149
+Mean validate loss:  0.29835008022685844
+Validate Accuracy: 0.886
+Epoch 59/200:
+Mean train loss: 0.36652832178142963
+Train Accuracy: 0.8612962962962963
+Mean validate loss:  0.28417494148015976
+Validate Accuracy: 0.8941666666666667
+Epoch 60/200:
+Mean train loss: 0.3678523201795551
+Train Accuracy: 0.8604074074074074
+Mean validate loss:  0.2892031477143367
+Validate Accuracy: 0.889
+Epoch 61/200:
+Mean train loss: 0.36790959657086014
+Train Accuracy: 0.8612222222222222
+Mean validate loss:  0.2957389696190755
+Validate Accuracy: 0.8895
+Epoch 62/200:
+Mean train loss: 0.3666270767907961
+Train Accuracy: 0.8617592592592592
+Mean validate loss:  0.2882977059731881
+Validate Accuracy: 0.8926666666666667
+Epoch 63/200:
+Mean train loss: 0.365707586938736
+Train Accuracy: 0.862
+Mean validate loss:  0.3020390998572111
+Validate Accuracy: 0.8856666666666667
+Restored best gru_aug checkpoint from epoch 53 (validation loss=0.2842)
+
+=== GRU_aug test results ===
+Test loss: 0.3130
+Test accuracy: 0.8836
+Macro-Precision: 0.8829
+Macro-Recall: 0.8836
+Macro-F1: 0.8821
+Train time: 1316.61s
+Inference time: 0.038619 ms/sample
+FLOPs: 0.003450 B/sample
+Parameters: 0.061962 M
+Model size: 0.236 MB
+              precision    recall  f1-score   support
+
+ T-shirt/top     0.7782    0.8910    0.8308      1000
+     Trouser     0.9888    0.9740    0.9814      1000
+    Pullover     0.7874    0.8110    0.7990      1000
+       Dress     0.8827    0.9180    0.9000      1000
+        Coat     0.8062    0.7820    0.7939      1000
+      Sandal     0.9724    0.9520    0.9621      1000
+       Shirt     0.7403    0.6100    0.6689      1000
+     Sneaker     0.9288    0.9660    0.9471      1000
+         Bag     0.9741    0.9760    0.9750      1000
+  Ankle boot     0.9706    0.9560    0.9632      1000
+
+    accuracy                         0.8836     10000
+   macro avg     0.8829    0.8836    0.8821     10000
+weighted avg     0.8829    0.8836    0.8821     10000
+
+Confusion matrix saved to: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/outputs/metrics/gru_aug_confusion_matrix.png
+Learning curves saved to: /Users/minhtrinh/Downloads/Deep_Learning/deep-learning-landing-page/Assignment1/outputs/learning_curves/gru_aug_learning_curves.png

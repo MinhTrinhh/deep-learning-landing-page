@@ -1,17 +1,38 @@
 \section{Quantitative Results}
 
-The following values are from the saved test metric JSON files for the single reproducible run with seed 42. Inference time is reported per sample; no multi-run mean and standard deviation were recorded.
+All values in Tables~\ref{tab:predictive-results} and~\ref{tab:resource-results} come from the single augmented run recorded in \texttt{Assignment1/outputs/log.txt} with seed 42. Metrics are computed on the official 10,000-image test set after restoring the minimum-validation-loss checkpoint.
 
 \begin{table}[H]
     \centering
-    \caption{Quantitative comparison.}
-    \label{tab:quantitative-results}
-    \begin{tabular}{@{}lrrrr@{}}
+    \caption{Predictive performance on the Fashion-MNIST test set.}
+    \label{tab:predictive-results}
+    \begin{tabular}{@{}lrrrrr@{}}
         \toprule
-        Method & Accuracy & Macro-F1 & Parameters & Inference time \\
+        Method & Test loss & Accuracy & Macro precision & Macro recall & Macro-F1 \\
         \midrule
-        Linear & 0.7351 & 0.7280 & 7,850 & 0.000261 ms/sample \\
-        MLP & 0.8319 & 0.8269 & 567,434 & 0.004166 ms/sample \\
+        Linear & 0.7660 & 0.7378 & 0.7305 & 0.7378 & 0.7286 \\
+        MLP & 0.3756 & 0.8580 & 0.8564 & 0.8580 & 0.8560 \\
+        CNN & \textbf{0.2069} & \textbf{0.9255} & \textbf{0.9272} & \textbf{0.9255} & \textbf{0.9259} \\
+        GRU & 0.3130 & 0.8836 & 0.8829 & 0.8836 & 0.8821 \\
         \bottomrule
     \end{tabular}
 \end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Resource and efficiency measurements.}
+    \label{tab:resource-results}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{@{}lrrrrr@{}}
+        \toprule
+        Method & Parameters & Model size & Train time & Inference & FLOPs/sample \\
+        \midrule
+        Linear & 7,850 & 0.030 MB & 762.21 s & 0.000822 ms & 0.000016 B \\
+        MLP & 567,434 & 2.165 MB & 1,130.64 s & 0.018203 ms & 0.001133 B \\
+        CNN & 1,691,914 & 6.454 MB & 2,025.71 s & 0.044741 ms & 0.011022 B \\
+        GRU & 61,962 & 0.236 MB & 1,316.61 s & 0.038619 ms & 0.003450 B \\
+        \bottomrule
+    \end{tabular}}
+\end{table}
+
+CNN is the most accurate and has the best macro-F1, while Linear is smallest and fastest. GRU is the most parameter-efficient nonlinear model: it exceeds MLP by 2.56 accuracy points with 89.1\% fewer parameters. Its sequential execution nevertheless makes inference slower than MLP. Values are single-run measurements rather than mean $\pm$ standard deviation, and timing comparisons are subject to the hardware-recording limitation described in Table~\ref{tab:training-setup}.
