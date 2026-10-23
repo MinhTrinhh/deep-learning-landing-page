@@ -1,0 +1,40 @@
+{
+  "dataset": "Corona_NLP",
+  "task": "multiclass text sentiment classification",
+  "input_column": "OriginalTweet",
+  "target_column": "Sentiment",
+  "train_rows": 41157,
+  "test_rows": 3798,
+  "train_columns": [
+    "UserName",
+    "ScreenName",
+    "Location",
+    "TweetAt",
+    "OriginalTweet",
+    "Sentiment"
+  ],
+  "test_columns": [
+    "UserName",
+    "ScreenName",
+    "Location",
+    "TweetAt",
+    "OriginalTweet",
+    "Sentiment"
+  ],
+  "train_label_counts": {
+    "Positive": 11422,
+    "Negative": 9917,
+    "Neutral": 7713,
+    "Extremely Positive": 6624,
+    "Extremely Negative": 5481
+  },
+  "test_label_counts": {
+    "Negative": 1041,
+    "Positive": 947,
+    "Neutral": 619,
+    "Extremely Positive": 599,
+    "Extremely Negative": 592
+  },
+  "normalized_text_overlap_count": 1,
+  "normalized_text_overlap_percent_of_test_unique": 0.026
+}
