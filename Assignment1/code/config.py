@@ -26,7 +26,6 @@ OUTPUT_DIM = 10
 
 # MLPModel
 DROP_OUT = 0.2
-DROP_STEP = 0.1
 
 CLASS_NAMES = [
     "T-shirt/top",

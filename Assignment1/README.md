@@ -1,6 +1,6 @@
 # Assignment 1 — Foundations of Deep Learning Pipelines and Architectures
 
-Fashion-MNIST classification experiments for Linear/Softmax, MLP, CNN, and GRU models.
+Fashion-MNIST classification experiments for Linear/Softmax, MLP, CNN, GRU, and Vision Transformer (ViT) models.
 
 - [Assignment 1 website](https://MinhTrinhh.github.io/deep-learning-landing-page/Assignment1/)
 - [AI usage disclosure](AI_USAGE.md)
@@ -19,7 +19,7 @@ Assignment1/
 │   ├── edaworker.py         # EDA calculations
 │   ├── main.py              # Command-line entry point
 │   ├── metrics.py           # Predictive and resource metrics
-│   ├── models.py            # Linear, MLP, CNN, and GRU architectures
+│   ├── models.py            # Linear, MLP, CNN, GRU, and ViT architectures
 │   ├── plotter.py           # EDA, learning-curve, and metric plots
 │   ├── qualitative.py       # Reproducible qualitative checkpoint comparison
 │   └── trainer.py           # Training, validation, testing, and checkpoints
@@ -56,7 +56,7 @@ To generate the EDA outputs before training all implemented models:
 python main.py --eda --model all
 ```
 
-`--eda` currently runs EDA first and then continues with the selected model training; there is no separate EDA-only command.
+`--eda` currently runs EDA first and then continues with the selected model training; using augmentation is by default.
 
 ## Training Commands
 
@@ -84,6 +84,12 @@ Train the GRU with the default augmentation:
 python main.py --model gru
 ```
 
+Train the Vision Transformer with the default augmentation:
+
+```bash
+python main.py --model vit
+```
+
 Train all implemented models sequentially:
 
 ```bash
@@ -97,6 +103,7 @@ python main.py --model linear --no-aug
 python main.py --model mlp --no-aug
 python main.py --model cnn --no-aug
 python main.py --model gru --no-aug
+python main.py --model vit --no-aug
 python main.py --model all --no-aug
 ```
 
@@ -121,13 +128,14 @@ python main.py --model linear --aug --eval-only
 python main.py --model mlp --aug --eval-only
 python main.py --model cnn --aug --eval-only
 python main.py --model gru --aug --eval-only
+python main.py --model vit --aug --eval-only
 ```
 
 The augmentation flag selects the matching checkpoint name (`*_aug.pt` or
 `*_no_aug.pt`). Evaluation-only mode regenerates test metrics and the confusion
 matrix while preserving the learning curve from the original training run.
 
-Generate the qualitative comparison used in the report after all four augmented
+Generate the qualitative comparison used in the report after all augmented
 checkpoints are available:
 
 ```bash

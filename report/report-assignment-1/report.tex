@@ -53,8 +53,9 @@
     captionpos=b,
     upquote=true
 }
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\setmonofont{Courier New}
 \usepackage{CJKutf8}
 \usepackage[english,vietnamese]{babel}
 \usepackage{tocloft}
@@ -84,8 +85,6 @@
 \usepackage{xfrac}
 \usepackage{bm}
 
-\usepackage{biblatex}
-\addbibresource{references.bib}
 
 \usepackage[colorlinks]{hyperref}
 \usepackage{mdframed}
@@ -203,8 +202,5 @@
 
 % \section*{GitHub Repositories}
 % \addcontentsline{toc}{section}{GitHub Repositories}
-
-\nocite{*}
-\printbibliography
 
 \end{document}

@@ -6,7 +6,7 @@
 **Instructor:** Lê Thành Sách  
 **Group:** G-10
 
-**Live GitHub Pages Site:** [https://MinhTrinhh.github.io/deep-learning-landing-page/docs/](https://MinhTrinhh.github.io/deep-learning-landing-page/docs/)
+**Live GitHub Pages Site:** [https://MinhTrinhh.github.io/deep-learning-landing-page/](https://MinhTrinhh.github.io/deep-learning-landing-page/)
 
 ---
 
@@ -72,6 +72,8 @@ deactivate
 
 The root README only covers shared repository setup. For dataset preparation, supported commands, training, evaluation, generated artifacts, checkpoints, and reproducibility details, follow the README inside the relevant assignment directory.
 
-- [Assignment 1 setup and usage](Assignment1/README.md)
+- [Assignment 1 README.md](Assignment1/README.md)
 
-Assignment-specific instructions for later assignments will be added to their respective directories as those implementations are completed.
+- Assignment 2, 3 will be added later
+<!-- - [Assignment 2 README.md](Assignment2/README.md)
+- [Assignment 3 README.md](Assignment3/README.md) -->

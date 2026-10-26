@@ -54,4 +54,5 @@ Thumbs.db
 *.synctex.gz
 *.toc
 *.pdf
+!report/report-assignment-1/report.pdf
 *.bbl

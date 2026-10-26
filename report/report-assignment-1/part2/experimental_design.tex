@@ -5,7 +5,7 @@ The comparison changes the architecture and its input representation while holdi
 \begin{table}[H]
     \centering
     \scriptsize
-    \caption{Experimental design for the completed model-family comparison.}
+    \caption{Experimental design for the model-family comparison.}
     \label{tab:experimental-design}
     \begin{tabularx}{\textwidth}{@{}lXXXX@{}}
         \toprule
@@ -15,8 +15,9 @@ The comparison changes the architecture and its input representation while holdi
         EXP-02 MLP & Nonlinear dense layers improve on Linear despite losing spatial layout. & Three ReLU hidden layers and dropout. & Same shared protocol. & Higher accuracy and macro-F1 than Linear, interpreted with size/time cost. \\
         EXP-03 CNN & Local filters and weight sharing give the best image-classification performance. & Spatial convolutions, pooling, and dense head. & Same shared protocol. & Highest accuracy/F1 and fewer upper-body errors, with resource trade-off reported. \\
         EXP-04 GRU & Row-sequence recurrence beats flattened dense models with fewer parameters but remains below CNN. & 28 row timesteps and 128-dimensional recurrent state. & Same shared protocol. & Accuracy/F1 above MLP, parameter count below MLP, and timing compared explicitly. \\
+        EXP-05 ViT & Patch-level global attention may model long-range image interactions, but may not outperform CNN on this small dataset without a strong locality prior. & 4×4 patches, learned class and position embeddings, and a four-layer Transformer encoder. & Same shared protocol. & Accuracy slightly below GRU, but the training time is much longer compared to the rest models. \\
         \bottomrule
     \end{tabularx}
 \end{table}
 
-The primary metric is test accuracy; macro-F1 is the secondary predictive metric. Parameter count, serialized model size, training time, inference time, learning curves, confusion matrices, and selected qualitative examples provide efficiency and behavioral evidence. No conclusion is based on accuracy alone. The Transformer hypothesis cannot yet be tested because no Transformer run is available.
+The primary metric is test accuracy; macro-F1 is the secondary predictive metric. Parameter count, serialized model size, training time, inference time, learning curves, confusion matrices, and selected qualitative examples provide efficiency and behavioral evidence. No conclusion is based on accuracy alone.

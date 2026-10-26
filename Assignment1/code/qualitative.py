@@ -21,6 +21,7 @@ def load_models():
         "MLP": models.MLPModel(dropout=DROP_OUT),
         "CNN": models.CNNModel(dropout=DROP_OUT),
         "GRU": models.GRUModel(dropout=DROP_OUT),
+        "ViT": models.ViTransformer(dropout=DROP_OUT),
     }
     for name, model in model_map.items():
         checkpoint = torch.load(
@@ -53,13 +54,13 @@ def select_examples(targets, predictions):
     masks = [
         ("All models correct", np.logical_and.reduce(list(correct.values()))),
         (
-            "CNN and GRU recover",
-            correct["CNN"] & correct["GRU"] &
+            "Structured models recover",
+            correct["CNN"] & correct["GRU"] & correct["ViT"] &
             ~(correct["Linear"] & correct["MLP"]),
         ),
         (
-            "CNN correct, GRU wrong",
-            correct["CNN"] & ~correct["GRU"],
+            "CNN correct, another model wrong",
+            correct["CNN"] & ~np.logical_and.reduce(list(correct.values())),
         ),
         ("All models incorrect", ~np.logical_or.reduce(list(correct.values()))),
     ]
@@ -94,14 +95,14 @@ def plot_examples(raw_images, targets, predictions, selected):
         ax.axis("off")
 
         lines = [f"True: {target_name}"]
-        for model_name in ("Linear", "MLP", "CNN", "GRU"):
+        for model_name in ("Linear", "MLP", "CNN", "GRU", "ViT"):
             predicted = CLASS_NAMES[int(predictions[model_name][index])]
             mark = "correct" if predicted == target_name else "wrong"
             lines.append(f"{model_name}: {predicted} ({mark})")
-        ax.set_title(category + "\n" + "\n".join(lines), fontsize=9)
+        ax.set_title(category + "\n" + "\n".join(lines), fontsize=7.5)
 
     fig.suptitle(
-        "Fashion-MNIST qualitative predictions from the restored best checkpoints",
+        "Fashion-MNIST qualitative predictions from five restored best checkpoints",
         fontsize=14,
         fontweight="bold",
     )

@@ -238,6 +238,57 @@ def process_gru_model(
             *learning_history,
             model_name=f"GRU_{run_label}")
 
+def process_vit_model(
+    data_loader, model_trainer, result_plotter, metric_calculator, run_label,
+    eval_only=False,
+):
+    set_seed(SEED)
+    data_loader.reset_train_generator(SEED)
+    vit_model = models.ViTransformer(dropout=DROP_OUT)
+    vit_loss_func = torch.nn.CrossEntropyLoss()
+    model_name = f"vit_{run_label}"
+    learning_history = None
+
+    if eval_only:
+        model_trainer.restore_best_checkpoint(vit_model, model_name)
+    else:
+        vit_optimizer = torch.optim.AdamW(
+            vit_model.parameters(), lr=LEARNING_RATE, weight_decay=WD
+        )
+        learning_history = model_trainer.train_model(
+            model=vit_model,
+            train_loader=data_loader.get_train_loader(),
+            val_loader=data_loader.get_val_loader(),
+            loss_func=vit_loss_func,
+            optimizer=vit_optimizer,
+            epochs=NUM_EPOCHS,
+            model_name=model_name)
+
+    test_loss, test_targets, test_predictions = model_trainer.test_model(
+        model=vit_model,
+        test_loader=data_loader.get_test_loader(),
+        loss_func=vit_loss_func)
+    sample_batch_images, _ = next(iter(data_loader.get_test_loader()))
+
+    metric_results = metric_calculator.report(
+        test_targets,
+        test_predictions,
+        model_name=f"ViT_{run_label}",
+        test_loss=test_loss,
+        resource_metrics=metric_calculator.calculate_resource_metrics(
+            model=vit_model,
+            sample_input=sample_batch_images,
+            train_time_seconds=model_trainer.last_train_time,
+        ),
+    )
+    result_plotter.plot_confusion_matrix(
+        metric_results["confusion_matrix"], model_name=f"ViT_{run_label}"
+    )
+
+    if learning_history is not None:
+        result_plotter.plot_learning_curves(
+            *learning_history, model_name=f"ViT_{run_label}")
+
 def parse_args():
     parser = argparse.ArgumentParser(description="FashionMNIST experiment pipeline")
     parser.add_argument(
@@ -248,7 +299,7 @@ def parse_args():
     parser.add_argument(
         "--model",
         default="all",
-        choices=("linear", "mlp", "cnn", "gru", "all"),
+        choices=("linear", "mlp", "cnn", "gru", "vit", "all"),
         help="Model family to train (default: all)",
     )
     parser.add_argument(
@@ -310,6 +361,11 @@ if __name__ == "__main__":
         )
     if args.model in ("gru", "all"):
         process_gru_model(
+            data_loader, model_trainer, result_plotter, metric_calculator, run_label,
+            eval_only=args.eval_only,
+        )
+    if args.model in ("vit", "all"):
+        process_vit_model(
             data_loader, model_trainer, result_plotter, metric_calculator, run_label,
             eval_only=args.eval_only,
         )

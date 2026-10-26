@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1550" height="340" viewBox="0 0 1550 340" role="img" aria-labelledby="title description">
+<title id="title">Vision Transformer (ViT) architecture</title>
+<desc id="description">Left-to-right model architecture showing tensor shapes and 803,338 total trainable parameters.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#0F82DF"/></marker>
+<style>.heading{font:600 27px Georgia,serif;fill:#172b4d}.label{font:600 17.0px Georgia,serif;fill:#172b4d}.shape{font:13.0px ui-monospace,monospace;fill:#475467}.count{font:600 19px Georgia,serif;fill:#172b4d}</style></defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="775" y="48" text-anchor="middle" class="heading">Vision Transformer (ViT)</text>
+<rect x="40.0" y="112" width="191.1" height="108" rx="0" fill="#E5E7EB" stroke="#6B7280" stroke-width="1.5"/>
+<text x="135.6" y="155" text-anchor="middle" class="label">Image</text>
+<text x="135.6" y="185" text-anchor="middle" class="shape">[B, 1, 28, 28]</text>
+<path d="M 234.1 166.0 H 248.1" fill="none" stroke="#0F82DF" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="253.1" y="112" width="191.1" height="108" rx="13" fill="#FCE4D6" stroke="#E87524" stroke-width="1.5"/>
+<text x="348.7" y="155" text-anchor="middle" class="label">Patch embedding</text>
+<text x="348.7" y="185" text-anchor="middle" class="shape">[B, 49, 128]</text>
+<path d="M 447.3 166.0 H 461.3" fill="none" stroke="#0F82DF" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="466.3" y="112" width="191.1" height="108" rx="13" fill="#FCE4D6" stroke="#E87524" stroke-width="1.5"/>
+<text x="561.9" y="155" text-anchor="middle" class="label">Class + positions</text>
+<text x="561.9" y="185" text-anchor="middle" class="shape">[B, 50, 128]</text>
+<path d="M 660.4 166.0 H 674.4" fill="none" stroke="#0F82DF" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="679.4" y="112" width="191.1" height="108" rx="13" fill="#FCE4D6" stroke="#E87524" stroke-width="1.5"/>
+<text x="775.0" y="155" text-anchor="middle" class="label">Transformer ×4</text>
+<text x="775.0" y="185" text-anchor="middle" class="shape">[B, 50, 128]</text>
+<path d="M 873.6 166.0 H 887.6" fill="none" stroke="#0F82DF" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="892.6" y="112" width="191.1" height="108" rx="13" fill="#FCE4D6" stroke="#E87524" stroke-width="1.5"/>
+<text x="988.1" y="155" text-anchor="middle" class="label">Select class token</text>
+<text x="988.1" y="185" text-anchor="middle" class="shape">[B, 128]</text>
+<path d="M 1086.7 166.0 H 1100.7" fill="none" stroke="#0F82DF" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1105.7" y="112" width="191.1" height="108" rx="13" fill="#FCE4D6" stroke="#E87524" stroke-width="1.5"/>
+<text x="1201.3" y="155" text-anchor="middle" class="label">Linear 128 → 10</text>
+<text x="1201.3" y="185" text-anchor="middle" class="shape">[B, 10]</text>
+<path d="M 1299.9 166.0 H 1313.9" fill="none" stroke="#0F82DF" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1318.9" y="112" width="191.1" height="108" rx="0" fill="#E5E7EB" stroke="#6B7280" stroke-width="1.5"/>
+<text x="1414.4" y="155" text-anchor="middle" class="label">Output logits</text>
+<text x="1414.4" y="185" text-anchor="middle" class="shape">[B, 10]</text>
+<line x1="40" y1="257" x2="1510" y2="257" stroke="#D0D5DD" stroke-width="1"/>
+<text x="775.0" y="298" text-anchor="middle" class="count">803,338 total trainable parameters</text>
+</svg>
