@@ -80,20 +80,146 @@
     <!-- TAB 2: Task-Specific Data & EDA -->
     <div class="tab-content" id="tab-data">
       <div class="card">
-        <h2 class="section-title"><i class="fa-solid fa-chart-line"></i> Task-Specific EDA & Distribution</h2>
+        <h2 class="section-title"><i class="fa-solid fa-chart-line"></i> Exploratory Data Analysis</h2>
         <div class="card-body" style="margin-top: 1rem;">
-          <p>Exploratory data analysis focused on task specificities (bounding box distributions, pixel ratios, mask quality, or text token lengths).</p>
-          
-          <div class="grid-2" style="margin-top: 1.5rem;">
-            <div style="background: rgba(0,0,0,0.3); border: 1px dashed var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; text-align: center; color: var(--text-muted);">
-              <i class="fa-solid fa-chart-bar" style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--secondary);"></i>
-              <p>[Bounding Box Size / Class Distribution Plot]</p>
+          <p>
+            The dataset contains COVID-19-related tweets labeled with one of five sentiment classes.
+            The analysis below summarizes class balance, tweet length, and the temporal structure of
+            the supplied training and test splits. The model input is <code>OriginalTweet</code>; the
+            target is <code>Sentiment</code>.
+          </p>
+
+          <div class="grid-2" style="margin-top: 1.5rem; gap: 1rem;">
+            <div class="card" style="margin: 0;">
+              <div class="card-body">
+                <p style="color: var(--text-muted); margin-bottom: 0.35rem;">Training samples</p>
+                <h3 style="margin: 0;">41,157</h3>
+              </div>
             </div>
-            <div style="background: rgba(0,0,0,0.3); border: 1px dashed var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; text-align: center; color: var(--text-muted);">
-              <i class="fa-solid fa-shapes" style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--accent);"></i>
-              <p>[Sample Annotations & Mask Overlays]</p>
+            <div class="card" style="margin: 0;">
+              <div class="card-body">
+                <p style="color: var(--text-muted); margin-bottom: 0.35rem;">Test samples</p>
+                <h3 style="margin: 0;">3,798</h3>
+              </div>
+            </div>
+            <div class="card" style="margin: 0;">
+              <div class="card-body">
+                <p style="color: var(--text-muted); margin-bottom: 0.35rem;">Sentiment classes</p>
+                <h3 style="margin: 0;">5</h3>
+              </div>
+            </div>
+            <div class="card" style="margin: 0;">
+              <div class="card-body">
+                <p style="color: var(--text-muted); margin-bottom: 0.35rem;">Missing tweet texts / labels</p>
+                <h3 style="margin: 0;">0 / 0</h3>
+              </div>
             </div>
           </div>
+
+          <h3 style="margin-top: 2rem;">1. Sentiment Class Distribution</h3>
+          <p>
+            Positive is the largest training class (11,422; 27.75%), while Extremely Negative is the
+            smallest (5,481; 13.32%). The dataset is moderately imbalanced, but no single class
+            dominates. Accuracy should therefore be reported alongside macro-F1, which weights all
+            five classes equally.
+          </p>
+          <figure style="margin: 1.25rem 0 1.75rem;">
+            <img src="./eda_assets/sentiment_distribution.png"
+                 alt="Bar charts showing sentiment counts in the training and test sets"
+                 loading="lazy"
+                 style="display: block; width: 100%; max-width: 1000px; height: auto; margin: 0 auto; border-radius: var(--radius-md);">
+            <figcaption style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 0.6rem;">
+              Figure 1. Sentiment label counts in the supplied training and test sets.
+            </figcaption>
+          </figure>
+
+          <h3>2. Tweet Length and Text Characteristics</h3>
+          <p>
+            Tweets contain informal social-media text, including URLs, hashtags, mentions, and
+            punctuation. Mean tweet length is 204.20 characters and 30.50 whitespace-separated words
+            in the training set, compared with 213.44 characters and 32.91 words in the test set.
+            The observed maximum is 64 words in training and 62 words in testing.
+          </p>
+          <figure style="margin: 1.25rem 0 1.75rem;">
+            <img src="./eda_assets/word_count_distribution.png"
+                 alt="Histograms of whitespace-separated word counts per tweet for the training and test sets"
+                 loading="lazy"
+                 style="display: block; width: 100%; max-width: 1000px; height: auto; margin: 0 auto; border-radius: var(--radius-md);">
+            <figcaption style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 0.6rem;">
+              Figure 2. Word-count distributions for training and test tweets.
+            </figcaption>
+          </figure>
+
+          <div class="table-responsive" style="margin: 1rem 0 1.75rem;">
+            <table class="table">
+              <thead>
+                <tr><th>Statistic</th><th>Training set</th><th>Test set</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Mean characters per tweet</td><td>204.20</td><td>213.44</td></tr>
+                <tr><td>Median characters per tweet</td><td>215</td><td>227</td></tr>
+                <tr><td>Mean words per tweet</td><td>30.50</td><td>32.91</td></tr>
+                <tr><td>Median words per tweet</td><td>32</td><td>34</td></tr>
+                <tr><td>Mean URLs per tweet</td><td>0.58</td><td>0.48</td></tr>
+                <tr><td>Mean hashtags per tweet</td><td>1.97</td><td>2.06</td></tr>
+                <tr><td>Mean mentions per tweet</td><td>0.43</td><td>0.32</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            Preprocessing will preserve sentiment-bearing signals such as negation, punctuation,
+            and hashtags. Token sequences will be truncated and padded consistently, with padding
+            excluded from meaningful model computation through attention masks or sequence-length
+            handling.
+          </p>
+
+          <h3 style="margin-top: 2rem;">3. Temporal Distribution Shift</h3>
+          <p>
+            The supplied test set primarily predates the training set: test dates span 2–16 March
+            2020, whereas training dates span 16 March–14 April 2020. Tweet volume also varies
+            substantially by date. Because COVID-19 discussion and public sentiment can change over
+            time, test performance may reflect temporal distribution differences as well as model
+            quality.
+          </p>
+          <div class="grid-2" style="margin-top: 1rem; gap: 1rem;">
+            <figure style="margin: 0;">
+              <img src="./eda_assets/test_tweets_by_date.png"
+                   alt="Line chart of test tweet counts by date from early to mid-March 2020"
+                   loading="lazy"
+                   style="display: block; width: 100%; height: auto; border-radius: var(--radius-md);">
+              <figcaption style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 0.6rem;">
+                Figure 3. Test tweets per date (2–16 March 2020).
+              </figcaption>
+            </figure>
+            <figure style="margin: 0;">
+              <img src="./eda_assets/train_tweets_by_date.png"
+                   alt="Line chart of training tweet counts by date from mid-March to mid-April 2020"
+                   loading="lazy"
+                   style="display: block; width: 100%; height: auto; border-radius: var(--radius-md);">
+              <figcaption style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 0.6rem;">
+                Figure 4. Training tweets per date (16 March–14 April 2020).
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="callout callout-info" style="margin-top: 1.5rem;">
+            <div class="callout-title">Evaluation consideration</div>
+            <p>
+              Keep the supplied test split untouched for the primary comparison, and interpret its
+              results in light of the temporal difference. Use a stratified validation subset from the
+              training file for checkpoint selection and hyperparameter tuning.
+            </p>
+          </div>
+
+          <h3 style="margin-top: 2rem;">4. Duplicate and Missing-Value Checks</h3>
+          <p>
+            Tweet texts and sentiment labels have no missing values. The preliminary normalized-text
+            check found 15 repeated texts within the training set, no repeated normalized texts within
+            the test set, and one normalized text shared across the two splits (approximately 0.03% of
+            unique test texts). No conflicting sentiment labels were found for normalized duplicates.
+            This overlap should be documented when reporting final evaluation results.
+          </p>
         </div>
       </div>
     </div>
