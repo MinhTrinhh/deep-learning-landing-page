@@ -35,7 +35,12 @@ def forward(self, images):
 \end{lstlisting}
 The returned values are logits; softmax is used only when class probabilities are needed, since cross-entropy loss consumes logits directly.
 
-\textbf{Discussion.} This is the simplest baseline: each output class is a weighted sum of all 784 pixels. It is fast and provides a useful reference point, but has no hidden nonlinear transformations and does not explicitly represent local spatial patterns.
+\textbf{Discussion.}
+\begin{itemize}
+    \item \textbf{Input representation:} Each $1\times28\times28$ image is flattened into a 784-dimensional vector.
+    \item \textbf{Classifier and loss:} A single linear layer maps the vector to ten class logits. The model is trained with cross-entropy loss; no softmax is applied before \texttt{CrossEntropyLoss}, which consumes logits directly.
+    \item \textbf{Interpretation:} Each class score is a weighted sum of the input pixels. This compact baseline is fast, but has no hidden nonlinear transformation and does not explicitly represent local spatial patterns.
+\end{itemize}
 
 \subsection*{Multilayer perceptron}
 \begin{figure}[H]
@@ -65,7 +70,12 @@ def forward(self, images):
     return out
 \end{lstlisting}
 
-\textbf{Discussion.} The three hidden layers allow nonlinear combinations of pixels and have substantially more representational capacity than the linear baseline. Flattening the image before processing, however, means that neighboring pixels are not treated specially and the model does not preserve a two-dimensional feature map.
+\textbf{Discussion.}
+\begin{itemize}
+    \item \textbf{Hidden layers and activations:} The model has three hidden layers of 512, 256, and 128 units. ReLU follows each layer, allowing the network to learn nonlinear combinations of pixel values.
+    \item \textbf{Regularization:} Dropout with $p=0.2$ follows each hidden activation to reduce reliance on individual units during training.
+    \item \textbf{Representation and trade-off:} The image is flattened into 784 values, so the MLP has more capacity than the linear baseline but does not preserve a two-dimensional feature map or explicitly privilege neighboring pixels.
+\end{itemize}
 
 \subsection*{Convolutional neural network}
 \begin{figure}[H]
@@ -83,7 +93,12 @@ def forward(self, images):
 \end{lstlisting}
 The operations inside \texttt{self.features} and \texttt{self.classifier} are the layers defined in the model constructor.
 
-\textbf{Discussion.} Convolutions learn local filters and reuse the same weights across image locations; pooling reduces spatial resolution while retaining strong responses. These properties make the CNN well matched to image structure. Its dense classifier then combines the extracted spatial features to predict a clothing class.
+\textbf{Discussion.}
+\begin{itemize}
+    \item \textbf{Assignment-designed architecture:} The CNN is implemented for this project rather than using a pretrained network. It contains two $3\times3$ convolutional blocks with 32 then 64 channels, each followed by ReLU and $2\times2$ max pooling.
+    \item \textbf{Convolution and feature maps:} Each convolution applies learned local filters across the image using shared weights, producing feature maps that respond to patterns such as edges and clothing parts. ReLU adds a nonlinear transformation after each convolution.
+    \item \textbf{Pooling and classification:} Max pooling downsamples the feature maps from $28\times28$ to $14\times14$ and then $7\times7$, retaining strong activations while reducing spatial size. The dense classifier combines the resulting features to produce class logits.
+\end{itemize}
 
 \subsection*{Gated recurrent unit}
 \begin{figure}[H]
@@ -104,7 +119,12 @@ def forward(self, images):
 \end{lstlisting}
 The recurrent stage has $3HI+3H^2+6H=60{,}672$ parameters for input size $I=28$ and hidden size $H=128$; the classifier adds 1,290 parameters.
 
-\textbf{Discussion.} The GRU can carry information from earlier rows to later rows, allowing the final state to summarize the image as a sequence. This imposes a top-to-bottom ordering on a two-dimensional object and does not retain local two-dimensional structure as directly as a CNN.
+\textbf{Discussion.}
+\begin{itemize}
+    \item \textbf{Sequence and timestep:} Each image is represented as 28 ordered row vectors, so the GRU processes 28 timesteps from top to bottom. Each timestep has input size 28, corresponding to the pixels in one row.
+    \item \textbf{Hidden representation:} A single GRU layer with hidden size 128 updates its hidden state at each row. The final hidden state summarizes information carried across the sequence and is passed through dropout before the ten-class linear classifier.
+    \item \textbf{Inductive bias and limitation:} Recurrent state can capture dependencies between rows with shared weights, but the imposed top-to-bottom ordering is asymmetric and does not preserve two-dimensional neighborhoods as directly as a CNN.
+\end{itemize}
 
 \subsection*{Vision Transformer}
 \begin{figure}[H]
@@ -127,4 +147,9 @@ def forward(self, images):
 Here \texttt{encoded[:, 0]} selects the encoded class token for each image in the batch.
 Each encoder layer uses a 512-dimensional feed-forward block with GELU activation and dropout $p=0.2$. The model has 803,338 trainable parameters: 2,176 in the patch projection, 6,528 in the class and position embeddings, 793,088 in the encoder, 256 in final normalization, and 1,290 in the classifier.
 
-\textbf{Discussion.} Self-attention lets each patch representation combine information from all other patches, while learned position embeddings provide information about where each patch came from. The class token serves as a learned summary passed to the classifier. In the recorded run, ViT reaches 87.93\% test accuracy and 0.8771 macro-F1, below the CNN and GRU. Its 0.265 ms per-image inference time is the slowest measured, consistent with the cost of attention over 50 tokens.
+\textbf{Discussion.}
+\begin{itemize}
+    \item \textbf{Tokens and positional information:} Non-overlapping $4\times4$ patches are projected by a convolution into 128-dimensional token embeddings, yielding 49 patch tokens. A learned class token is prepended, and learned positional embeddings are added to all 50 tokens so the model can use their image locations.
+    \item \textbf{Attention inputs and outputs:} In each encoder layer, multi-head self-attention forms queries, keys, and values from the token representations. Attention weights let each token combine information from all tokens; the layer outputs contextualized token representations, which are further transformed by its feed-forward block. The encoded class token is normalized and passed to the classifier.
+    \item \textbf{Observed result and trade-off:} ViT reaches 87.93\% test accuracy and 0.8771 macro-F1, below the CNN and GRU in this run. Its 0.265 ms per-image inference time is the slowest measured, consistent with the cost of attention over 50 tokens. Global attention offers flexible patch interactions but has less built-in locality than convolution.
+\end{itemize}
