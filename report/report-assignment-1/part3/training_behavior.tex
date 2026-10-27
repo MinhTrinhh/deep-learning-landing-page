@@ -1,6 +1,6 @@
 \section{Training Behavior}
 
-The trainer records loss and accuracy after every epoch, selects the lowest validation-loss checkpoint, restores it, and evaluates the test set once. Linear stopped after epoch 30 and restored epoch 20; MLP stopped after epoch 41 and restored epoch 31; CNN stopped after epoch 65 and restored epoch 55; GRU stopped after epoch 63 and restored epoch 53.
+The trainer records loss and accuracy after every epoch, selects the lowest validation-loss checkpoint, restores it, and evaluates the test set once. Linear stopped after epoch 30 and restored epoch 20; MLP stopped after epoch 41 and restored epoch 31; CNN stopped after epoch 65 and restored epoch 55; GRU stopped after epoch 63 and restored epoch 53; ViT stopped after epoch 67 and restored epoch 57 (validation loss 0.3062).
 
 \begin{figure}[H]
     \centering
@@ -30,4 +30,13 @@ The trainer records loss and accuracy after every epoch, selects the lowest vali
     \label{fig:gru-training-curves}
 \end{figure}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{../../Assignment1/outputs/learning_curves/vit_aug_learning_curves.png}
+    \caption{ViT training and validation curves. The minimum validation loss, 0.3062, occurs at epoch 57; training stopped after epoch 67.}
+    \label{fig:vit-training-curves}
+\end{figure}
+
 Validation accuracy is often higher than training accuracy. This is expected because training accuracy is measured while random augmentation and dropout are active, whereas validation uses clean inputs and evaluation mode. The curves do not show a sustained validation-loss explosion; instead, early stopping prevents later fluctuations from replacing the best checkpoint. CNN converges to the strongest validation result, while Linear reaches a clear representational plateau.
+
+ViT training and validation losses both fall sharply during early epochs and continue to trend downward more gradually. Validation loss remains below training loss, consistent with augmentation and dropout being active only during training. The epoch-57 checkpoint is retained by the minimum-validation-loss rule; ten subsequent epochs without a qualifying improvement trigger early stopping at epoch 67. Validation accuracy fluctuates around 0.88 near the end of training.

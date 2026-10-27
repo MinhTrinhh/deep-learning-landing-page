@@ -1,71 +1,61 @@
 \section*{AI Usage Disclosure}
 \addcontentsline{toc}{section}{AI Usage Disclosure}
 
-This section records all generative AI tool usage for this assignment, per the course
-Academic Integrity and AI-Use Policy. All AI-assisted content was reviewed, edited,
-and verified by the students. Experimental results, performance numbers, and figures
-are based on actual code execution.
+\textbf{Course:} CO3133 — Deep Learning and Its Applications · Semester-261\\
+\textbf{Group:} G-10\\
+\textbf{Assignment:} Assignment 1 — Foundations of Deep Learning Pipelines and Architectures
 
-% -----------------------------------------------------------------------
-% Detailed log — single continuous monospace block
-% -----------------------------------------------------------------------
+This file logs all generative AI tool usage for Assignment 1.
+
+\noindent\rule{\linewidth}{0.4pt}
+
 \subsection*{Detailed Log}
 
 \begin{lstlisting}[language={}, basicstyle=\ttfamily\small, frame=single,
     rulecolor=\color{codegray}, backgroundcolor=\color{backcolour},
-    breaklines=true, breakatwhitespace=false, numbers=none]
+    breaklines=true, breakatwhitespace=false, numbers=none,
+    literate={ị}{{\textnormal{ị}}}1 {ư}{{\textnormal{ư}}}1
+             {ớ}{{\textnormal{ớ}}}1 {ê}{{\textnormal{ê}}}1
+             {—}{{—}}1 {–}{{–}}1 {×}{{×}}1 {→}{{→}}1 {’}{{’}}1]
 Tool: Gemini
-Used by: Trinh Le Minh (M1)
+Used by: Trinh Le Minh
 Task: Implementing model checkpointing and analyzing loss curves
-Prompt summary: Asked for PyTorch checkpoint code and analysis of a loss/accuracy graph
-AI contribution: Provided save/load checkpoint logic based on val loss; analyzed training
-graphs confirming healthy training with no overfitting
-Student verification: Verified training/val loss curves; integrated checkpointing into
-trainer.py and confirmed correct behavior
+Prompt summary: Asked for the definition and code implementation of machine learning checkpoints, and requested an analysis of a loss/accuracy graph to determine if the model was overfitting.
+AI contribution: Provided the PyTorch code logic to save and load best-model checkpoints based on validation loss. Analyzed the provided training/validation graphs, confirming healthy training and explaining how the MLP's Dropout and Data Augmentation caused validation metrics to initially outperform training metrics.
+Student verification: Verified the health of the model's training/validation loss curve to confirm no overfitting was occurring; reviewed and integrated the PyTorch checkpointing code logic into the training loop.
 Affected files/sections: trainer.py
-Responsible member: Trinh Le Minh (M1)
+Responsible member: Trinh Le Minh
 
 Tool: OpenAI Codex (GPT-5)
-Used by: Trinh Le Minh (M1)
-Task: Building a reproducible FashionMNIST training and evaluation pipeline
-Prompt summary: Asked for EDA, train/val/test split, preprocessing, Linear/MLP training,
-metrics, checkpointing, reproducibility; reported a checkpoint-loading error
-AI contribution: Connected EDA and metrics modules to main workflow; added deterministic
-seeding, confusion matrices, best-val-loss checkpoints, experiment metadata; diagnosed
-NumPy scalar metadata checkpoint error and provided fix
-Student verification: Ran MLP training; inspected metric files and checkpoints; confirmed
-best_mlp.pt loaded successfully; passed syntax/static checks
-Affected files/sections: main.py, config.py, dataloader.py, edaworker.py, metrics.py,
-trainer.py, plotter.py; checkpoints/README.md
-Responsible member: Trinh Le Minh (M1)
+Used by: Trinh Le Minh
+Task: Building and debugging a reproducible FashionMNIST training and evaluation pipeline
+Prompt summary: Asked for guidance and implementation support for EDA, train/validation/test splitting, preprocessing and augmentation, Linear/MLP training, evaluation metrics, checkpointing, and reproducibility. Later reported a PyTorch checkpoint-loading error caused by NumPy scalar metadata.
+AI contribution: Connected the EDA and metrics modules to the main workflow; added saved EDA figures, classification metrics, confusion matrices, best-validation-loss checkpoints, deterministic seeding, DataLoader worker seeding, experiment metadata, and model fingerprints. Diagnosed the checkpoint error, converted checkpoint metadata to native Python types, and added a restricted compatibility loader for the existing checkpoint.
+Student verification: Ran the MLP training workflow and supplied the resulting checkpoint-loading traceback; inspected the generated metric files and checkpoints. Existing best_mlp.pt was subsequently loaded successfully, and syntax/static checks passed.
+Affected files/sections: Assignment1/code/main.py, config.py, dataloader.py, edaworker.py, metrics.py, trainer.py, plotter.py; Assignment1/code/README.md; Assignment1/checkpoints/README.md.
+Responsible member: Trinh Le Minh
 
 Tool: OpenAI Codex (GPT-5)
 Used by: Trinh Le Minh
 Task: Explaining and documenting the CNN and GRU architectures
-Prompt summary: Asked how CNN preserves spatial structure, how GRU reads image rows,
-why GRU acts as a sequence encoder, and how its recurrent parameters are calculated
-AI contribution: Explained inductive biases and tensor transformations; derived the
-60,672-parameter GRU stage; helped prepare architecture descriptions and diagrams
-Student verification: Checked layers, shapes, and parameter counts against models.py;
-verified reported metrics against outputs/log.txt
-Affected files/sections: Assignment1/index.html; CNN and GRU diagrams and methodology
+Prompt summary: Asked for help explaining how the CNN preserves spatial structure, how the GRU treats each image as a sequence of rows, why the GRU acts as a sequence encoder, and how its 60,672 recurrent parameters are calculated.
+AI contribution: Explained the architectural inductive biases and tensor transformations of both models; derived the GRU parameter count from its input-to-hidden weights, hidden-to-hidden weights, and two bias vectors; and helped prepare the CNN and GRU architecture descriptions and diagrams used on the Assignment 1 page.
+Student verification: Cross-checked every layer, tensor shape, and parameter count against models.py and verified the reported CNN and GRU metrics against outputs/log.txt and the generated result figures.
+Affected files/sections: Assignment1/index.html, Assignment1/diagram-models/cnn-model.svg, Assignment1/diagram-models/gru-model.svg; CNN and GRU methodology and inductive-bias sections.
 Responsible member: Trinh Le Minh
 
 Tool: OpenAI Codex (GPT-5)
 Used by: Trinh Le Minh
-Task: Completing the Assignment 1 report from verified project evidence
-Prompt summary: Asked to fill the existing report using the handbook, assignment page,
-source code, logs, checkpoints, diagrams, and generated outputs without restructuring it
-AI contribution: Replaced placeholders and stale metrics; integrated diagrams, four-model
-methods/results, qualitative predictions, error counts, limitations, references, conclusion
-Student verification: Checked numbers against log.txt, methods against models.py, visually
-inspected figures, and compiled the LaTeX report for formatting/reference errors
-Affected files/sections: report/report-assignment-1/; qualitative.py and its output figure
+Task: Completing the Assignment 1 LaTeX report from verified project evidence
+Prompt summary: Asked to use the course handbook, assignment page, source code, logs, checkpoints, diagrams, and generated outputs to complete the existing report without changing its structure.
+AI contribution: Replaced report placeholders and outdated metrics; integrated the pipeline and model diagrams, four-model methodology and results, learning curves, confusion matrices, qualitative checkpoint predictions, error counts, limitations, references, and evidence-based conclusion. Explicitly identified the missing Transformer and formal ablation rather than inventing results.
+Student verification: Compared all numeric claims with outputs/log.txt, checked architecture details against models.py, visually inspected generated figures, and compiled the LaTeX report to identify formatting and reference errors.
+Affected files/sections: report/report-assignment-1/; Assignment1/code/qualitative.py; Assignment1/outputs/metrics/qualitative_predictions.png.
 Responsible member: Trinh Le Minh
 
 Tool: GPT (via VSCode)
 Used by: Tran Phuoc Sang
-Task: Coding assistance for metrics and plotter files -- task-specific EDA
+Task: Coding assistance for metrics and plotter files — task-specific EDA
 Prompt summary: Asked for help implementing metric computation and EDA plot functions
 AI contribution: Suggested structure for metric aggregation and matplotlib plot helpers
 Student verification: Ran outputs against expected values; visually verified EDA plots
@@ -76,15 +66,24 @@ Tool: Claude Sonnet 4.6 (Antigravity IDE)
 Used by: Tran Phuoc Sang
 Task: LaTeX report writing assistance
 Prompt summary: Asked for help drafting methodology and results sections in LaTeX
-AI contribution: Suggested LaTeX structure, table formatting, phrasing for Sec. 3--4
+AI contribution: Suggested LaTeX structure, table formatting, phrasing for Sec. 3–4
 Student verification: Cross-checked all claims against actual experiment outputs and code
 Affected files/sections: report/report-assignment-1/ (Methodology, Results sections)
 Responsible member: Tran Phuoc Sang
+
+Tool: OpenAI Codex (GPT-6)
+Used by: Trinh Le Minh
+Task: Learning the Vision Transformer and understanding how its code follows the common Transformer architecture
+Prompt summary: Asked for teaching-oriented explanations of the ViT implementation, including a detailed walkthrough of its forward pass and how the standard Transformer ideas apply to image patches.
+AI contribution: Helped implement the initial ViTransformer structure, then explained patch embeddings, positional embeddings, the class token, self-attention, the feed-forward block, residual connections, normalization, and classification; connected these ideas to the code and its forward pass.
+Student work and verification: Studied the explanations, worked through and reviewed the implementation, integrated the model into the project workflow, and ran it. Checked the architecture and tensor dimensions against the code, and checked evaluation claims against outputs/log.txt and saved figures.
+Affected files/sections: Assignment1/code/models.py; ViT methodology and results in Assignment1/index.html and report/report-assignment-1/.
+Responsible member: Trinh Le Minh
+
 \end{lstlisting}
 
-% -----------------------------------------------------------------------
-% Student Responsibility Acknowledgement
-% -----------------------------------------------------------------------
+\noindent\rule{\linewidth}{0.4pt}
+
 \subsection*{Student Responsibility Acknowledgement}
 
 \begin{itemize}
@@ -92,6 +91,8 @@ Responsible member: Tran Phuoc Sang
     \item[$\boxtimes$] No unchecked AI-generated code or text was submitted as-is.
     \item[$\boxtimes$] AI was not used to fabricate data, experimental results, citations, or references.
     \item[$\boxtimes$] No experiments were claimed that were not actually run.
-    \item[$\boxtimes$] No private, restricted, or credential-bearing data was pasted into AI tools.
+    \item[$\boxtimes$] No private/restricted/credential-bearing data was pasted into AI tools.
     \item[$\boxtimes$] All AI-assisted content was verified via source code, real runs, official docs, or scholarly sources.
 \end{itemize}
+
+\noindent\rule{\linewidth}{0.4pt}

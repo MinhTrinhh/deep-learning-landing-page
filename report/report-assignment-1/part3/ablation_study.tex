@@ -1,21 +1,21 @@
-\section{Ablation Study}
+% \section{Ablation Study}
 
-The handbook recommends, but does not require, an ablation for Assignment 1. No matched-pair ablation was recorded in the available outputs, so no ablation result is claimed. The four-model comparison is a controlled architecture study rather than a strict ablation because representation, parameter count, and computation change together.
+% The handbook recommends, but does not require, an ablation for Assignment 1. No matched-pair ablation was recorded in the available outputs, so no ablation result is claimed. The five-model comparison is a controlled architecture study rather than a strict ablation because representation, parameter count, and computation change together.
 
-\begin{table}[H]
-    \centering
-    \caption{Ablation status and reproducible follow-up experiments.}
-    \label{tab:ablation}
-    \begin{tabularx}{\textwidth}{@{}lXX@{}}
-        \toprule
-        Factor & Current evidence & Required controlled follow-up \\
-        \midrule
-        Augmentation & All reported models use the augmented pipeline. & Retrain each model with \texttt{--no-aug} under the same seed and compare accuracy/F1. \\
-        Dropout & MLP, CNN, and GRU use $p=0.2$. & Retrain with dropout set to zero while fixing every other setting. \\
-        GRU row order & Only top-to-bottom rows are evaluated. & Compare rows, columns, and reversed row sequences with hidden size fixed. \\
-        Parameter budget & Architectures have different sizes. & Match parameter counts to separate inductive bias from capacity. \\
-        \bottomrule
-    \end{tabularx}
-\end{table}
+% \begin{table}[H]
+%     \centering
+%     \caption{Ablation status and reproducible follow-up experiments.}
+%     \label{tab:ablation}
+%     \begin{tabularx}{\textwidth}{@{}lXX@{}}
+%         \toprule
+%         Factor & Current evidence & Required controlled follow-up \\
+%         \midrule
+%         Augmentation & All reported models use the augmented pipeline. & Retrain each model with \texttt{--no-aug} under the same seed and compare accuracy/F1. \\
+%         Dropout & MLP, CNN, and GRU use $p=0.2$. & Retrain with dropout set to zero while fixing every other setting. \\
+%         GRU row order & Only top-to-bottom rows are evaluated. & Compare rows, columns, and reversed row sequences with hidden size fixed. \\
+%         Parameter budget & Architectures have different sizes. & Match parameter counts to separate inductive bias from capacity. \\
+%         \bottomrule
+%     \end{tabularx}
+% \end{table}
 
-These experiments are future work and must not be interpreted as completed results.
+% These experiments are future work and must not be interpreted as completed results.

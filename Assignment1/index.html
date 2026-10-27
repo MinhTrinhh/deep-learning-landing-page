@@ -42,15 +42,14 @@
       <div class="hero-meta">
         <div class="meta-item"><i class="fa-solid fa-user-tie"></i> Instructor: Lê Thành Sách</div>
         <div class="meta-item"><i class="fa-solid fa-users"></i> G-10</div>
-        <div class="meta-item"><i class="fa-solid fa-calendar-check"></i> Due: 21 Oct 2026 (M2 Final)</div>
+        <div class="meta-item"><i class="fa-solid fa-calendar-check"></i> Due: 28 Oct 2026 (M2 Final)</div>
       </div>
 
-      <div class="card-footer" style="justify-content: center; margin-top: 1.5rem;">
+      <!-- <div class="card-footer" style="justify-content: center; margin-top: 1.5rem;">
         <a href="https://github.com/MinhTrinhh/deep-learning-landing-page/tree/main/Assignment1/code" target="_blank" class="btn btn-secondary btn-sm"><i class="fa-brands fa-github"></i> Source Code</a>
-        <a href="#video-section" class="btn btn-primary btn-sm"><i class="fa-solid fa-video"></i> YouTube Video</a>
-        <a href="./Presentation/" class="btn btn-secondary btn-sm"><i class="fa-solid fa-file-pdf"></i> Report & Slides</a>
-        <a href="./checkpoints/" class="btn btn-secondary btn-sm"><i class="fa-solid fa-box-archive"></i> Checkpoints</a>
-      </div>
+        <a href="../report/report-assignment-1/report.pdf" target="_blank" rel="noopener" class="btn btn-secondary btn-sm"><i class="fa-solid fa-file-pdf"></i> Report PDF</a>
+        <a href="https://github.com/MinhTrinhh/deep-learning-landing-page/tree/main/Assignment1/checkpoints" class="btn btn-secondary btn-sm"><i class="fa-solid fa-box-archive"></i> Checkpoints</a>
+      </div> -->
     </div>
   </header>
 
@@ -64,12 +63,27 @@
       <button class="tab-btn" data-tab="tab-methodology"><i class="fa-solid fa-diagram-project"></i> Methodology</button>
       <button class="tab-btn" data-tab="tab-results"><i class="fa-solid fa-chart-line"></i> Results & Comparison</button>
       <button class="tab-btn" data-tab="tab-discussion"><i class="fa-solid fa-lightbulb"></i> Inductive Bias & Discussion</button>
-      <button class="tab-btn" data-tab="tab-video"><i class="fa-solid fa-play"></i> Video & Deliverables</button>
+      <button class="tab-btn" data-tab="tab-deliverables"><i class="fa-solid fa-box-open"></i> Deliverables</button>
       <button class="tab-btn" data-tab="tab-ai"><i class="fa-solid fa-robot"></i> AI Disclosure</button>
     </div>
 
     <!-- TAB 1: Overview & Problem -->
     <div class="tab-content active" id="tab-overview">
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <h2 class="section-title"><i class="fa-solid fa-users"></i> G-10 Assignment 1 Team</h2>
+        <div class="card-body" style="margin-top: 1rem;">
+          <div class="table-responsive">
+            <table class="table">
+              <thead><tr><th>Member</th><th>Student ID</th><th>GitHub</th></tr></thead>
+              <tbody>
+                <tr><td>Trịnh Lê Minh</td><td>2352765</td><td><a href="https://github.com/MinhTrinhh" target="_blank" rel="noopener">MinhTrinhh</a></td></tr>
+                <tr><td>Trần Phước Sang</td><td>2353044</td><td><a href="https://github.com/phuocsangcs" target="_blank" rel="noopener">phuocsangcs</a></td></tr>
+                <tr><td>Đặng Trần Thái Bảo</td><td>2452120</td><td><a href="https://github.com/baodangtran" target="_blank" rel="noopener">baodangtran</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
       <div class="card">
         <h2 class="section-title"><i class="fa-solid fa-bullseye"></i> Problem Statement & Scope</h2>
         <div class="card-body" style="margin-top: 1rem;">
@@ -227,13 +241,14 @@
                 <li><strong>Random seed:</strong> 42 (global, deterministic mode ON)</li>
                 <li><strong>MLP dropout:</strong> 0.2</li>
                 <li><strong>Hardware:</strong> Google Colab CPU runtime (exact CPU model not recorded)</li>
-                <li><strong>Mixed precision:</strong> Not used</li>
+                <!-- <li><strong>Software:</strong> Python 3.13 runtime; PyTorch and torchvision versions not recorded in the run log</li> -->
+                <!-- <li><strong>Mixed precision:</strong> Not used</li> -->
               </ul>
             </div>
           </div>
 
           <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-layer-group"></i> Mandatory Architecture Configurations</h3>
-          <p class="section-desc">Linear, MLP, CNN, and GRU are implemented; the transformer remains planned work.</p>
+          <p class="section-desc">Linear, MLP, CNN, GRU, and Vision Transformer architectures are implemented.</p>
           <div class="table-responsive">
             <table class="table">
               <thead>
@@ -281,11 +296,11 @@
                 </tr>
                 <tr>
                   <td><strong>5. Vision Transformer</strong></td>
-                  <td><span class="card-badge badge-pending">Pending</span></td>
-                  <td>Patch representation is not yet finalized</td>
-                  <td>Not yet implemented; patch size and transformer configuration are TBD.</td>
-                  <td>TBD</td>
-                  <td>TBD</td>
+                  <td><span class="card-badge badge-approved">Implemented</span></td>
+                  <td>49 patch tokens, each with 128 features, plus a class token</td>
+                  <td>4×4 patch embedding; 4 Transformer encoder layers, 4 attention heads; class token → <code>Linear(128, 10)</code>.</td>
+                  <td><code>CrossEntropyLoss</code></td>
+                  <td>803,338</td>
                 </tr>
               </tbody>
             </table>
@@ -297,7 +312,7 @@
                 <span class="section-eyebrow">Layer-by-layer reference</span>
                 <h3 id="architecture-diagrams-title"><i class="fa-solid fa-sitemap"></i> Implemented Architecture Diagrams</h3>
               </div>
-              <p>Diagrams summarize the implemented layers, tensor shapes, and parameter counts.</p>
+              <p>Minimal layer diagrams show each model’s name, tensor shapes, and total trainable parameters.</p>
             </div>
 
             <div class="architecture-diagram-grid">
@@ -352,6 +367,19 @@
                   </ul>
                 </figcaption>
               </figure>
+
+              <figure class="architecture-diagram-card">
+                <a href="./diagram-models/vit-model.svg" target="_blank" aria-label="Open the full-size Vision Transformer architecture diagram">
+                  <img src="./diagram-models/vit-model.svg" alt="Vision Transformer architecture with patch tokens, a class token, four Transformer encoder layers, tensor shapes, and 803,338 trainable parameters">
+                </a>
+                <figcaption>
+                  <div class="architecture-diagram-summary"><strong>Vision Transformer</strong><span>49 image patches · 803,338 parameters</span></div>
+                  <ul class="compact-points">
+                    <li>Embeds each image as 49 patch tokens plus one class token.</li>
+                    <li>Uses four Transformer encoder layers to produce the class representation.</li>
+                  </ul>
+                </figcaption>
+              </figure>
             </div>
           </section>
         </div>
@@ -372,8 +400,8 @@
           <div class="callout callout-info" style="margin-bottom: 1.5rem;">
             <div class="callout-title"><i class="fa-solid fa-circle-check"></i> Completed Experiment Status</div>
             <ul class="compact-points">
-              <li>Linear, MLP, CNN, and GRU results are measured from the same augmented training pipeline and are final.</li>
-              <li>Only the Vision Transformer experiment remains <strong>TBD</strong>.</li>
+              <li>All five models were trained and evaluated with the same augmented pipeline, split, seed, and test protocol.</li>
+              <li>Metrics, curves, and confusion matrices below are taken from the recorded run in <code>outputs/log.txt</code>.</li>
             </ul>
           </div>
 
@@ -392,7 +420,7 @@
               </thead>
               <tbody>
                 <tr style="background: rgba(15,130,223,0.06);">
-                  <td><strong>Linear / Softmax</strong> ✅</td>
+                  <td><strong>Linear / Softmax</strong></td>
                   <td><strong>73.78%</strong></td>
                   <td>0.7286</td>
                   <td>7,850</td>
@@ -401,7 +429,7 @@
                   <td>0.030 MB</td>
                 </tr>
                 <tr style="background: rgba(15,130,223,0.06);">
-                  <td><strong>MLP (3 hidden layers)</strong> ✅</td>
+                  <td><strong>MLP (3 hidden layers)</strong></td>
                   <td><strong>85.80%</strong></td>
                   <td>0.8560</td>
                   <td>567,434</td>
@@ -410,7 +438,7 @@
                   <td>2.165 MB</td>
                 </tr>
                 <tr style="background: rgba(15,130,223,0.1);">
-                  <td><strong>CNN (2 convolution blocks)</strong> ✅</td>
+                  <td><strong>CNN (2 convolution blocks)</strong></td>
                   <td><strong>92.55%</strong></td>
                   <td>0.9259</td>
                   <td>1,691,914</td>
@@ -419,7 +447,7 @@
                   <td>6.454 MB</td>
                 </tr>
                 <tr style="background: rgba(15,130,223,0.06);">
-                  <td><strong>GRU (128 hidden units)</strong> ✅</td>
+                  <td><strong>GRU (128 hidden units)</strong></td>
                   <td><strong>88.36%</strong></td>
                   <td>0.8821</td>
                   <td>61,962</td>
@@ -427,14 +455,14 @@
                   <td>0.038619 ms</td>
                   <td>0.236 MB</td>
                 </tr>
-                <tr style="opacity: 0.6;">
-                  <td><strong>Vision Transformer (ViT)</strong> <span class="card-badge badge-pending">TBD</span></td>
-                  <td>—</td>
-                  <td>—</td>
-                  <td>—</td>
-                  <td>—</td>
-                  <td>—</td>
-                  <td>—</td>
+                <tr style="opacity: 0.9;">
+                  <td><strong>Vision Transformer (ViT)</strong></td>
+                  <td>87.93%</td>
+                  <td>0.8771</td>
+                  <td>803,338</td>
+                  <td>7,795.84 s</td>
+                  <td>0.264764 ms</td>
+                  <td>3.064 MB</td>
                 </tr>
               </tbody>
             </table>
@@ -447,10 +475,34 @@
               <li>GRU improves on MLP by 2.56 accuracy points and 0.0261 macro F1 while using 89.1% fewer parameters and an 89.1% smaller model file.</li>
               <li>Despite its compact size, GRU's sequential computation takes 1.16× the MLP training time and 2.12× its per-sample inference time.</li>
               <li>CNN improves on GRU by 4.19 accuracy points, but uses 27.3× as many parameters and takes 1.54× as long to train.</li>
-              <li><em>Shirt</em> remains the hardest GRU class (F1 0.6689), most often confused with <em>T-shirt/top</em>, <em>Coat</em>, and <em>Pullover</em>.</li>
-              <li>Best validation-loss checkpoints: Linear epoch 20; MLP epoch 31; CNN epoch 55; GRU epoch 53 (validation loss 0.2842).</li>
+              <li>ViT scores 87.93% accuracy and 0.8771 macro F1, below GRU and CNN, with about 13× GRU's parameters, 5.9× its training time, and 6.9× its inference time.</li>
+              <li><em>Shirt</em> remains difficult: ViT recalls 56.8% of Shirts, usually confusing them with <em>T-shirt/top</em>, <em>Coat</em>, and <em>Pullover</em>.</li>
+              <li>Best validation-loss checkpoints: Linear epoch 20; MLP epoch 31; CNN epoch 55; GRU epoch 53; ViT epoch 57 (validation loss 0.3062).</li>
             </ul>
           </div>
+<!-- 
+          <section class="card" style="margin-top: 1.5rem; overflow: hidden;">
+            <div class="card-body" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 1.5rem; align-items: center;">
+              <div>
+                <span class="section-eyebrow">Model spotlight · ViT</span>
+                <h3 style="margin: 0.35rem 0 0.75rem; color: var(--secondary-light);">Vision Transformer on Fashion-MNIST</h3>
+                <p>Each 28 × 28 image is split into 49 patches. A class token joins the patch tokens, and four Transformer encoder layers combine global information before the 10-class prediction.</p>
+                <div class="dataset-stats" style="margin-top: 1rem;">
+                  <div class="dataset-stat"><span>Test accuracy</span><strong>87.93%</strong><small>10,000 images</small></div>
+                  <div class="dataset-stat"><span>Macro F1</span><strong>0.8771</strong><small>10 classes</small></div>
+                  <div class="dataset-stat"><span>Parameters</span><strong>803,338</strong><small>0.803 M</small></div>
+                  <div class="dataset-stat"><span>Inference</span><strong>0.265 ms</strong><small>per sample</small></div>
+                </div>
+                <p style="margin-top: 1rem;"><strong>Best validation loss:</strong> 0.3062 at epoch 57; training stopped after epoch 67. The detailed learning curve and test confusion matrix are shown below.</p>
+              </div>
+              <figure style="margin: 0;">
+                <a href="./diagram-models/vit-model.svg" target="_blank" rel="noopener" aria-label="Open the full-size Vision Transformer architecture diagram">
+                  <img src="./diagram-models/vit-model.svg" alt="Vision Transformer for Fashion-MNIST: 49 image patches, a class token, four Transformer encoder layers, and a 10-class output" style="display: block; width: 100%; height: auto; border-radius: 0.75rem; background: white;">
+                </a>
+                <figcaption style="margin-top: 0.5rem; text-align: center;">Patch tokens → Transformer encoder → class prediction</figcaption>
+              </figure>
+            </div>
+          </section> -->
 
           <!-- Learning Curves -->
           <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-chart-line"></i> Learning Curves</h3>
@@ -478,6 +530,12 @@
                 <img src="./outputs/learning_curves/gru_aug_learning_curves.png" alt="GRU learning curves with training augmentation">
               </a>
               <figcaption><strong>Gated Recurrent Unit</strong><span>Best validation loss 0.2842 at epoch 53 · early stopped after epoch 63</span></figcaption>
+            </figure>
+            <figure class="result-figure-card">
+              <a href="./outputs/learning_curves/vit_aug_learning_curves.png" target="_blank" aria-label="Open the full-size Vision Transformer learning curves">
+                <img src="./outputs/learning_curves/vit_aug_learning_curves.png" alt="Vision Transformer training and validation loss and accuracy curves">
+              </a>
+              <figcaption><strong>Vision Transformer</strong><span>Best validation loss 0.3062 at epoch 57 · early stopped after epoch 67</span></figcaption>
             </figure>
           </div>
 
@@ -508,6 +566,12 @@
               </a>
               <figcaption><strong>Gated Recurrent Unit</strong><span>88.36% accuracy · 10×10 matrix · 10,000 test samples</span></figcaption>
             </figure>
+            <figure class="result-figure-card result-figure-card--matrix">
+              <a href="./outputs/metrics/vit_aug_confusion_matrix.png" target="_blank" aria-label="Open the full-size Vision Transformer confusion matrix">
+                <img src="./outputs/metrics/vit_aug_confusion_matrix.png" alt="Vision Transformer confusion matrix with training augmentation">
+              </a>
+              <figcaption><strong>Vision Transformer</strong><span>87.93% accuracy · 10×10 matrix · 10,000 test samples</span></figcaption>
+            </figure>
           </div>
 
           <!-- Traceability callout -->
@@ -520,6 +584,28 @@
             </ul>
           </div>
 
+          <section class="card" style="margin-top: 1.5rem;">
+            <h3><i class="fa-solid fa-magnifying-glass-chart"></i> Error Analysis</h3>
+            <ul class="compact-points">
+              <li><strong>Shirt is the hardest class.</strong> It is the weakest class for every model. ViT correctly identifies 568 of 1,000 Shirts.</li>
+              <li><strong>ViT mixes up similar upper-body garments.</strong> Of the 432 missed Shirts, it predicts T-shirt/top 165 times, Coat 119 times, and Pullover 108 times. Their silhouettes overlap at 28 × 28 resolution.</li>
+              <li><strong>Other ViT confusions:</strong> Pullover is mistaken for Coat 64 times, Coat for Pullover 71 times, and Sandal for Sneaker 81 times.</li>
+              <li><strong>CNN makes fewer errors in these groups.</strong> This is consistent with convolution filters preserving local garment details.</li>
+              <!-- <li><strong>Useful follow-ups:</strong> inspect difficult examples and try class-preserving augmentation.</li> -->
+            </ul>
+          </section>
+          <section class="card" style="margin-top: 1rem;">
+            <h3><i class="fa-solid fa-flag-checkered"></i> Limitations & Conclusion</h3>
+            <ul class="compact-points">
+              <li><strong>Limited repeatability:</strong> results use one random seed and one fixed configuration. Exact CPU hardware was not recorded, so runtime comparisons are indicative rather than hardware-controlled.</li>
+              <li><strong>Limited dataset scope:</strong> Fashion-MNIST has small, centered grayscale images. These results do not establish how well the models generalize to color images or cluttered scenes.</li>
+              <li><strong>No matched-factor ablation:</strong> the experiments do not isolate the effect of each individual design choice.</li>
+              <li><strong>Best measured performance:</strong> CNN achieves 92.55% test accuracy and 0.9259 macro F1.</li>
+              <li><strong>Different practical trade-offs:</strong> Linear is the smallest and fastest model; GRU offers a compact accuracy-to-parameter trade-off; ViT reaches 87.93% accuracy but has the highest measured inference cost.</li>
+              <li><strong>Conclusion for this setup:</strong> preserving local image structure with convolutions worked better on Fashion-MNIST than using ViT's global patch attention.</li>
+            </ul>
+          </section>
+
         </div>
       </div>
     </div>
@@ -527,9 +613,9 @@
     <!-- TAB 5: Inductive Bias & Discussion -->
     <div class="tab-content" id="tab-discussion">
       <div class="card">
-        <h2 class="section-title"><i class="fa-solid fa-brain"></i> Architectural Inductive Bias & Analysis</h2>
+        <h2 class="section-title"><i class="fa-solid fa-brain"></i> Architectural Inductive Bias & Discussion</h2>
         <div class="card-body" style="margin-top: 1rem;">
-          <p class="section-desc">Each architecture encodes different assumptions about how pixels relate to one another. Linear, MLP, CNN, and GRU observations come from completed experiments; ViT remains planned.</p>
+          <p class="section-desc">Each architecture encodes different assumptions about how pixels relate to one another. Observations for all five models are based on the completed experiments.</p>
 
           <div class="model-discussion-stack">
             <section class="model-discussion-card">
@@ -568,7 +654,7 @@
                 <span class="model-result">92.55% accuracy</span>
               </div>
               <p><strong>Inductive bias.</strong> Local <code>3×3</code> receptive fields preserve the 2D image layout, while shared convolution filters detect the same feature at different positions. Pooling adds approximate translation invariance and builds a hierarchy from edges to clothing parts and shapes.</p>
-              <p><strong>Observed behavior.</strong> This image-specific bias produces the best macro F1 (<strong>0.9259</strong>) and raises Shirt F1 to 0.7762. The gain comes with the largest completed model (1.69M parameters), 2,025.71 seconds of CPU training, and the slowest measured inference.</p>
+              <p><strong>Observed behavior.</strong> This image-specific bias produces the best macro F1 (<strong>0.9259</strong>) and raises Shirt F1 to 0.7762. The gain comes with the largest model (1.69M parameters), 2,025.71 seconds of CPU training, and the slowest inference among the four non-Transformer models; ViT is slower still.</p>
             </section>
 
             <section class="model-discussion-card">
@@ -584,17 +670,17 @@
               <p><strong>Observed behavior.</strong> GRU reaches <strong>0.8821 macro F1</strong>, outperforming MLP with about one-ninth as many parameters. Its sequential structure is useful, but recurrent processing is slower than dense computation and the top-to-bottom scan represents 2D locality less naturally than CNN. Shirt remains hardest (F1 0.6689), while Trouser, Bag, Ankle boot, and Sandal all exceed 0.96 F1.</p>
             </section>
 
-            <section class="model-discussion-card model-discussion-card--pending">
+            <section class="model-discussion-card">
               <div class="model-discussion-heading">
                 <span class="model-number">05</span>
                 <div>
-                  <span class="section-eyebrow">Planned experiment</span>
+                  <span class="section-eyebrow">Implemented and evaluated</span>
                   <h3>Vision Transformer</h3>
                 </div>
-                <span class="card-badge badge-pending">Results TBD</span>
+                <span class="model-result">87.93% accuracy</span>
               </div>
-              <p><strong>Inductive bias.</strong> ViT would divide the image into patches and use self-attention to model pairwise relationships between all patch tokens. Positional embeddings supply spatial order, while attention provides a flexible global receptive field with weaker built-in locality than a CNN.</p>
-              <p><strong>Expected trade-off.</strong> Global attention can capture distant interactions directly, but its weaker image-specific prior often requires more data or stronger regularization. Patch size, depth, parameter count, and measured performance remain TBD.</p>
+              <p><strong>Inductive bias.</strong> ViT divides the image into 49 patches and uses self-attention to model relationships between all 50 tokens, including the class token. Learned positional embeddings supply spatial order, while attention provides a global receptive field with weaker built-in locality than a CNN.</p>
+              <p><strong>Observed behavior.</strong> ViT reaches <strong>87.93% accuracy</strong> and <strong>0.8771 macro F1</strong>, slightly below GRU. Its 803,338 parameters and 0.264764 ms/sample inference time make it substantially more costly than the recurrent model. Shirt is its weakest class (recall 0.568); the confusion matrix shows frequent confusion with T-shirt/top, Coat, and Pullover.</p>
             </section>
           </div>
 
@@ -602,26 +688,25 @@
       </div>
     </div>
 
-    <!-- TAB 6: Video & Deliverables -->
-    <div class="tab-content" id="tab-video">
-      <div class="card" id="video-section">
-        <h2 class="section-title"><i class="fa-solid fa-video"></i> YouTube Presentation Video & Deliverables</h2>
+    <!-- TAB 6: Deliverables -->
+    <div class="tab-content" id="tab-deliverables">
+      <div class="card">
+        <h2 class="section-title"><i class="fa-solid fa-box-open"></i> Assignment 1 Deliverables</h2>
         <div class="card-body" style="margin-top: 1rem;">
-          
-          <div class="callout callout-warning">
-            <div class="callout-title"><i class="fa-solid fa-triangle-exclamation"></i> Mandatory Video Requirements</div>
-            <p><strong>Title Format:</strong> <code>CO3133-Semester-261 - G-10 - Assignment 1</code></p>
-            <p><strong>Visibility:</strong> Public or Unlisted (All members must present or defend part of the content).</p>
+          <div class="callout callout-info">
+            <div class="callout-title"><i class="fa-solid fa-link"></i> Available files</div>
+            <ul class="compact-points">
+              <li><a href="https://github.com/MinhTrinhh/deep-learning-landing-page/tree/main/Assignment1/code" target="_blank" rel="noopener">Source code</a></li>
+              <li><a href="https://github.com/MinhTrinhh/deep-learning-landing-page/tree/main/Assignment1/checkpoints" target="_blank" rel="noopener">Model checkpoints and reconstruction notes</a></li>
+              <li><a href="../report/report-assignment-1/report.pdf" target="_blank" rel="noopener">Assignment 1 report PDF</a></li>
+              <li><a href="https://drive.google.com/file/d/166Weelp3hTKO60HS1J5YsKNlYOLOWFGF/view?usp=sharing" target="_blank" rel="noopener">Assignment 1 presentation PDF</a></li>
+              <li>Video is still in progress.</li>
+            </ul>
           </div>
-
-          <div class="video-responsive">
-            <div class="video-placeholder">
-              <i class="fa-brands fa-youtube"></i>
-              <p><strong>YouTube Video Embed Placeholder</strong></p>
-              <p style="font-size: 0.85rem; color: var(--text-subtle);">Replace iframe src with actual YouTube video URL upon release.</p>
-            </div>
-          </div>
-
+          <!-- <div class="callout callout-warning" style="margin-top: 1rem;">
+            <div class="callout-title"><i class="fa-brands fa-youtube"></i> YouTube presentation</div>
+            <p>The video link has not been provided yet. The handbook requires a public or unlisted video titled <code>CO3133-Semester-261 - Group G-10 - Assignment 1</code>, with every member presenting or defending part of the work.</p>
+          </div> -->
         </div>
       </div>
     </div>

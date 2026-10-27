@@ -4,9 +4,7 @@
 **Group:** G-10
 **Assignment:** Assignment 1 — Foundations of Deep Learning Pipelines and Architectures
 
-This file logs all generative AI tool usage for this assignment, per the course
-Academic Integrity and AI-Use Policy. If no AI was used, delete the log entries below
-and keep only the declaration in Section 2.
+This file logs all generative AI tool usage for Assignment 1.
 
 ---
 
@@ -66,6 +64,16 @@ AI contribution: Suggested LaTeX structure, table formatting, phrasing for Sec. 
 Student verification: Cross-checked all claims against actual experiment outputs and code
 Affected files/sections: report/report-assignment-1/ (Methodology, Results sections)
 Responsible member: Tran Phuoc Sang
+
+Tool: OpenAI Codex (GPT-6)
+Used by: Trịnh Lê Minh
+Task: Learning the Vision Transformer and understanding how its code follows the common Transformer architecture
+Prompt summary: Asked for teaching-oriented explanations of the ViT implementation, including a detailed walkthrough of its forward pass and how the standard Transformer ideas apply to image patches.
+AI contribution: Helped implement the initial ViTransformer structure, then explained patch embeddings, positional embeddings, the class token, self-attention, the feed-forward block, residual connections, normalization, and classification; connected these ideas to the code and its forward pass.
+Student work and verification: Studied the explanations, worked through and reviewed the implementation, integrated the model into the project workflow, and ran it. Checked the architecture and tensor dimensions against the code, and checked evaluation claims against outputs/log.txt and saved figures.
+Affected files/sections: Assignment1/code/models.py; ViT methodology and results in Assignment1/index.html and report/report-assignment-1/.
+Responsible member: Trịnh Lê Minh
+
 ```
 ---
 
@@ -79,7 +87,3 @@ Responsible member: Tran Phuoc Sang
 - [x] All AI-assisted content was verified via source code, real runs, official docs, or scholarly sources.
 
 ---
-
-> **Consistency note:** The AI usage entries above are consistent with the disclosure in
-> the AI Disclosure tab in [`Assignment1/index.html`](index.html), and
-> the `AI_Usage_Disclosure.tex` section of the Assignment 1 LaTeX report.
