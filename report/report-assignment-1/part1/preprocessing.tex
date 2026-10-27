@@ -17,6 +17,7 @@ Images are converted to tensors and normalized using statistics calculated from 
         Linear / MLP input & Flatten internally & $[B,1,28,28]\rightarrow[B,784]$. \\
         CNN input & Preserve spatial grid & $[B,1,28,28]$. \\
         GRU input & Remove channel axis & $[B,1,28,28]\rightarrow[B,28,28]$: 28 row timesteps with 28 features each. \\
+        ViT input & Non-overlapping patch projection & $[B,1,28,28]\rightarrow[B,49,128]$: 49 patches of size $4\times4$, each embedded in 128 dimensions; a class token makes 50 tokens. \\
         \bottomrule
     \end{tabularx}
 \end{table}

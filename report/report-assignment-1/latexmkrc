@@ -1,2 +1,6 @@
 $out_dir = 'build';
-$pdflatex = 'pdflatex -synctex=1 %O %S';
+# This report uses fontspec and Times New Roman, so it must be compiled with
+# XeLaTeX (pdfLaTeX cannot load fontspec).
+$pdf_mode = 5;
+$xelatex = 'xelatex -synctex=1 %O %S';
+$pdflatex = 'xelatex -synctex=1 %O %S';

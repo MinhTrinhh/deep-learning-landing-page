@@ -1,8 +1,8 @@
 \section{Problem Formulation}
 
-\textbf{Motivation.} Fashion-MNIST is a controlled image-classification benchmark that is more visually demanding than digit recognition while remaining small enough for systematic architecture comparison. The assignment investigates how increasingly structured inductive biases---linear, dense nonlinear, spatial convolutional, and recurrent---affect predictive quality and computational cost under one shared pipeline.
+\textbf{Motivation.} Fashion-MNIST is a controlled image-classification benchmark that is more visually demanding than digit recognition while remaining small enough for systematic architecture comparison. The assignment investigates how linear, dense nonlinear, spatial convolutional, recurrent, and self-attention architectures affect predictive quality and computational cost under one shared pipeline.
 
-\textbf{Input and prediction unit.} Each prediction concerns one grayscale clothing image $x\in\mathbb{R}^{1\times28\times28}$. Linear and MLP models flatten the image to 784 values; CNN preserves the two-dimensional grid; GRU reads the image as 28 ordered row vectors with 28 features per timestep. Pixel values are first scaled to $[0,1]$ and then normalized using statistics from the training split.
+\textbf{Input and prediction unit.} Each prediction concerns one grayscale clothing image $x\in\mathbb{R}^{1\times28\times28}$. Linear and MLP models flatten the image to 784 values; CNN preserves the two-dimensional grid; GRU reads the image as 28 ordered row vectors with 28 features per timestep; and ViT projects the image into 49 non-overlapping patches and adds a class token. Pixel values are first scaled to $[0,1]$ and then normalized using statistics from the training split.
 
 \textbf{Output.} The target $y\in\{0,\ldots,9\}$ is one of ten Fashion-MNIST classes. Every model returns ten unnormalized logits, and the predicted class is the index of the largest logit. No softmax is applied before \texttt{CrossEntropyLoss}.
 
@@ -14,6 +14,6 @@
     \mathcal{L}_{\mathrm{CE}}\!\left(f_{\theta}(x_i),y_i\right).
     \label{eq:problem-formulation}
 \end{equation}
-The research question is: \emph{How do representation choice and architectural inductive bias change Fashion-MNIST accuracy, macro-F1, model size, training cost, and class-level errors when the data split and evaluation protocol are fixed?}
+The research question is: \emph{How do representation choice and architectural inductive bias change Fashion-MNIST accuracy, macro-F1, model size, training cost, and class-level errors when the data split and evaluation protocol are fixed?} The comparison evaluates Linear, MLP, CNN, GRU, and ViT using the same logged run protocol.
 
-\textbf{Main difficulties.} Shirt, T-shirt/top, Pullover, and Coat have overlapping low-resolution silhouettes. Flattening discards explicit spatial neighborhoods, whereas row-wise recurrent processing introduces an ordering that is not fully natural for a two-dimensional image. The experiment must therefore separate genuine architectural benefits from differences in capacity and computational cost.
+\textbf{Main difficulties.} Shirt, T-shirt/top, Pullover, and Coat have overlapping low-resolution silhouettes. Flattening discards explicit spatial neighborhoods, whereas row-wise recurrent processing introduces an ordering that is not fully natural for a two-dimensional image. CNN supplies a strong local image prior, while ViT must learn spatial relations from patch and position embeddings. The experiment must therefore interpret predictive quality alongside capacity and computational cost.

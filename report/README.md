@@ -1,8 +1,9 @@
 - Lệnh chạy compile latex report
 cd report\report-assignment-1
-latexmk -pdf report.tex
+latexmk -xelatex report.tex
 
-==>> PDF và các file tạm được tạo trong thư mục build.
+XeLaTeX is required for the report's Unicode Vietnamese names. The PDF and
+temporary files are created in the build directory.
 
 - Các lệnh khác: 
 Dọn các file tạm nhưng giữ lại PDF:
@@ -17,7 +18,7 @@ latexmk -C report.tex
 + Ví dụ với VS Code:
 "latex-workshop.latex.outDir": "%DIR%/build"
 
-+ Nếu muốn dùng XeLaTeX:
++ The XeLaTeX command is also available:
 latexmk -xelatex report.tex
 
 Cấu hình tương ứng trong latexmkrc:

@@ -105,3 +105,50 @@ class GRUModel(nn.Module):
         logits = self.classifier(final_hidden) # (B, 10)
 
         return logits
+
+
+class ViTransformer(nn.Module):
+    def __init__(self, dropout):
+        super().__init__()
+        image_size = 28
+        patch_size = 4
+        embedding_dim = 128
+        num_patches = (image_size // patch_size) ** 2
+
+        self.patch_embedding = nn.Conv2d(
+            in_channels=1,
+            out_channels=embedding_dim,
+            kernel_size=patch_size,
+            stride=patch_size,
+        ) #(B, 1, 28, 28) -> (B, 128, 7, 7)
+        self.class_token = nn.Parameter(torch.zeros(1, 1, embedding_dim)) #(1, 1, 128) will be added to the input later
+        self.position_embedding = nn.Parameter(
+            torch.zeros(1, num_patches + 1, embedding_dim)
+        ) # (B, 50, 128) gives information about position to model
+        nn.init.trunc_normal_(self.class_token, std=0.02)
+        nn.init.trunc_normal_(self.position_embedding, std=0.02)
+        
+        self.embedding_dropout = nn.Dropout(p=dropout)
+
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=embedding_dim, # get in as 128 get out as 128
+            nhead=4, # MHA
+            dim_feedforward=embedding_dim * 4, # FFN
+            dropout=dropout,
+            activation="gelu",
+            batch_first=True,
+            norm_first=True, # prenorm
+        )
+        self.encoder = nn.TransformerEncoder(encoder_layer, num_layers=4)
+        self.norm = nn.LayerNorm(embedding_dim)
+        self.classifier = nn.Linear(embedding_dim, OUTPUT_DIM)
+
+    def forward(self, images):
+        # (B, 1, 28, 28) -> (B, 128, 7, 7) -> (B, 128, 49) -> (B, 49, 128)
+        patches = self.patch_embedding(images).flatten(2).transpose(1, 2)
+        class_tokens = self.class_token.expand(images.shape[0], -1, -1)  # (1, 1, 128) -> (B, 1, 128)
+        tokens = torch.cat((class_tokens, patches), dim=1)  # (B, 50, 128)
+        tokens = self.embedding_dropout(tokens + self.position_embedding)
+        encoded = self.encoder(tokens)
+        image_representation = self.norm(encoded[:, 0])
+        return self.classifier(image_representation) # logits

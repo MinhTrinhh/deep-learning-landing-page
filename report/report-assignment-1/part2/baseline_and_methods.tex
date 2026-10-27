@@ -1,10 +1,10 @@
 \section{Baseline and Main Methods}
 
-All architectures were implemented directly with PyTorch modules \cite{paszke2019pytorch}. They receive the same normalized images, return ten raw logits, and optimize cross-entropy loss. The model-specific difference is the representation and inductive bias used before classification.
+All five architectures and their forward-pass wiring were designed for this assignment using PyTorch modules; they are not pretrained models. The convolutional, linear, recurrent, attention, activation, pooling, normalization, and dropout operations use PyTorch's library layers. Models receive a batch of normalized grayscale images with shape $[B,1,28,28]$ and return ten raw class scores (logits) per image. The code snippets below show each implemented forward pass; each model's diagram, code, and discussion are grouped together for easier comparison.
 
 \begin{table}[H]
     \centering
-    \caption{Implemented and evaluated methods.}
+    \caption{Implemented methods and trainable parameter counts.}
     \label{tab:methods}
     \resizebox{\textwidth}{!}{
     \begin{tabular}{@{}llllr@{}}
@@ -15,49 +15,141 @@ All architectures were implemented directly with PyTorch modules \cite{paszke201
         MLP & Flattened $[B,784]$ & $784\rightarrow512\rightarrow256\rightarrow128\rightarrow10$ & Nonlinear global feature interactions & 567,434 \\
         CNN & Spatial $[B,1,28,28]$ & Two Conv--ReLU--Pool blocks; dense classifier & Locality and shared spatial filters & 1,691,914 \\
         GRU & Row sequence $[B,28,28]$ & One GRU layer ($H=128$); final-state classifier & Ordered sequential dependence & 61,962 \\
+        ViT & 49 patch tokens $[B,49,128]$ plus class token & 4-layer Transformer; 4 heads; $d=128$ & Global token-to-token attention with learned position information & 803,338 \\
         \bottomrule
     \end{tabular}}
 \end{table}
 
-\textbf{Linear / softmax baseline.} The image is flattened and mapped directly to ten logits. This model is fast and interpretable but cannot express nonlinear class boundaries or explicitly exploit nearby pixels.
-
-\textbf{Multilayer perceptron.} Three hidden layers of widths 512, 256, and 128 use ReLU activation followed by dropout $p=0.2$. Dense connectivity provides nonlinear capacity, but flattening still removes explicit two-dimensional neighborhood structure.
-
-\textbf{Convolutional neural network.} Two $3\times3$ convolutions create 32 and 64 feature maps. Each convolution is followed by ReLU and $2\times2$ max pooling, reducing the grid from $28\times28$ to $7\times7$. A $3136\rightarrow512\rightarrow128\rightarrow10$ classifier uses ReLU and dropout. Local receptive fields and weight sharing make this architecture naturally suited to images.
-
-\textbf{Gated recurrent unit.} Each image becomes 28 top-to-bottom timesteps with 28 pixel features per step. A one-layer GRU with hidden size 128 summarizes the sequence; the final hidden state passes through dropout and a $128\rightarrow10$ classifier. The recurrent stage has
-\[
-3HI+3H^2+6H
-=3(128)(28)+3(128)^2+6(128)=60{,}672
-\]
-learnable parameters, and the classifier adds 1,290. The row ordering enables long-range dependence but imposes a directional bias and does not preserve two-dimensional locality as directly as CNN.
-
-\textbf{Transformer status.} A patch/row token Transformer with projection, positional encoding, self-attention, and a classification head is required by the final handbook specification but was not implemented or run in the available experiment outputs. It is therefore excluded from numerical comparisons and recorded as a limitation rather than assigned estimated results.
-
+\subsection*{Linear / softmax baseline}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{graphics/models/linear-model.pdf}
-    \caption{Linear / softmax architecture and parameter flow.}
+    \includegraphics[width=\textwidth]{graphics/models/linear-model.png}
+    \caption{Linear classifier architecture.}
     \label{fig:linear-architecture}
 \end{figure}
+\textbf{Forward function.} The code flattens each image while preserving the batch dimension, then passes the resulting 784-value vector through the linear layer. The result contains ten logits per image.
+\begin{lstlisting}
+def forward(self, images):
+    vectors = torch.flatten(images, start_dim=1, end_dim=-1)
+    return self.fc(vectors)
+\end{lstlisting}
+The returned values are logits; softmax is used only when class probabilities are needed, since cross-entropy loss consumes logits directly.
 
+\textbf{Discussion.}
+\begin{itemize}
+    \item \textbf{Input representation:} Each $1\times28\times28$ image is flattened into a 784-dimensional vector.
+    \item \textbf{Classifier and loss:} A single linear layer maps the vector to ten class logits. The model is trained with cross-entropy loss; no softmax is applied before \texttt{CrossEntropyLoss}, which consumes logits directly.
+    \item \textbf{Interpretation:} Each class score is a weighted sum of the input pixels. This compact baseline is fast, but has no hidden nonlinear transformation and does not explicitly represent local spatial patterns.
+\end{itemize}
+
+\subsection*{Multilayer perceptron}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{graphics/models/mlp-model.pdf}
-    \caption{MLP architecture, nonlinear hidden layers, and dropout.}
+    \includegraphics[width=\textwidth]{graphics/models/mlp-model.png}
+    \caption{MLP architecture with nonlinear hidden layers and dropout.}
     \label{fig:mlp-architecture}
 \end{figure}
+\textbf{Forward function.} The input is flattened, then passed through three linear--ReLU--dropout stages and a final linear layer that returns ten logits.
+\begin{lstlisting}
+def forward(self, images):
+    vectors = torch.flatten(images, start_dim=1, end_dim=-1)
 
+    out = self.fc1(vectors)
+    out = self.relu1(out)
+    out = self.drop1(out)
+
+    out = self.fc2(out)
+    out = self.relu2(out)
+    out = self.drop2(out)
+
+    out = self.fc3(out)
+    out = self.relu3(out)
+    out = self.drop3(out)
+
+    out = self.fc4(out)
+    return out
+\end{lstlisting}
+
+\textbf{Discussion.}
+\begin{itemize}
+    \item \textbf{Hidden layers and activations:} The model has three hidden layers of 512, 256, and 128 units. ReLU follows each layer, allowing the network to learn nonlinear combinations of pixel values.
+    \item \textbf{Regularization:} Dropout with $p=0.2$ follows each hidden activation to reduce reliance on individual units during training.
+    \item \textbf{Representation and trade-off:} The image is flattened into 784 values, so the MLP has more capacity than the linear baseline but does not preserve a two-dimensional feature map or explicitly privilege neighboring pixels.
+\end{itemize}
+
+\subsection*{Convolutional neural network}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{graphics/models/cnn-model.pdf}
+    \includegraphics[width=\textwidth]{graphics/models/cnn-model.png}
     \caption{CNN spatial feature extractor and dense classifier.}
     \label{fig:cnn-architecture}
 \end{figure}
+\textbf{Forward function.} The feature extractor applies two convolutional blocks (convolution, ReLU, max pooling). Its output is passed to the dense classifier, which returns ten logits.
+\begin{lstlisting}
+def forward(self, images):
+    features = self.features(images)
+    logits = self.classifier(features)
+    return logits
+\end{lstlisting}
+The operations inside \texttt{self.features} and \texttt{self.classifier} are the layers defined in the model constructor.
 
+\textbf{Discussion.}
+\begin{itemize}
+    \item \textbf{Assignment-designed architecture:} The CNN is implemented for this project rather than using a pretrained network. It contains two $3\times3$ convolutional blocks with 32 then 64 channels, each followed by ReLU and $2\times2$ max pooling.
+    \item \textbf{Convolution and feature maps:} Each convolution applies learned local filters across the image using shared weights, producing feature maps that respond to patterns such as edges and clothing parts. ReLU adds a nonlinear transformation after each convolution.
+    \item \textbf{Pooling and classification:} Max pooling downsamples the feature maps from $28\times28$ to $14\times14$ and then $7\times7$, retaining strong activations while reducing spatial size. The dense classifier combines the resulting features to produce class logits.
+\end{itemize}
+
+\subsection*{Gated recurrent unit}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{graphics/models/gru-model.pdf}
+    \includegraphics[width=\textwidth]{graphics/models/gru-model.png}
     \caption{GRU row-sequence representation, recurrent hidden state, and classifier.}
     \label{fig:gru-architecture}
 \end{figure}
+\textbf{Forward function.} The channel dimension is removed to represent the 28 image rows as a sequence. The GRU processes that sequence; its final hidden state is passed through dropout and the classifier.
+\begin{lstlisting}
+def forward(self, images):
+    sequences = images.squeeze(1)
+    _, hidden = self.gru(sequences)
+
+    final_hidden = self.dropout(hidden[-1, :, :])
+    logits = self.classifier(final_hidden)
+    return logits
+\end{lstlisting}
+The recurrent stage has $3HI+3H^2+6H=60{,}672$ parameters for input size $I=28$ and hidden size $H=128$; the classifier adds 1,290 parameters.
+
+\textbf{Discussion.}
+\begin{itemize}
+    \item \textbf{Sequence and timestep:} Each image is represented as 28 ordered row vectors, so the GRU processes 28 timesteps from top to bottom. Each timestep has input size 28, corresponding to the pixels in one row.
+    \item \textbf{Hidden representation:} A single GRU layer with hidden size 128 updates its hidden state at each row. The final hidden state summarizes information carried across the sequence and is passed through dropout before the ten-class linear classifier.
+    \item \textbf{Inductive bias and limitation:} Recurrent state can capture dependencies between rows with shared weights, but the imposed top-to-bottom ordering is asymmetric and does not preserve two-dimensional neighborhoods as directly as a CNN.
+\end{itemize}
+
+\subsection*{Vision Transformer}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{graphics/models/vit-model.png}
+    \caption{Vision Transformer patch projection, class and position tokens, encoder stack, and classifier.}
+    \label{fig:vit-architecture}
+\end{figure}
+\textbf{Forward function.} The convolution creates patch embeddings. The forward pass then prepends the class token, adds position embeddings, encodes the tokens, and classifies the encoded class token.
+\begin{lstlisting}
+def forward(self, images):
+    patches = self.patch_embedding(images).flatten(2).transpose(1, 2)
+    class_tokens = self.class_token.expand(images.shape[0], -1, -1)
+    tokens = torch.cat((class_tokens, patches), dim=1)
+    tokens = self.embedding_dropout(tokens + self.position_embedding)
+    encoded = self.encoder(tokens)
+    image_representation = self.norm(encoded[:, 0])
+    return self.classifier(image_representation)
+\end{lstlisting}
+Here \texttt{encoded[:, 0]} selects the encoded class token for each image in the batch.
+Each encoder layer uses a 512-dimensional feed-forward block with GELU activation and dropout $p=0.2$. The model has 803,338 trainable parameters: 2,176 in the patch projection, 6,528 in the class and position embeddings, 793,088 in the encoder, 256 in final normalization, and 1,290 in the classifier.
+
+\textbf{Discussion.}
+\begin{itemize}
+    \item \textbf{Tokens and positional information:} Non-overlapping $4\times4$ patches are projected by a convolution into 128-dimensional token embeddings, yielding 49 patch tokens. A learned class token is prepended, and learned positional embeddings are added to all 50 tokens so the model can use their image locations.
+    \item \textbf{Attention inputs and outputs:} In each encoder layer, multi-head self-attention forms queries, keys, and values from the token representations. Attention weights let each token combine information from all tokens; the layer outputs contextualized token representations, which are further transformed by its feed-forward block. The encoded class token is normalized and passed to the classifier.
+    \item \textbf{Observed result and trade-off:} ViT reaches 87.93\% test accuracy and 0.8771 macro-F1, below the CNN and GRU in this run. Its 0.265 ms per-image inference time is the slowest measured, consistent with the cost of attention over 50 tokens. Global attention offers flexible patch interactions but has less built-in locality than convolution.
+\end{itemize}
