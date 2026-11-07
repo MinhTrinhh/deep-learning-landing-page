@@ -1,0 +1,53 @@
+Epoch 01/5 | train loss 1.5197 | train acc 0.3098 | val loss 1.4406 | val acc 0.3683 | val macro-F1 0.2984 | 66.6s
+Writing model shards: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00,  3.83it/s] 
+  Saved best checkpoint: checkpoints\distilbert_freezebb_best
+Epoch 02/5 | train loss 1.4079 | train acc 0.3791 | val loss 1.3850 | val acc 0.3783 | val macro-F1 0.3244 | 59.0s
+Writing model shards: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00,  2.12it/s] 
+  Saved best checkpoint: checkpoints\distilbert_freezebb_best
+Epoch 03/5 | train loss 1.3717 | train acc 0.3948 | val loss 1.3604 | val acc 0.3970 | val macro-F1 0.3687 | 66.7s
+Writing model shards: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00,  1.68it/s] 
+  Saved best checkpoint: checkpoints\distilbert_freezebb_best
+Epoch 04/5 | train loss 1.3546 | train acc 0.4031 | val loss 1.3489 | val acc 0.4001 | val macro-F1 0.3813 | 66.5s
+Writing model shards: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00,  2.89it/s] 
+  Saved best checkpoint: checkpoints\distilbert_freezebb_best
+Epoch 05/5 | train loss 1.3476 | train acc 0.4056 | val loss 1.3456 | val acc 0.4043 | val macro-F1 0.3893 | 66.7s
+Writing model shards: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00,  2.36it/s] 
+  Saved best checkpoint: checkpoints\distilbert_freezebb_best
+Loading weights: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 104/104 [00:00<00:00, 413.58it/s]
+
+========== FINAL TEST RESULTS ==========
+Model: pretrained
+Best epoch: 5
+Best validation macro-F1: 0.3893
+
+=== DistilBERT (frozen backbone) test results ===
+Test loss: 1.3791
+Test accuracy: 0.3894
+Macro-Precision: 0.4455
+Macro-Recall: 0.3700
+Macro-F1: 0.3779
+Train time: 325.36s
+Inference time: 1.194919 ms/sample
+FLOPs: 8.332611 B/sample
+Parameters: 66.957317 M
+Model size: 255.422 MB
+
+Per-class classification report:
+                    precision    recall  f1-score   support
+
+Extremely Negative     0.5337    0.1875    0.2775       592
+          Negative     0.3717    0.4063    0.3883      1041
+           Neutral     0.4614    0.4540    0.4577       619
+          Positive     0.3251    0.5269    0.4021       947
+Extremely Positive     0.5357    0.2755    0.3638       599
+
+          accuracy                         0.3894      3798
+         macro avg     0.4455    0.3700    0.3779      3798
+      weighted avg     0.4258    0.3894    0.3819      3798
+
+Confusion matrix (rows=true, columns=predicted):
+[[111 310  24 138   9]
+ [ 55 423 147 371  45]
+ [  0 130 281 196  12]
+ [ 29 211 131 499  77]
+ [ 13  64  26 331 165]]
