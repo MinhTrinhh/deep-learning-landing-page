@@ -56,3 +56,6 @@ Thumbs.db
 *.pdf
 *.bbl
 *.safetensors
+
+# Checkpoints of Assignment 2
+Assignment2/checkpoints/

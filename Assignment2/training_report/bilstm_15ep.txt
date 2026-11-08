@@ -1,0 +1,60 @@
+Epoch 01/15 | train loss 1.4382 | train acc 0.3594 | val loss 1.3054 | val acc 0.4312 | val macro-F1 0.4267 | 25.6s
+  Saved best checkpoint: checkpoints\bilstm_best.pt
+Epoch 02/15 | train loss 1.1362 | train acc 0.5255 | val loss 1.0957 | val acc 0.5510 | val macro-F1 0.5387 | 25.1s
+  Saved best checkpoint: checkpoints\bilstm_best.pt
+Epoch 03/15 | train loss 0.8416 | train acc 0.6758 | val loss 0.8716 | val acc 0.6613 | val macro-F1 0.6697 | 24.7s
+  Saved best checkpoint: checkpoints\bilstm_best.pt
+Epoch 04/15 | train loss 0.6368 | train acc 0.7703 | val loss 0.7989 | val acc 0.7034 | val macro-F1 0.7115 | 26.0s
+  Saved best checkpoint: checkpoints\bilstm_best.pt
+Epoch 05/15 | train loss 0.4875 | train acc 0.8305 | val loss 0.7443 | val acc 0.7301 | val macro-F1 0.7385 | 24.5s
+  Saved best checkpoint: checkpoints\bilstm_best.pt
+Epoch 06/15 | train loss 0.3731 | train acc 0.8727 | val loss 0.8002 | val acc 0.7439 | val macro-F1 0.7491 | 25.3s
+  Saved best checkpoint: checkpoints\bilstm_best.pt
+Epoch 07/15 | train loss 0.2827 | train acc 0.9061 | val loss 0.7774 | val acc 0.7587 | val macro-F1 0.7658 | 23.2s
+  Saved best checkpoint: checkpoints\bilstm_best.pt
+Epoch 08/15 | train loss 0.2165 | train acc 0.9289 | val loss 0.8836 | val acc 0.7551 | val macro-F1 0.7632 | 25.1s
+  No improvement: 1/3
+Epoch 09/15 | train loss 0.1701 | train acc 0.9448 | val loss 0.9396 | val acc 0.7500 | val macro-F1 0.7573 | 24.1s
+  No improvement: 2/3
+Epoch 10/15 | train loss 0.1345 | train acc 0.9566 | val loss 0.9702 | val acc 0.7570 | val macro-F1 0.7628 | 23.8s
+  No improvement: 3/3
+Early stopping: validation macro-F1 did not improve.
+D:\COLLEGE SHITS\DEEP_LEARNING\Assignment_1\deep-learning-landing-page\venv\Lib\site-packages\torch\nn\modules\rnn.py:1177: UserWarning: RNN module weights are not part of single contiguous chunk of memory. This means they need to be compacted at every call, possibly greatly increasing memory usage. To compact weights again call flatten_parameters(). (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\aten\src\ATen\native\cudnn\RNN.cpp:1481.)
+  result = _VF.lstm(
+
+========== FINAL TEST RESULTS ==========
+Model: base
+Best epoch: 7
+Best validation macro-F1: 0.7658
+
+=== BiLSTM test results ===
+Test loss: 0.8570
+Test accuracy: 0.7317
+Macro-Precision: 0.7677
+Macro-Recall: 0.7275
+Macro-F1: 0.7421
+Train time: 247.36s
+Inference time: 0.058519 ms/sample
+FLOPs: 0.085681 B/sample
+Parameters: 4.567557 M
+Model size: 17.424 MB
+
+Per-class classification report:
+                    precision    recall  f1-score   support
+
+Extremely Negative     0.7664    0.7483    0.7573       592
+          Negative     0.6743    0.7378    0.7046      1041
+           Neutral     0.8837    0.7367    0.8035       619
+          Positive     0.6469    0.7603    0.6990       947
+Extremely Positive     0.8673    0.6544    0.7460       599
+
+          accuracy                         0.7317      3798
+         macro avg     0.7677    0.7275    0.7421      3798
+      weighted avg     0.7464    0.7317    0.7341      3798
+
+Confusion matrix (rows=true, columns=predicted):
+[[443 143   2   4   0]
+ [122 768  26 120   5]
+ [  3  89 456  71   0]
+ [  9 133  30 720  55]
+ [  1   6   2 198 392]]

@@ -85,7 +85,7 @@
           <p>
             The dataset contains COVID-19-related tweets labeled with one of five sentiment classes.
             The analysis below summarizes class balance, tweet length, and the temporal structure of
-            the supplied training and test splits. The model input is <code>OriginalTweet</code>; the
+            the supplied training and test splits, and closes with representative example tweets. The model input is <code>OriginalTweet</code>; the
             target is <code>Sentiment</code>.
           </p>
 
@@ -124,7 +124,7 @@
             five classes equally.
           </p>
           <figure style="margin: 1.25rem 0 1.75rem;">
-            <img src="./eda_assets/sentiment_distribution.png"
+            <img src="./corona_eda/class_distribution.png"
                  alt="Bar charts showing sentiment counts in the training and test sets"
                  loading="lazy"
                  style="display: block; width: 100%; max-width: 1000px; height: auto; margin: 0 auto; border-radius: var(--radius-md);">
@@ -141,7 +141,7 @@
             The observed maximum is 64 words in training and 62 words in testing.
           </p>
           <figure style="margin: 1.25rem 0 1.75rem;">
-            <img src="./eda_assets/word_count_distribution.png"
+            <img src="./corona_eda/train_daily_counts.png"
                  alt="Histograms of whitespace-separated word counts per tweet for the training and test sets"
                  loading="lazy"
                  style="display: block; width: 100%; max-width: 1000px; height: auto; margin: 0 auto; border-radius: var(--radius-md);">
@@ -184,7 +184,7 @@
           </p>
           <div class="grid-2" style="margin-top: 1rem; gap: 1rem;">
             <figure style="margin: 0;">
-              <img src="./eda_assets/test_tweets_by_date.png"
+              <img src="./corona_eda/word_count_distribution.png"
                    alt="Line chart of test tweet counts by date from early to mid-March 2020"
                    loading="lazy"
                    style="display: block; width: 100%; height: auto; border-radius: var(--radius-md);">
@@ -193,7 +193,7 @@
               </figcaption>
             </figure>
             <figure style="margin: 0;">
-              <img src="./eda_assets/train_tweets_by_date.png"
+              <img src="./corona_eda/test_daily_counts.png"
                    alt="Line chart of training tweet counts by date from mid-March to mid-April 2020"
                    loading="lazy"
                    style="display: block; width: 100%; height: auto; border-radius: var(--radius-md);">
@@ -220,6 +220,108 @@
             unique test texts). No conflicting sentiment labels were found for normalized duplicates.
             This overlap should be documented when reporting final evaluation results.
           </p>
+          <p>
+            Examples of the texts that are duplicated within the training set are listed below,
+            each with its sentiment label (identical across all copies).
+          </p>
+          <div class="table-responsive" style="margin: 1rem 0 1.75rem;">
+            <table class="table">
+              <thead>
+                <tr><th>#</th><th>OriginalTweet</th><th>Sentiment</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>1</td><td>Scammers often prey on people in the most difficult situations If you re contacted by someone offering to recover your money for an event or a holiday look out for the signs of a potential</td><td>Neutral</td></tr>
+                <tr><td>2</td><td>19 for this too shall pass</td><td>Neutral</td></tr>
+                <tr><td>3</td><td>Our life really changed about the middle of last week to be really honest with you said South Michigan Food Bank CEO Peter Vogel The demand on food from us has been really dramatic</td><td>Positive</td></tr>
+                <tr><td>4</td><td>19 Get protected face masks on stock  regular prices</td><td>Positive</td></tr>
+                <tr><td>5</td><td>With oil prices falling amid the COVID 19 recession it s the beginning of the end for fracking</td><td>Negative</td></tr>
+                <tr><td>6</td><td>Part 2 No Toilet Paper Don t do this</td><td>Negative</td></tr>
+                <tr><td>7</td><td>To get through this together we must all stay apart means you can still go to the grocery store as long as you re not in mandatory isolation or quarantine but limit it to once per week Otherwise</td><td>Positive</td></tr>
+                <tr><td>8</td><td>With milk prices plunging to lows dairy farmers are dumping the product to curb an oversupply during the lockdown More</td><td>Negative</td></tr>
+                <tr><td>9</td><td>All hands on deck  Grocery store executives get a taste of the hard life on coronavirus front lines</td><td>Negative</td></tr>
+                <tr><td>10</td><td>With the COVID 19 pandemic ongoing many people are nervous about going to the grocery store An old tradition is seeing an uptick in business the milkman</td><td>Negative</td></tr>
+                <tr><td>11</td><td>Food supply chains are strong in the COVID 19 pandemic To keep them that way strong public private cooperation smart policy responses and prudent consumer behavior are essential</td><td>Extremely Positive</td></tr>
+                <tr><td>12</td><td>Remember if anyone in your household shows symptoms that may be Coronavirus then you MUST all stay at home That means no one goes to the supermarket or for walks outside Everyone stays in and follows these rules</td><td>Negative</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 style="margin-top: 2rem;">5. Representative Samples</h3>
+          <p>
+            Figure 5 shows 15 training tweets drawn at random (fixed seed), each titled with its
+            sentiment label. They illustrate the kind of input the models will encounter: informal,
+            noisy social-media text, mostly about supermarkets, panic buying, masks, online
+            shopping, and public life in early 2020. Length varies from a single sentence to tweets
+            long enough to be shortened in the figure, matching the word-count spread in Section 2.
+            Fifteen tweets are too few to estimate class proportions, so those should be read from
+            Section 1 rather than from this sample.
+          </p>
+          <figure style="margin: 1.25rem 0 1.75rem;">
+            <img src="./outputs/eda/random_examples.png"
+                 alt="Grid of 15 random training tweets, each titled with its sentiment label"
+                 loading="lazy"
+                 style="display: block; width: 100%; max-width: 1000px; height: auto; margin: 0 auto; border-radius: var(--radius-md);">
+            <figcaption style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 0.6rem;">
+              Figure 5. Fifteen random training tweets with their sentiment labels. Text is shown as
+              decoded from the uncased tokenizer (lowercased, punctuation separated by spaces), and
+              long tweets are shortened with an ellipsis, so it differs slightly from the raw CSV text.
+            </figcaption>
+          </figure>
+
+          <div class="table-responsive" style="margin: 1rem 0 1.75rem;">
+            <table class="table">
+              <thead>
+                <tr><th>Sample type</th><th>What it looks like</th><th>Examples in Figure 5</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Markup and noise</td>
+                  <td>Hashtags, @mentions, shortened links, and HTML-escaped ampersands appear inline with the text.</td>
+                  <td><code># covid2019 # stayhomechallenge</code>, <code>@ keithbaldrey</code>, <code>https : / / t. co / kt8ltfpikn</code>, <code>amp ;</code></td>
+                </tr>
+                <tr>
+                  <td>Informal writing</td>
+                  <td>Missing apostrophes, casual phrasing, and rhetorical questions.</td>
+                  <td>"ive never seen my pharmacy and grocery store so crowded", "doesnt want her identity", "who will benefit from this wave?"</td>
+                </tr>
+                <tr>
+                  <td>Personal experience and opinion</td>
+                  <td>First-person anecdotes, warnings, and complaints about panic buying, mask shortages, and personal risk.</td>
+                  <td>Sweets-and-toilet-paper anecdote (Extremely Positive), masks in Finland (Extremely Negative), high-risk shopper (Extremely Negative)</td>
+                </tr>
+                <tr>
+                  <td>News and informational posts</td>
+                  <td>Neutral reporting with no personal voice, labeled with a range of classes.</td>
+                  <td>Assessment centre opening (Neutral), primary elections pushed back (Neutral), cash use falling (Negative), donation to a city (Positive)</td>
+                </tr>
+                <tr>
+                  <td>Promotional and business content</td>
+                  <td>Marketing and consulting text aimed at brands and retailers, with little emotional language.</td>
+                  <td>"find out how you can optimise talent generated content", "its imperative that marketers are sensitive", Acosta research initiative (all Positive)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            A few tweets also end abruptly mid-sentence (for example, the cash-usage tweet), so
+            truncation at the model's maximum sequence length may remove part of the longest inputs.
+            The hashtag, link, and mention patterns are consistent with the averages reported in
+            Section 2.
+          </p>
+
+          <div class="callout callout-info" style="margin-top: 1.5rem;">
+            <div class="callout-title">Labeling consideration</div>
+            <p>
+              Labels do not always match the surface tone of a tweet. In this sample, the
+              crowded-pharmacy tweet (which questions social distancing) and the online-shopping
+              tweet (which reads as a neutral question) are both labeled Positive, and promotional
+              posts with little emotional language are also labeled Positive. Boundaries between
+              adjacent classes, such as Positive vs. Extremely Positive, can be subjective, so some
+              errors reported later may reflect label ambiguity rather than model failure. These
+              cases should be examined in the qualitative error analysis.
+            </p>
+          </div>
         </div>
       </div>
     </div>
