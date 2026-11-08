@@ -203,15 +203,6 @@
             </figure>
           </div>
 
-          <div class="callout callout-info" style="margin-top: 1.5rem;">
-            <div class="callout-title">Evaluation consideration</div>
-            <p>
-              Keep the supplied test split untouched for the primary comparison, and interpret its
-              results in light of the temporal difference. Use a stratified validation subset from the
-              training file for checkpoint selection and hyperparameter tuning.
-            </p>
-          </div>
-
           <h3 style="margin-top: 2rem;">4. Duplicate and Missing-Value Checks</h3>
           <p>
             Tweet texts and sentiment labels have no missing values. The preliminary normalized-text
@@ -302,26 +293,6 @@
               </tbody>
             </table>
           </div>
-
-          <p>
-            A few tweets also end abruptly mid-sentence (for example, the cash-usage tweet), so
-            truncation at the model's maximum sequence length may remove part of the longest inputs.
-            The hashtag, link, and mention patterns are consistent with the averages reported in
-            Section 2.
-          </p>
-
-          <div class="callout callout-info" style="margin-top: 1.5rem;">
-            <div class="callout-title">Labeling consideration</div>
-            <p>
-              Labels do not always match the surface tone of a tweet. In this sample, the
-              crowded-pharmacy tweet (which questions social distancing) and the online-shopping
-              tweet (which reads as a neutral question) are both labeled Positive, and promotional
-              posts with little emotional language are also labeled Positive. Boundaries between
-              adjacent classes, such as Positive vs. Extremely Positive, can be subjective, so some
-              errors reported later may reflect label ambiguity rather than model failure. These
-              cases should be examined in the qualitative error analysis.
-            </p>
-          </div>
         </div>
       </div>
     </div>
@@ -331,7 +302,310 @@
       <div class="card">
         <h2 class="section-title"><i class="fa-solid fa-sliders"></i> Baseline, Pretrained Backbone & Fine-Tuning Protocol</h2>
         <div class="card-body" style="margin-top: 1rem;">
-          <p>Documented fine-tuning protocol (frozen backbone vs layer-wise unfreezing, learning rate schedulers, data augmentation strategies).</p>
+          <p>
+            The study compares three models on five-class tweet sentiment classification: a BiLSTM
+            trained from scratch (EXP-1), DistilBERT with a frozen backbone where only the
+            classification head is trained (EXP-2), and DistilBERT with full fine-tuning (EXP-3).
+            All three share the same tokenizer, data splits, random seed, and checkpoint-selection
+            rule, so differences in results come from the model and the training scope rather than
+            from the data pipeline.
+          </p>
+
+          <!-- Activity Diagram -->
+          <div class="method-heading">
+            <div>
+              <h3><i class="fa-solid fa-diagram-project"></i> Unified Experiment Activity Diagram</h3>
+            </div>
+            <p>Tokenize → split → train → validate → restore the best checkpoint → test once.</p>
+          </div>
+
+          <figure class="pipeline-diagram">
+            <a href="./diagram-pipeline/pipeline-dl2.drawio.svg" target="_blank" aria-label="Open the full-size experiment activity diagram">
+              <img src="./diagram-pipeline/pipeline-dl2.drawio.svg" alt="Activity diagram of the Corona_NLP data preparation, model training, checkpoint selection, testing, and evaluation workflow" style="color-scheme: only light;">
+            </a>
+            <figcaption>
+              <span>Unified activity diagram for the data, model-development, and evaluation phases.</span>
+            </figcaption>
+          </figure>
+
+          <!-- Data preparation callout -->
+          <div class="callout callout-info" style="margin-top: 1.5rem;">
+            <div class="callout-title"><i class="fa-solid fa-database"></i> Data Preparation</div>
+            <div class="grid-2" style="margin-top: 0.5rem; font-size: 0.88rem;">
+              <ul style="padding-left: 1.25rem; margin: 0;">
+                <li><strong>Input / target:</strong> <code>OriginalTweet</code> → <code>Sentiment</code> (5 classes)</li>
+                <li><strong>Tokenizer:</strong> <code>distilbert/distilbert-base-uncased</code> (lowercased WordPiece), shared by all three models</li>
+                <li><strong>Sequence length:</strong> truncated to 128 tokens; padded dynamically to the longest tweet in each batch</li>
+                <li><strong>Padding handling:</strong> attention mask for DistilBERT; true sequence lengths derived from the mask for the BiLSTM</li>
+              </ul>
+              <ul style="padding-left: 1.25rem; margin: 0;">
+                <li><strong>Validation:</strong> stratified 10% subset held out from the training file (37,041 train / 4,116 validation, seed 42), used only for early stopping and checkpoint selection</li>
+                <li><strong>Test:</strong> supplied test file, evaluated once with the selected checkpoint</li>
+                <li><strong>Text handling:</strong> no cleaning; raw tweets are tokenized as-is, so negation, punctuation, hashtags, mentions, and links are preserved</li>
+                <li><strong>Augmentation:</strong> none</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Training configuration callout -->
+          <div class="callout callout-info" style="margin-top: 1.5rem;">
+            <div class="callout-title"><i class="fa-solid fa-gear"></i> Shared Training Configuration</div>
+            <div class="grid-2" style="margin-top: 0.5rem; font-size: 0.88rem;">
+              <ul style="padding-left: 1.25rem; margin: 0;">
+                <li><strong>Optimizer:</strong> AdamW (weight decay 0.01)</li>
+                <li><strong>Loss:</strong> <code>CrossEntropyLoss</code> (no class weights)</li>
+                <li><strong>Gradient clipping:</strong> max norm 1.0</li>
+                <li><strong>Early-stopping patience:</strong> 3 epochs</li>
+                <li><strong>Checkpoint criterion:</strong> highest validation macro-F1</li>
+              </ul>
+              <ul style="padding-left: 1.25rem; margin: 0;">
+                <li><strong>Random seed:</strong> 42 (Python, NumPy, PyTorch)</li>
+                <li><strong>Mixed precision:</strong> not used</li>
+                <li><strong>Device:</strong> first available of CUDA, MPS, CPU</li>
+                <li><strong>Hardware:</strong> NVIDIA GeForce RTX 4060 Laptop GPU (8 GB)</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Experiment configurations -->
+          <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-flask"></i> Experiment Configurations</h3>
+          <p class="section-desc">Hyperparameters that differ between the three experiments; everything else follows the shared configuration above.</p>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Experiment</th>
+                  <th>Model</th>
+                  <th>Trainable parameters</th>
+                  <th>Learning rate</th>
+                  <th>LR schedule</th>
+                  <th>Batch size (train / eval)</th>
+                  <th>Max epochs</th>
+                  <th>Checkpoint</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>EXP-1</strong></td>
+                  <td>BiLSTM, trained from scratch</td>
+                  <td>4,567,557 (100%)</td>
+                  <td>1e-3</td>
+                  <td>Constant</td>
+                  <td>64 / 128</td>
+                  <td>15</td>
+                  <td><code>checkpoints/bilstm_best.pt</code></td>
+                </tr>
+                <tr>
+                  <td><strong>EXP-2</strong></td>
+                  <td>DistilBERT, frozen backbone</td>
+                  <td>594,437 of 66,957,317 (0.89%)</td>
+                  <td>2e-5</td>
+                  <td>10% linear warm-up, then linear decay</td>
+                  <td>16 / 32</td>
+                  <td>5</td>
+                  <td><code>checkpoints/distilbert_freezebb_best/</code></td>
+                </tr>
+                <tr>
+                  <td><strong>EXP-3</strong></td>
+                  <td>DistilBERT, full fine-tuning</td>
+                  <td>66,957,317 (100%)</td>
+                  <td>2e-5</td>
+                  <td>10% linear warm-up, then linear decay</td>
+                  <td>16 / 32</td>
+                  <td>5</td>
+                  <td><code>checkpoints/distilbert_best/</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Architecture definitions -->
+          <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-layer-group"></i> Architecture Definitions</h3>
+          <p class="section-desc">A from-scratch recurrent baseline and one pretrained Transformer used in two fine-tuning modes.</p>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Experiment</th>
+                  <th>Input representation</th>
+                  <th>Implemented configuration</th>
+                  <th>Loss function</th>
+                  <th>Parameters</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>EXP-1 BiLSTM</strong></td>
+                  <td>Token ids <code>[B, L]</code> plus sequence lengths</td>
+                  <td>Embedding over the 30,522-token DistilBERT vocabulary (128 dimensions, random initialization, padding id 0 excluded from updates); two stacked bidirectional LSTM layers with hidden size 128 and dropout 0.3 between layers; the final forward and backward hidden states of the top layer are concatenated (256 values) → <code>Dropout(0.3)</code> → <code>Linear(256, 5)</code>.</td>
+                  <td><code>CrossEntropyLoss</code></td>
+                  <td>4,567,557 total; all trainable</td>
+                </tr>
+                <tr>
+                  <td><strong>EXP-2 DistilBERT (frozen backbone)</strong></td>
+                  <td>Token ids and attention mask, both <code>[B, L]</code></td>
+                  <td>Pretrained <code>distilbert-base-uncased</code> (6 Transformer layers, 12 attention heads, hidden size 768). The first-token state feeds a head of <code>Linear(768, 768)</code> → ReLU → <code>Dropout(0.3)</code> → <code>Linear(768, 5)</code>. Embeddings and all encoder layers are frozen; only the head is trained.</td>
+                  <td><code>CrossEntropyLoss</code></td>
+                  <td>66,957,317 total; 594,437 trainable</td>
+                </tr>
+                <tr>
+                  <td><strong>EXP-3 DistilBERT (full fine-tuning)</strong></td>
+                  <td>Token ids and attention mask, both <code>[B, L]</code></td>
+                  <td>Same architecture and classification head as EXP-2, with every parameter (embeddings, encoder layers, and head) updated during training.</td>
+                  <td><code>CrossEntropyLoss</code></td>
+                  <td>66,957,317 total; all trainable</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <section class="architecture-diagrams" aria-labelledby="architecture-diagrams-title">
+            <div class="method-heading">
+              <div>
+                <span class="section-eyebrow">Layer-by-layer reference</span>
+                <h3 id="architecture-diagrams-title"><i class="fa-solid fa-sitemap"></i> Implemented Architecture Diagrams</h3>
+              </div>
+              <p>Layer diagrams show each model’s tensor shapes and which parts are trainable.</p>
+            </div>
+
+            <div class="architecture-diagram-grid">
+              <figure class="architecture-diagram-card">
+                <a href="./diagram-models/bilstm-model.svg" target="_blank" aria-label="Open the full-size BiLSTM architecture diagram">
+                  <img src="./diagram-models/bilstm-model.svg" alt="BiLSTM architecture: token ids, 128-dimensional embedding, two bidirectional LSTM layers with hidden size 128, concatenated final forward and backward hidden states, and a classifier producing 5 sentiment logits">
+                </a>
+                <figcaption>
+                  <div class="architecture-diagram-summary"><strong>BiLSTM (EXP-1)</strong><span>Recurrent baseline trained from scratch · 4,567,557 parameters</span></div>
+                  <ul class="compact-points">
+                    <li>Learns 128-dimensional embeddings for the shared WordPiece vocabulary from random initialization.</li>
+                    <li>Reads each tweet in both directions through two stacked LSTM layers, using true lengths to skip padding.</li>
+                    <li>Concatenates the final forward and backward hidden states (256 values), applies dropout, and classifies into 5 sentiments.</li>
+                  </ul>
+                </figcaption>
+              </figure>
+
+              <figure class="architecture-diagram-card">
+                <a href="./diagram-models/distilbert-frozen-model.svg" target="_blank" aria-label="Open the full-size frozen-backbone DistilBERT architecture diagram">
+                  <img src="./diagram-models/distilbert-frozen-model.svg" alt="DistilBERT architecture with a frozen embedding layer and six frozen encoder layers, followed by a trainable classification head producing 5 sentiment logits">
+                </a>
+                <figcaption>
+                  <div class="architecture-diagram-summary"><strong>DistilBERT, frozen backbone (EXP-2)</strong><span>594,437 trainable parameters</span></div>
+                  <ul class="compact-points">
+                    <li>Embeddings and six encoder layers (66,362,880 parameters) stay fixed.</li>
+                    <li>Only the pre-classifier and classifier layers learn the sentiment mapping.</li>
+                  </ul>
+                </figcaption>
+              </figure>
+
+              <figure class="architecture-diagram-card">
+                <a href="./diagram-models/distilbert-full-model.svg" target="_blank" aria-label="Open the full-size fully fine-tuned DistilBERT architecture diagram">
+                  <img src="./diagram-models/distilbert-full-model.svg" alt="DistilBERT architecture with trainable embedding layer, six trainable encoder layers, and a trainable classification head producing 5 sentiment logits">
+                </a>
+                <figcaption>
+                  <div class="architecture-diagram-summary"><strong>DistilBERT, full fine-tuning (EXP-3)</strong><span>66,957,317 trainable parameters</span></div>
+                  <ul class="compact-points">
+                    <li>Same architecture as EXP-2, with every layer updated.</li>
+                    <li>A small learning rate with warm-up adapts the pretrained weights without overwriting them.</li>
+                  </ul>
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <!-- Fine-tuning protocol -->
+          <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-sliders"></i> Fine-Tuning Protocol</h3>
+          <div class="grid-2" style="margin-top: 1rem; gap: 1rem;">
+            <div class="card" style="margin: 0;">
+              <div class="card-body">
+                <h3 style="margin-top: 0;"><i class="fa-solid fa-lock"></i> Frozen backbone (EXP-2)</h3>
+                <ul style="padding-left: 1.25rem; margin: 0;">
+                  <li>Gradients are disabled for the embeddings and all six encoder layers.</li>
+                  <li>The backbone runs in evaluation mode during training, so its dropout does not perturb the frozen features; the head stays in training mode.</li>
+                  <li>The optimizer and gradient clipping only see the 594,437 trainable head parameters.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="card" style="margin: 0;">
+              <div class="card-body">
+                <h3 style="margin-top: 0;"><i class="fa-solid fa-lock-open"></i> Full fine-tuning (EXP-3)</h3>
+                <ul style="padding-left: 1.25rem; margin: 0;">
+                  <li>All 66,957,317 parameters are updated with AdamW.</li>
+                  <li>The learning rate warms up linearly over the first 10% of steps, then decays linearly to zero.</li>
+                  <li>Warm-up and the small learning rate (2e-5) limit early updates that could damage pretrained representations.</li>
+                  <li>The classification head dropout is 0.3; the encoder keeps DistilBERT’s default dropout.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="callout callout-info" style="margin-top: 1.5rem;">
+            <div class="callout-title">Comparison scope</div>
+            <p>
+              EXP-2 and EXP-3 use the same learning rate, schedule, batch size, epoch budget, seed,
+              and selection rule, so the set of trainable parameters is the only factor that changes.
+              EXP-1 differs from both in architecture, pretraining, and hyperparameters, because a
+              randomly initialized recurrent model needs a larger learning rate and more epochs.
+            </p>
+          </div>
+
+          <!-- Evaluation protocol -->
+          <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-chart-column"></i> Evaluation Protocol</h3>
+          <p class="section-desc">Train, validate each epoch, restore the best validation macro-F1 checkpoint, then test once.</p>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr><th>Category</th><th>What is measured</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Classification quality</td>
+                  <td>Accuracy, macro precision, macro recall, macro F1, and a per-class report on the supplied test split</td>
+                </tr>
+                <tr>
+                  <td>Error structure</td>
+                  <td>Confusion matrix per model, plus qualitative examples where the models agree or disagree</td>
+                </tr>
+                <tr>
+                  <td>Learning behavior</td>
+                  <td>Per-epoch training and validation loss and accuracy curves</td>
+                </tr>
+                <tr>
+                  <td>Representation analysis</td>
+                  <td>PCA, t-SNE, and UMAP projections and a class-prototype cosine similarity matrix of the representation that feeds the final linear layer</td>
+                </tr>
+                <tr>
+                  <td>Compute cost</td>
+                  <td>Training time, inference time per sample, FLOPs per sample, parameter count, and model size</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout callout-info" style="margin-top: 1.5rem;">
+            <div class="callout-title">Interpreting test results</div>
+            <p>
+              The supplied test split predates the training split and shares one normalized text with
+              it (EDA Sections 3 and 4). Test scores may therefore reflect temporal distribution shift
+              as well as model quality, and the validation subset, not the test set, is used for every
+              training decision.
+            </p>
+          </div>
+
+          <!-- Reproduction commands -->
+          <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-terminal"></i> Reproducing the Experiments</h3>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr><th>Purpose</th><th>Command</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Train and evaluate EXP-1 (BiLSTM)</td><td><code>python main.py --base</code></td></tr>
+                <tr><td>Train and evaluate EXP-2 (frozen backbone)</td><td><code>python main.py --pretrained --freeze</code></td></tr>
+                <tr><td>Train and evaluate EXP-3 (full fine-tuning)</td><td><code>python main.py --pretrained</code></td></tr>
+                <tr><td>Evaluate a saved model without training</td><td><code>python main.py --base --eval</code>, <code>python main.py --pretrained --freeze --eval</code>, or <code>python main.py --pretrained --eval</code></td></tr>
+                <tr><td>Qualitative comparison from saved checkpoints</td><td><code>python main.py --infer</code></td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -341,43 +615,403 @@
       <div class="card">
         <h2 class="section-title"><i class="fa-solid fa-flask"></i> Controlled Factor Experiments & Metrics</h2>
         <div class="card-body" style="margin-top: 1rem;">
-          
+
+          <ul class="compact-points section-desc">
+            <li>Same tokenizer, data splits, seed, and checkpoint-selection rule for every experiment.</li>
+            <li>Seed <code>42</code> · 37,041 train / 4,116 validation / 3,798 test · 5 sentiment classes.</li>
+          </ul>
+
+          <div class="callout callout-info" style="margin-bottom: 1.5rem;">
+            <div class="callout-title"><i class="fa-solid fa-circle-check"></i> Completed Experiment Status</div>
+            <ul class="compact-points">
+              <li>EXP-1, EXP-2, and EXP-3 were each trained once and evaluated once on the supplied test split with the checkpoint that had the highest validation macro-F1.</li>
+              <li>All figures below come from the final console output and the plots written by <code>main.py</code> for those runs.</li>
+            </ul>
+          </div>
+
           <div class="table-responsive">
             <table class="table">
               <thead>
                 <tr>
                   <th>Experiment ID</th>
                   <th>Changed Factor</th>
-                  <th>Primary Metric (mAP / mIoU / Acc)</th>
-                  <th>Secondary Metric (F1 / Dice)</th>
+                  <th>Primary Metric (Test Accuracy)</th>
+                  <th>Secondary Metric (Macro-F1)</th>
                   <th>Compute Cost</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td><strong>EXP-1</strong></td>
-                  <td>Baseline (Scratch training)</td>
-                  <td>--</td>
-                  <td>--</td>
-                  <td>--</td>
+                  <td>Baseline (scratch training) · BiLSTM</td>
+                  <td>73.17%</td>
+                  <td>0.7421</td>
+                  <td>247.36 s training · 4.57 M parameters</td>
                 </tr>
                 <tr>
                   <td><strong>EXP-2</strong></td>
-                  <td>Pretrained Backbone (Frozen)</td>
-                  <td>--</td>
-                  <td>--</td>
-                  <td>--</td>
+                  <td>Pretrained Backbone (Frozen) · DistilBERT</td>
+                  <td>38.94%</td>
+                  <td>0.3779</td>
+                  <td>331.45 s training · 66.96 M parameters (0.59 M trainable)</td>
                 </tr>
-                <tr>
+                <tr style="background: rgba(15,130,223,0.1);">
                   <td><strong>EXP-3</strong></td>
-                  <td>Pretrained Backbone (Full Fine-Tune)</td>
-                  <td>--</td>
-                  <td>--</td>
-                  <td>--</td>
+                  <td>Pretrained Backbone (Full Fine-Tune) · DistilBERT</td>
+                  <td><strong>85.33%</strong></td>
+                  <td><strong>0.8577</strong></td>
+                  <td>1,019.09 s training · 66.96 M parameters (all trainable)</td>
                 </tr>
               </tbody>
             </table>
           </div>
+
+          <div class="callout callout-info" style="margin-top: 1.5rem;">
+            <div class="callout-title"><i class="fa-solid fa-magnifying-glass-chart"></i> Comparison from the completed runs</div>
+            <ul class="compact-points">
+              <li>Full fine-tuning (EXP-3) is the best model: <strong>85.33% test accuracy</strong> and <strong>0.8577 macro-F1</strong>, which is 12.16 accuracy points and 0.1156 macro-F1 above the BiLSTM baseline. Its test loss is 0.4941, against 0.8570 for the baseline.</li>
+              <li>The frozen backbone (EXP-2) reaches only <strong>38.94% accuracy</strong> and <strong>0.3779 macro-F1</strong>. That is 34.23 accuracy points below the from-scratch BiLSTM and 46.39 points below full fine-tuning.</li>
+              <li>EXP-2’s best validation macro-F1 (0.3893) came at its final epoch (5 of 5), so training had not plateaued when the epoch budget ended. Its score reflects the shared 2e-5 learning rate and five-epoch budget as much as the limits of frozen features; a larger learning rate or more epochs for the head would likely raise it, which this controlled setup does not test.</li>
+              <li>Validation macro-F1 is higher than test macro-F1 for every model: by 2.4 points for EXP-1, 2.2 for EXP-3, and 1.1 for EXP-2. This is consistent with selecting checkpoints on validation data and with the temporal shift described in EDA Section 3, but these runs cannot separate the two effects.</li>
+              <li>Early stopping: the BiLSTM’s best epoch was 7 and training stopped after epoch 10. Full fine-tuning peaked at epoch 4 of 5. The frozen run used all 5 epochs.</li>
+            </ul>
+          </div>
+
+          <!-- Detailed metrics -->
+          <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-table-list"></i> Detailed Test Metrics</h3>
+          <p class="section-desc">Macro averages weight the five sentiment classes equally; the test split has 3,798 tweets.</p>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Experiment</th>
+                  <th>Test Loss</th>
+                  <th>Accuracy</th>
+                  <th>Macro-Precision</th>
+                  <th>Macro-Recall</th>
+                  <th>Macro-F1</th>
+                  <th>Best Epoch (epochs run / max)</th>
+                  <th>Best Validation Macro-F1</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>EXP-1 BiLSTM</strong></td>
+                  <td>0.8570</td><td>0.7317</td><td>0.7677</td><td>0.7275</td><td>0.7421</td>
+                  <td>7 (10 / 15)</td><td>0.7658</td>
+                </tr>
+                <tr>
+                  <td><strong>EXP-2 DistilBERT (frozen backbone)</strong></td>
+                  <td>1.3791</td><td>0.3894</td><td>0.4455</td><td>0.3700</td><td>0.3779</td>
+                  <td>5 (5 / 5)</td><td>0.3893</td>
+                </tr>
+                <tr style="background: rgba(15,130,223,0.1);">
+                  <td><strong>EXP-3 DistilBERT (full fine-tuning)</strong></td>
+                  <td><strong>0.4941</strong></td><td><strong>0.8533</strong></td><td><strong>0.8606</strong></td><td><strong>0.8559</strong></td><td><strong>0.8577</strong></td>
+                  <td>4 (5 / 5)</td><td><strong>0.8794</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Per-class -->
+          <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-list-check"></i> Per-Class Performance</h3>
+          <p class="section-desc">Precision (P), recall (R), and F1 for each sentiment class on the test split.</p>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th rowspan="2">Class</th>
+                  <th rowspan="2">Support</th>
+                  <th colspan="3">EXP-1 BiLSTM</th>
+                  <th colspan="3">EXP-2 DistilBERT (frozen)</th>
+                  <th colspan="3">EXP-3 DistilBERT (full)</th>
+                </tr>
+                <tr>
+                  <th>P</th><th>R</th><th>F1</th>
+                  <th>P</th><th>R</th><th>F1</th>
+                  <th>P</th><th>R</th><th>F1</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Extremely Negative</strong></td><td>592</td>
+                  <td>0.7664</td><td>0.7483</td><td>0.7573</td>
+                  <td>0.5337</td><td>0.1875</td><td>0.2775</td>
+                  <td>0.8977</td><td>0.8598</td><td><strong>0.8783</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Negative</strong></td><td>1,041</td>
+                  <td>0.6743</td><td>0.7378</td><td>0.7046</td>
+                  <td>0.3717</td><td>0.4063</td><td>0.3883</td>
+                  <td>0.8363</td><td>0.8492</td><td><strong>0.8427</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Neutral</strong></td><td>619</td>
+                  <td>0.8837</td><td>0.7367</td><td>0.8035</td>
+                  <td>0.4614</td><td>0.4540</td><td>0.4577</td>
+                  <td>0.8276</td><td>0.8918</td><td><strong>0.8585</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Positive</strong></td><td>947</td>
+                  <td>0.6469</td><td>0.7603</td><td>0.6990</td>
+                  <td>0.3251</td><td>0.5269</td><td>0.4021</td>
+                  <td>0.8298</td><td>0.8342</td><td><strong>0.8320</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Extremely Positive</strong></td><td>599</td>
+                  <td>0.8673</td><td>0.6544</td><td>0.7460</td>
+                  <td>0.5357</td><td>0.2755</td><td>0.3638</td>
+                  <td>0.9117</td><td>0.8447</td><td><strong>0.8769</strong></td>
+                </tr>
+                <tr style="background: rgba(15,130,223,0.06);">
+                  <td><strong>Macro average</strong></td><td>3,798</td>
+                  <td>0.7677</td><td>0.7275</td><td>0.7421</td>
+                  <td>0.4455</td><td>0.3700</td><td>0.3779</td>
+                  <td>0.8606</td><td>0.8559</td><td><strong>0.8577</strong></td>
+                </tr>
+                <tr style="background: rgba(15,130,223,0.06);">
+                  <td><strong>Weighted average</strong></td><td>3,798</td>
+                  <td>0.7464</td><td>0.7317</td><td>0.7341</td>
+                  <td>0.4258</td><td>0.3894</td><td>0.3819</td>
+                  <td>0.8547</td><td>0.8533</td><td><strong>0.8536</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout callout-info" style="margin-top: 1.5rem;">
+            <div class="callout-title"><i class="fa-solid fa-chart-column"></i> Per-class observations</div>
+            <ul class="compact-points">
+              <li>Pretraining helps every class. Moving from the BiLSTM to full fine-tuning raises F1 by 0.055 on Neutral (the smallest gain) up to 0.138 on Negative (the largest).</li>
+              <li>The weakest class differs by model: Positive for the BiLSTM (F1 0.6990) and for full fine-tuning (0.8320), and Extremely Negative for the frozen run (0.2775, with recall of only 0.1875).</li>
+              <li>The same precision/recall pattern appears in all three models. Both extreme classes have precision above recall, so they are predicted conservatively, while Positive and Negative have recall above precision, so they are over-predicted.</li>
+              <li>The confusion matrices show that errors mostly fall between neighboring classes: adjacent-class confusions make up 72.0% of the BiLSTM’s errors, 80.4% of full fine-tuning’s, and 59.4% of the frozen run’s. When an extreme tweet is misclassified, 95–97% of those errors go to the adjacent milder class for the BiLSTM and full fine-tuning (64–76% for the frozen run).</li>
+              <li>This fits the labeling consideration in the EDA tab, where boundaries between adjacent classes such as Positive and Extremely Positive can be subjective.</li>
+              <li>The frozen run is far from balanced: it predicts Positive for 1,535 of 3,798 tweets (40.4%) although only 947 (24.9%) are Positive, and it recalls only 18.8% of Extremely Negative and 27.6% of Extremely Positive tweets.</li>
+            </ul>
+          </div>
+
+          <!-- Compute cost -->
+          <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-microchip"></i> Resource Metrics</h3>
+          <p class="section-desc">Training time covers training passes only (validation excluded); inference time is per sample after warm-up.</p>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Experiment</th>
+                  <th>Total Train Time</th>
+                  <th>Inference (ms/sample)</th>
+                  <th>FLOPs (B/sample)</th>
+                  <th>Parameters (M)</th>
+                  <th>Trainable Parameters</th>
+                  <th>Model Size</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>EXP-1 BiLSTM</strong></td>
+                  <td>247.36 s</td>
+                  <td>0.058519</td>
+                  <td>0.085681</td>
+                  <td>4.567557</td>
+                  <td>4,567,557 (100%)</td>
+                  <td>17.424 MB</td>
+                </tr>
+                <tr>
+                  <td><strong>EXP-2 DistilBERT (frozen backbone)</strong></td>
+                  <td>331.45 s</td>
+                  <td>1.183257</td>
+                  <td>8.332611</td>
+                  <td>66.957317</td>
+                  <td>594,437 (0.89%)</td>
+                  <td>255.422 MB</td>
+                </tr>
+                <tr style="background: rgba(15,130,223,0.06);">
+                  <td><strong>EXP-3 DistilBERT (full fine-tuning)</strong></td>
+                  <td>1,019.09 s</td>
+                  <td>1.186319</td>
+                  <td>8.332611</td>
+                  <td>66.957317</td>
+                  <td>66,957,317 (100%)</td>
+                  <td>255.422 MB</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Learning Curves -->
+          <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-chart-line"></i> Learning Curves</h3>
+          <div class="result-figure-stack">
+            <figure class="result-figure-card">
+              <a href="./outputs/learning_curves/bilstm_learning_curves.png" target="_blank" aria-label="Open the full-size BiLSTM learning curves">
+                <img src="./outputs/learning_curves/bilstm_learning_curves.png" alt="BiLSTM training and validation loss and accuracy curves">
+              </a>
+              <figcaption><strong>EXP-1 BiLSTM</strong><span>Best validation macro-F1 0.7658 at epoch 7 · early stopped after epoch 10</span></figcaption>
+            </figure>
+            <figure class="result-figure-card">
+              <a href="./outputs/learning_curves/distilbert (frozen backbone)_learning_curves.png" target="_blank" aria-label="Open the full-size frozen-backbone DistilBERT learning curves">
+                <img src="./outputs/learning_curves/distilbert (frozen backbone)_learning_curves.png" alt="Frozen-backbone DistilBERT training and validation loss and accuracy curves">
+              </a>
+              <figcaption><strong>EXP-2 DistilBERT (frozen backbone)</strong><span>Best validation macro-F1 0.3893 at epoch 5 · all 5 epochs run</span></figcaption>
+            </figure>
+            <figure class="result-figure-card">
+              <a href="./outputs/learning_curves/distilbert_learning_curves.png" target="_blank" aria-label="Open the full-size fully fine-tuned DistilBERT learning curves">
+                <img src="./outputs/learning_curves/distilbert_learning_curves.png" alt="Fully fine-tuned DistilBERT training and validation loss and accuracy curves">
+              </a>
+              <figcaption><strong>EXP-3 DistilBERT (full fine-tuning)</strong><span>Best validation macro-F1 0.8794 at epoch 4 · all 5 epochs run</span></figcaption>
+            </figure>
+          </div>
+
+          <!-- Learning process remarks -->
+          <p class="section-desc" style="margin-top: 1.5rem;">Training Remarks</p>
+
+          <section class="card" style="margin-top: 1rem;">
+            <h3><i class="fa-solid fa-seedling"></i> EXP-1 BiLSTM</h3>
+            <ul class="compact-points">
+              <li>Training loss falls from 1.4382 to 0.1345 and training accuracy rises from 35.9% to 95.7% over 10 epochs, while validation macro-F1 climbs from 0.4267 to its peak of 0.7658 at epoch 7. In epochs 1–2 training accuracy is below validation accuracy (35.9% vs 43.1%, then 52.6% vs 55.1%) because it is averaged while the model is still improving.</li>
+              <li>Validation loss is lowest at epoch 5 (0.7443) and rises afterwards, with a small dip at epoch 7, reaching 0.9702 by epoch 10 while training loss keeps falling. The macro-F1-selected checkpoint (epoch 7, validation loss 0.7774) therefore sits slightly after the loss minimum.</li>
+              <li>The gap between training and validation accuracy is 14.7 points at the selected epoch (90.6% vs 75.9%) and 20.0 points at epoch 10 (95.7% vs 75.7%). Validation accuracy stays between 75.0% and 75.9% from epoch 7 on. Most of the model’s parameters (3.9 of 4.57 M) are in the randomly initialized embedding table, which can memorize the 37,041 training tweets.</li>
+              <li>Validation macro-F1 stayed below 0.7658 for epochs 8–10 (0.7632, 0.7573, 0.7628), so training stopped after epoch 10 and the epoch-7 checkpoint was restored.</li>
+            </ul>
+          </section>
+
+          <section class="card" style="margin-top: 1rem;">
+            <h3><i class="fa-solid fa-lock"></i> EXP-2 DistilBERT (frozen backbone)</h3>
+            <ul class="compact-points">
+              <li>The best validation macro-F1 (0.3893) came at epoch 5 of 5, so the run had not passed its peak when the five-epoch budget ended and early stopping never applied.</li>
+              <li>After all five epochs the frozen run’s validation macro-F1 (0.3893) is still far below the 0.7654 that full fine-tuning reached after a single epoch.</li>
+              <li>Only the 594,437 head parameters update, and they start from random initialization at the small learning rate (2e-5) chosen for fine-tuning a pretrained backbone, so the head probably moves too slowly to converge in five epochs. This is why EXP-2 should be read as a frozen backbone under the same budget as EXP-3, not as the best a frozen backbone can do.</li>
+              <li>Test macro-F1 (0.3779) is 1.1 points below the best validation score, the smallest gap of the three models.</li>
+            </ul>
+          </section>
+
+          <section class="card" style="margin-top: 1rem;">
+            <h3><i class="fa-solid fa-lock-open"></i> EXP-3 DistilBERT (full fine-tuning)</h3>
+            <ul class="compact-points">
+              <li>After a single epoch validation macro-F1 is already 0.7654, nearly the BiLSTM’s best (0.7658), and validation accuracy reaches 84.9% at epoch 2. Pretrained representations transfer almost immediately once the backbone is allowed to adapt.</li>
+              <li>Validation macro-F1 peaks at 0.8794 (validation accuracy 87.7%) at epoch 4, but validation loss is lowest one epoch earlier (0.3863) and then rises (0.4082, 0.4821) while training loss keeps falling (0.3019, 0.2195, 0.1628), the onset of overfitting.</li>
+              <li>The training–validation accuracy gap is 5.4 points at the selected epoch (93.1% vs 87.7%) and 8.1 points at epoch 5, against 14.7 points for the BiLSTM at its selected epoch.</li>
+              <li>Epoch 5 did not improve (1/3), so the five-epoch budget ended before the patience limit was reached, and the epoch-4 checkpoint was restored.</li>
+            </ul>
+          </section>
+
+          <div class="callout callout-info" style="margin-top: 1rem;">
+            <div class="callout-title"><i class="fa-solid fa-scale-balanced"></i> Across the three runs</div>
+            <ul class="compact-points">
+              <li><strong>EXP-1 and EXP-3 overfit; EXP-2 had not peaked.</strong> Both models that adapt their embeddings or backbone show rising validation loss while training loss falls, whereas the frozen run’s best checkpoint is its final epoch.</li>
+              <li><strong>Pretraining accelerates learning once the backbone adapts.</strong> After the first epoch, validation macro-F1 is 0.7654 for EXP-3, against 0.4267 for EXP-1; the frozen run’s best score after five epochs (0.3893) is still well below EXP-3’s epoch-1 value.</li>
+              <li><strong>The checkpoint rule picks a later epoch than the loss minimum.</strong> For EXP-1 and EXP-3, the best macro-F1 epochs (7 and 4) come after the validation-loss minima (5 and 3), at the cost of slightly higher validation loss.</li>
+              <li><strong>Epoch cost differs widely.</strong> An epoch takes about 23–26 s for the BiLSTM and 203–205 s for full fine-tuning, while the frozen run averages 66.3 s (331.45 s over 5 epochs).</li>
+            </ul>
+          </div>
+
+          <!-- Confusion Matrices -->
+          <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-border-all"></i> Confusion Matrices (Test Set)</h3>
+          <div class="result-figure-stack">
+            <figure class="result-figure-card result-figure-card--matrix">
+              <a href="./outputs/metrics/bilstm_confusion_matrix.png" target="_blank" aria-label="Open the full-size BiLSTM confusion matrix">
+                <img src="./outputs/metrics/bilstm_confusion_matrix.png" alt="BiLSTM confusion matrix on the test set">
+              </a>
+              <figcaption><strong>EXP-1 BiLSTM</strong><span>73.17% accuracy · 5×5 matrix · 3,798 test samples</span></figcaption>
+            </figure>
+            <figure class="result-figure-card result-figure-card--matrix">
+              <a href="./outputs/metrics/distilbert (frozen backbone)_confusion_matrix.png" target="_blank" aria-label="Open the full-size frozen-backbone DistilBERT confusion matrix">
+                <img src="./outputs/metrics/distilbert (frozen backbone)_confusion_matrix.png" alt="Frozen-backbone DistilBERT confusion matrix on the test set">
+              </a>
+              <figcaption><strong>EXP-2 DistilBERT (frozen backbone)</strong><span>38.94% accuracy · 5×5 matrix · 3,798 test samples</span></figcaption>
+            </figure>
+            <figure class="result-figure-card result-figure-card--matrix">
+              <a href="./outputs/metrics/distilbert_confusion_matrix.png" target="_blank" aria-label="Open the full-size fully fine-tuned DistilBERT confusion matrix">
+                <img src="./outputs/metrics/distilbert_confusion_matrix.png" alt="Fully fine-tuned DistilBERT confusion matrix on the test set">
+              </a>
+              <figcaption><strong>EXP-3 DistilBERT (full fine-tuning)</strong><span>85.33% accuracy · 5×5 matrix · 3,798 test samples</span></figcaption>
+            </figure>
+          </div>
+
+          <!-- Representation analysis -->
+          <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-circle-nodes"></i> Learned Representations</h3>
+          <p class="section-desc">PCA, t-SNE, and UMAP projections and class-prototype cosine similarity of the representation that feeds each model’s final linear layer, computed on test tweets.</p>
+          <div class="result-figure-stack">
+            <figure class="result-figure-card">
+              <a href="./outputs/eda/bilstm_dimensionality_reduction.png" target="_blank" aria-label="Open the full-size BiLSTM dimensionality reduction plots">
+                <img src="./outputs/eda/bilstm_dimensionality_reduction.png" alt="PCA, t-SNE, and UMAP 2D projections of BiLSTM test representations colored by sentiment class">
+              </a>
+              <figcaption><strong>EXP-1 BiLSTM</strong><span>2D projections colored by sentiment class</span></figcaption>
+            </figure>
+            <figure class="result-figure-card">
+              <a href="./outputs/eda/distilbert (frozen backbone)_dimensionality_reduction.png" target="_blank" aria-label="Open the full-size frozen-backbone DistilBERT dimensionality reduction plots">
+                <img src="./outputs/eda/distilbert (frozen backbone)_dimensionality_reduction.png" alt="PCA, t-SNE, and UMAP 2D projections of frozen-backbone DistilBERT test representations colored by sentiment class">
+              </a>
+              <figcaption><strong>EXP-2 DistilBERT (frozen backbone)</strong><span>2D projections colored by sentiment class</span></figcaption>
+            </figure>
+            <figure class="result-figure-card">
+              <a href="./outputs/eda/distilbert_dimensionality_reduction.png" target="_blank" aria-label="Open the full-size fully fine-tuned DistilBERT dimensionality reduction plots">
+                <img src="./outputs/eda/distilbert_dimensionality_reduction.png" alt="PCA, t-SNE, and UMAP 2D projections of fully fine-tuned DistilBERT test representations colored by sentiment class">
+              </a>
+              <figcaption><strong>EXP-3 DistilBERT (full fine-tuning)</strong><span>2D projections colored by sentiment class</span></figcaption>
+            </figure>
+          </div>
+
+          <div class="result-figure-stack" style="margin-top: 1.5rem;">
+            <figure class="result-figure-card result-figure-card--matrix">
+              <a href="./outputs/eda/bilstm_class_similarity_matrix.png" target="_blank" aria-label="Open the full-size BiLSTM class similarity matrix">
+                <img src="./outputs/eda/bilstm_class_similarity_matrix.png" alt="Cosine similarity matrix between BiLSTM class prototypes">
+              </a>
+              <figcaption><strong>EXP-1 BiLSTM</strong><span>Cosine similarity between class prototypes</span></figcaption>
+            </figure>
+            <figure class="result-figure-card result-figure-card--matrix">
+              <a href="./outputs/eda/distilbert (frozen backbone)_class_similarity_matrix.png" target="_blank" aria-label="Open the full-size frozen-backbone DistilBERT class similarity matrix">
+                <img src="./outputs/eda/distilbert (frozen backbone)_class_similarity_matrix.png" alt="Cosine similarity matrix between frozen-backbone DistilBERT class prototypes">
+              </a>
+              <figcaption><strong>EXP-2 DistilBERT (frozen backbone)</strong><span>Cosine similarity between class prototypes</span></figcaption>
+            </figure>
+            <figure class="result-figure-card result-figure-card--matrix">
+              <a href="./outputs/eda/distilbert_class_similarity_matrix.png" target="_blank" aria-label="Open the full-size fully fine-tuned DistilBERT class similarity matrix">
+                <img src="./outputs/eda/distilbert_class_similarity_matrix.png" alt="Cosine similarity matrix between fully fine-tuned DistilBERT class prototypes">
+              </a>
+              <figcaption><strong>EXP-3 DistilBERT (full fine-tuning)</strong><span>Cosine similarity between class prototypes</span></figcaption>
+            </figure>
+          </div>
+
+          <!-- Qualitative predictions -->
+          <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-comments"></i> Qualitative Predictions</h3>
+          <p class="section-desc">Test tweets grouped by whether all models, only some models, or no model classify them correctly (generated with <code>python main.py --infer</code>).</p>
+          <figure style="margin: 1.25rem 0 1.75rem;">
+            <a href="./outputs/metrics/qualitative_predictions.png" target="_blank" aria-label="Open the full-size qualitative predictions figure">
+              <img src="./outputs/metrics/qualitative_predictions.png"
+                   alt="Grid of example test tweets with the true sentiment and each model’s prediction marked correct or wrong"
+                   loading="lazy"
+                   style="display: block; width: 100%; max-width: 1000px; height: auto; margin: 0 auto; border-radius: var(--radius-md);">
+            </a>
+            <figcaption style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 0.6rem;">
+              Example test tweets with the true label and each saved model’s prediction (the figure compares the BiLSTM and DistilBERT). Text is decoded from the tokenizer, so it is lowercased and truncated at 128 tokens.
+            </figcaption>
+          </figure>
+
+          <!-- Traceability callout -->
+          <div class="callout callout-info" style="margin-top: 2rem;">
+            <div class="callout-title"><i class="fa-solid fa-fingerprint"></i> Result Traceability</div>
+            <ul class="compact-points">
+              <li>Configuration: <code>main.py</code>; checkpoints: <code>checkpoints/bilstm_best.pt</code>, <code>checkpoints/distilbert_freezebb_best/</code>, and <code>checkpoints/distilbert_best/</code>.</li>
+              <li>Commands to regenerate every number and plot are listed in the Methodology tab; <code>--eval</code> re-evaluates a saved checkpoint without retraining.</li>
+              <li>Per-epoch training history is stored next to each checkpoint as a <code>_history.json</code> file.</li>
+            </ul>
+          </div>
+
+          <section class="card" style="margin-top: 1.5rem;">
+            <h3><i class="fa-solid fa-flag-checkered"></i> Limitations & Conclusion</h3>
+            <ul class="compact-points">
+              <li><strong>Limited repeatability:</strong> each experiment is a single run with seed 42 and no confidence intervals, and runtime figures depend on the hardware listed in the Methodology tab, so absolute times are indicative.</li>
+              <li><strong>Untuned frozen run:</strong> EXP-2 reuses the full fine-tuning learning rate and epoch budget so that trainable scope is the only changed factor. Its best epoch is the last one, so it is probably under-trained and does not show the best achievable frozen-backbone result.</li>
+              <li><strong>Not a single-factor comparison for EXP-1:</strong> the BiLSTM differs from the DistilBERT runs in architecture, pretraining, learning rate, batch size, and epochs, so the gap reflects their combined effect.</li>
+              <li><strong>Evaluation caveats:</strong> the test split predates the training split and shares one normalized text with it, and some labels are ambiguous between adjacent sentiment classes (see the EDA tab), so part of the remaining error may not be model failure.</li>
+              <li><strong>Approximate FLOPs:</strong> <code>thop</code> counts layer operations only, so the DistilBERT FLOPs figure is a lower bound.</li>
+              <li><strong>Best measured performance:</strong> EXP-3 (full fine-tuning) achieves 85.33% test accuracy and 0.8577 macro-F1.</li>
+              <li><strong>Different practical trade-offs:</strong> the BiLSTM is the smallest and fastest model (4.57 M parameters, 0.0585 ms/sample) at 73.17% accuracy; freezing the backbone cuts training time by 67% but not inference cost, and it was the weakest model here.</li>
+              <li><strong>Conclusion for this setup:</strong> under a shared 2e-5 learning rate and five-epoch budget, updating the whole DistilBERT backbone was necessary to benefit from pretraining, and it beat the from-scratch BiLSTM by a clear margin.</li>
+            </ul>
+          </section>
 
         </div>
       </div>
@@ -388,7 +1022,475 @@
       <div class="card">
         <h2 class="section-title"><i class="fa-solid fa-bug"></i> Error Taxonomy & Compute-Cost Breakdown</h2>
         <div class="card-body" style="margin-top: 1rem;">
-          <p>Failure category breakdown, qualitative failure cases, and hardware compute utilization analysis (GPU hours, memory footprint).</p>
+          <p>
+            This tab breaks the test-set errors of the three experiments into failure categories using
+            their confusion matrices (3,798 test tweets), illustrates why some tweets are hard with
+            concrete examples, and analyzes compute cost from the measured run logs.
+          </p>
+
+          <!-- Failure category breakdown -->
+          <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-bug"></i> Failure Category Breakdown</h3>
+          <p class="section-desc">Every misclassification falls into exactly one of three categories, defined from the ordered sentiment scale.</p>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr><th>Category</th><th>Definition</th><th>Example</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Intensity error</strong></td>
+                  <td>Correct polarity but wrong strength: Negative ↔ Extremely Negative, or Positive ↔ Extremely Positive.</td>
+                  <td>A Positive tweet predicted as Extremely Positive</td>
+                </tr>
+                <tr>
+                  <td><strong>Neutral-boundary error</strong></td>
+                  <td>A Neutral tweet predicted as a polar class, or a polar tweet predicted as Neutral.</td>
+                  <td>A Neutral tweet predicted as Negative</td>
+                </tr>
+                <tr>
+                  <td><strong>Polarity flip</strong></td>
+                  <td>A negative-side class predicted as a positive-side class, or the reverse. Mild flips are Negative ↔ Positive; severe flips involve at least one extreme class.</td>
+                  <td>A Negative tweet predicted as Positive (mild), or as Extremely Positive (severe)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-table-list"></i> Errors by Category</h3>
+          <p class="section-desc">Counts are test tweets; percentages in the first column are of all 3,798 tweets, and in the other columns they are shares of that model’s errors.</p>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Experiment</th>
+                  <th>Total errors (error rate)</th>
+                  <th>Intensity errors</th>
+                  <th>Neutral-boundary errors</th>
+                  <th>Polarity flips</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>EXP-1 BiLSTM</strong></td>
+                  <td>1,019 (26.8%)</td>
+                  <td>518 (50.8%)</td>
+                  <td>223 (21.9%)</td>
+                  <td>278 (27.3%): 253 mild, 25 severe</td>
+                </tr>
+                <tr>
+                  <td><strong>EXP-2 DistilBERT (frozen backbone)</strong></td>
+                  <td>2,319 (61.1%)</td>
+                  <td>773 (33.3%)</td>
+                  <td>666 (28.7%)</td>
+                  <td>880 (37.9%): 582 mild, 298 severe</td>
+                </tr>
+                <tr style="background: rgba(15,130,223,0.06);">
+                  <td><strong>EXP-3 DistilBERT (full fine-tuning)</strong></td>
+                  <td>557 (14.7%)</td>
+                  <td>271 (48.7%)</td>
+                  <td>182 (32.7%)</td>
+                  <td>104 (18.7%): 97 mild, 7 severe</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-arrows-up-down"></i> Direction of Errors</h3>
+          <p class="section-desc">“Under-called” means an extreme tweet predicted as the milder neighboring class (Extremely Negative → Negative, Extremely Positive → Positive); “over-called” is the reverse.</p>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Experiment</th>
+                  <th>Intensity under-called</th>
+                  <th>Intensity over-called</th>
+                  <th>Polar tweet → Neutral</th>
+                  <th>Neutral tweet → polar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>EXP-1 BiLSTM</strong></td>
+                  <td>341 (65.8%)</td>
+                  <td>177 (34.2%)</td>
+                  <td>60</td>
+                  <td>163</td>
+                </tr>
+                <tr>
+                  <td><strong>EXP-2 DistilBERT (frozen backbone)</strong></td>
+                  <td>641 (82.9%)</td>
+                  <td>132 (17.1%)</td>
+                  <td>328</td>
+                  <td>338</td>
+                </tr>
+                <tr>
+                  <td><strong>EXP-3 DistilBERT (full fine-tuning)</strong></td>
+                  <td>169 (62.4%)</td>
+                  <td>102 (37.6%)</td>
+                  <td>115</td>
+                  <td>67</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-list-ol"></i> Most Common Mistake per Class</h3>
+          <p class="section-desc">The most frequent wrong prediction for each true class, with its count and its share of that class’s tweets.</p>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>True class</th>
+                  <th>Support</th>
+                  <th>EXP-1 BiLSTM</th>
+                  <th>EXP-2 DistilBERT (frozen)</th>
+                  <th>EXP-3 DistilBERT (full)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Extremely Negative</strong></td>
+                  <td>592</td>
+                  <td>Negative · 143 (24.2%)</td>
+                  <td>Negative · 310 (52.4%)</td>
+                  <td>Negative · 79 (13.3%)</td>
+                </tr>
+                <tr>
+                  <td><strong>Negative</strong></td>
+                  <td>1,041</td>
+                  <td>Extremely Negative · 122 (11.7%)</td>
+                  <td>Positive · 371 (35.6%)</td>
+                  <td>Extremely Negative · 56 (5.4%)</td>
+                </tr>
+                <tr>
+                  <td><strong>Neutral</strong></td>
+                  <td>619</td>
+                  <td>Negative · 89 (14.4%)</td>
+                  <td>Positive · 196 (31.7%)</td>
+                  <td>Negative · 38 (6.1%)</td>
+                </tr>
+                <tr>
+                  <td><strong>Positive</strong></td>
+                  <td>947</td>
+                  <td>Negative · 133 (14.0%)</td>
+                  <td>Negative · 211 (22.3%)</td>
+                  <td>Negative · 55 (5.8%)</td>
+                </tr>
+                <tr>
+                  <td><strong>Extremely Positive</strong></td>
+                  <td>599</td>
+                  <td>Positive · 198 (33.1%)</td>
+                  <td>Positive · 331 (55.3%)</td>
+                  <td>Positive · 90 (15.0%)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout callout-info" style="margin-top: 1.5rem;">
+            <div class="callout-title"><i class="fa-solid fa-magnifying-glass-chart"></i> What the failure breakdown shows</div>
+            <ul class="compact-points">
+              <li><strong>Mostly graded mistakes, not reversals.</strong> For the BiLSTM and full fine-tuning, intensity errors are the largest category (50.8% and 48.7% of errors), while polarity flips account for 27.3% and 18.7%. Almost all of those flips are mild: 253 of 278 for the BiLSTM and 97 of 104 for full fine-tuning.</li>
+              <li><strong>Extreme classes are under-called.</strong> 65.8% of the BiLSTM’s intensity errors, 62.4% of full fine-tuning’s, and 82.9% of the frozen run’s predict the milder neighbor. For example, the BiLSTM labels 198 of 599 Extremely Positive tweets (33.1%) as Positive, against 90 (15.0%) for full fine-tuning.</li>
+              <li><strong>Pretraining does not help every category equally.</strong> Compared with the BiLSTM, full fine-tuning removes 62.6% of polarity flips and 47.7% of intensity errors, but only 18.4% of neutral-boundary errors, so the Neutral boundary improves least.</li>
+              <li><strong>The frozen run fails differently.</strong> Polarity flips are its largest category (880 errors, 37.9%), including 298 severe flips and 22 direct Extremely Negative ↔ Extremely Positive swaps. It predicts Positive for 371 of 1,041 Negative tweets (35.6%), which suggests the frozen features carry sentiment polarity only weakly.</li>
+              <li><strong>Neutral is handled differently by each model.</strong> The BiLSTM pushes Neutral tweets into polar classes far more often than it pulls polar tweets into Neutral (163 vs 60), while full fine-tuning does the opposite (115 polar tweets predicted as Neutral vs 67 the other way).</li>
+            </ul>
+          </div>
+
+          <!-- Qualitative failure cases -->
+          <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-comments"></i> Qualitative Failure Cases</h3>
+          <p class="section-desc">Failures taken from the qualitative figure in the Results tab, which compares the BiLSTM with DistilBERT on eight test tweets.</p>
+          <p>
+            The eight tweets were selected deterministically (the first matches in each agreement
+            category, varying the true class where possible), so they illustrate failure types rather
+            than estimate how often each occurs. Six contain at least one wrong prediction and are
+            listed below; the text is shown as decoded from the tokenizer, so it is lowercased, and
+            links are omitted.
+          </p>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Tweet</th>
+                  <th>True label</th>
+                  <th>BiLSTM</th>
+                  <th>DistilBERT</th>
+                  <th>Failure category</th>
+                  <th>Observation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>“# airsewa @ flyspicejet is not providing # webchecin customers free seats. passengers are forced to choose paid seats … this should be stopped as its discriminatory and against travellers rights”</td>
+                  <td>Extremely Negative</td>
+                  <td>Extremely Negative (correct)</td>
+                  <td>Negative (wrong)</td>
+                  <td>Intensity (under-called)</td>
+                  <td>A formally worded complaint with evaluative terms but no overtly emotional language; DistilBERT stops one step short of the strong label, while the BiLSTM matches it.</td>
+                </tr>
+                <tr>
+                  <td>“come on guys, please be like bob! # covid2019 # panicbuying # coronavirus”</td>
+                  <td>Positive</td>
+                  <td>Positive (correct)</td>
+                  <td>Extremely Positive (wrong)</td>
+                  <td>Intensity (over-called)</td>
+                  <td>A short, upbeat appeal with hashtags and a meme-like reference; DistilBERT predicts the stronger class.</td>
+                </tr>
+                <tr>
+                  <td>“so not due to # brexit at all then &amp; gt ; &amp; gt ; supermarkets begin # foodrationing after wave of # coronavirus - fuelled panic buying”</td>
+                  <td>Neutral</td>
+                  <td>Negative (wrong)</td>
+                  <td>Neutral (correct)</td>
+                  <td>Neutral boundary</td>
+                  <td>A wry, news-like remark whose topic words (food rationing, panic buying) are negative; the BiLSTM appears to follow those words, while DistilBERT keeps Neutral.</td>
+                </tr>
+                <tr>
+                  <td>“trending : new yorkers encounter empty supermarket shelves ( pictured, wegmans in brooklyn ), sold - out online grocers ( foodkick, maxdelivery ) as # coronavirus - fearing shoppers stock up”</td>
+                  <td>Extremely Negative</td>
+                  <td>Negative (wrong)</td>
+                  <td>Extremely Negative (correct)</td>
+                  <td>Intensity (under-called)</td>
+                  <td>A descriptive news-style post about empty shelves; only DistilBERT reaches the strong label, and the BiLSTM stops at Negative.</td>
+                </tr>
+                <tr>
+                  <td>“@ drtedros &quot; we cant stop # covid19 without protecting # healthworkers. prices of surgical masks have increased six - fold, n95 respirators have more than trebled &amp; amp ; gowns cost twice as much &quot;”</td>
+                  <td>Neutral</td>
+                  <td>Negative (wrong)</td>
+                  <td>Negative (wrong)</td>
+                  <td>Neutral boundary</td>
+                  <td>A quoted statement reporting price increases; both models read the unfavorable facts as Negative, although the post only reports them.</td>
+                </tr>
+                <tr>
+                  <td>“what precautionary measures have you all taken in your respective restaurants and hotels, comment below... # covid - 19 # coronavirus covid - 19 : hotel chains enforce precautionary measures, issue safety, hygiene advisories”</td>
+                  <td>Extremely Positive</td>
+                  <td>Positive (wrong)</td>
+                  <td>Positive (wrong)</td>
+                  <td>Intensity (under-called)</td>
+                  <td>A question plus an informational note on safety measures; the Extremely Positive label is hard to infer from the text, so both predict the milder Positive.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top: 1rem;">
+            The other two tweets are handled correctly by both models: a short supportive message
+            (“find out how you can protect yourself and loved ones from # coronavirus.?”, Extremely
+            Positive) and a long panic-buying post packed with hashtags (Negative).
+          </p>
+
+          <div class="callout callout-info" style="margin-top: 1.5rem;">
+            <div class="callout-title"><i class="fa-solid fa-magnifying-glass-chart"></i> What the cases show</div>
+            <ul class="compact-points">
+              <li><strong>Graded errors, no reversals.</strong> Four of the six failures are intensity errors and two are neutral-boundary errors; none is a polarity flip. This is in line with the breakdown above, where polarity flips are only 27.3% (BiLSTM) and 18.7% (full fine-tuning) of errors.</li>
+              <li><strong>Disagreements go both ways.</strong> DistilBERT under-calls the intensity in the first case and over-calls it in the second, while the BiLSTM errs in the third and fourth. The even split is by construction (two cases per category), not evidence of equal accuracy: DistilBERT is 12.16 accuracy points better overall.</li>
+              <li><strong>Hardest when there is no overt emotion.</strong> Both models fail on the tweets that report facts or ask a question (the fifth and sixth cases), where the assigned label (Neutral, Extremely Positive) depends on annotator judgment. This matches the labeling consideration in the EDA tab.</li>
+              <li><strong>Noisy surface text.</strong> All eight tweets contain hashtags, and several carry HTML-entity residue such as <code>&amp; amp ;</code> and <code>&amp; gt ;</code>, because the pipeline applies no text cleaning.</li>
+            </ul>
+          </div>
+
+          <h3 style="margin-top: 1.5rem; font-size: 1.05rem;"><i class="fa-solid fa-circle-question"></i> Label-Ambiguity Examples from the Dataset</h3>
+          <p class="section-desc">Other labeled tweets, from the EDA samples and the duplicated training texts, whose label is arguable. They are not confirmed errors of a model.</p>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr><th>Tweet</th><th>Given label</th><th>Why it is hard</th><th>Related failure category</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>“ive never seen my pharmacy and grocery store so crowded in my life. like yall what happened to social distancing?”</td>
+                  <td>Positive</td>
+                  <td>Reads as concern about crowding, so the surface tone and the label disagree.</td>
+                  <td>Polarity flip</td>
+                </tr>
+                <tr>
+                  <td>“# coronavirus is further pushing people to move to online shopping. who will benefit from this wave?”</td>
+                  <td>Positive</td>
+                  <td>A neutral observation and question with no clear emotional tone.</td>
+                  <td>Neutral boundary</td>
+                </tr>
+                <tr>
+                  <td>“find out how you can optimise talent generated content and understand the isolated consumer by downloading our latest report.” (links omitted)</td>
+                  <td>Positive</td>
+                  <td>Promotional text with marketing language but no expressed emotion.</td>
+                  <td>Neutral boundary</td>
+                </tr>
+                <tr>
+                  <td>“catch up cash use has halved in the past few days as people switch to cards to avoid spreading the atm scheme said usage is likely to fall even further given the”</td>
+                  <td>Negative</td>
+                  <td>News-style report where the sentiment depends on reading the economic news as bad; the text also ends mid-sentence.</td>
+                  <td>Neutral boundary</td>
+                </tr>
+                <tr>
+                  <td>“With oil prices falling amid the COVID 19 recession it s the beginning of the end for fracking”</td>
+                  <td>Negative</td>
+                  <td>Viewpoint-dependent: bad news for the industry, but not necessarily negative in tone for every reader.</td>
+                  <td>Polarity flip</td>
+                </tr>
+                <tr>
+                  <td>“Food supply chains are strong in the COVID 19 pandemic To keep them that way strong public private cooperation smart policy responses and prudent consumer behavior are essential”</td>
+                  <td>Extremely Positive</td>
+                  <td>Reassuring, informational text; whether it is Positive or Extremely Positive is a judgment call.</td>
+                  <td>Intensity</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Compute cost -->
+          <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-microchip"></i> Hardware Compute Utilization</h3>
+          <p class="section-desc">Training figures come from the logged training loop (validation passes, checkpoint saving, and test evaluation excluded) and were measured on a single NVIDIA GeForce RTX 4060 Laptop GPU (8 GB GDDR6).</p>
+
+          <h3 style="margin-top: 1.5rem; font-size: 1.05rem;"><i class="fa-solid fa-clock"></i> GPU Time</h3>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Experiment</th>
+                  <th>Epochs run</th>
+                  <th>Training time</th>
+                  <th>GPU-hours</th>
+                  <th>Time per epoch</th>
+                  <th>Time to best checkpoint</th>
+                  <th>Time after best checkpoint</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>EXP-1 BiLSTM</strong></td>
+                  <td>10 of 15</td>
+                  <td>247.36 s</td>
+                  <td>0.0687</td>
+                  <td>24.7 s</td>
+                  <td>≈174.4 s (7 epochs)</td>
+                  <td>≈73.0 s (3 epochs, 29.5%)</td>
+                </tr>
+                <tr>
+                  <td><strong>EXP-2 DistilBERT (frozen backbone)</strong></td>
+                  <td>5 of 5</td>
+                  <td>331.45 s</td>
+                  <td>0.0921</td>
+                  <td>66.3 s</td>
+                  <td>331.45 s (5 epochs)</td>
+                  <td>0 s</td>
+                </tr>
+                <tr style="background: rgba(15,130,223,0.06);">
+                  <td><strong>EXP-3 DistilBERT (full fine-tuning)</strong></td>
+                  <td>5 of 5</td>
+                  <td>1,019.09 s</td>
+                  <td>0.2831</td>
+                  <td>203.8 s</td>
+                  <td>≈815.6 s (4 epochs)</td>
+                  <td>≈203.5 s (1 epoch, 20.0%)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="section-desc" style="margin-top: 0.75rem;">The three reported runs used 1,597.90 s in total (0.4439 GPU-hours, about 26.6 minutes). Time-to-best figures sum the logged per-epoch times, which are rounded to 0.1 s; EXP-2’s per-epoch times were not logged, so only its total is shown.</p>
+
+          <h3 style="margin-top: 1.5rem; font-size: 1.05rem;"><i class="fa-solid fa-gauge-high"></i> Throughput and Compute Efficiency</h3>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Experiment</th>
+                  <th>Training throughput (samples/s)</th>
+                  <th>Inference latency (ms/sample)</th>
+                  <th>Inference throughput (samples/s)</th>
+                  <th>FLOPs (B/sample)</th>
+                  <th>Effective rate (TFLOP/s)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>EXP-1 BiLSTM</strong></td>
+                  <td>1,497.5</td>
+                  <td>0.058519</td>
+                  <td>17,088</td>
+                  <td>0.085681</td>
+                  <td>1.46</td>
+                </tr>
+                <tr>
+                  <td><strong>EXP-2 DistilBERT (frozen backbone)</strong></td>
+                  <td>558.8</td>
+                  <td>1.183257</td>
+                  <td>845</td>
+                  <td>8.332611</td>
+                  <td>7.04</td>
+                </tr>
+                <tr style="background: rgba(15,130,223,0.06);">
+                  <td><strong>EXP-3 DistilBERT (full fine-tuning)</strong></td>
+                  <td>181.7</td>
+                  <td>1.186319</td>
+                  <td>843</td>
+                  <td>8.332611</td>
+                  <td>7.02</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="section-desc" style="margin-top: 0.75rem;">Training throughput is the 37,041 training tweets times the epochs run, divided by training time. Inference was timed at the evaluation batch sizes (128 for the BiLSTM, 32 for DistilBERT). The effective rate is counted FLOPs per sample divided by measured time per sample. The RTX 4060 Laptop GPU has 3,072 CUDA cores and an FP32 peak of roughly 10–14.6 TFLOP/s depending on the laptop’s power limit, so DistilBERT’s effective rate is roughly 48–71% of peak and the BiLSTM’s roughly 10–15%.</p>
+
+          <h3 style="margin-top: 1.5rem; font-size: 1.05rem;"><i class="fa-solid fa-memory"></i> Memory Footprint</h3>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Experiment</th>
+                  <th>Parameters</th>
+                  <th>Weights (measured)</th>
+                  <th>Gradients (estimated)</th>
+                  <th>AdamW states (estimated)</th>
+                  <th>Training state total (estimated)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>EXP-1 BiLSTM</strong></td>
+                  <td>4.57 M</td>
+                  <td>17.42 MB</td>
+                  <td>17.42 MB</td>
+                  <td>34.85 MB</td>
+                  <td>69.70 MB</td>
+                </tr>
+                <tr>
+                  <td><strong>EXP-2 DistilBERT (frozen backbone)</strong></td>
+                  <td>66.96 M (0.59 M trainable)</td>
+                  <td>255.42 MB</td>
+                  <td>2.27 MB</td>
+                  <td>4.54 MB</td>
+                  <td>262.22 MB</td>
+                </tr>
+                <tr style="background: rgba(15,130,223,0.06);">
+                  <td><strong>EXP-3 DistilBERT (full fine-tuning)</strong></td>
+                  <td>66.96 M (all trainable)</td>
+                  <td>255.42 MB</td>
+                  <td>255.42 MB</td>
+                  <td>510.84 MB</td>
+                  <td>1,021.69 MB (≈1.0 GB)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="section-desc" style="margin-top: 0.75rem;">Estimates assume 32-bit weights, one gradient per trainable parameter, and two AdamW moment buffers per trainable parameter. They exclude activations, the CUDA context, and allocator overhead, so real peak memory is higher. At inference time only the weights are needed. All three runs fit within the GPU’s 8 GB of memory.</p>
+
+          <div class="callout callout-info" style="margin-top: 1.5rem;">
+            <div class="callout-title"><i class="fa-solid fa-scale-balanced"></i> Cost versus accuracy</div>
+            <ul class="compact-points">
+              <li><strong>Full fine-tuning buys accuracy at a moderate training cost.</strong> Compared with the BiLSTM it adds 12.16 accuracy points for 771.7 s (12.9 minutes) more training, about 0.95 points per extra GPU-minute, but needs 14.7× the weight memory (255.42 vs 17.42 MB) and 20.3× the inference time per sample.</li>
+              <li><strong>Freezing saves time and memory but not enough to matter here.</strong> The frozen run trains 3.07× faster than full fine-tuning (558.8 vs 181.7 samples/s) and its estimated training state is 3.9× smaller (262 MB vs 1.0 GB). Those savings of 687.6 s (11.5 minutes) and about 760 MB cost 46.39 accuracy points, and inference is no cheaper.</li>
+              <li><strong>Early stopping cost is visible.</strong> The three patience epochs spent after the BiLSTM’s best checkpoint took 29.5% of its training time, and the one epoch after full fine-tuning’s best checkpoint took 20.0% of its time.</li>
+              <li><strong>The BiLSTM uses hardware less efficiently per FLOP.</strong> It reaches about 1.46 counted TFLOP/s, 4.8× lower than DistilBERT’s 7.0 (roughly 10–15% of the GPU’s FP32 peak, against 48–71% for DistilBERT), which is consistent with the recurrence being less parallel than Transformer matrix multiplications. It is still far cheaper in absolute terms: 17,088 samples/s at inference against about 845.</li>
+            </ul>
+          </div>
+
+          <div class="callout callout-info" style="margin-top: 1.5rem;">
+            <div class="callout-title"><i class="fa-solid fa-triangle-exclamation"></i> Limits of this compute analysis</div>
+            <ul class="compact-points">
+              <li>Peak GPU memory, GPU utilization percentage, and power draw were not measured, so memory figures are analytic estimates, and utilization is only approximated from effective FLOP rates against a peak that depends on the laptop’s power limit.</li>
+              <li>Each experiment was timed once, and inference was timed at the evaluation batch sizes, not at batch size 1.</li>
+              <li>FLOPs come from the <code>thop</code> library, which counts layer operations only, so the DistilBERT FLOPs and its effective rate are lower bounds.</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

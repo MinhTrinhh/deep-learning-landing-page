@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1650" height="620" viewBox="0 0 1650 620" role="img" aria-labelledby="title description">
+<title id="title">DistilBERT sentiment classifier — frozen backbone</title>
+<desc id="description">Tokenizer output provides input IDs and attention mask. DistilBERT produces contextual token states; the first-token representation passes through a pre-classifier, ReLU, dropout and final linear layer to produce five sentiment logits. The backbone is frozen; only the classification head is trained.</desc>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#0F82DF"/></marker>
+  <marker id="arrowGray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#98A2B3"/></marker>
+  <style>
+    .heading{font:600 27px Georgia,serif;fill:#172b4d}
+    .label{font:600 17px Georgia,serif;fill:#172b4d}
+    .small{font:14px Georgia,serif;fill:#344054}
+    .shape{font:13px ui-monospace,monospace;fill:#475467}
+    .note{font:13px Georgia,serif;fill:#667085}
+    .count{font:600 18px Georgia,serif;fill:#172b4d}
+    .arrow{fill:none;stroke:#0F82DF;stroke-width:1.8;marker-end:url(#arrow)}
+    .muted-arrow{fill:none;stroke:#98A2B3;stroke-width:1.6;marker-end:url(#arrowGray)}
+    .input{fill:#E5E7EB;stroke:#6B7280;stroke-width:1.5}
+    .process{fill:#FCE4D6;stroke:#E87524;stroke-width:1.5}
+    .model{fill:#FCE4D6;stroke:#E87524;stroke-width:1.5}
+    .frozen{fill:#EAF2F8;stroke:#528BBD;stroke-width:1.6}
+    .output{fill:#E5E7EB;stroke:#6B7280;stroke-width:1.5}
+    .trainable{fill:#FCE4D6;stroke:#E87524;stroke-width:1.5}
+    .frozen-outline{fill:#EAF2F8;stroke:#528BBD;stroke-width:1.6;stroke-dasharray:7 4}
+  </style>
+  
+</defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="825" y="48" text-anchor="middle" class="heading">DistilBERT sentiment classifier — frozen backbone</text><rect x="35" y="190" width="225" height="118" rx="12" class="input"/><text x="147.5" y="226.0" text-anchor="middle" class="label">Tokenizer output</text><text x="147.5" y="251.0" text-anchor="middle" class="small">[B, L]</text><text x="147.5" y="276.0" text-anchor="middle" class="shape">input_ids + attention_mask</text><path d="M 267 249 L 305 249" class="arrow"/><rect x="310" y="145" width="430" height="208" rx="12" class="frozen"/><text x="525.0" y="226.0" text-anchor="middle" class="label">DistilBERT encoder</text><text x="525.0" y="251.0" text-anchor="middle" class="small">[B, L, 768]</text><text x="525.0" y="276.0" text-anchor="middle" class="shape">6 Transformer layers · hidden size 768</text><path d="M 747 249 L 785 249" class="arrow"/><rect x="790" y="190" width="175" height="118" rx="12" class="process"/><text x="877.5" y="226.0" text-anchor="middle" class="label">[CLS] vector</text><text x="877.5" y="251.0" text-anchor="middle" class="small">[B, 768]</text><text x="877.5" y="276.0" text-anchor="middle" class="shape">first-token state</text><path d="M 972 249 L 1010 249" class="arrow"/><rect x="1015" y="190" width="245" height="118" rx="12" class="process"/><text x="1137.5" y="242.0" text-anchor="middle" class="label">Pre-classifier</text><text x="1137.5" y="272.0" text-anchor="middle" class="shape">Linear 768 → 768 + ReLU</text><path d="M 1267 249 L 1305 249" class="arrow"/><rect x="1310" y="190" width="305" height="118" rx="12" class="output"/><text x="1462.5" y="226.0" text-anchor="middle" class="label">Dropout + classifier</text><text x="1462.5" y="251.0" text-anchor="middle" class="small">[B, 5]</text><text x="1462.5" y="276.0" text-anchor="middle" class="shape">Linear 768 → 5 logits</text><rect x="310" y="380" width="430" height="75" rx="10" class="frozen-outline"/><text x="525" y="410" text-anchor="middle" class="label">Frozen backbone</text><text x="525" y="435" text-anchor="middle" class="small">No gradient updates to encoder weights</text><path d="M 525 353 V 378" fill="none" stroke="#528BBD" stroke-width="1.8"/><rect x="790" y="380" width="825" height="75" rx="10" class="trainable"/><text x="1202" y="410" text-anchor="middle" class="label">Trainable classification head</text><text x="1202" y="435" text-anchor="middle" class="small">Pre-classifier, ReLU, dropout and final linear classifier</text><path d="M 1202 353 V 378" fill="none" stroke="#E87524" stroke-width="1.8"/><text x="825" y="515" text-anchor="middle" class="count">Only the classification head is optimized</text><text x="825" y="550" text-anchor="middle" class="note">The frozen encoder still computes contextual representations during the forward pass.</text>
+</svg>

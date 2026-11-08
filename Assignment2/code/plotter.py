@@ -20,6 +20,21 @@ class Plotter:
     def __init__(self, output_dir=OUTPUT_PATH):
         self.output_dir = Path(output_dir)
 
+    @staticmethod
+    def _model_filename_prefix(model_name):
+        """Map display names to stable model filename prefixes."""
+        normalized = model_name.strip().lower()
+
+        if normalized == "distilbert (frozen backbone)":
+            return "distilbert (frozen backbone)"
+        if normalized in {"distilbert", "distilbert (full fine-tuning)"}:
+            return "distilbert"
+        if normalized == "bilstm":
+            return "bilstm"
+
+        # Fallback for future model names.
+        return normalized.replace("/", "_").replace("\\", "_")
+
     def _save(self, fig, subdir, filename, dpi=150):
         output_dir = self.output_dir / subdir
         output_dir.mkdir(parents=True, exist_ok=True)
@@ -53,7 +68,7 @@ class Plotter:
 
         fig.tight_layout()
         path = self._save(
-            fig, "learning_curves", f"{model_name.lower()}_learning_curves.png"
+            fig, "learning_curves", f"{self._model_filename_prefix(model_name)}_learning_curves.png"
         )
         print(f"Learning curves saved to: {path}")
 
@@ -108,7 +123,7 @@ class Plotter:
         ax.set_title(f"{model_name} confusion matrix")
         fig.tight_layout()
         path = self._save(
-            fig, "metrics", f"{model_name.lower()}_confusion_matrix.png"
+            fig, "metrics", f"{self._model_filename_prefix(model_name)}_confusion_matrix.png"
         )
         print(f"Confusion matrix saved to: {path}")
 
@@ -155,7 +170,7 @@ class Plotter:
         )
         fig.tight_layout(rect=(0, 0, 0.88, 1))
         path = self._save(
-            fig, "eda", f"{model_name.lower()}_dimensionality_reduction.png"
+            fig, "eda", f"{self._model_filename_prefix(model_name)}_dimensionality_reduction.png"
         )
         print(f"Dimensionality reduction plots saved to: {path}")
 
@@ -174,7 +189,7 @@ class Plotter:
         ax.set_title(f"{model_name} class similarity matrix (cosine)")
         fig.tight_layout()
         path = self._save(
-            fig, "eda", f"{model_name.lower()}_class_similarity_matrix.png"
+            fig, "eda", f"{self._model_filename_prefix(model_name)}_class_similarity_matrix.png"
         )
         print(f"Class similarity matrix saved to: {path}")
 
