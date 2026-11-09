@@ -34,7 +34,7 @@ The forward pass uses \texttt{pack\_padded\_sequence} to skip padding tokens dur
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.60\textwidth]{../../Assignment2/diagram-models/bilstm-model.png}
+    \includegraphics[width=0.9\textwidth]{../../Assignment2/diagram-models/bilstm-model.png}
     \caption{Architecture diagram of the BiLSTM classifier (EXP-1).}
     \label{fig:bilstm_arch}
 \end{figure}
@@ -73,17 +73,13 @@ In EXP-3, all 66,957,317 parameters (backbone + head) are trainable. The backbon
 
 \begin{figure}[H]
     \centering
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{../../Assignment2/diagram-models/distilbert-frozen-model.png}
-        \caption{DistilBERT with frozen backbone (EXP-2): only the classification head is trained.}
-        \label{fig:distilbert_frozen_arch}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{../../Assignment2/diagram-models/distilbert-full-model.png}
-        \caption{DistilBERT with full fine-tuning (EXP-3): all parameters are updated.}
-        \label{fig:distilbert_full_arch}
-    \end{minipage}
+    \includegraphics[width=0.8\textwidth]{../../Assignment2/diagram-models/distilbert-frozen-model.png}
+    \caption{DistilBERT with frozen backbone (EXP-2): only the classification head is trained.}
+    \label{fig:distilbert_frozen_arch}
+
+    \medskip
+
+    \includegraphics[width=0.8\textwidth]{../../Assignment2/diagram-models/distilbert-full-model.png}
+    \caption{DistilBERT with full fine-tuning (EXP-3): all parameters are updated.}
+    \label{fig:distilbert_full_arch}
 \end{figure}
