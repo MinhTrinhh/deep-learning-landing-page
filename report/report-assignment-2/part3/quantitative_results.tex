@@ -1,17 +1,84 @@
 \section{Quantitative Results}
 
-Report primary and secondary metrics, parameter counts, training and inference time, configurations, and mean $\pm$ standard deviation over multiple runs when feasible.
+\subsection{Predictive Performance on Test Set}
+
+Table~\ref{tab:main_results} presents the primary predictive metrics for all three experiments evaluated on the held-out test set (3,798 samples) using the best checkpoint selected on validation macro-F1.
 
 \begin{table}[H]
     \centering
-    \caption{Quantitative comparison.}
-    \label{tab:quantitative-results}
-    \begin{tabular}{@{}lrrrr@{}}
+    \caption{Test-set predictive performance for all three experiments. Best values in \textbf{bold}.}
+    \label{tab:main_results}
+    \begin{tabularx}{\textwidth}{l r r r r r r}
         \toprule
-        Method & Primary metric & Secondary metric & Parameters & Inference time \\
+        \textbf{Experiment} & \textbf{Test Loss} & \textbf{Accuracy} & \textbf{Macro-P} & \textbf{Macro-R} & \textbf{Macro-F1} & \textbf{Best Epoch} \\
         \midrule
-        Baseline & TODO & TODO & TODO & TODO \\
-        Main method & TODO & TODO & TODO & TODO \\
+        EXP-1 BiLSTM       & 0.8570 & 73.17\%        & 0.7677        & 0.7275        & 0.7421        & 7 / 10 \\
+        EXP-2 Frozen head  & 1.3791 & 38.94\%        & 0.4455        & 0.3700        & 0.3779        & 9 / 10 \\
+        EXP-3 Full fine-tune & \textbf{0.4941} & \textbf{85.33\%} & \textbf{0.8606} & \textbf{0.8559} & \textbf{0.8577} & 4 / 5 \\
         \bottomrule
-    \end{tabular}
+    \end{tabularx}
+\end{table}
+
+\subsection{Computational Cost}
+
+Table~\ref{tab:compute_results} reports the computational cost of each experiment, including training time, inference latency, estimated FLOPs per sample, parameter count, and model size on disk.
+
+\begin{table}[H]
+    \centering
+    \caption{Computational cost comparison across experiments.}
+    \label{tab:compute_results}
+    \begin{tabularx}{\textwidth}{l r r r r r}
+        \toprule
+        \textbf{Experiment} & \textbf{Train Time (s)} & \textbf{Infer. (ms/sample)} & \textbf{FLOPs/sample (B)} & \textbf{Params (M)} & \textbf{Size (MB)} \\
+        \midrule
+        EXP-1 BiLSTM        & \textbf{247.36} & \textbf{0.059} & \textbf{0.086} & \textbf{4.57}  & \textbf{17.4}  \\
+        EXP-2 Frozen head   & 561.29          & 1.249          & 8.333          & 66.96 (0.59 train) & 255.4 \\
+        EXP-3 Full fine-tune & 1,019.09        & 1.186          & 8.333          & 66.96          & 255.4 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\noindent FLOPs are estimated for a single forward pass with sequence length 128 and do not include backward pass computations. Inference latency is measured as the mean time per sample on the test set after model loading.
+
+\subsection{Per-Class F1 Scores}
+
+Table~\ref{tab:perclass_results} reports the per-class precision, recall, and F1 on the test set for all three experiments. Support (number of test samples per class) is also shown.
+
+\begin{table}[H]
+    \centering
+    \caption{Per-class precision, recall, and F1 on the test set. Support counts are from the official test file.}
+    \label{tab:perclass_results}
+    \begin{tabularx}{\textwidth}{l r | r r r | r r r | r r r}
+        \toprule
+        & & \multicolumn{3}{c|}{\textbf{EXP-1 BiLSTM}} & \multicolumn{3}{c|}{\textbf{EXP-2 Frozen}} & \multicolumn{3}{c}{\textbf{EXP-3 Full}} \\
+        \textbf{Class} & \textbf{Supp.} & P & R & F1 & P & R & F1 & P & R & F1 \\
+        \midrule
+        Ext.\ Negative  & 592  & 0.77 & 0.75 & 0.757 & 0.56 & 0.18 & 0.278 & 0.90 & 0.86 & 0.878 \\
+        Negative        & 1041 & 0.73 & 0.68 & 0.705 & 0.37 & 0.42 & 0.388 & 0.86 & 0.83 & 0.843 \\
+        Neutral         & 619  & 0.88 & 0.74 & 0.804 & 0.38 & 0.58 & 0.458 & 0.87 & 0.85 & 0.858 \\
+        Positive        & 947  & 0.72 & 0.68 & 0.699 & 0.38 & 0.44 & 0.402 & 0.84 & 0.82 & 0.832 \\
+        Ext.\ Positive  & 599  & 0.72 & 0.78 & 0.746 & 0.49 & 0.28 & 0.364 & 0.88 & 0.87 & 0.877 \\
+        \midrule
+        \textbf{Macro avg} & --- & 0.768 & 0.727 & 0.742 & 0.446 & 0.370 & 0.378 & 0.861 & 0.856 & 0.858 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\subsection{Validation vs.\ Test Macro-F1}
+
+Table~\ref{tab:val_vs_test} compares the best validation macro-F1 (used for checkpoint selection) against the final test macro-F1. For all models, the validation macro-F1 is higher than the test macro-F1, consistent with the temporal distribution shift described in Section~\ref{sec:eda} and checkpoint selection bias.
+
+\begin{table}[H]
+    \centering
+    \caption{Best validation macro-F1 vs.\ test macro-F1 for all three experiments.}
+    \label{tab:val_vs_test}
+    \begin{tabularx}{\textwidth}{l r r r}
+        \toprule
+        \textbf{Experiment} & \textbf{Best Val Macro-F1} & \textbf{Test Macro-F1} & \textbf{Gap} \\
+        \midrule
+        EXP-1 BiLSTM         & 0.7658 & 0.7421 & $-$0.0237 \\
+        EXP-2 Frozen head    & 0.4713 & 0.3779 & $-$0.0934 \\
+        EXP-3 Full fine-tune & 0.8794 & 0.8577 & $-$0.0217 \\
+        \bottomrule
+    \end{tabularx}
 \end{table}
