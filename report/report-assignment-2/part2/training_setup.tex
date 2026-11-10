@@ -27,11 +27,11 @@ Table~\ref{tab:training_hparams} reports the hyperparameters specific to each ex
         \toprule
         \textbf{Setting} & \textbf{EXP-1 (BiLSTM)} & \textbf{EXP-2 (Frozen)} & \textbf{EXP-3 (Full)} \\
         \midrule
-        Learning rate         & $1\times10^{-3}$ & $5\times10^{-3}$ & $2\times10^{-5}$ \\
+        Learning rate         & $1\times10^{-3}$ & $2\times10^{-5}$ & $2\times10^{-5}$ \\
         Weight decay          & 0.0              & 0.01             & 0.01             \\
         Train batch size      & 64               & 16               & 16               \\
         Eval batch size       & 128              & 32               & 32               \\
-        Max epochs            & 15               & 10               & 5                \\
+        Max epochs            & 15               & 5                & 5                \\
         LR scheduler          & Constant         & Linear warmup + decay & Linear warmup + decay \\
         Warmup ratio          & ---              & 10\%             & 10\%             \\
         \bottomrule

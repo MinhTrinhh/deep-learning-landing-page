@@ -28,13 +28,13 @@ The 46.39-point accuracy gap between EXP-2 and EXP-3 reveals that \textbf{backbo
 
 \begin{itemize}
     \item \textbf{Domain gap:} Wikipedia text is formal, long-form, and topically general; COVID-19 tweets are informal, short, and topically specific. Without backbone adaptation, the \texttt{[CLS]} representation likely captures general language features rather than task-relevant sentiment cues.
-    \item \textbf{Learning rate mismatch:} The learning rate used for EXP-2 ($5\times10^{-3}$) was designed for BiLSTM-scale parameters. A lower learning rate ($2\times10^{-5}$, as used in EXP-3) might be more appropriate for head-only fine-tuning of a small head on top of fixed features; this is explored further in the ablation study (Section~\ref{sec:ablation}).
+    \item \textbf{Small learning rate for a head-only model:} EXP-2 uses the same learning rate as EXP-3 ($2\times10^{-5}$), which is chosen for adapting a pretrained backbone. For a randomly initialised head trained on fixed features, this rate may be too small for the head to converge within the epoch budget; this is explored further in the ablation study (Section~\ref{sec:ablation}).
     \item \textbf{Head capacity:} The two-layer 768$\to$768$\to$5 head has sufficient capacity; the bottleneck is the quality of the frozen features, not the head size.
 \end{itemize}
 
 \subsection{Validation vs.\ Test Gap and Temporal Shift}
 
-All three models show a systematic positive gap between best validation macro-F1 and test macro-F1 (Table~\ref{tab:val_vs_test}). This gap is smallest for EXP-3 (0.0217) and largest for EXP-2 (0.0934). Two factors contribute:
+All three models show a systematic positive gap between best validation macro-F1 and test macro-F1 (Table~\ref{tab:val_vs_test}). This gap is smallest for EXP-2 (0.0114) and largest for EXP-1 (0.0237), with EXP-3 at 0.0217. Two factors contribute:
 
 \begin{enumerate}
     \item \textbf{Checkpoint selection bias:} The best checkpoint is chosen by validation macro-F1; the test score is not directly optimised, so it is expected to be slightly lower.

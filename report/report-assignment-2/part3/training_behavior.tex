@@ -20,12 +20,12 @@ Training ran for 10 epochs before early stopping triggered (patience 3; best epo
 
 \subsection{EXP-2: DistilBERT Frozen Backbone}
 
-Training ran for 10 epochs (the full budget; early stopping did not trigger because the model continued to improve, albeit slowly). Key observations:
+Training ran for all 5 epochs (the full budget; early stopping did not trigger because the best checkpoint was the final epoch). Key observations:
 
 \begin{itemize}
-    \item \textbf{Validation macro-F1} improved gradually from 0.2996 (epoch 1) to \textbf{0.4713} (epoch 9, the best checkpoint), indicating that the head did learn from the frozen representations.
-    \item However, performance plateaued far below the other experiments. The learning rate used ($5\times10^{-3}$) was designed for BiLSTM-scale training; a small learning rate ($2\times10^{-5}$) calibrated specifically for head-only training might have yielded better convergence.
-    \item The model never converged to a competitive solution: at the best checkpoint, test accuracy was only 38.94\% — substantially below random chance for a uniform 5-class distribution (20\%) but well below the BiLSTM.
+    \item \textbf{Validation macro-F1} improved gradually to \textbf{0.3893} (epoch 5, the best checkpoint), indicating that the head did learn from the frozen representations.
+    \item However, performance plateaued far below the other experiments. The learning rate used ($2\times10^{-5}$) is shared with EXP-3 and chosen for fine-tuning a pretrained backbone; a learning rate calibrated specifically for head-only training might have yielded better convergence.
+    \item The model never converged to a competitive solution: at the best checkpoint, test accuracy was only 38.94\% — only about 19 points above the 20\% chance level of a uniform 5-class distribution, and well below the BiLSTM.
     \item \textbf{Implication:} The frozen representations from DistilBERT (pretrained on Wikipedia/BookCorpus) do not transfer directly to COVID-19 Twitter sentiment without backbone adaptation.
 \end{itemize}
 
