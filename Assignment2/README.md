@@ -59,19 +59,19 @@ python EDA.py
 Train the Baseline model:
 
 ```bash
-python main.py --base
+python code/main.py --base
 ```
 
 Fine-tune the Pretrained model:
 
 ```bash
-python main.py --pretrained
+python code/main.py --pretrained
 ```
 
 Fine-tune the Pretrained model while freezing the backbone for ablation:
 
 ```bash
-python main.py --pretrained --freeze
+python code/main.py --pretrained --freeze
 ```
 
 ## Evaluation Commands
@@ -81,14 +81,14 @@ For training, evaluation is automatic after every training command. The trainer 
 For standalone evaluation, use the `--eval` tag after the model name, for example:
 
 ```bash
-python main.py --pretrained --freeze --eval
+python code/main.py --pretrained --eval
 ```
 
 This loads the best checkpoint of the corresponding model and performs evaluation alongside plotting of the results.
 
 ## Obtaining Checkpoints
 
-The checkpoints to the models found in this analysis can be found at [Google Drive](https://drive.google.com/file/d/1GI2IqyZVp4N50KK5OW9tIyaeJ6nqiXA4/view?usp=sharing), download and extract it in `Assignment2` so that the final destination is `Assignment2/checkpoints` 
+The checkpoints to the models found in this analysis can be found at [Google Drive](https://drive.google.com/file/d/1HIwmfVmxGnuoOsVf7wNrxPjkYVyFS6e0/view?usp=sharing), download and extract it in `Assignment2` so that the final destination is `Assignment2/checkpoints` 
 
 ## Qualitative evaluation Commands
 
@@ -96,11 +96,11 @@ Generate the qualitative comparison used in the report after all
 checkpoints are available:
 
 ```bash
-python main.py --pretrained --infer
+python code/main.py --pretrained --infer
 ```
 
 OR:
 
 ```bash
-python main.py --base --infer
+python code/main.py --base --infer
 ```
