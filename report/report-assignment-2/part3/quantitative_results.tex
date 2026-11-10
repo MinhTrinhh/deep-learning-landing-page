@@ -27,12 +27,14 @@ Table~\ref{tab:compute_results} reports the computational cost of each experimen
     \centering
     \caption{Computational cost comparison across experiments.}
     \label{tab:compute_results}
-    \begin{tabularx}{\textwidth}{l r r r r r}
+    \small
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabularx}{\textwidth}{l *{5}{>{\raggedleft\arraybackslash}X}}
         \toprule
-        \textbf{Experiment} & \textbf{Train Time (s)} & \textbf{Infer. (ms/sample)} & \textbf{FLOPs/sample (B)} & \textbf{Params (M)} & \textbf{Size (MB)} \\
+        \textbf{Experiment} & \textbf{Train Time (s)} & \textbf{Infer. (ms/sample)} & \textbf{FLOPs/ sample (B)} & \textbf{Params (M)} & \textbf{Size (MB)} \\
         \midrule
         EXP-1 BiLSTM        & \textbf{247.36} & \textbf{0.059} & \textbf{0.086} & \textbf{4.57}  & \textbf{17.4}  \\
-        EXP-2 Frozen head   & 331.45          & 1.183          & 8.333          & 66.96 (0.59 train) & 255.4 \\
+        EXP-2 Frozen head   & 331.45          & 1.183          & 8.333          & 66.96 (0.59 trainable) & 255.4 \\
         EXP-3 Full fine-tune & 1,019.09        & 1.186          & 8.333          & 66.96          & 255.4 \\
         \bottomrule
     \end{tabularx}
