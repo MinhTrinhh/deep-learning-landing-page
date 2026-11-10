@@ -17,29 +17,29 @@ This design directly measures the contribution of backbone adaptation to downstr
         \toprule
         \textbf{Setting} & \textbf{Trainable Params} & \textbf{Train Time (s)} & \textbf{Test Acc.} & \textbf{Macro-F1} \\
         \midrule
-        EXP-2: Frozen backbone (head only) & 594,437   & 561.29   & 38.94\% & 0.3779 \\
+        EXP-2: Frozen backbone (head only) & 594,437   & 331.45   & 38.94\% & 0.3779 \\
         EXP-3: Full fine-tune              & 66,957,317 & 1,019.09 & 85.33\% & 0.8577 \\
         \midrule
-        \textbf{Difference (EXP-3 $-$ EXP-2)} & +66.4M & +457.80 & \textbf{+46.39 pts} & \textbf{+0.4798} \\
+        \textbf{Difference (EXP-3 $-$ EXP-2)} & +66.4M & +687.64 & \textbf{+46.39 pts} & \textbf{+0.4798} \\
         \bottomrule
     \end{tabularx}
 \end{table}
 
-The ablation reveals a dramatic 46.39-point accuracy gain from unfreezing the backbone. Full fine-tuning takes 1.82$\times$ longer to train but yields a 2.27$\times$ higher macro-F1.
+The ablation reveals a dramatic 46.39-point accuracy gain from unfreezing the backbone. Full fine-tuning takes 3.07$\times$ longer to train but yields a 2.27$\times$ higher macro-F1.
 
 \subsection{Efficiency Gains from Frozen Training}
 
 Despite its lower accuracy, the frozen-backbone configuration offers two practical advantages:
 \begin{itemize}
-    \item \textbf{Training speed:} 331 seconds faster (561 vs.\ 1,019 seconds) due to no gradient computation through the large backbone.
+    \item \textbf{Training speed:} 688 seconds faster (331 vs.\ 1,019 seconds) due to no gradient computation through the large backbone.
     \item \textbf{GPU memory:} Significantly lower memory footprint during training, as no gradient tensors are stored for the 66.4M frozen parameters. This enables larger batch sizes or running on GPUs with limited VRAM.
 \end{itemize}
 
-\subsection{Caveat: Confounded Learning Rate}
+\subsection{Caveat: Shared Learning Rate}
 
-The frozen-backbone experiment (EXP-2) used a learning rate of $5\times10^{-3}$, which was chosen for BiLSTM-scale training. In the full fine-tune setting (EXP-3), a much smaller learning rate of $2\times10^{-5}$ was used, appropriate for adapting a large pretrained model.
+EXP-2 and EXP-3 use the same learning rate of $2\times10^{-5}$, which keeps the frozen-vs.-full comparison controlled: the only intended difference is whether the backbone is trainable. However, this rate is appropriate for adapting a large pretrained model, not necessarily for a randomly initialised head on top of fixed features.
 
-For head-only training, the optimal learning rate is typically an order of magnitude larger than for full fine-tuning (since the backbone gradient signal does not need to be preserved), but the specific value of $5\times10^{-3}$ may still have been suboptimal. A systematic sweep over learning rates for EXP-2 (e.g.\ $\{1\times10^{-4},\,5\times10^{-4},\,1\times10^{-3}\}$) might yield meaningfully better frozen-backbone performance. As such, the EXP-2 vs.\ EXP-3 comparison is not a perfectly fair head-to-head ablation of ``frozen vs.\ full'' — it is confounded by the learning rate choice.
+For head-only training, the optimal learning rate is typically larger than for full fine-tuning (since the backbone gradient signal does not need to be preserved), so $2\times10^{-5}$ may be too small for the head to converge within the epoch budget. A systematic sweep over learning rates for EXP-2 (e.g.\ $\{1\times10^{-4},\,5\times10^{-4},\,1\times10^{-3}\}$) might yield meaningfully better frozen-backbone performance. As such, the EXP-2 result should be read as a frozen backbone under the same budget as EXP-3, not as the best a frozen backbone can achieve.
 
 \subsection{EXP-1 is Not a Single-Factor Ablation}
 
