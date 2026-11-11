@@ -53,8 +53,15 @@
     captionpos=b,
     upquote=true
 }
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[utf8]{inputenc}
+  \usepackage[T5]{fontenc} % T5 encoding provides Vietnamese precomposed glyphs
+\else
+  \usepackage{fontspec} % XeLaTeX / LuaLaTeX: native Unicode
+  \setmainfont{Latin Modern Roman}
+  \setmonofont{Latin Modern Mono}
+\fi
 \usepackage{CJKutf8}
 \usepackage[english,vietnamese]{babel}
 \usepackage{tocloft}
