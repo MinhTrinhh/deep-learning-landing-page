@@ -1,0 +1,36 @@
+Epoch 01/2 | train loss 1.4166 | train acc 0.3630 | val loss 1.3370 | val acc 0.4196 | val macro-F1 0.3920 | 93.5s
+Writing model shards: 100%|█████████████████████████████████████████| 1/1 [00:00<00:00,  4.50it/s]
+  Saved best checkpoint: checkpoints\distilbert_best
+Epoch 02/2 | train loss 1.3248 | train acc 0.4146 | val loss 1.2665 | val acc 0.4504 | val macro-F1 0.4560 | 93.6s
+Writing model shards: 100%|█████████████████████████████████████████| 1/1 [00:00<00:00,  4.42it/s]
+  Saved best checkpoint: checkpoints\distilbert_best
+Loading weights: 100%|█████████████████████████████████████████| 104/104 [00:00<00:00, 799.67it/s]
+
+========== FINAL TEST RESULTS ==========
+Model: pretrained
+Best epoch: 2
+Best validation macro-F1: 0.4560
+Test loss: 1.2969
+Test accuracy: 0.4363
+Test macro-F1: 0.4451
+Total training time: 187.2s
+
+Per-class classification report:
+                    precision    recall  f1-score   support
+
+Extremely Negative     0.5394    0.4274    0.4769       592
+          Negative     0.4078    0.4015    0.4046      1041
+           Neutral     0.5573    0.4556    0.5013       619
+          Positive     0.3463    0.5364    0.4209       947
+Extremely Positive     0.5921    0.3272    0.4215       599
+
+          accuracy                         0.4363      3798
+         macro avg     0.4886    0.4296    0.4451      3798
+      weighted avg     0.4664    0.4363    0.4384      3798
+
+Confusion matrix (rows=true, columns=predicted):
+[[253 219  13  98   9]
+ [126 418 102 358  37]
+ [ 13 124 282 191   9]
+ [ 51 207 101 508  80]
+ [ 26  57   8 312 196]]

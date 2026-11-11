@@ -1,5 +1,35 @@
 \section{Limitations and Conclusion}
 
-Discuss data, method, and experimental limits; expected generalization; future work; and a short answer to the research question.
+\subsection{Limitations}
 
-\textbf{Conclusion.} Summarize the evidence-based answer and avoid claims that are not supported by the experiments.
+\begin{enumerate}
+    \item \textbf{Single random seed.} All experiments were conducted with a single seed (42). Variability due to random weight initialisation, data shuffling, and dropout is not quantified. Reporting mean and standard deviation across 3--5 seeds would yield more reliable conclusions.
+
+    \item \textbf{Untuned frozen-backbone experiment.} The EXP-2 (frozen) configuration reused the fine-tuning learning rate of EXP-3 ($2\times10^{-5}$), which is likely too small for a head trained from random initialisation. A properly tuned frozen-backbone run (with a grid search over learning rate and number of epochs) might close a significant portion of the gap with EXP-3, making the ``frozen vs.\ full'' comparison more informative.
+
+    \item \textbf{Temporal distribution shift in test.} The official test split predates the training split by approximately two weeks, which is atypical and reduces the ecological validity of the evaluation. All reported test metrics are therefore lower bounds on what would be achievable in a standard (future-data-test) evaluation setting.
+
+    \item \textbf{Label ambiguity and annotation noise.} Fine-grained 5-class sentiment on short informal text is inherently subjective. The dataset likely contains annotation disagreements between adjacent classes (\textit{Negative}/\textit{Extremely Negative}; \textit{Positive}/\textit{Extremely Positive}), creating a noise floor that no model can overcome without inter-annotator agreement information.
+
+    \item \textbf{FLOPs are lower bounds.} The reported FLOPs estimates are based on the dominant linear and attention operations and do not include layer normalisation, non-linearities, or auxiliary computations. They should be treated as relative rather than absolute measures.
+
+    \item \textbf{No cross-dataset evaluation.} All experiments are evaluated on a single dataset. Generalisation to other COVID-19 sentiment datasets (e.g.\ SemEval-2017 Task 4, TweetEval) is unknown.
+\end{enumerate}
+
+\subsection{Conclusion}
+
+This assignment compared three approaches to 5-class sentiment classification on COVID-19 tweets: a BiLSTM trained from scratch (EXP-1), a frozen DistilBERT with a trainable head (EXP-2), and a fully fine-tuned DistilBERT (EXP-3).
+
+The main findings are:
+
+\begin{itemize}
+    \item \textbf{Full fine-tuning (EXP-3) is the best model overall:} 85.33\% accuracy and 0.8577 macro-F1 on the test set, outperforming both alternatives by substantial margins. It converges in 5 epochs and achieves nearly the BiLSTM's best performance within the first epoch, demonstrating the power of pretrained language representations for domain-specific NLP tasks.
+
+    \item \textbf{The BiLSTM (EXP-1) is a strong and efficient baseline:} At 73.17\% accuracy and 0.7421 macro-F1 with only 4.6M parameters and 17 MB of storage, it offers an attractive accuracy-efficiency trade-off for resource-constrained deployments. Its 0.059 ms/sample inference latency is 20$\times$ faster than DistilBERT.
+
+    \item \textbf{Frozen backbone (EXP-2) requires careful tuning to be competitive:} In its current form (with a learning rate not tuned for the head), EXP-2 is the worst model by a large margin (38.94\%). However, this result primarily reflects the untuned hyperparameters rather than an inherent limitation of the frozen-backbone paradigm. With a properly tuned learning rate, frozen-backbone transfer learning could occupy a useful middle ground between EXP-1 and EXP-3.
+
+    \item \textbf{Updating the backbone is essential for domain adaptation:} The pretrained DistilBERT representations, while powerful for general English text, do not transfer directly to COVID-19 Twitter sentiment without task-specific backbone adaptation. This confirms that the domain gap between formal text (Wikipedia) and informal social media (COVID tweets) is substantial enough to require fine-tuning rather than feature extraction.
+\end{itemize}
+
+In summary, full fine-tuning of a pretrained Transformer remains the recommended approach when both accuracy and training budget permit. When deployment constraints dictate a lightweight model, a well-regularised BiLSTM provides a surprisingly competitive alternative at a fraction of the cost.

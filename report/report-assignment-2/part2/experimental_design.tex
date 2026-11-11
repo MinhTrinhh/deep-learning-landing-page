@@ -1,17 +1,57 @@
 \section{Experimental Design}
 
-For each experiment, state the hypothesis, changed factor, fixed factors, metrics, and conclusion criteria.
+\subsection{Motivation}
+
+The three experiments are designed as a \textbf{controlled progressive comparison}: each step changes exactly one factor while holding all others constant. This isolates the contribution of each design choice to overall performance.
+
+\subsection{Experiment Descriptions}
+
+\begin{itemize}
+    \item \textbf{EXP-1 (BiLSTM):} Establishes the baseline for a lightweight recurrent model trained entirely from scratch. It uses no pretrained representations, requires only 4.6M parameters, and trains in under 5 minutes. It serves as the \textit{no-pretrained-knowledge} reference point.
+
+    \item \textbf{EXP-2 (DistilBERT frozen):} Uses the DistilBERT backbone as a fixed feature extractor. All backbone weights are frozen; only the 594K-parameter classification head is updated. This isolates the question: \textit{``Are the pretrained contextual representations alone sufficient for tweet sentiment, without any task-specific adaptation?''}
+
+    \item \textbf{EXP-3 (DistilBERT full fine-tune):} All 67M parameters are updated. The only difference from EXP-2 is the unfreezing of the backbone. This isolates the question: \textit{``How much does adapting the backbone to the downstream task improve over frozen representations?''}
+\end{itemize}
+
+\subsection{Controlled Comparison Table}
 
 \begin{table}[H]
     \centering
-    \caption{Experimental design.}
-    \label{tab:experimental-design}
-    \begin{tabularx}{\textwidth}{@{}lXXXX@{}}
+    \caption{Experimental design: hypothesis, changed factor, and fixed factors for each experiment.}
+    \label{tab:exp_design}
+    \begin{tabularx}{\textwidth}{l X X X}
         \toprule
-        Experiment & Hypothesis & Changed factor & Fixed factors & Conclusion criteria \\
+        \textbf{Experiment} & \textbf{Hypothesis} & \textbf{Changed factor vs.\ prior} & \textbf{Fixed factors} \\
         \midrule
-        EXP-01 & TODO & TODO & TODO & TODO \\
-        EXP-02 & TODO & TODO & TODO & TODO \\
+        EXP-1 (BiLSTM)
+            & A recurrent model from scratch provides a competitive baseline for tweet sentiment.
+            & Architecture: BiLSTM (no pretrained weights)
+            & Tokenizer, splits, seed, optimizer, loss, metrics \\
+        \addlinespace
+        EXP-2 (Frozen)
+            & Pretrained contextual features from DistilBERT generalise to tweet sentiment without backbone adaptation.
+            & Trainable scope: head only (66.4M params frozen)
+            & Architecture (DistilBERT + same head), all data/eval settings \\
+        \addlinespace
+        EXP-3 (Full)
+            & Full fine-tuning of all backbone parameters significantly boosts accuracy over frozen-backbone transfer.
+            & Trainable scope: all parameters unfrozen
+            & Architecture (identical to EXP-2), all data/eval settings \\
         \bottomrule
     \end{tabularx}
 \end{table}
+
+\subsection{Evaluation Metrics}
+
+Each experiment is evaluated on the held-out test set using the following metrics:
+
+\begin{itemize}
+    \item \textbf{Accuracy} — fraction of correctly predicted samples.
+    \item \textbf{Macro-Precision, Macro-Recall, Macro-F1} — arithmetic mean of per-class precision, recall, and F1, giving equal weight to each class regardless of support. \textbf{Macro-F1 is the primary metric} for model selection and ranking.
+    \item \textbf{Per-class F1} — F1 score for each of the five sentiment classes, to identify class-specific strengths and weaknesses.
+    \item \textbf{Confusion matrix} — full 5×5 matrix of true vs.\ predicted labels.
+    \item \textbf{Learning curves} — training and validation loss/accuracy per epoch.
+    \item \textbf{Dimensionality reduction} — PCA, t-SNE, and UMAP projections of the penultimate layer representations.
+    \item \textbf{Computational cost} — total training time (seconds), inference latency (ms/sample), estimated FLOPs per sample, number of trainable parameters, and model size on disk (MB).
+\end{itemize}

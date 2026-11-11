@@ -1,17 +1,46 @@
 \section{Ablation Study}
+\label{sec:ablation}
 
-An ablation is mandatory for Assignments 2 and 3, and recommended for Assignment 1 when comparing representations or regularizers. Describe the removed or changed component and interpret the resulting performance difference.
+\subsection{Overview}
+
+The primary controlled ablation in this assignment is the comparison between \textbf{EXP-2 (frozen backbone)} and \textbf{EXP-3 (full fine-tune)}. These two experiments share identical architectures, datasets, splits, batch sizes, optimizer type, and loss function. The \textbf{only changed factor} is the set of trainable parameters: in EXP-2, only the 594,437-parameter classification head is updated; in EXP-3, all 66,957,317 parameters are updated.
+
+This design directly measures the contribution of backbone adaptation to downstream sentiment accuracy.
+
+\subsection{Results: Frozen vs.\ Full Fine-Tuning}
 
 \begin{table}[H]
     \centering
-    \caption{Ablation study results.}
-    \label{tab:ablation}
-    \begin{tabular}{@{}lrrr@{}}
+    \caption{Ablation: effect of freezing vs.\ training the DistilBERT backbone.}
+    \label{tab:ablation_frozen}
+    \begin{tabularx}{\textwidth}{l r r r r r r}
         \toprule
-        Configuration & Primary metric & Secondary metric & Parameters \\
+        \textbf{Setting} & \textbf{Trainable Params} & \textbf{Train Time (s)} & \textbf{Test Acc.} & \textbf{Macro-F1} \\
         \midrule
-        Full model & TODO & TODO & TODO \\
-        Without component X & TODO & TODO & TODO \\
+        EXP-2: Frozen backbone (head only) & 594,437   & 331.45   & 38.94\% & 0.3779 \\
+        EXP-3: Full fine-tune              & 66,957,317 & 1,019.09 & 85.33\% & 0.8577 \\
+        \midrule
+        \textbf{Difference (EXP-3 $-$ EXP-2)} & +66.4M & +687.64 & \textbf{+46.39 pts} & \textbf{+0.4798} \\
         \bottomrule
-    \end{tabular}
+    \end{tabularx}
 \end{table}
+
+The ablation reveals a dramatic 46.39-point accuracy gain from unfreezing the backbone. Full fine-tuning takes 3.07$\times$ longer to train but yields a 2.27$\times$ higher macro-F1.
+
+\subsection{Efficiency Gains from Frozen Training}
+
+Despite its lower accuracy, the frozen-backbone configuration offers two practical advantages:
+\begin{itemize}
+    \item \textbf{Training speed:} 688 seconds faster (331 vs.\ 1,019 seconds) due to no gradient computation through the large backbone.
+    \item \textbf{GPU memory:} Significantly lower memory footprint during training, as no gradient tensors are stored for the 66.4M frozen parameters. This enables larger batch sizes or running on GPUs with limited VRAM.
+\end{itemize}
+
+\subsection{Caveat: Shared Learning Rate}
+
+EXP-2 and EXP-3 use the same learning rate of $2\times10^{-5}$, which keeps the frozen-vs.-full comparison controlled: the only intended difference is whether the backbone is trainable. However, this rate is appropriate for adapting a large pretrained model, not necessarily for a randomly initialised head on top of fixed features.
+
+For head-only training, the optimal learning rate is typically larger than for full fine-tuning (since the backbone gradient signal does not need to be preserved), so $2\times10^{-5}$ may be too small for the head to converge within the epoch budget. A systematic sweep over learning rates for EXP-2 (e.g.\ $\{1\times10^{-4},\,5\times10^{-4},\,1\times10^{-3}\}$) might yield meaningfully better frozen-backbone performance. As such, the EXP-2 result should be read as a frozen backbone under the same budget as EXP-3, not as the best a frozen backbone can achieve.
+
+\subsection{EXP-1 is Not a Single-Factor Ablation}
+
+We note that the EXP-1 BiLSTM cannot be treated as a clean single-factor ablation relative to EXP-2/3: it differs in architecture (recurrent vs.\ Transformer), pretraining (none vs.\ pretrained), learning rate, weight decay, batch size, and max epochs. Its role is to establish a practical baseline rather than to isolate a single variable.

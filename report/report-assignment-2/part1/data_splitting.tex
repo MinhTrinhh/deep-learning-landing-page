@@ -1,18 +1,46 @@
 \section{Data Splitting}
 
-Describe the train, validation, and test partitions. State whether the split is official or custom, the random seed, stratification strategy, split unit, leakage prevention, and any subset selection rules.
+\subsection{Split Strategy}
+
+The Corona NLP dataset provides a fixed official test file (\path{Corona_NLP_test.csv}, 3,798 samples) that is kept completely held-out and evaluated only once at the end of training. The official training file (41,157 samples) is further partitioned into a training subset and a validation subset.
+
+We apply a \textbf{stratified random split} with a 90/10 ratio and a fixed random seed of 42, yielding:
+
+\begin{equation}
+    \underbrace{41{,}157}_{\text{official train}} \;\longrightarrow\;
+    \underbrace{37{,}041}_{\text{train}} \;+\; \underbrace{4{,}116}_{\text{val}}
+\end{equation}
+
+Stratification ensures that the class distribution in the validation set mirrors that of the full training file, preventing any class from being under- or over-represented in the validation fold. Table~\ref{tab:split_summary} summarises the resulting split sizes.
 
 \begin{table}[H]
     \centering
-    \caption{Data split configuration.}
-    \label{tab:data-split}
-    \begin{tabular}{@{}lrrl@{}}
+    \caption{Summary of dataset splits used in all experiments.}
+    \label{tab:split_summary}
+    \begin{tabularx}{\textwidth}{l r r l}
         \toprule
-        Split & Samples & Percentage & Selection rule \\
+        \textbf{Split} & \textbf{Samples} & \textbf{Share (\%)} & \textbf{Purpose} \\
         \midrule
-        Train & TODO & TODO & TODO \\
-        Validation & TODO & TODO & TODO \\
-        Test & TODO & TODO & TODO \\
+        Train      & 37,041 & 90.0 & Model parameter optimisation \\
+        Validation & 4,116  & 10.0 & Checkpoint selection, early stopping \\
+        Test        & 3,798  & ---  & Final one-time evaluation \\
+        \midrule
+        \textbf{Total (w/o test)} & \textbf{41,157} & \textbf{100.0} & \\
         \bottomrule
-    \end{tabular}
+    \end{tabularx}
 \end{table}
+
+\subsection{Data Leakage Prevention}
+
+The following measures are taken to prevent leakage between splits:
+
+\begin{itemize}
+    \item \textbf{Tokenizer is pretrained.} The DistilBERT tokenizer vocabulary is fully specified before any data is seen; there is no vocabulary fitting step that could leak validation or test token statistics into training.
+    \item \textbf{Split before any data-dependent processing.} The train/val partition is performed first; all subsequent statistics (batch-level padding lengths, class counts for logging) are computed only on the training subset.
+    \item \textbf{Validation is used only for checkpoint selection.} Validation macro-F1 is used to select the best model checkpoint and to trigger early stopping; no hyperparameter search loops over the validation set.
+    \item \textbf{Test is evaluated exactly once.} The official test file is loaded only after training concludes and the best checkpoint is selected. No decisions are made based on test-set performance.
+\end{itemize}
+
+\subsection{Reproducibility}
+
+All randomness is controlled by a single global seed (42), which is set for \texttt{random}, \texttt{numpy}, \texttt{torch}, and \texttt{torch.cuda} at the start of every run. The \texttt{sklearn.model\_selection.train\_test\_split} function with \texttt{stratify=labels} and \texttt{random\_state=42} produces identical splits across runs and machines.

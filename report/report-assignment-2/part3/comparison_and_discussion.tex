@@ -1,5 +1,50 @@
 \section{Comparison and Discussion}
 
-Explain which method is better and by how much; where differences appear; causes related to data, architecture, loss, or training; accuracy--speed--parameter trade-offs; whether hypotheses are supported; and which conclusions cannot yet be drawn.
+\subsection{Overall Ranking}
 
-A list of metrics alone is insufficient: connect observed differences to the experimental design and evidence.
+The three experiments rank as follows on the primary metric (test macro-F1):
+
+\begin{center}
+    \textbf{EXP-3 Full fine-tune} (0.8577) $\;\gg\;$ \textbf{EXP-1 BiLSTM} (0.7421) $\;\gg\;$ \textbf{EXP-2 Frozen} (0.3779)
+\end{center}
+
+EXP-3 is the clear winner across all metrics: accuracy (+12.16 pts over EXP-1, +46.39 pts over EXP-2), macro-F1, and per-class F1 on every class. EXP-2 performs dramatically worse than even the scratch-trained BiLSTM — an unexpected outcome that warrants careful interpretation.
+
+\subsection{EXP-3 vs.\ EXP-1: Value of Pretrained Representations}
+
+The 12.16-point accuracy gain and 11.56-point macro-F1 gain of EXP-3 over EXP-1 demonstrate the value of pretrained Transformer representations for tweet sentiment:
+
+\begin{itemize}
+    \item \textbf{Faster convergence:} EXP-3 achieved nearly the BiLSTM's best performance (0.7654 vs.\ 0.7658 val macro-F1) in a single epoch, compared to 7 epochs for EXP-1. The pretrained backbone provides a strong initialisation that removes the need to learn generic language structure from scratch.
+    \item \textbf{Better generalisation:} EXP-3's train--val gap is 5.4 pts vs.\ 14.7 pts for EXP-1, indicating that the pretrained backbone, combined with the small learning rate, acts as a strong regulariser.
+    \item \textbf{Per-class gains:} The gains are consistent across all five classes (3--17 F1 points per class), with the largest gains on the boundary classes \textit{Extremely Negative} (+12.1 pts) and \textit{Extremely Positive} (+13.1 pts), where precise intensity discrimination benefits most from richer contextual representations.
+\end{itemize}
+
+\textbf{Inductive bias discussion:} The BiLSTM processes tokens sequentially and captures local n-gram context through its recurrent state. DistilBERT uses global self-attention over all token pairs simultaneously, capturing long-range dependencies and leveraging subword tokenisation. For tweet sentiment — where sentiment-bearing phrases may appear anywhere in the text and intensity often depends on global context (e.g.\ negation, discourse structure) — global attention is a better inductive bias.
+
+\subsection{EXP-2 vs.\ EXP-3: The Cost of Freezing the Backbone}
+
+The 46.39-point accuracy gap between EXP-2 and EXP-3 reveals that \textbf{backbone adaptation is essential} for this task. The frozen DistilBERT representations (pretrained on Wikipedia and BookCorpus) do not transfer directly to COVID-19 tweets without fine-tuning:
+
+\begin{itemize}
+    \item \textbf{Domain gap:} Wikipedia text is formal, long-form, and topically general; COVID-19 tweets are informal, short, and topically specific. Without backbone adaptation, the \texttt{[CLS]} representation likely captures general language features rather than task-relevant sentiment cues.
+    \item \textbf{Small learning rate for a head-only model:} EXP-2 uses the same learning rate as EXP-3 ($2\times10^{-5}$), which is chosen for adapting a pretrained backbone. For a randomly initialised head trained on fixed features, this rate may be too small for the head to converge within the epoch budget; this is explored further in the ablation study (Section~\ref{sec:ablation}).
+    \item \textbf{Head capacity:} The two-layer 768$\to$768$\to$5 head has sufficient capacity; the bottleneck is the quality of the frozen features, not the head size.
+\end{itemize}
+
+\subsection{Validation vs.\ Test Gap and Temporal Shift}
+
+All three models show a systematic positive gap between best validation macro-F1 and test macro-F1 (Table~\ref{tab:val_vs_test}). This gap is smallest for EXP-2 (0.0114) and largest for EXP-1 (0.0237), with EXP-3 at 0.0217. Two factors contribute:
+
+\begin{enumerate}
+    \item \textbf{Checkpoint selection bias:} The best checkpoint is chosen by validation macro-F1; the test score is not directly optimised, so it is expected to be slightly lower.
+    \item \textbf{Temporal distribution shift:} The test split (March 2--16) predates the training split (March 16--April 14). Early-pandemic discourse had a different emotional character from later discourse; models trained on the latter generalise imperfectly to the former.
+\end{enumerate}
+
+\subsection{Efficiency Trade-offs}
+
+\begin{itemize}
+    \item \textbf{EXP-1 BiLSTM} is the most efficient model: 17.4 MB, 0.059 ms/sample inference, 4.6M parameters, and trained in 247 seconds. Its accuracy (73.17\%) is respectable for a task of this difficulty. If deployment constraints require a small, fast model, the BiLSTM is a strong choice.
+    \item \textbf{EXP-3 DistilBERT} requires 14.7$\times$ more inference time (1.186 ms/sample), 97$\times$ more FLOPs, 14.7$\times$ more storage, and 4.1$\times$ longer training. The 12.16-point accuracy gain justifies this cost for quality-critical applications.
+    \item \textbf{EXP-2} offers none of the accuracy benefits of EXP-3 and pays the same inference and storage costs. It is not recommended in its current form.
+\end{itemize}

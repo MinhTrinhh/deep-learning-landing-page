@@ -1,28 +1,61 @@
 \section{Preprocessing}
 
-Describe cleaning, resizing, normalization, tokenization, padding, augmentation, invalid annotation handling, and the input tensor shape(s).
+\subsection{Tokenizer}
+
+All three experiments share \textbf{a single tokenizer}: \texttt{distilbert/distilbert-base-uncased} from the HuggingFace Hub. This is a lowercased WordPiece tokenizer with a vocabulary of $|\mathcal{V}| = 30{,}522$ tokens. Using a shared tokenizer across all models ensures that input representations are identical and that any performance differences are attributable solely to the model architecture, not to tokenisation choices.
+
+\subsection{Text Cleaning Policy}
+
+We deliberately \textbf{do not apply any text cleaning} (no URL removal, no mention stripping, no lowercasing beyond the tokenizer's built-in lowercasing, no emoji removal, no stopword filtering). The rationale is threefold:
+
+\begin{enumerate}
+    \item Pretrained language models such as DistilBERT were trained on similarly noisy web text; aggressive cleaning may discard cues the model has learned to use.
+    \item Hashtags (\texttt{\#StayHome}), mentions (\texttt{@WHO}), and emoji often carry strong sentiment signals in tweets.
+    \item Maintaining a minimal preprocessing pipeline improves reproducibility and reduces the risk of unintentional information loss.
+\end{enumerate}
+
+Raw \texttt{OriginalTweet} strings are passed directly to the tokenizer.
+
+\subsection{Tokenisation and Encoding}
+
+The tokenizer applies the following steps:
+\begin{enumerate}
+    \item \textbf{Lowercasing} (built in to \texttt{distilbert-base-uncased}).
+    \item \textbf{WordPiece tokenisation} of the cleaned string.
+    \item \textbf{Truncation} to a maximum of 128 tokens (including the \texttt{[CLS]} and \texttt{[SEP]} special tokens). Tweets exceeding 128 sub-word tokens after tokenisation are truncated from the right.
+    \item \textbf{Dynamic padding per batch} via HuggingFace \texttt{DataCollatorWithPadding}. Sequences within a mini-batch are padded to the length of the longest sequence in that batch. This avoids unnecessary computation on padding tokens and reduces GPU memory usage compared to padding all sequences to the global maximum of 128.
+\end{enumerate}
+
+Each tokenised sample yields:
+\begin{itemize}
+    \item \texttt{input\_ids} $\in \mathbb{Z}^{L_b}$ — WordPiece token indices.
+    \item \texttt{attention\_mask} $\in \{0,1\}^{L_b}$ — 1 for real tokens, 0 for padding. Passed directly to DistilBERT; also used to derive per-sequence lengths for the BiLSTM's \texttt{pack\_padded\_sequence}.
+    \item \texttt{label} $\in \{0,1,2,3,4\}$ — integer class index.
+\end{itemize}
+
+where $L_b \leq 128$ is the longest sequence length in batch $b$.
+
+\subsection{Preprocessing Pipeline Summary}
+
+Table~\ref{tab:preprocessing} summarises the full preprocessing pipeline.
 
 \begin{table}[H]
     \centering
-    \caption{Preprocessing pipeline.}
+    \caption{Preprocessing pipeline applied to all three experiments.}
     \label{tab:preprocessing}
-    \begin{tabularx}{\textwidth}{@{}lXX@{}}
+    \begin{tabularx}{\textwidth}{l l X}
         \toprule
-        Stage & Operation & Configuration \\
+        \textbf{Step} & \textbf{Tool} & \textbf{Details} \\
         \midrule
-        Cleaning & TODO & TODO \\
-        Transformation & TODO & TODO \\
-        Normalization & TODO & TODO \\
-        Augmentation & TODO & TODO \\
-        Tensor shape & TODO & TODO \\
+        Text cleaning   & (none)                          & Raw tweet text used as-is \\
+        Tokenisation    & \texttt{distilbert-base-uncased} & WordPiece, lowercased, vocab size 30,522 \\
+        Truncation      & HuggingFace tokenizer           & Max length 128 tokens (right-side truncation) \\
+        Padding         & \texttt{DataCollatorWithPadding}& Dynamic padding to per-batch maximum length \\
+        Label encoding  & Manual mapping                  & String label $\to$ integer index $\in\{0\ldots4\}$ \\
         \bottomrule
     \end{tabularx}
 \end{table}
 
-\begin{figure}[H]
-    \centering
-    % Suggested image filename: graphics/preprocessed-batch.png
-    \includegraphics[width=0.9\textwidth]{graphics/placeholder.png}
-    \caption{Example batch after preprocessing.}
-    \label{fig:preprocessed-batch}
-\end{figure}
+\subsection{No Data Augmentation}
+
+No data augmentation is applied in any experiment. The focus of this assignment is on comparing architectures under controlled conditions; augmentation would introduce an additional confounding variable.

@@ -1,20 +1,55 @@
 \section{Problem Formulation}
 
-% Real-world context and motivation.
-\textbf{Motivation.} Describe the real-world problem and why it matters.
+\subsection{Task Definition}
 
-\textbf{Input.} Describe the input data and its representation.
+We address the problem of \textbf{multi-class sentiment classification} on COVID-19 Twitter data. Given a raw tweet text $x$, the goal is to predict its sentiment label $y$ from a fixed set of five ordered categories:
 
-\textbf{Output.} Describe the prediction target and the prediction unit.
-
-\textbf{Mathematical formulation.}
 \begin{equation}
-    \hat{y} = f_{\theta}(x),
-    \qquad
-    \theta^{*} = \arg\min_{\theta}\frac{1}{N}\sum_{i=1}^{N}
-    \mathcal{L}\bigl(f_{\theta}(x_i), y_i\bigr).
-    \label{eq:problem-formulation}
+    f_\theta : x \;\longmapsto\; \hat{y}, \quad \hat{y} \in \{0, 1, 2, 3, 4\}
 \end{equation}
-Replace this placeholder with the formulation appropriate to the assignment.
 
-\textbf{Main difficulties.} List the main technical and data-related challenges.
+where the label mapping is:
+\begin{itemize}
+    \item $0$ — \textit{Extremely Negative}
+    \item $1$ — \textit{Negative}
+    \item $2$ — \textit{Neutral}
+    \item $3$ — \textit{Positive}
+    \item $4$ — \textit{Extremely Positive}
+\end{itemize}
+
+The input $x$ is first tokenized by a shared WordPiece tokenizer (DistilBERT vocabulary, $|\mathcal{V}|=30{,}522$) to produce a token-id sequence $\mathbf{t} = (t_1, t_2, \ldots, t_L) \in \mathbb{Z}^{L}$ with $L \leq 128$. The model then produces a distribution over labels:
+
+\begin{equation}
+    P(\hat{y} \mid \mathbf{t};\,\theta) = \mathrm{softmax}\!\left(g_\theta(\mathbf{t})\right) \in \mathbb{R}^{5}
+\end{equation}
+
+and the predicted class is $\hat{y} = \arg\max_c P(\hat{y}=c \mid \mathbf{t};\,\theta)$. The model is optimised by minimising the standard categorical cross-entropy loss over the training set:
+
+\begin{equation}
+    \mathcal{L}(\theta) = -\frac{1}{N}\sum_{i=1}^{N} \log P\!\left(\hat{y}=y_i \mid \mathbf{t}_i;\,\theta\right)
+\end{equation}
+
+\subsection{Research Question}
+
+This assignment studies the following central question:
+
+\begin{quote}
+    \textit{How do (a) a recurrent sequence model trained from scratch, (b) a frozen pretrained Transformer with a trainable classification head, and (c) a fully fine-tuned pretrained Transformer compare on a 5-class tweet sentiment task — in terms of predictive accuracy, convergence speed, and computational cost?}
+\end{quote}
+
+Three experiments are conducted:
+\begin{itemize}
+    \item \textbf{EXP-1 (BiLSTM):} A lightweight bidirectional LSTM trained from scratch, serving as the baseline.
+    \item \textbf{EXP-2 (DistilBERT frozen):} The DistilBERT backbone is frozen; only the two-layer classification head is trained.
+    \item \textbf{EXP-3 (DistilBERT full fine-tune):} All DistilBERT parameters are unfrozen and fine-tuned end-to-end alongside the head.
+\end{itemize}
+
+\subsection{Main Challenges}
+
+\begin{enumerate}
+    \item \textbf{Informal and noisy text.} Tweets routinely contain hashtags (\texttt{\#COVID19}), user mentions (\texttt{@WHO}), URLs, emoji, abbreviations, and misspellings that are absent from formal NLP benchmarks.
+    \item \textbf{Fine-grained ordinal scale.} The five-class scheme introduces boundary ambiguity between adjacent classes (e.g.\ \textit{Negative} vs.\ \textit{Extremely Negative}), making the task harder than binary or three-class sentiment.
+    \item \textbf{Temporal distribution shift.} The official test split covers an earlier date window (March 2--16, 2020) than the training data (March 16--April 14, 2020), which is atypical and can degrade generalisation.
+    \item \textbf{Class imbalance.} The \textit{Positive} class accounts for 27.75\% of training samples while \textit{Extremely Negative} accounts for only 13.32\%, creating uneven class frequency.
+    \item \textbf{Resource disparity.} The three models span more than one order of magnitude in parameter count (4.6M vs.\ 67M) and must be evaluated not only for accuracy but also for inference latency and training cost.
+\end{enumerate}

@@ -598,11 +598,11 @@
                 <tr><th>Purpose</th><th>Command</th></tr>
               </thead>
               <tbody>
-                <tr><td>Train and evaluate EXP-1 (BiLSTM)</td><td><code>python main.py --base</code></td></tr>
-                <tr><td>Train and evaluate EXP-2 (frozen backbone)</td><td><code>python main.py --pretrained --freeze</code></td></tr>
-                <tr><td>Train and evaluate EXP-3 (full fine-tuning)</td><td><code>python main.py --pretrained</code></td></tr>
-                <tr><td>Evaluate a saved model without training</td><td><code>python main.py --base --eval</code>, <code>python main.py --pretrained --freeze --eval</code>, or <code>python main.py --pretrained --eval</code></td></tr>
-                <tr><td>Qualitative comparison from saved checkpoints</td><td><code>python main.py --infer</code></td></tr>
+                <tr><td>Train and evaluate EXP-1 (BiLSTM)</td><td><code>python code/main.py --base</code></td></tr>
+                <tr><td>Train and evaluate EXP-2 (frozen backbone)</td><td><code>python code/main.py --pretrained --freeze</code></td></tr>
+                <tr><td>Train and evaluate EXP-3 (full fine-tuning)</td><td><code>python code/main.py --pretrained</code></td></tr>
+                <tr><td>Evaluate a saved model without training</td><td><code>python code/main.py --base --eval</code>, <code>python code/main.py --pretrained --freeze --eval</code>, or <code>python code/main.py --pretrained --eval</code></td></tr>
+                <tr><td>Qualitative comparison from saved checkpoints</td><td><code>python code/main.py --infer</code></td></tr>
               </tbody>
             </table>
           </div>
@@ -976,7 +976,7 @@
 
           <!-- Qualitative predictions -->
           <h3 style="margin-top: 2rem; color: var(--secondary-light); font-size: 1.15rem;"><i class="fa-solid fa-comments"></i> Qualitative Predictions</h3>
-          <p class="section-desc">Test tweets grouped by whether all models, only some models, or no model classify them correctly (generated with <code>python main.py --infer</code>).</p>
+          <p class="section-desc">Test tweets grouped by whether all models, only some models, or no model classify them correctly (generated with <code>python code/main.py --infer</code>).</p>
           <figure style="margin: 1.25rem 0 1.75rem;">
             <a href="./outputs/metrics/qualitative_predictions.png" target="_blank" aria-label="Open the full-size qualitative predictions figure">
               <img src="./outputs/metrics/qualitative_predictions.png"
@@ -1518,9 +1518,15 @@
     <!-- TAB 7: AI Disclosure -->
     <div class="tab-content" id="tab-ai">
       <div class="card">
-        <h2 class="section-title"><i class="fa-solid fa-robot"></i> Assignment 2 AI Disclosure</h2>
+        <h2 class="section-title"><i class="fa-solid fa-robot"></i> Assignment 2 AI Usage Disclosure</h2>
         <div class="card-body" style="margin-top: 1rem;">
-          <p>AI usage records for Assignment 2 per Section 5 of the handbook.</p>
+          <div class="callout callout-info" style="margin-bottom: 1.5rem;">
+            <div class="callout-title"><i class="fa-solid fa-circle-info"></i> Policy (Handbook Section 5)</div>
+            <p>All generative AI tool usage is disclosed below. Source: <a href="./AI_USAGE.md" target="_blank" style="color: var(--secondary-light);">Assignment2/AI_USAGE.md</a>.</p>
+          </div>
+
+          <!-- Dynamically rendered from ./AI_USAGE.md -->
+          <div id="ai-md-a1" style="font-size: 0.88rem; color: var(--text-muted);"><i class="fa-solid fa-spinner fa-spin"></i> Loading AI_USAGE.md…</div>
         </div>
       </div>
     </div>
