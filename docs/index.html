@@ -232,15 +232,15 @@
             <a href="../Assignment1/AI_USAGE.md" target="_blank" class="btn btn-secondary btn-sm"><i class="fa-solid fa-file-lines"></i> AI_USAGE.md</a>
           </div>
         </div>
-        <div class="card" style="text-align: center; opacity: 0.55;">
+        <div class="card" style="text-align: center;">
           <div class="card-header">
             <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-brain"></i> Assignment 2</h3>
           </div>
           <div class="card-body" style="font-size: 0.875rem; color: var(--text-muted);">
-            Disclosure log — coming after M1 Proposal
+            Assignment 2 AI Usage Disclosure log
           </div>
           <div class="card-footer" style="justify-content: center;">
-            <span class="card-badge badge-pending">Pending</span>
+            <a href="../Assignment2/AI_USAGE.md" target="_blank" class="btn btn-secondary btn-sm"><i class="fa-solid fa-file-lines"></i> AI_USAGE.md</a>
           </div>
         </div>
         <div class="card" style="text-align: center; opacity: 0.55;">
@@ -256,12 +256,34 @@
         </div>
       </div>
 
-      <!-- Consolidated disclosure log — rendered from Assignment1/AI_USAGE.md -->
-      <div id="ai-md-landing" style="font-size: 0.88rem; color: var(--text-muted);"><i class="fa-solid fa-spinner fa-spin"></i> Loading AI_USAGE.md…</div>
+      <!-- Collapsible disclosure logs — rendered from each AssignmentN/AI_USAGE.md -->
+      <style>
+        .ai-log { border: 1px solid var(--border-color); border-radius: var(--radius-md); margin-bottom: 1rem; background: rgba(0,0,0,0.12); }
+        .ai-log > summary { cursor: pointer; list-style: none; padding: 0.9rem 1.2rem; font-weight: 600; display: flex; align-items: center; gap: 0.6rem; }
+        .ai-log > summary::-webkit-details-marker { display: none; }
+        .ai-log > summary .ai-log-chevron { margin-left: auto; transition: transform 0.2s ease; }
+        .ai-log[open] > summary .ai-log-chevron { transform: rotate(180deg); }
+        .ai-log > summary .ai-log-link { font-weight: 400; font-size: 0.85rem; color: var(--secondary-light); }
+        .ai-log-body { padding: 0 1.2rem 1rem; font-size: 0.88rem; color: var(--text-muted); border-top: 1px solid var(--border-color); }
+      </style>
 
-      <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">
-        Assignment 1 detailed log: <a href="../Assignment1/AI_USAGE.md" target="_blank" style="color: var(--secondary-light);">Assignment1/AI_USAGE.md</a>
-      </p>
+      <details class="ai-log">
+        <summary>
+          <i class="fa-solid fa-layer-group"></i> Assignment 1 — AI Usage Log
+          <a class="ai-log-link" href="../Assignment1/AI_USAGE.md" target="_blank" onclick="event.stopPropagation()">(raw file)</a>
+          <i class="fa-solid fa-chevron-down ai-log-chevron"></i>
+        </summary>
+        <div class="ai-log-body" id="ai-md-landing-a1"><i class="fa-solid fa-spinner fa-spin"></i> Loading AI_USAGE.md…</div>
+      </details>
+
+      <details class="ai-log">
+        <summary>
+          <i class="fa-solid fa-brain"></i> Assignment 2 — AI Usage Log
+          <a class="ai-log-link" href="../Assignment2/AI_USAGE.md" target="_blank" onclick="event.stopPropagation()">(raw file)</a>
+          <i class="fa-solid fa-chevron-down ai-log-chevron"></i>
+        </summary>
+        <div class="ai-log-body" id="ai-md-landing-a2"><i class="fa-solid fa-spinner fa-spin"></i> Loading AI_USAGE.md…</div>
+      </details>
     </section>
 
   </main>
@@ -278,20 +300,23 @@
 
   <script src="assets/js/main.js"></script>
   <script>
-    // Fetch and render Assignment1/AI_USAGE.md
-    fetch('../Assignment1/AI_USAGE.md')
-      .then(r => r.text())
-      .then(md => {
-        const el = document.getElementById('ai-md-landing');
-        el.innerHTML = marked.parse(md);
-        // Style code blocks to match the site's pre aesthetic
-        el.querySelectorAll('pre').forEach(pre => {
-          pre.style.cssText = "font-family:'Courier New',Courier,monospace;font-size:0.78rem;background:rgba(0,0,0,0.28);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.1rem 1.4rem;line-height:1.8;overflow-x:auto;white-space:pre-wrap;word-break:break-word;margin-bottom:1.25rem;";
+    // Fetch and render each AssignmentN/AI_USAGE.md into its collapsible panel
+    [['ai-md-landing-a1', '../Assignment1/AI_USAGE.md'],
+     ['ai-md-landing-a2', '../Assignment2/AI_USAGE.md']].forEach(([id, src]) => {
+      const el = document.getElementById(id);
+      fetch(src)
+        .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+        .then(md => {
+          el.innerHTML = marked.parse(md);
+          // Style code blocks to match the site's pre aesthetic
+          el.querySelectorAll('pre').forEach(pre => {
+            pre.style.cssText = "font-family:'Courier New',Courier,monospace;font-size:0.78rem;background:rgba(0,0,0,0.28);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.1rem 1.4rem;line-height:1.8;overflow-x:auto;white-space:pre-wrap;word-break:break-word;margin-bottom:1.25rem;";
+          });
+        })
+        .catch(() => {
+          el.innerHTML = '<p style="color:var(--text-muted)">Could not load AI_USAGE.md. <a href="' + src + '" target="_blank" style="color:var(--secondary-light)">View raw file →</a></p>';
         });
-      })
-      .catch(() => {
-        document.getElementById('ai-md-landing').innerHTML = '<p style="color:var(--text-muted)">Could not load AI_USAGE.md. <a href="../Assignment1/AI_USAGE.md" target="_blank" style="color:var(--secondary-light)">View raw file →</a></p>';
-      });
+    });
   </script>
 </body>
 </html>
