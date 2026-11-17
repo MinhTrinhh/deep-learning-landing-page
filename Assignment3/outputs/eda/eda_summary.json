@@ -1,0 +1,182 @@
+{
+  "image": {
+    "n_records": 61236,
+    "missing_images": 1,
+    "corrupt_images": 0,
+    "width_median": 1050.0,
+    "height_median": 550.0,
+    "aspect_median": 1.9090909090909092,
+    "aspect_p05": 1.5748031496062993,
+    "aspect_p95": 1.9125683060109289,
+    "min_side_below_224": 159,
+    "modes": {
+      "RGB": 61090,
+      "L": 85,
+      "RGBA": 42,
+      "P": 17,
+      "LA": 1
+    }
+  },
+  "validity": {
+    "records": 61236,
+    "missing image file": 1,
+    "corrupt / unreadable image": 0,
+    "empty headline": 0,
+    "empty abstract": 0,
+    "empty headline AND abstract": 0,
+    "empty caption": 303,
+    "empty body": 15,
+    "missing label": 0,
+    "VALID pairs (kept)": 61235
+  },
+  "classes_all": {
+    "n_classes": 24,
+    "total": 61235,
+    "largest": [
+      "Health",
+      3001
+    ],
+    "smallest": [
+      "Well",
+      681
+    ],
+    "mean": 2551.4583333333335,
+    "std": 797.2684878174144,
+    "imbalance_ratio": 4.406754772393539,
+    "counts": {
+      "Health": 3001,
+      "Science": 3001,
+      "Television": 3001,
+      "Travel": 3001,
+      "Movies": 3001,
+      "Dance": 3001,
+      "Real Estate": 3001,
+      "Sports": 3001,
+      "Technology": 3001,
+      "Theater": 3001,
+      "Opinion": 3001,
+      "Music": 3001,
+      "Books": 3001,
+      "Art & Design": 3001,
+      "Media": 3001,
+      "Food": 3001,
+      "Fashion & Style": 3001,
+      "Style": 2681,
+      "Automobiles": 1825,
+      "Economy": 1761,
+      "Your Money": 1263,
+      "Global Business": 1182,
+      "Education": 825,
+      "Well": 681
+    }
+  },
+  "text_words": {
+    "headline": {
+      "mean": 8.79,
+      "median": 9.0,
+      "p95": 13.0,
+      "max": 22.0,
+      "min": 1.0
+    },
+    "abstract": {
+      "mean": 21.28,
+      "median": 22.0,
+      "p95": 30.0,
+      "max": 61.0,
+      "min": 1.0
+    },
+    "caption": {
+      "mean": 18.68,
+      "median": 18.0,
+      "p95": 35.0,
+      "max": 155.0,
+      "min": 0.0
+    },
+    "body": {
+      "mean": 787.95,
+      "median": 809.0,
+      "p95": 1628.0,
+      "max": 7454.0,
+      "min": 0.0
+    },
+    "text_ha": {
+      "mean": 30.08,
+      "median": 30.0,
+      "p95": 40.0,
+      "max": 67.0,
+      "min": 6.0
+    }
+  },
+  "tokens": {
+    "tokenizer": "roberta-base",
+    "mean_headline": 12.860112680656487,
+    "mean_abstract": 27.355940230260472,
+    "pair_p95": 58.0,
+    "pair_p99": 65.0,
+    "pair_max": 87,
+    "suggested_max_len": 128,
+    "coverage_pct": 100.0
+  },
+  "duplicates": {
+    "Missing or corrupt images (removed)": 1,
+    "Empty headline and abstract (removed)": 0,
+    "Articles sharing an identical phash image": 1383,
+    "Articles in a near-identical image pair (d<=4)": 2002,
+    "Articles with a duplicated normalised headline": 1828,
+    "Duplicate groups (size>1) after union": 935,
+    "Articles in duplicate groups": 3674,
+    "Largest duplicate group": 406,
+    "Duplicate groups with conflicting labels": 144,
+    "Articles in label-conflicting groups": 615
+  },
+  "period": {
+    "min": "2010-01-01",
+    "max": "2020-12-31",
+    "n_dated": 60803
+  },
+  "random_split_leakage": {
+    "test_with_dup_in_train": 366,
+    "test_size": 6124,
+    "pct": 5.9764859568909205
+  },
+  "splits": {
+    "train": {
+      "samples": 49340,
+      "percent": 80.57,
+      "classes": 24,
+      "articles_in_dup_groups": 3060,
+      "date_min": "2010-01-01",
+      "date_max": "2020-12-31"
+    },
+    "val": {
+      "samples": 5980,
+      "percent": 9.77,
+      "classes": 24,
+      "articles_in_dup_groups": 284,
+      "date_min": "2010-01-12",
+      "date_max": "2020-12-31"
+    },
+    "test": {
+      "samples": 5915,
+      "percent": 9.66,
+      "classes": 24,
+      "articles_in_dup_groups": 330,
+      "date_min": "2010-01-01",
+      "date_max": "2020-12-31"
+    }
+  },
+  "classes_train": {
+    "largest": [
+      "Food",
+      2483,
+      5.03
+    ],
+    "smallest": [
+      "Well",
+      557,
+      1.13
+    ],
+    "mean": 2055.8333333333335,
+    "total": 49340
+  }
+}

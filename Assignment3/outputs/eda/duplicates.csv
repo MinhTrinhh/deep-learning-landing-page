@@ -1,0 +1,11 @@
+,count
+Missing or corrupt images (removed),1
+Empty headline and abstract (removed),0
+Articles sharing an identical phash image,1383
+Articles in a near-identical image pair (d<=4),2002
+Articles with a duplicated normalised headline,1828
+Duplicate groups (size>1) after union,935
+Articles in duplicate groups,3674
+Largest duplicate group,406
+Duplicate groups with conflicting labels,144
+Articles in label-conflicting groups,615
