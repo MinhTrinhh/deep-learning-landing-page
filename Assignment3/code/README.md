@@ -6,7 +6,7 @@ All scripts are run from `Assignment3/`; on Colab use [`notebook/02_colab_runner
 | File | Role |
 |---|---|
 | `dataset.py` | Loads `nytimes.json` in the order of `outputs/eda/splits.csv` (duplicate-aware split); text cleaning; image preprocessing (shorter side 224 → centre crop 224, removes the year badge) |
-| `extract_features.py` | Frozen encoders → cached features: `roberta_cls`, `roberta_mean` (RoBERTa-base, sentence pair, max 128 tokens), `vit` (ViT-B/16, ImageNet; image baseline), `clip` (CLIP ViT-B/16; optional side experiment) |
+| `extract_features.py` | Frozen encoders → cached features: `roberta_cls`, `roberta_mean` (RoBERTa-base, sentence pair, max 128 tokens), `vit` (ViT-B/16, ImageNet) |
 | `models.py` | `MLPHead`: per-modality LayerNorm → concat → MLP. Same head for text-only, image-only and concat fusion |
 | `train.py` | Trains one head on cached features; AdamW + cosine, early stopping on **val macro-F1**; test scored once with the selected checkpoint |
 | `evaluate.py` | mean ± std over seeds, per-class F1, confusion matrices, text/image/fusion agreement (support vs. conflict), copies best checkpoints |
@@ -30,7 +30,5 @@ python code/train.py --features FEAT_DIR --out RUNS_DIR --model concat --text-fe
 python code/evaluate.py --runs RUNS_DIR --out outputs/metrics/m2 --checkpoints checkpoints --data DATA_DIR
 ```
 
-Smoke test without a GPU: add `--limit 600` to `extract_features.py` and `--debug` (10 % train sample) to `train.py`.
-Debug runs are excluded from `evaluate.py` unless `--include-debug` is passed, and are never reported.
 
-**Why ViT and not CLIP for the image baseline.** CLIP's vision tower was pretrained with language supervision and can read text rendered in images (OCR), so an "image-only" CLIP model would partly carry language information. Unimodal B therefore uses ImageNet ViT-B/16, the same kind of encoder as the N24News paper. `--encoder clip` remains available for an optional, clearly labelled side experiment.
+**Why ViT and not CLIP for the image baseline.** CLIP's vision tower was pretrained with language supervision and can read text rendered in images (OCR), so an "image-only" CLIP model would partly carry language information. Unimodal B therefore uses ImageNet ViT-B/16, the same kind of encoder as the N24News paper.

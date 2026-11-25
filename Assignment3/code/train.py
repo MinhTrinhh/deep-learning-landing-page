@@ -31,18 +31,15 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--out", type=Path, required=True)
     p.add_argument("--model", choices=sorted(MODALITIES), required=True)
     p.add_argument("--text-feat", default="roberta_cls", help="roberta_cls or roberta_mean")
-    p.add_argument("--image-feat", default="vit",
-                   help="vit (ImageNet, the unimodal baseline) or clip (language-aligned, side experiment only)")
+    p.add_argument("--image-feat", default="vit", help="vit (ViT-B/16, ImageNet)")
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--epochs", type=int, default=60)
     p.add_argument("--patience", type=int, default=8, help="epochs without val macro-F1 gain before stopping")
     p.add_argument("--batch-size", type=int, default=256)
     p.add_argument("--lr", type=float, default=1e-3)
     p.add_argument("--weight-decay", type=float, default=1e-2)
-    p.add_argument("--hidden", type=int, default=512, help="0 = linear probe")
+    p.add_argument("--hidden", type=int, default=512, help="MLP hidden width")
     p.add_argument("--dropout", type=float, default=0.3)
-    p.add_argument("--debug", action="store_true", help="fixed 10%% stratified train sample, never for reported numbers")
-    p.add_argument("--name", default=None, help="override the run name")
     return p.parse_args()
 
 
@@ -54,8 +51,6 @@ def set_seed(seed: int) -> None:
 
 
 def run_name(args) -> str:
-    if args.name:
-        return args.name
     parts = {"text": args.text_feat, "image": args.image_feat}
     return "_".join([args.model] + [parts[m] for m in MODALITIES[args.model]])
 
@@ -71,12 +66,6 @@ def load_features(args, device):
         feats[modality] = torch.from_numpy(array).to(device)
     labels = torch.from_numpy(index["y"].to_numpy().copy()).long().to(device)
     return index, feats, labels
-
-
-def debug_subset(index: pd.DataFrame, train_idx: np.ndarray) -> np.ndarray:
-    # fixed seed so every model sees the same debug sample
-    sample = index.iloc[train_idx].groupby("label", group_keys=False).sample(frac=0.1, random_state=42)
-    return np.sort(sample.index.to_numpy())
 
 
 @torch.no_grad()
@@ -101,22 +90,26 @@ def main() -> None:
     set_seed(args.seed)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     index, feats, labels = load_features(args, device)
-    classes_file = args.features / "classes.json"
-    classes = json.loads(classes_file.read_text()) if classes_file.exists() else sorted(index["label"].unique())
+    classes = json.loads((args.features / "classes.json").read_text())
     num_classes = len(classes)
 
     split = index["split"].to_numpy()
     train_idx = np.flatnonzero(split == "train")
-    if args.debug:
-        train_idx = debug_subset(index, train_idx)
     val_idx, test_idx = np.flatnonzero(split == "val"), np.flatnonzero(split == "test")
-    train_t, val_t, test_t = (torch.from_numpy(i).to(device) for i in (train_idx, val_idx, test_idx))
+
+    train_t, val_t, test_t = (torch.from_numpy(i).to(device) 
+    for i in (train_idx, val_idx, test_idx))
+
     y_val, y_test = labels[val_t].cpu().numpy(), labels[test_t].cpu().numpy()
 
     dims = {m: f.shape[1] for m, f in feats.items()}
+    
     model = build_model(args.model, dims, num_classes, args.hidden, args.dropout).to(device)
+    
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
+    
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
+    
     criterion = nn.CrossEntropyLoss()
 
     name = run_name(args)
@@ -128,6 +121,7 @@ def main() -> None:
     generator = torch.Generator(device="cpu").manual_seed(args.seed)
     best_f1, best_epoch, best_state, history = -1.0, 0, None, []
     start = time.time()
+    
     for epoch in range(1, args.epochs + 1):
         model.train()
         order = train_t[torch.randperm(len(train_t), generator=generator).to(device)]
@@ -147,6 +141,7 @@ def main() -> None:
         val = scores(y_val, val_logits.argmax(1).cpu().numpy(), num_classes)
         history.append({"epoch": epoch, "train_loss": total / seen, "val_loss": val_loss,
                         "val_accuracy": val["accuracy"], "val_macro_f1": val["macro_f1"]})
+   
         improved = val["macro_f1"] > best_f1
         if improved:
             best_f1, best_epoch = val["macro_f1"], epoch
@@ -165,7 +160,7 @@ def main() -> None:
     test_probs = torch.softmax(test_logits, 1).cpu().numpy()
 
     metrics = {
-        "run": name, "model": args.model, "seed": args.seed, "debug": args.debug,
+        "run": name, "model": args.model, "seed": args.seed,
         "text_feat": args.text_feat if "text" in MODALITIES[args.model] else None,
         "image_feat": args.image_feat if "image" in MODALITIES[args.model] else None,
         "best_epoch": best_epoch, "epochs_run": len(history),

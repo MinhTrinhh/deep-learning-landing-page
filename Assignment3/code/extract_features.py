@@ -2,12 +2,11 @@
 
 Outputs (float16, one row per line of splits.csv, same order):
   roberta  -> roberta_cls.npy, roberta_mean.npy   (headline/abstract as a sentence pair)
-  clip     -> clip.npy                            (CLIP ViT-B/16 vision tower, pooled CLS)
   vit      -> vit.npy                             (ViT-B/16 ImageNet, CLS token)
 plus index.csv (image_id, label, split, y) and <name>.json with the settings used.
 
 Example:
-  python code/extract_features.py --data /content/data --out /content/drive/MyDrive/DL_A3/features --encoder clip
+  python code/extract_features.py --data /content/data --out /content/drive/MyDrive/DL_A3/features --encoder vit
 """
 from __future__ import annotations
 
@@ -22,11 +21,10 @@ import torch
 from torch.utils.data import DataLoader
 from tqdm.auto import tqdm
 
-from dataset import DEFAULT_SPLITS, IMAGE_SIZE, ImageDataset, class_names, load_records, load_split_index
+from dataset import IMAGE_SIZE, ImageDataset, load_records
 
 ENCODERS = {
     "roberta": "roberta-base",
-    "clip": "openai/clip-vit-base-patch16",
     "vit": "google/vit-base-patch16-224",
 }
 MAX_LENGTH = 128
@@ -37,18 +35,14 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--data", type=Path, required=True, help="folder that contains the extracted N24News archive")
     p.add_argument("--out", type=Path, required=True, help="feature folder (put it on Drive)")
     p.add_argument("--encoder", choices=sorted(ENCODERS), required=True)
-    p.add_argument("--splits", type=Path, default=DEFAULT_SPLITS)
     p.add_argument("--batch-size", type=int, default=128)
     p.add_argument("--num-workers", type=int, default=2)
-    p.add_argument("--limit", type=int, default=None, help="only the first N rows (smoke test)")
-    p.add_argument("--overwrite", action="store_true")
     return p.parse_args()
 
 
-def write_index(records, out: Path, splits_csv: Path) -> None:
-    """index.csv pins the row order; refuse to mix features from different orders.
-    classes.json keeps all 24 class names even when --limit drops some classes."""
-    (out / "classes.json").write_text(json.dumps(class_names(load_split_index(splits_csv)), indent=2))
+def write_index(records, out: Path) -> None:
+    """index.csv pins the row order; refuse to mix features from different orders."""
+    (out / "classes.json").write_text(json.dumps(sorted(records["label"].unique()), indent=2))
     index = records[["image_id", "label", "split", "y"]]
     path = out / "index.csv"
     if path.exists():
@@ -89,13 +83,8 @@ def encode_images(records, encoder, device, batch_size, num_workers):
 
     name = ENCODERS[encoder]
     processor = AutoImageProcessor.from_pretrained(name)
-    if encoder == "clip":
-        from transformers import CLIPVisionModel
-        model = CLIPVisionModel.from_pretrained(name)
-    else:
-        from transformers import ViTModel
-        model = ViTModel.from_pretrained(name, add_pooling_layer=False)
-    model = model.to(device).eval()
+    from transformers import ViTModel
+    model = ViTModel.from_pretrained(name, add_pooling_layer=False).to(device).eval()
 
     dataset = ImageDataset(records["img_path"].tolist(), processor.image_mean, processor.image_std, IMAGE_SIZE)
     loader = DataLoader(dataset, batch_size=batch_size, num_workers=num_workers, pin_memory=device.type == "cuda")
@@ -104,8 +93,7 @@ def encode_images(records, encoder, device, batch_size, num_workers):
         pixels = pixels.to(device, non_blocking=True)
         with torch.autocast(device.type, dtype=torch.float16, enabled=device.type == "cuda"):
             output = model(pixel_values=pixels)
-        # CLIP: pooler_output = post-layernorm CLS; ViT: CLS of the final layernormed sequence
-        pooled = output.pooler_output if encoder == "clip" else output.last_hidden_state[:, 0]
+        pooled = output.last_hidden_state[:, 0]  # CLS token of the final layernormed sequence
         rows.append(pooled.float().cpu())
     return {encoder: torch.cat(rows).numpy()}
 
@@ -114,13 +102,13 @@ def main() -> None:
     args = parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
     outputs = ["roberta_cls", "roberta_mean"] if args.encoder == "roberta" else [args.encoder]
-    if not args.overwrite and all((args.out / f"{n}.npy").exists() for n in outputs):
-        print(f"{outputs} already in {args.out}; skipping (pass --overwrite to redo)")
+    if all((args.out / f"{n}.npy").exists() for n in outputs):
+        print(f"{outputs} already in {args.out}; skipping (delete the .npy files to redo)")
         return
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    records = load_records(args.data, args.splits, args.limit)
-    write_index(records, args.out, args.splits)
+    records = load_records(args.data)
+    write_index(records, args.out)
     print(f"{len(records)} records | device={device} | encoder={ENCODERS[args.encoder]}")
 
     start = time.time()
