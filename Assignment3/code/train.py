@@ -22,6 +22,7 @@ import torch
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
 from torch import nn
 
+import config as C
 from models import MODALITIES, build_model, count_parameters
 
 
@@ -30,16 +31,16 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--features", type=Path, required=True)
     p.add_argument("--out", type=Path, required=True)
     p.add_argument("--model", choices=sorted(MODALITIES), required=True)
-    p.add_argument("--text-feat", default="roberta_cls", help="roberta_cls or roberta_mean")
-    p.add_argument("--image-feat", default="vit", help="vit (ViT-B/16, ImageNet)")
-    p.add_argument("--seed", type=int, default=0)
-    p.add_argument("--epochs", type=int, default=60)
-    p.add_argument("--patience", type=int, default=8, help="epochs without val macro-F1 gain before stopping")
-    p.add_argument("--batch-size", type=int, default=256)
-    p.add_argument("--lr", type=float, default=1e-3)
-    p.add_argument("--weight-decay", type=float, default=1e-2)
-    p.add_argument("--hidden", type=int, default=512, help="MLP hidden width")
-    p.add_argument("--dropout", type=float, default=0.3)
+    p.add_argument("--text-feat", default=C.TEXT_FEATS[0], choices=C.TEXT_FEATS)
+    p.add_argument("--image-feat", default=C.IMAGE_FEATS[0], choices=C.IMAGE_FEATS)
+    p.add_argument("--seed", type=int, default=C.SEEDS[0])
+    p.add_argument("--epochs", type=int, default=C.EPOCHS)
+    p.add_argument("--patience", type=int, default=C.PATIENCE)
+    p.add_argument("--batch-size", type=int, default=C.BATCH_SIZE)
+    p.add_argument("--lr", type=float, default=C.LR)
+    p.add_argument("--weight-decay", type=float, default=C.WEIGHT_DECAY)
+    p.add_argument("--hidden", type=int, default=C.HIDDEN)
+    p.add_argument("--dropout", type=float, default=C.DROPOUT)
     return p.parse_args()
 
 

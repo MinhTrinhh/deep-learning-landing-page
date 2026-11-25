@@ -1,0 +1,12 @@
+# assignment 3 needed libraries (versions used to test the pipeline locally;
+# on Colab the preinstalled torch/transformers are used, and the runner prints their versions)
+torch==2.14.1
+transformers==5.21.0
+huggingface_hub==2.4.0
+numpy==2.5.3
+pandas==3.0.6
+scikit-learn==1.9.1
+matplotlib==3.11.2
+pillow==12.3.0
+tqdm==4.70.1
+gdown

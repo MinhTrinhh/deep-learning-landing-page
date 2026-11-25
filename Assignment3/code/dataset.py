@@ -10,9 +10,7 @@ import torch
 from PIL import Image
 from torch.utils.data import Dataset
 
-ASSIGNMENT_DIR = Path(__file__).resolve().parents[1]
-DEFAULT_SPLITS = ASSIGNMENT_DIR / "outputs" / "eda" / "splits.csv"
-IMAGE_SIZE = 224
+from config import IMAGE_SIZE, SPLITS_CSV
 
 
 def clean_text(value) -> str:
@@ -42,7 +40,7 @@ def find_image_dir(data_root: Path) -> Path:
     return first.parent
 
 
-def load_split_index(splits_csv: Path = DEFAULT_SPLITS) -> pd.DataFrame:
+def load_split_index(splits_csv: Path = SPLITS_CSV) -> pd.DataFrame:
     """image_id, label, split, group_id plus an integer target y (classes sorted by name)."""
     index = pd.read_csv(splits_csv, dtype={"image_id": str})
     classes = sorted(index["label"].unique())
@@ -50,7 +48,7 @@ def load_split_index(splits_csv: Path = DEFAULT_SPLITS) -> pd.DataFrame:
     return index
 
 
-def load_records(data_root: Path, splits_csv: Path = DEFAULT_SPLITS) -> pd.DataFrame:
+def load_records(data_root: Path, splits_csv: Path = SPLITS_CSV) -> pd.DataFrame:
     """Split index joined with headline, abstract and image path, in splits.csv order."""
     data_root = Path(data_root)
     index = load_split_index(splits_csv)

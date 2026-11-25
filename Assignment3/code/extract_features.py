@@ -21,13 +21,8 @@ import torch
 from torch.utils.data import DataLoader
 from tqdm.auto import tqdm
 
-from dataset import IMAGE_SIZE, ImageDataset, load_records
-
-ENCODERS = {
-    "roberta": "roberta-base",
-    "vit": "google/vit-base-patch16-224",
-}
-MAX_LENGTH = 128
+from config import ENCODERS, IMAGE_SIZE, MAX_LENGTH
+from dataset import ImageDataset, load_records
 
 
 def parse_args() -> argparse.Namespace:

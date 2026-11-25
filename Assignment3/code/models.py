@@ -11,11 +11,13 @@ ViT features live on very different scales.
 import torch
 from torch import nn
 
+from config import DROPOUT, HIDDEN
+
 MODALITIES = {"text": ("text",), "image": ("image",), "concat": ("text", "image")}
 
 
 class MLPHead(nn.Module):
-    def __init__(self, input_dims, num_classes, hidden=512, dropout=0.3):
+    def __init__(self, input_dims, num_classes, hidden=HIDDEN, dropout=DROPOUT):
         super().__init__()
         self.input_dims = list(input_dims)
         self.norms = nn.ModuleList(nn.LayerNorm(d) for d in self.input_dims)
