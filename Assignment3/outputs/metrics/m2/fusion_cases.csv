@@ -1,0 +1,635 @@
+image_id,headline,case,true,text_pred,image_pred,concat_pred
+b100b6f0-cd0c-5bc5-8b80-5f8b6661aac3,Where Avocado Toast Shares a Menu With Yemeni Favorites,support (fusion fixes text),Food,Travel,Food,Food
+9502e3e8-7efa-5ecc-8dfc-0b4cff44bacf,Curtain Goes Down on New York Musical Festival,harm (fusion breaks text),Theater,Theater,Theater,Music
+9cbc675c-2c82-5187-98fd-a3083f91d7d5,Voices of Anxiety as Australia Burns,support (fusion fixes text),Opinion,Books,Opinion,Opinion
+80905eae-1a8a-5937-b36c-9d2fedf46fdf,"Who Is Yusaku Maezawa, the Japanese Billionaire Seeking a 'Special Woman' for Space — and Life?",support (fusion fixes text),Style,Fashion & Style,Sports,Style
+3d83b717-4e14-5eb2-9f81-a2298dd7ac60,"Ed Filipowski, 58, Pioneer of Fashion Public Relations, Dies",harm (fusion breaks text),Fashion & Style,Fashion & Style,Books,Style
+55de08c5-2b40-57ae-8f44-9332ad7af4cc,Oyo Scales Back as SoftBank-Funded Companies Retreat,harm (fusion breaks text),Technology,Technology,Media,Global Business
+48bfee11-f046-5475-a8d3-679544447fcf,Why Elizabeth Warren Feels 'Very Uneasy' Online,support (fusion fixes text),Opinion,Style,Media,Opinion
+cbd89f00-46e4-5db0-8878-e8741f3183e6,The Lewis Prize Awards $1.75 Million for Music Education,harm (fusion breaks text),Music,Music,Books,Books
+769e6a03-98b6-58fa-b91c-0e32e445f37d,"Overwhelmed by Medical Bills, and Finding Help on TikTok",support (fusion fixes text),Health,Your Money,Health,Health
+299db2a3-5545-57f2-99c9-8dd171b4b0c8,'Party of Five' and 'Little America': Immigrant Stories That Get the Job Done,support (fusion fixes text),Television,Movies,Television,Television
+042d4549-d0c3-5ed0-9578-0af3d806389b,Review: Shrinking Lives at a Big Box Store in 'Paris',support (fusion fixes text),Theater,Movies,Food,Theater
+87f6d173-3ba5-5f27-9b46-30df026de59a,"China Poised to Buy More From U.S., at the Expense of U.S. Allies",support (fusion fixes text),Economy,Global Business,Science,Economy
+d28d1e5d-1463-5436-b7ea-df7e97889e7a,"Carol Serling, Rod's Wife and Tender of 'Twilight Zone' Flame, Dies at 90",support (fusion fixes text),Television,Movies,Books,Television
+d5a37af1-861b-58ee-9ea1-d18bdd9c132a,"Eat Natto, Live Longer?",harm (fusion breaks text),Well,Well,Science,Health
+21002378-416d-5d22-bc3a-61a71cf4bb9f,Discovering My Hips in Hula Dancing,support (fusion fixes text),Well,Dance,Fashion & Style,Well
+c4d845f2-bd98-50c8-a960-5b2355fbc8d1,Wilbur Ross Says Coronavirus Could Bring Jobs Back to the U.S.,harm (fusion breaks text),Economy,Economy,Economy,Technology
+6f84edd5-3b8b-528d-8874-dd0431b94755,The Fed Wants to Loosen Rules Around Big Banks and Venture Capital,harm (fusion breaks text),Economy,Economy,Global Business,Global Business
+2f6f61da-7953-5907-b342-b7491c7e7964,What's the Word From Iowa? A Local Reporter Has the Inside Scoop,harm (fusion breaks text),Opinion,Opinion,Technology,Style
+e103b283-29d5-5d9d-a1d8-844b5900e9a3,I Used to Be a Taylor Swift Fan. 'Miss Americana' Reminded Me Why.,support (fusion fixes text),Movies,Television,Dance,Movies
+1c28631d-fda0-5418-98a2-60231de89491,"Lucy Jarvis, Who Took TV Viewers Far and Wide, Dies at 102",harm (fusion breaks text),Television,Television,Books,Books
+518f2c04-6de2-50b3-b36f-658e75ab1a58,"As Long as There's Been an Envelope, Oscar Parties Have Pushed It",support (fusion fixes text),Style,Theater,Books,Style
+d305575d-566e-5edd-82d8-f8f690d23e46,How to Build a Media Company,harm (fusion breaks text),Style,Style,Style,Fashion & Style
+cd2ea3e1-9a9e-570a-9927-872abd83341c,Who's Really Shredding Standards on Capitol Hill?,harm (fusion breaks text),Opinion,Opinion,Books,Media
+e920011e-84e7-598a-bc68-b2777aeab058,"When All the World's at War, Only Theater Feels Real",support (fusion fixes text),Books,Theater,Art & Design,Books
+0b906942-4cc3-5e78-a4e7-f3ae9255cd2f,Out of Prison but Still Not Free,harm (fusion breaks text),Books,Books,Movies,Style
+81334a86-c609-54d4-be57-75ef7b4b9765,Songs? Nah. 10k.Caash Is Making Whatever Comes Next.,harm (fusion breaks text),Music,Music,Your Money,Style
+218f1494-c0cb-55ce-bb2e-6c279b1d3a26,A Meme Girl Mash-Up,harm (fusion breaks text),Opinion,Opinion,Movies,Style
+4e73825b-c3f7-5a8e-bdac-84f5487200e7,'TJ Loves Sally 4 Ever' Review: It's No Valentine,support (fusion fixes text),Theater,Movies,Television,Theater
+b6f3dc85-bd1b-54cc-8f5b-af9178a1a38e,"Behind the Wheel, Behind the Eight Ball",support (fusion fixes text),Sports,Automobiles,Sports,Sports
+62de6c20-af7e-5af1-964d-1e3fb13dbafb,What Would a Fashion Music Festival Look Like?,support (fusion fixes text),Style,Fashion & Style,Fashion & Style,Style
+bcbcade8-3af4-5004-8aae-326695da372a,"As China Fights the Coronavirus, Some Say It Has Gone Too Far",harm (fusion breaks text),Economy,Economy,Global Business,Global Business
+9e7ff2f2-af92-5cfd-8fcf-186f94caf581,Thinking of Moving Abroad? Here Are Five Things to Know Before You Go,support (fusion fixes text),Real Estate,Travel,Your Money,Real Estate
+cec2d882-49c9-58f6-869c-c26da95c9047,"From Bonn to Vienna, in Search of Beethoven, the Man",support (fusion fixes text),Travel,Music,Art & Design,Travel
+47e6ac81-c668-5c99-80e4-0aa705fe0eaa,What Does the Iranian Election Tell Us?,support (fusion fixes text),Opinion,Global Business,Media,Opinion
+3f807026-13c2-5395-81d2-66b63cb74e79,'I Am Not Okay With This' Review: You'd Like Her When She's Angry,harm (fusion breaks text),Television,Television,Movies,Movies
+357680f9-e246-5050-830d-6dbc5b7d63a1,Cloud Computing Is Not the Energy Hog That Had Been Feared,harm (fusion breaks text),Technology,Technology,Art & Design,Science
+c15795d6-584b-565c-939c-aaaf6cd9a824,Why a Shortened Primary Season May Prove Disastrous,harm (fusion breaks text),Opinion,Opinion,Media,Health
+dbcbefa0-feaa-50a9-bfeb-2178f4187146,Why South Carolina Was So Personal for Joe Biden,support (fusion fixes text),Opinion,Television,Opinion,Opinion
+7503f0ff-809e-5803-8a8a-090fa710e5f6,At the Brooklyn Navy Yard It's Full Steam Ahead,harm (fusion breaks text),Style,Style,Media,Real Estate
+5e78391e-6c96-5d88-89a3-d8edda7c163b,"Young, Confident and Flying, Virus Be Damned",support (fusion fixes text),Travel,Opinion,Travel,Travel
+8a60211b-fa33-5410-8bdd-bb71b91166ac,How to Protect Older People From the Coronavirus,support (fusion fixes text),Health,Well,Health,Health
+42e4f5f9-6c0d-5220-9304-2a8bdd3a634e,How Long Will the Coronavirus Outbreak and Shutdown Last?,harm (fusion breaks text),Health,Health,Opinion,Opinion
+27b871f2-3923-5635-9680-451542f57023,How Will Pop Music Respond to the Coronavirus?,harm (fusion breaks text),Music,Music,Art & Design,Art & Design
+f1ee3a47-50c3-576e-b414-6d2f0ba4ab4a,This 'Imagine' Cover Is No Heaven,harm (fusion breaks text),Music,Music,Theater,Style
+46e85bf2-65de-533e-b21d-2a172d20be15,"As Coronavirus Surveillance Escalates, Personal Privacy Plummets",harm (fusion breaks text),Technology,Technology,Health,Health
+02d307bb-ac5c-5be8-84a7-7ce9a4d1ace1,"One City's Road to Recovery Offers Lessons, and Hope",harm (fusion breaks text),Economy,Economy,Theater,Real Estate
+13ad6bd2-5220-5c66-a092-1a4817d9c56d,"For Drive-In Theaters, an Unexpected Revival",support (fusion fixes text),Style,Food,Technology,Style
+b22f2772-caaa-5cc3-bebb-845330d46480,Apollo Theater's Amateur Night Auditions Go Digital,harm (fusion breaks text),Theater,Theater,Theater,Media
+9aa2c0b4-f711-50bc-9bc1-63a5d5726dce,"A Health Crisis, as Seen From Inside a Prison",support (fusion fixes text),Opinion,Health,Art & Design,Opinion
+41ed26d3-0278-5dd8-9e3d-c845d4839d8f,Cuomo Is a Media Hero in the Pandemic. De Blasio Is a Scapegoat.,harm (fusion breaks text),Media,Media,Technology,Opinion
+0968b125-2565-5a73-8b91-1f2c9fe83de8,Dance This Mess Around: When Georgia Recreated Rock 'n' Roll,harm (fusion breaks text),Books,Books,Music,Music
+d7ab1d7a-5a23-597b-8c6d-c631feb63737,Plan B: a Front Porch Wedding,harm (fusion breaks text),Fashion & Style,Fashion & Style,Your Money,Real Estate
+46cf5393-195f-5110-92b9-e52841494ac3,A Rube Goldberg Hand-Washing Contraption? The Race Is On,harm (fusion breaks text),Art & Design,Art & Design,Art & Design,Style
+db1dbf8c-65b6-511a-ab12-4abb554cfc08,The 10 Funniest Movies on Netflix,support (fusion fixes text),Movies,Television,Movies,Movies
+6a9d9e2f-76a2-5a20-85cf-bd8ff48dc3a8,Quarantine as a Shared Experience,harm (fusion breaks text),Real Estate,Real Estate,Well,Well
+9babd29f-d782-5018-ba49-30c1c73e4335,Is That Free Book Germ-Free?,support (fusion fixes text),Real Estate,Style,Well,Real Estate
+30f16e04-1549-5161-9d76-602d0abd5782,"Gaming Sales Are Up, but Production Is Down",harm (fusion breaks text),Technology,Technology,Science,Movies
+e896a3b0-c40b-5bb3-9b7f-b53decd47f72,A Pandemic Bonus: Catch These TV Shows While They're Still Free,support (fusion fixes text),Television,Media,Movies,Television
+b0fdd23c-c2f0-581a-aca7-f5c144c76dc2,I Miss Sports So Much. At Least I Still Have the 2006 Rose Bowl.,support (fusion fixes text),Opinion,Sports,Sports,Opinion
+f8a2f01f-a620-5140-aa8e-d0c6414ab79a,Gap Year Ideas for College Students,support (fusion fixes text),Well,Education,Well,Well
+f757192c-c4ba-5438-9ed4-d071da296c6e,'Robert the Bruce' Review: The Return of the King,support (fusion fixes text),Movies,Theater,Movies,Movies
+25cdcd87-f08c-53c0-828f-2e01f774d54e,Aching for My Grandchildren in Isolation,support (fusion fixes text),Well,Opinion,Well,Well
+bc2a477c-67b7-5719-a4d8-4b43e86cc63b,"Alaska School District Votes Out 'Catch-22,' 'Gatsby' and Other Classics",support (fusion fixes text),Books,Education,Books,Books
+1882ba9e-dc97-598e-95de-06049b69533a,Where Are the Photos of People Dying of Covid?,harm (fusion breaks text),Opinion,Opinion,Food,Health
+d0f34ba0-8fc6-5802-bb70-f3fc5c6c0a2a,"Porches, Yards, Driveways, Parking Lots: Where the Neighborhood Is Now",support (fusion fixes text),Style,Real Estate,Style,Style
+33e79880-5287-5320-845a-2ae6b5f6fce2,How Not to Be a 'Tiger King',harm (fusion breaks text),Opinion,Opinion,Television,Style
+86493fea-a529-5327-b4e7-c125add01206,Nancy Pelosi's Brilliant Career,support (fusion fixes text),Books,Style,Opinion,Books
+18e101f4-f522-5ac2-a357-bee9bb3e1255,A Dire Coronavirus Forecast as States Move to Reopen,harm (fusion breaks text),Opinion,Opinion,Science,Health
+993e76ae-106b-58bc-b74f-211510b467be,"With 'Four More Shots Please!,' India Gets Its Own 'Sex and the City'",harm (fusion breaks text),Television,Television,Fashion & Style,Movies
+4a26e8a3-9f26-5ad6-a77c-77a17bba46ba,Covid-19 Deaths in Moscow: The Government's Account,harm (fusion breaks text),Opinion,Opinion,Technology,Health
+77e8b2b7-7f0b-5f50-9d17-91a1347c87fb,Personal Foul: Hair Cut,harm (fusion breaks text),Sports,Sports,Sports,Style
+27331e51-f081-5ad9-9ee4-f646da931034,Spike Lee and the Battlefield of American History,support (fusion fixes text),Movies,Art & Design,Movies,Movies
+ce512ef4-0533-5912-b04d-79f8ec5721ee,This Exhibition Was Brought to You by Guns and Big Oil,support (fusion fixes text),Opinion,Art & Design,Fashion & Style,Opinion
+32991bde-1a31-549a-b467-047b26c5c076,"Anthony Bailey, Biographer With Restless Literary Spirit, Dies at 87",support (fusion fixes text),Books,Media,Books,Books
+fcde7bb1-efac-582e-b9a6-793adf4bf466,SpaceX Launch of NASA Astronauts Is Postponed Over Weather,harm (fusion breaks text),Science,Science,Sports,Sports
+93a55f9e-ea0d-5c3a-8af5-f0992b2e24c6,"No Touch, No Hands-On Learning, for Now, as Museums Try to Reopen",harm (fusion breaks text),Art & Design,Art & Design,Style,Well
+02eb4d9c-845f-50d6-ae8b-714877d4055c,"With Most Weddings Still on Hold, Italian Designers Struggle",support (fusion fixes text),Fashion & Style,Art & Design,Fashion & Style,Fashion & Style
+e11b2889-ef40-5e40-9563-f82e10b81e10,Feminist Rap Group in Iceland Looks Abroad After Making a Stir at Home,harm (fusion breaks text),Music,Music,Style,Style
+d3e17159-bf36-5bbd-ab45-d6a45fa3fa76,CrossFit Gym C.E.O. Greg Glassman Steps Down in Chaos,support (fusion fixes text),Style,Sports,Automobiles,Style
+035d0316-9d4b-5aa6-bf44-b4ee91e72d2e,Newsrooms Are in Revolt. The Bosses Are in Their Country Houses.,harm (fusion breaks text),Media,Media,Sports,Opinion
+c180b3fa-56e1-571d-a1c8-3cd46ccab8ee,"After A.L.S. Diagnosis, Rebecca Luker Is 'Proud I Can Still Sing'",harm (fusion breaks text),Theater,Theater,Theater,Music
+4f791853-6ba0-5b4f-863c-32e57631dc2c,'Avatar: The Last Airbender' Imagines a World Free of Whiteness,harm (fusion breaks text),Television,Television,Movies,Movies
+da52fcae-d192-5622-b59a-135947a8da07,Trump's Trade Appeals to China Still Left Farmers Reeling,harm (fusion breaks text),Economy,Economy,Science,Global Business
+e7449e4f-01fd-56f7-9344-7dcc0c192ebf,11 Things About Naomi Campbell,support (fusion fixes text),Style,Fashion & Style,Music,Style
+c21bd28f-6902-5e25-91ef-7f31fba8b8d0,"Trump, (Tie) Undone",harm (fusion breaks text),Style,Style,Opinion,Opinion
+9715983b-2390-528e-8023-64f8f3278b0d,Why Obsessive K-Pop Fans Are Turning Toward Political Activism,harm (fusion breaks text),Music,Music,Style,Style
+8bff7245-f936-5ad1-b898-987d34c89f24,Founder of Virginia's Signature Theater Steps Down,harm (fusion breaks text),Theater,Theater,Media,Music
+ce846eab-4e1c-58b9-92f6-b4722f235cff,James Brown's Will: Is It Inching Toward Closure After 14 Years?,support (fusion fixes text),Music,Media,Music,Music
+41ce27d7-ff71-54a9-8395-ab21ad71eae2,"Her Olympic Dream on Hold, Teen Gymnast Faces Other Trials",harm (fusion breaks text),Sports,Sports,Style,Well
+a051d01a-dc8e-593a-98fb-675e4a4c3d94,'San Antonio Strong',support (fusion fixes text),Opinion,Food,Technology,Opinion
+dcb14cd4-9469-5eda-b4bc-d2fe98630761,"Mass Transit, and Cities, Could Grind to a Halt Without Federal Aid",harm (fusion breaks text),Opinion,Opinion,Travel,Economy
+4ffd1b5b-44af-5171-96d0-5b5db25c6d67,Lin-Manuel Miranda and Disney: Timeline of a Collaboration,support (fusion fixes text),Movies,Theater,Television,Movies
+dd8654da-11b0-590e-9455-05539734ffbb,Does Zuckerberg Understand How the Right to Free Speech Works?,support (fusion fixes text),Opinion,Technology,Technology,Opinion
+fc77108a-0e31-50b2-8bf8-f64d4bc91ddd,"'Hamilton,' 'The Simpsons' and the Problem With Colorblind Casting",harm (fusion breaks text),Television,Television,Theater,Theater
+d69f7473-6ff2-55b5-a69d-a59d5f7dae84,James Murdoch Set to Acquire Large Stake in Art Basel Fairs,support (fusion fixes text),Art & Design,Media,Dance,Art & Design
+60fd115d-1a9f-58e9-99c3-355c8caf4c83,"Newark Artists, Thriving Amid Crisis and Catharsis",harm (fusion breaks text),Art & Design,Art & Design,Food,Music
+ef9f393e-5cda-5e45-9c93-9e9340052952,How Are You Telling Children the Story of the Pandemic?,harm (fusion breaks text),Well,Well,Opinion,Opinion
+cac21369-d9cc-5958-9c24-4f9e870c41d8,Telluride Film Festival Cancels 2020 Edition Due to the Pandemic,harm (fusion breaks text),Movies,Movies,Movies,Style
+18de9afa-2a20-5248-9181-13cadd3e1823,"'Pray for Your Poor Uncle,' a Predatory Priest Told His Victims",support (fusion fixes text),Opinion,Television,Art & Design,Opinion
+776aad47-c4e6-587e-b7f2-2d4d8653493b,Johnny Depp and Amber Heard's Courtroom Face-Off: An Explainer,harm (fusion breaks text),Movies,Movies,Sports,Television
+34cffb79-79f0-5fe5-9945-43fadd5fc7af,Tech Is About Power. And These Four Moguls Have Too Much of It.,support (fusion fixes text),Opinion,Technology,Media,Opinion
+1a75ec75-b8a3-50ad-adeb-49ef04a3a2eb,"Regis Philbin, TV's Enduring Everyman, Dies at 88",harm (fusion breaks text),Television,Television,Real Estate,Media
+facb76bb-fd51-5b20-9ffc-37c37ccf5830,Don't Ban TikTok. Make an Example of It.,support (fusion fixes text),Technology,Opinion,Technology,Technology
+ae86147f-7c0d-5e40-b6a2-7514ca1c0602,'City Dreamers' Review: The Female Architects Who Laid the Blueprint,support (fusion fixes text),Movies,Books,Books,Movies
+46a95ee8-ce37-5f58-ac06-9f87eb0f22e5,Moderna Vaccine Test in Monkeys Shows Promise,support (fusion fixes text),Health,Science,Health,Health
+44d82a62-302f-57eb-b203-c3a508898bd3,The Go-Go's Made History 38 Years Ago. There's Still More to Their Story.,harm (fusion breaks text),Music,Music,Fashion & Style,Movies
+e0893802-7060-505d-b197-fc7afbfe7b51,9 Great Movies to Stream on Peacock,harm (fusion breaks text),Movies,Movies,Movies,Television
+c9297da4-dce8-5712-adc6-2900e35eadbd,Scared That Covid-19 Immunity Won't Last? Don't Be,harm (fusion breaks text),Opinion,Opinion,Health,Health
+fd353cd6-649f-50ee-9961-61c3944b5e93,"Scrapbooking As an Act of ""Radical Self-Care""",harm (fusion breaks text),Style,Style,Your Money,Opinion
+6ee3fce8-d571-53ee-a50b-1113e5da10e0,How Are You Doing?,harm (fusion breaks text),Food,Food,Food,Opinion
+1f0daa4f-1607-5468-a985-9ae4943e32cb,Military Families Have Been Voting by Mail for Decades,harm (fusion breaks text),Opinion,Opinion,Opinion,Style
+b77f2634-7bcd-5eb2-8232-4efbb35c2b45,"The Girl Scout Uniform, Updated for Gen Z",support (fusion fixes text),Fashion & Style,Style,Real Estate,Fashion & Style
+2a0934b4-4421-5e27-a76f-2e03ed531eda,BOA Steakhouse Is Where Influencers Go to See and Be Seen,harm (fusion breaks text),Style,Style,Food,Food
+a0ca3f63-f57c-5c5d-8ee2-c4c23615e523,"2 TikTok Stars Who Threw Big Parties Face Charges, Prosecutors Say",support (fusion fixes text),Style,Music,Fashion & Style,Style
+88fa96e4-ed92-5349-9daf-b5f7d07ec1c5,"When the Story Line Is This Easy, You Just Know",support (fusion fixes text),Fashion & Style,Books,Fashion & Style,Fashion & Style
+7578edd3-39ae-5bea-a7ea-41f7a2a3be53,Franchise Workers Win Victory Over U.S. Effort to Curb Lawsuits,harm (fusion breaks text),Economy,Economy,Automobiles,Technology
+9d7dd6cd-2df7-5aee-ba8a-49718f57c49d,Watch These 15 Movies Before They Leave Netflix This Month,harm (fusion breaks text),Movies,Movies,Movies,Television
+71ad2f1d-cbac-53f8-b49e-823da7a8b0dd,Kevin Spacey Accused of Sex Offenses Against Teenagers in New Lawsuit,support (fusion fixes text),Movies,Media,Television,Movies
+5af511a3-5f5f-5520-8b3e-407e91a4bd42,"In 'Hoax,' Brian Stelter Ventures Where No Author Has Gone Before",harm (fusion breaks text),Books,Books,Your Money,Media
+1858e962-8427-5e85-88b3-9998bca70119,"Ronald Harwood, Oscar-Winning Screenwriter, Is Dead at 85",harm (fusion breaks text),Movies,Movies,Your Money,Books
+43acf8e0-5ef8-538e-8fd9-8d2095e550a7,A Job That Isn't Hard to Get in a Pandemic: Swindlers' Unwitting Helper,support (fusion fixes text),Technology,Your Money,Books,Technology
+69be7e6c-710c-589e-b45b-bd09efd2a1fa,The Hosts of 'Back Issue' Want to Throw It Back,support (fusion fixes text),Style,Theater,Style,Style
+cd7f8d6f-89b6-5712-a251-4b3552ac556b,"John Najarian, Pioneering Transplant Surgeon, Dies at 92",support (fusion fixes text),Science,Health,Media,Science
+4be67438-e18c-5cdc-bef1-7d4ff5d46bac,'The Artist's Wife' Review: Strife on Canvas,support (fusion fixes text),Movies,Theater,Media,Movies
+28c55bb7-f98e-5cc5-87bb-e6e74cdc60fe,"Happy Birthday, PBS. Please Save Us.",support (fusion fixes text),Opinion,Television,Theater,Opinion
+8ed047-d500-5d9e-b7b9-352cc210d1bc,"'This Is An Amazing Moment,' Says N.Y.C. Mayor on Schools Reopening",harm (fusion breaks text),Education,Education,Opinion,Health
+3604caef-d50f-5bb5-bd0d-89ff264d5141,'Everything Crossed Over': Michael Clark's Cheeky World of Dance,support (fusion fixes text),Dance,Art & Design,Dance,Dance
+7c9aa4c4-cc5d-57e8-af8a-7943ffa10c4f,2020 Nobel Prize Winners: Full List,support (fusion fixes text),Science,Books,Art & Design,Science
+26194f61-75c9-5d61-a64f-a2042ff98287,"'Tomboy' Looks at Gender Roles, and Role-Playing, Through the Ages",support (fusion fixes text),Books,Theater,Sports,Books
+5de8e29c-a4d4-5803-86e5-c9dca1dc4de8,"Fancy Cars, Fine Dining, Creator Mansions, Cash: Triller Is Shelling Out for Talent",support (fusion fixes text),Style,Media,Sports,Style
+b596449a-9044-50f1-8de2-178bfed563ad,"Stars Bring a Broadway Tune Back to Times Square, Unexpectedly",support (fusion fixes text),Theater,Dance,Style,Theater
+340af316-5abc-52e0-b531-a9030284607f,A Life of James Beard Stocked With Tasty Morsels,support (fusion fixes text),Books,Food,Books,Books
+2a2c9ad1-6c49-5e3e-b698-ca386ac8af0e,We Watched It All: Fashion Week in Quarantine,support (fusion fixes text),Fashion & Style,Style,Fashion & Style,Fashion & Style
+d119b882-a17a-5194-a112-d8cd2be01e02,'White Riot' Review: When Punk's Stars Banded Against Racism,harm (fusion breaks text),Movies,Movies,Music,Books
+b7ffb45c-c105-525c-9541-09ef2071c888,Why a Perfect Spiral Football Pass Doesn't Break the Laws of Physics,harm (fusion breaks text),Science,Science,Sports,Sports
+6fc780b9-e532-5865-b9c4-3f0a565aec2e,The Encroachment of the Unsayable,support (fusion fixes text),Opinion,Books,Opinion,Opinion
+11440940-f03e-5fbf-9682-cc58431b034d,John Wilson Reveals the Absurd Poetry of New York,support (fusion fixes text),Television,Movies,Movies,Television
+4eaad753-6f2a-5a35-93db-4cebc983434b,Ant Group Set to Raise $34 Billion in World's Biggest I.P.O.,harm (fusion breaks text),Technology,Technology,Global Business,Global Business
+b2c3a8a3-c79d-5aeb-ac76-97efa8f8c09a,The Wine World's Most Elite Circle Has a Sexual Harassment Problem,harm (fusion breaks text),Food,Food,Food,Fashion & Style
+fde876a9-1c83-5348-a1b0-331773bc5aa6,The Swagger of Denis Shapovalov,support (fusion fixes text),Sports,Style,Sports,Sports
+7e4c89b8-7bc1-5097-928d-0c4393b8c8a7,When a Dance Collective Was Like a Rock Band,support (fusion fixes text),Dance,Music,Dance,Dance
+e4c35d23-dfd3-5932-8e82-7b6cd6e86852,A 'Wicked' Challenge and Other Tough Questions for Ben Brantley,harm (fusion breaks text),Theater,Theater,Media,Media
+c76f9857-b8ff-57a4-bb4d-6642ebbb97ee,Books for Budding Art Lovers,harm (fusion breaks text),Books,Books,Art & Design,Art & Design
+059263a4-e8ce-5ea7-8c7b-63af31067044,Want to Play La Parisienne? Here's How,support (fusion fixes text),Style,Theater,Style,Style
+970e772e-cece-5a3c-b86e-e0e5385840e1,A Postmodern Period Piece From a Cinema Titan,support (fusion fixes text),Movies,Theater,Movies,Movies
+c371f24f-7ef5-5dd8-9720-0826306b840a,One America News spreads debunked elections claims.,support (fusion fixes text),Technology,Media,Opinion,Technology
+7076608f-0ab6-5b6a-86ad-22ca51e11fc8,Academy Museum Gives Debbie Reynolds Her Due as a Costume Conservator,harm (fusion breaks text),Movies,Movies,Style,Art & Design
+42aa00da-44e5-5d94-8b85-e25d222aac9c,Here's what you need to know about today's hearing.,harm (fusion breaks text),Technology,Technology,Media,Opinion
+d97d58b3-fd17-521e-a76a-08469fa10bcd,2 Companies Say Their Vaccines Are 95% Effective. What Does That Mean?,harm (fusion breaks text),Health,Health,Health,Opinion
+91203ade-a3d6-5ecf-bedb-c9c3d2f721b5,Sometimes Our Favorite Sports Need to Love Us Back,harm (fusion breaks text),Sports,Sports,Music,Opinion
+4629cd41-7dad-5952-85b1-93eb2746ce0d,Hidden in Plain Sight: The Ghosts of Segregation,harm (fusion breaks text),Travel,Travel,Real Estate,Opinion
+6e3745b5-1fa8-5cd0-a596-a70ce05edd3a,Momona Tamada's Week: 'Satisfying' Baking Videos and Peace Through Podcasts,harm (fusion breaks text),Television,Television,Style,Style
+f4e115d8-b8e7-5bf3-8693-7f981fc5f1d2,Mourning at the Places Where 'El Dios' Walked,harm (fusion breaks text),Sports,Sports,Art & Design,Travel
+bc0ba3ab-257c-5acf-be20-1b071c113785,"'The Mandalorian' Season 2, Episode 6: Things Fall Apart",harm (fusion breaks text),Television,Television,Movies,Movies
+520fe38c-d5a3-5ef8-b488-42ccb19bbc04,Want Vaccines Fast? Suspend Intellectual Property Rights,harm (fusion breaks text),Opinion,Opinion,Art & Design,Health
+c4365f40-78db-58da-800d-485f28929701,TikTok 'Ratatouille' Musical to Be Presented as Benefit Performance,harm (fusion breaks text),Theater,Theater,Health,Movies
+320807c6-c344-5fe7-aa89-4185d393b945,"'The Prom' Review: Showbiz Sanctimony, and All That Zazz",support (fusion fixes text),Movies,Theater,Movies,Movies
+91098e20-8e7d-51c0-b229-9cde2cc76f27,Two reasons the Texas election case is faulty: flawed legal theory and statistical fallacy.,harm (fusion breaks text),Technology,Technology,Opinion,Opinion
+65ff44bb-ddc0-5d76-8ba3-84a23a0bc230,"At the U.S. Women's Open, a Love Story",harm (fusion breaks text),Sports,Sports,Fashion & Style,Fashion & Style
+8f17645a-c6dc-5ccb-8997-92bcd0098e24,Use It or Lose It: Tenant Aid Effort Nears a Federal Cutoff,harm (fusion breaks text),Economy,Economy,Technology,Health
+9dc8a05d-3d8b-5969-a10e-fc77cd936158,To the Rescue This Year: The People Who Put Orchestras Online,harm (fusion breaks text),Music,Music,Technology,Movies
+f5cf2927-d894-5831-ae36-dc776b20befa,David Attenborough Still Has Hope for Our Future,harm (fusion breaks text),Television,Television,Movies,Media
+75410ac1-48ac-57ef-9c73-a6cf9323c0a3,"Stimulus Money Should Have Gone to the Jobless, Economists Say",support (fusion fixes text),Economy,Your Money,Opinion,Economy
+e56e6927-5085-5960-a5e0-9693d5eeaba7,Celebrating the 200th Anniversary of Queen Victoria,harm (fusion breaks text),Travel,Travel,Books,Music
+bb32e248-caa7-578a-8de8-4f67bbe5a543,Oscars Rewind: The Most Political Ceremony in Academy History,harm (fusion breaks text),Movies,Movies,Music,Music
+bbee2821-39ee-5287-9f98-90837d18609a,"In San Diego, a Quandary Over the (L.A.) Chargers",support (fusion fixes text),Sports,Travel,Sports,Sports
+2fe7eaba-0a1f-5fa8-b001-aaf2848b0aeb,"For Katelyn Ohashi, Viral Gymnastics Joy Was No Act",support (fusion fixes text),Sports,Dance,Sports,Sports
+411cbba4-1e00-52c7-bc72-df4a7c3aed84,He's 16 Going On Stardom: Meet Broadway's Next 'Evan Hansen',harm (fusion breaks text),Theater,Theater,Fashion & Style,Style
+6ce7fc57-62f6-59af-9538-e8c9c190e352,It's O.K. if a Deal Falls Through. There's Always More Art.,harm (fusion breaks text),Art & Design,Art & Design,Real Estate,Real Estate
+23bc3c39-ae21-53db-8610-7963da2503e4,"Museums Have Grown More Diverse, New Study Says",harm (fusion breaks text),Art & Design,Art & Design,Books,Science
+a966f05f-10e0-50a9-8dd7-c4a86f192d3e,"Review: In 'Joan,' a Photographer Tries to Focus Her Past",support (fusion fixes text),Theater,Movies,Theater,Theater
+68b2be99-9a96-54a5-bb2f-c5dc1e83d1cf,"Huawei and China, Facing U.S. Charges, Have Few Ways to Retaliate",harm (fusion breaks text),Technology,Technology,Opinion,Economy
+1d6ecc59-6b20-5ac7-99d4-ea140e592fc6,What We Know About Michael Jackson's History of Sexual Abuse Accusations,harm (fusion breaks text),Music,Music,Movies,Movies
+3a633c8a-b502-53be-82dd-e43e89bc1f8f,Jennifer Hudson Will Sing at the Oscars as Academy Relents on 2 Songs,harm (fusion breaks text),Movies,Movies,Music,Music
+117fd68f-4dd1-5690-9973-154b9871aa92,How to Complain at a Restaurant? Just Ask Our Critic,harm (fusion breaks text),Food,Food,Movies,Media
+e7585b22-fb08-5ba0-bb4a-5bd81548cb5e,Cirque du Soleil Buys Magic Show Company,support (fusion fixes text),Theater,Dance,Music,Theater
+e88fef66-aefd-504c-a5b1-9054989a6e2f,"Blackness, Gayness, Representation: Marlon Riggs Unpacks It All in His Films",harm (fusion breaks text),Movies,Movies,Sports,Art & Design
+4d3c38b6-e502-5e2c-ab67-30ee20d0d845,Morgan Library & Museum Announces $12.5 Million Exterior Renovation,harm (fusion breaks text),Art & Design,Art & Design,Real Estate,Real Estate
+19244cd0-e010-5149-af96-9cd1c5521ae6,How a Ballet Dancer Brought Balance to U.C.L.A. Gymnastics,support (fusion fixes text),Sports,Dance,Television,Sports
+f6b2650b-812a-551b-ab20-464268e84876,New York City to Ban Discrimination Based on Hair,support (fusion fixes text),Style,Fashion & Style,Opinion,Style
+25e93472-e270-5404-812d-d4fc7b1a3cce,"As Students Struggle With Stress and Depression, Colleges Act as Counselors",harm (fusion breaks text),Education,Education,Opinion,Health
+54031732-a016-5790-b6f1-1a72f4e42180,"Sammy Davis Jr.'s Knotty Journey, on Film and in Song",support (fusion fixes text),Music,Dance,Books,Music
+530e9f6c-1467-5dc7-b78f-91166882cb50,President Trump Has Inspired Art. That's Not Always a Good Thing.,harm (fusion breaks text),Art & Design,Art & Design,Real Estate,Theater
+c6413c9d-5593-5f00-9812-4ebfa63285e4,Falls Can Kill You. Here's How to Minimize the Risk.,harm (fusion breaks text),Well,Well,Art & Design,Health
+bf164059-8a0a-5459-95b2-74235220a19f,Michael Cohen's Testimony Grabs Late-Night TV's Attention,support (fusion fixes text),Television,Media,Television,Television
+b87b7f88-d6bb-5291-83f8-6e16abdef6d5,Her Husband Did the Unthinkable. This Is a Play About Everything After.,support (fusion fixes text),Theater,Television,Art & Design,Theater
+c163249e-de9a-52f9-9c9b-be9c8d5d5452,"For the Wealthy, Sports Opened a Back Door to Elite Colleges",harm (fusion breaks text),Sports,Sports,Health,Your Money
+2be1efb5-cab2-57ba-8159-777f6bdc112d,She Dances. He Directs. How They Created a Balletic Battle of the Sexes.,support (fusion fixes text),Dance,Fashion & Style,Dance,Dance
+d1c721ba-c27a-5879-b4d9-1e60655b4a19,Seduced by Singapore's Charismatic Orchids,harm (fusion breaks text),Art & Design,Art & Design,Movies,Style
+a2c9eb91-e6bd-51e3-a7ce-b6099c4e814f,Review: Staging a True Family Nightmare in 'Accidentally Brave',support (fusion fixes text),Theater,Movies,Theater,Theater
+e9177def-dcda-5662-aee8-74b687306170,The Author Who Tased Himself to Reveal the Failures of High-Tech Policing,harm (fusion breaks text),Books,Books,Automobiles,Technology
+19b7ea9c-a01c-5270-92d4-36c63fb97bc3,Spain Gets a Crash Course in a Former Colony's Art,harm (fusion breaks text),Art & Design,Art & Design,Movies,Dance
+b8c814b5-74f5-5ade-9cf1-313f7cb50a1c,Can the Birkin Bag Survive the Resale Market?,support (fusion fixes text),Fashion & Style,Style,Fashion & Style,Fashion & Style
+8953ffb2-6289-5e67-b557-57d5e0c635e1,Movies Primed Us for Black Holes. Here are 6 to Watch.,harm (fusion breaks text),Movies,Movies,Science,Science
+72f3f2f8-977d-5131-bd48-6712faba9398,"'S.N.L.' Sees BTS Perform and Emma Stone Host, as Julian Assange Lands in Jail",harm (fusion breaks text),Television,Television,Theater,Music
+b291ba16-9c88-5282-9afe-4887c244d2fb,"The Modern Music Man: He Plays 70 Instruments and Video Games, Too",harm (fusion breaks text),Theater,Theater,Music,Music
+5b340829-e2d3-580a-af73-99cc4d4f8316,Who Goes Public When? Tech Companies Maneuver to Stand Out in the Horde,harm (fusion breaks text),Technology,Technology,Science,Your Money
+43231376-374b-58ab-8cc9-8536f1ff18b9,Chanting Crowds and Camo Chic,harm (fusion breaks text),Fashion & Style,Fashion & Style,Books,Style
+8602ddf7-5615-5f52-9a11-51f4ebfc49c3,"Review: In 'The Appointment,' the Fetus Sings Out",harm (fusion breaks text),Theater,Theater,Dance,Dance
+0e2bf7e8-a05a-5258-9fa6-2d600f316050,"As Durst Murder Case Goes Forward, HBO's Film Will Also Be on Trial",support (fusion fixes text),Television,Media,Books,Television
+b9050a06-c0fb-52ba-b4ce-b8faa21c4dc2,Lego Is Making Braille Bricks. They May Give Blind Literacy a Needed Lift.,support (fusion fixes text),Health,Well,Health,Health
+286a4a94-86e7-5956-97cc-b45888fc5727,"Hello, Arya! 'Game of Thrones' Baby Names Are for Girls.",support (fusion fixes text),Style,Television,Food,Style
+44c7301f-9ccd-54f9-b67d-2e492655631c,"Miss America, Miss Teen USA and Miss USA Are All Black Women for the First Time",support (fusion fixes text),Style,Sports,Style,Style
+301fb00f-449b-5ac3-81cb-647ca11b3c98,"As Mainstays Depart, Charleston Asks Where Its Restaurant Scene Is Headed",harm (fusion breaks text),Food,Food,Food,Travel
+3b306035-d740-5a6f-b193-f4d4a7030979,"For Jamila Woods, History Is Today's Inspiration and Tomorrow's Blueprint",harm (fusion breaks text),Music,Music,Books,Books
+a1956086-6f11-5eba-9e43-47c2502bf731,'Ink' Spot: Rupert and Friends Catch Murdoch Play on Broadway,harm (fusion breaks text),Theater,Theater,Media,Media
+2fea9f60-2cc3-559d-9711-5a6c6586b552,Logic Adds a No. 1 Album to His 2019 Chart Toppers,harm (fusion breaks text),Music,Music,Sports,Books
+78b82f3d-5c00-55de-b836-9d62162c243b,Fab 5 Freddy's Latest Cultural Coup? 'The Archive of the Future',support (fusion fixes text),Music,Art & Design,Music,Music
+8960b70c-25d3-5ef6-b02f-be04955a25af,"There's Great Dance on Broadway. Hello, Tony Awards?",harm (fusion breaks text),Dance,Dance,Theater,Theater
+111e81c8-3f00-5461-8595-b360c99f6ddd,'Echo in the Canyon' Review: Capturing a California Musical Moment,support (fusion fixes text),Movies,Music,Music,Movies
+7269ca17-c187-519c-991d-6c159bdd8594,Bill Geist Fondly Remembers the Middle America of Old,support (fusion fixes text),Books,Travel,Books,Books
+39169bbd-c8be-5f62-be79-4a61282f73f0,Sephora Will Shut Down for an Hour of Diversity Training Tomorrow,support (fusion fixes text),Style,Fashion & Style,Art & Design,Style
+e6146b9d-ea4d-5ace-9917-643e93562988,Highlights of a House Bill's Attempts to Help Retirees and Savers,harm (fusion breaks text),Your Money,Your Money,Technology,Health
+8aadb16c-4fb1-5a0f-9ce3-5c559846fded,Trade Wars Stoke Economic Fear as G-20 Finance Ministers Gather in Japan,support (fusion fixes text),Economy,Global Business,Technology,Economy
+48673d73-3e36-5459-a780-8ed91633957c,Billy Porter on the Tonys Red Carpet,harm (fusion breaks text),Fashion & Style,Fashion & Style,Music,Style
+e9eb0986-868b-5e9b-93a3-65060b374174,You Can Talk to Plants. Maybe You Should Listen.,support (fusion fixes text),Science,Art & Design,Health,Science
+f3a44793-9e32-56d0-9bcf-d3db9050a08f,How Ermanno Olmi Found Grace in the Daily Labors of Italians,support (fusion fixes text),Movies,Theater,Books,Movies
+6144ba83-b3fe-5350-8709-27f826d894c0,That Sleep Tracker Could Make Your Insomnia Worse,support (fusion fixes text),Health,Well,Technology,Health
+f7fc9317-998c-574c-9e71-6b2cecb964d0,36 Hours of New York City Pride,harm (fusion breaks text),Travel,Travel,Style,Style
+d430cab5-3476-5c6d-bd6d-5fb4b6931fa2,The Jewish Prenuptial Gets an Artsy Update,harm (fusion breaks text),Style,Style,Art & Design,Fashion & Style
+581b52bb-6444-5196-9074-2b484598d05b,What's on TV Thursday: 'Anima' and 'Laurence Anyways',harm (fusion breaks text),Television,Television,Movies,Movies
+6e7c97d2-dcbd-513a-bdaf-d42dfa602c02,My Son Got Lyme Disease. He's Totally Fine.,harm (fusion breaks text),Well,Well,Fashion & Style,Health
+6ca8013a-c448-59fb-a94f-0f89ca991901,KitchenAid Celebrates Its Centennial,harm (fusion breaks text),Food,Food,Books,Style
+fadf1009-3b46-59ee-be8d-e3e54447b33c,Julia Louis-Dreyfus on Her Emmy Nomination and the End of 'Veep',harm (fusion breaks text),Television,Television,Television,Movies
+0b8a6044-084f-5d17-a536-f4f655d4b626,"Woodstock 50 Has No Venue, 30 Days Before It's Supposed to Start",harm (fusion breaks text),Music,Music,Technology,Movies
+d18b0cae-7cb9-5b5c-bc51-2b635880ba8a,What's on TV Saturday: Movies About the Moon Landing,harm (fusion breaks text),Television,Television,Movies,Movies
+ca8690a5-ac5d-5eba-a349-d52df078d2d1,Glimpsing Our Post-Consumption Future at the Cooper Hewitt,harm (fusion breaks text),Art & Design,Art & Design,Style,Style
+76eacef0-75f6-58f3-925a-997853fc0bc8,Dancing Boys and a Bloodthirsty Plant Sidle Up to Shakespeare,harm (fusion breaks text),Theater,Theater,Dance,Dance
+cd42f186-83c3-5fb7-bd00-c4e8fe5a47be,"If You Can Get Killed Doing It, Fashion Wants It",harm (fusion breaks text),Style,Style,Fashion & Style,Fashion & Style
+24938f55-29d3-5c36-9d34-4933b4e3648a,Sex and the Subway Ad,support (fusion fixes text),Style,Real Estate,Art & Design,Style
+ee43d858-6414-502c-957a-d7dbbdbef92b,Why Is Hollywood So Scared of Climate Change?,support (fusion fixes text),Movies,Media,Movies,Movies
+825fd5fb-94ac-5c61-8c91-9f09709bda9a,Summer Chills: A Horror Fan's Guide to What to Watch Right Now,harm (fusion breaks text),Movies,Movies,Television,Television
+20e42458-5e46-56ff-abc7-1450ceee40b9,Alice Walker Defends George Washington Murals,support (fusion fixes text),Art & Design,Opinion,Art & Design,Art & Design
+7c4270d2-6b9b-5f03-80b3-979fda27601d,'Angel Has Fallen' Bumps 'Good Boys' From Its Box-Office Lead,harm (fusion breaks text),Movies,Movies,Television,Media
+200b06c2-ee1a-5977-a06c-2b7ef18a6599,"For Dancers, the Not-So-Lazy Days of Summer",harm (fusion breaks text),Dance,Dance,Fashion & Style,Style
+09c63cde-b861-5d12-b5ec-baa0c9c53117,Where a Michelin-Starred Chef Goes in San Francisco,harm (fusion breaks text),Travel,Travel,Global Business,Food
+94be17e6-8a6e-54e9-8c6e-1f078f20c4f0,"In Australia, Television 'Content' Designed for Your Phone",harm (fusion breaks text),Television,Television,Style,Technology
+f0018467-9f32-5d55-bfe1-b23c50a06cce,"When the A.I. Professor Leaves, Students Suffer, Study Says",support (fusion fixes text),Technology,Education,Style,Technology
+d662ce89-da4c-55b7-b111-feec10262bb8,A Canadian Island Where Hip Meets Historic,support (fusion fixes text),Travel,Real Estate,Travel,Travel
+8cc2d031-6fda-5529-b008-7cb6c4e23abe,Robert Frank Revealed the Truth of Postwar America,harm (fusion breaks text),Art & Design,Art & Design,Books,Opinion
+8a44cac3-1b8d-5a07-a373-0e178c5882f5,"Review: In the Entrancing 'Undone,' Life Is but a Dream State",harm (fusion breaks text),Television,Television,Movies,Movies
+af6f48d4-35fb-5313-91be-2ec9045dd6ba,"An Interview With Caroline Calloway's Ghostwriter, Natalie Beach",support (fusion fixes text),Style,Books,Television,Style
+9532b101-b967-57f1-be91-9791f648d5ae,"'Oh-Oh, Ay-Ay!' Riding to an Italian Rhythm on the Transumanza",harm (fusion breaks text),Travel,Travel,Science,Science
+3af49b05-a653-588d-bec3-1129b4de2539,Tinder Created a Show to Give Its Users Something to Hook Up About,harm (fusion breaks text),Style,Style,Technology,Technology
+cc0dba7c-cd52-54e9-8ba7-1dfa62ebd20f,Sleep Therapy for the Masses May Be Coming to You Soon,support (fusion fixes text),Technology,Health,Technology,Technology
+f461c4ed-2ccb-5cd7-af1c-298814c3c319,Time to Trot Out the Fishnets and Put on a Show,support (fusion fixes text),Style,Art & Design,Dance,Style
+af82156f-64a5-52e2-9372-6e83f9ad1ea9,Dries Van Noten and Christian Lacroix: A Collaboration 2-Step,harm (fusion breaks text),Style,Style,Fashion & Style,Fashion & Style
+cf9b1629-1671-56c0-861d-55562ba2ab5e,Who's Irish Now?,support (fusion fixes text),Style,Travel,Style,Style
+5361fcd1-0160-531e-af3a-0e9ae445e957,Hiroshi Sugimoto Has Hard Thoughts and a Soft Focus,support (fusion fixes text),Art & Design,Books,Art & Design,Art & Design
+fc84b5c4-28d1-537b-a14f-1b0ac256a316,Review: Love Among the Shadows in Edgar Oliver's 'Victor',support (fusion fixes text),Theater,Books,Movies,Theater
+5d0ae994-b5d0-500c-ae29-955ba43fb74f,Olga Tokarczuk and Peter Handke Awarded Nobel Prizes in Literature,harm (fusion breaks text),Books,Books,Art & Design,Art & Design
+9b38cfa2-ed8d-5a2c-b193-6778e46d521c,The Co-opting of Modest Fashion,support (fusion fixes text),Style,Fashion & Style,Fashion & Style,Style
+abe28d14-2db9-5807-bbb5-093a8dad5650,"A Musical Revolt Succeeds: WNYC, in a Reversal, Keeps 'New Sounds'",support (fusion fixes text),Music,Media,Technology,Music
+88aa9646-a86e-55d7-a3a6-d28246504cbe,'Joker' Stairs Become a Bronx Tourist Draw. Hope You're in Shape.,harm (fusion breaks text),Movies,Movies,Style,Real Estate
+cbaaf1ef-f63a-5690-b1f9-bf3ea6e809ce,Vast Dragnet Targets Theft of Biomedical Secrets for China,support (fusion fixes text),Health,Technology,Health,Health
+5a5a0db9-98f1-5fbd-a44c-59183a6a093c,Cook Like a Scullery Maid on 'Downton Abbey',support (fusion fixes text),Style,Real Estate,Style,Style
+b42c9bbd-fa81-5297-a033-7afd9c45b8ad,Is This the Store for Grown-Up VSCO Girls?,support (fusion fixes text),Fashion & Style,Style,Fashion & Style,Fashion & Style
+35895a0f-fcba-584b-93d2-88d4fc182f1c,'The Kingmaker' Review: The Power and Vainglory of Imelda Marcos,harm (fusion breaks text),Movies,Movies,Movies,Style
+459b0244-daec-5e0c-a232-4f6bf50cf185,'Crown Vic' Review: A Cop Thriller Abounding in Cliché,harm (fusion breaks text),Movies,Movies,Television,Television
+4fedb36a-f995-5332-8802-0952a04368d5,The Fate of a Brooklyn 'Palace',support (fusion fixes text),Real Estate,Art & Design,Travel,Real Estate
+739dea30-c1bf-5140-aa3b-b273b1945b56,The Red Coats Are Coming,support (fusion fixes text),Style,Fashion & Style,Fashion & Style,Style
+5ead9a64-324e-54ab-9e74-a33fb47c513b,House Hunting in French Polynesia: A Private Island for $2.9 Million,harm (fusion breaks text),Real Estate,Real Estate,Travel,Travel
+2e415c24-252f-5070-a846-f90c4d37d74f,What's on TV Sunday: The American Music Awards and 'Meet Me in St. Louis',harm (fusion breaks text),Television,Television,Media,Theater
+a74612c1-8fde-5a5a-b59c-a7de87820f96,How to Follow Up 'Frozen'? With Melancholy and a Power Ballad,support (fusion fixes text),Movies,Theater,Movies,Movies
+b63d95da-f412-5eef-b5cd-8640a1e25b5b,Melania Trump Reveals Christmas Décor but Stays Hidden,harm (fusion breaks text),Style,Style,Opinion,Art & Design
+5e466b81-91ea-56f8-97ed-370f3c819334,Facebook Gives Workers a Chatbot to Appease That Prying Uncle,support (fusion fixes text),Technology,Media,Technology,Technology
+d43d6ef4-11a7-563d-a848-319fba3b215d,"Gary Regan, Maestro of Mixology and Cocktail Culture, Dies at 68",harm (fusion breaks text),Food,Food,Media,Books
+51feb4e7-895b-52a9-9395-b9c490a00e74,This Space Is for the Baristas,harm (fusion breaks text),Food,Food,Real Estate,Real Estate
+1071d6c7-4b2c-58bb-b115-32a19b24bb71,How the Grinch Stole Our Hearts,harm (fusion breaks text),Movies,Movies,Art & Design,Books
+43f54a85-d1cc-5eef-8f35-c671f8ba0292,The Ganges Brims With Dangerous Bacteria,support (fusion fixes text),Health,Science,Science,Health
+723ca20b-d883-5bf5-b66c-5e12dd0f63e2,Prime Anchor: An Amazon Warehouse Town Dreams of a Better Life,harm (fusion breaks text),Technology,Technology,Real Estate,Real Estate
+73685d2d-1eae-5831-96c9-c321f51d49a9,We Asked Golden Globe Nominees About Sexism. Here's What They Said.,harm (fusion breaks text),Movies,Movies,Media,Television
+159c80ec-78c2-54b6-9406-0b92d24b33a3,What's on TV Monday: 'David Bowie: The Last Five Years' and 'A Ghost Story',harm (fusion breaks text),Television,Television,Television,Movies
+d7b22026-b26b-563f-add5-3a4feb2c9043,Brain Surgery in 3-D: Coming Soon to the Operating Theater,harm (fusion breaks text),Health,Health,Health,Science
+b5f05e80-6a46-5fd5-89f8-b1ab1146a43b,"After Globes, Women Declare Success. But What About the Men?",harm (fusion breaks text),Movies,Movies,Fashion & Style,Style
+dd9edb3d-c637-5335-baca-6f7674b412d5,"Review: In 'Saturday Church,' Coming of Age, and Coming Out",support (fusion fixes text),Movies,Theater,Theater,Movies
+d9985a86-70de-5539-934e-ceb11f490e67,Josie Rourke and Kate Pakenham to Depart London's Donmar Warehouse,harm (fusion breaks text),Theater,Theater,Fashion & Style,Dance
+19b65e3b-eebc-507d-94a3-e3d1f5756b02,The End of the Social News Era? Journalists Brace for Facebook's Big Change,support (fusion fixes text),Media,Technology,Media,Media
+6a0a27bb-aa74-5c64-b2b7-6cf0b248c6d4,Jeff Bezos Jumps Into 'Dreamer' Fight With Gift for Scholarships,harm (fusion breaks text),Technology,Technology,Media,Media
+317067b5-2fa5-55bf-91fa-d5335040c70f,Catherine Deneuve Apologizes to Victims after Denouncing #MeToo,harm (fusion breaks text),Movies,Movies,Movies,Fashion & Style
+9df1aeed-0bab-5f93-a747-65592cb897b6,"Alexa, We're Still Trying to Figure Out What to Do With You",harm (fusion breaks text),Technology,Technology,Real Estate,Real Estate
+f85b9862-5dd3-52f4-8c10-2670d944bdc1,The Parasite on the Playground,support (fusion fixes text),Health,Science,Science,Health
+4e444ef8-905d-5e14-b632-93f6ba1087ef,Don't Tell Ken Burns Quilts Are Quaint,harm (fusion breaks text),Art & Design,Art & Design,Health,Style
+6a700967-90d3-5e5e-8a01-ade7186dc096,What Sat on Trump's Nightstand This Year?,harm (fusion breaks text),Books,Books,Media,Style
+b4076e4b-ed80-5657-8495-e7d6292b532b,"Nous, a New Store, Picks Up Where Dearly Departed Colette Left Off",support (fusion fixes text),Fashion & Style,Style,Dance,Fashion & Style
+4bf3f99b-2bd3-5aa5-be91-26e4f5e49427,"Tom Petty Died From Accidental Drug Overdose Involving Opioids, Coroner Says",harm (fusion breaks text),Music,Music,Music,Health
+00ee714b-b260-5cdb-8491-e479520576c6,Inn at Little Washington Celebrates 40 Years,harm (fusion breaks text),Food,Food,Travel,Travel
+23b8fa3e-dd5e-5726-8328-35ae6dacc5bc,"Welcome Back, Murphy Brown: CBS Joins the Reboot Craze",harm (fusion breaks text),Media,Media,Television,Television
+1ac26fe6-8131-5567-a61f-724fe3790f8c,Cecile Richards on Her Life After Planned Parenthood,harm (fusion breaks text),Style,Style,Books,Fashion & Style
+0f490723-c62e-5161-82d9-2646f170cfd1,Travel Tips From Comedians: Tom Segura,support (fusion fixes text),Travel,Television,Books,Travel
+09032f8d-77e4-5471-bd62-abd768af89dd,My Woody Allen Problem,support (fusion fixes text),Movies,Art & Design,Movies,Movies
+2499be98-93fa-5bd7-9509-f836666616af,"At Serengeti Kitchen, Touches of Memoir Dot the Menu",harm (fusion breaks text),Food,Food,Food,Travel
+edd98cac-d8ad-5371-a94e-385cae500fe7,"Review: An 'Our Town' With Sex Offenders, in 'America Is Hard to See'",support (fusion fixes text),Theater,Movies,Fashion & Style,Theater
+ca05622d-a285-5139-aeb8-ef6abda277f9,The Obama Portraits Drew a Strong Reaction. What Did They Mean to You?,harm (fusion breaks text),Art & Design,Art & Design,Fashion & Style,Fashion & Style
+49a8a5af-0116-568c-be47-33b5a773e207,"Now at MoMA, a Work That Fidel Castro Banned 18 Years Ago",support (fusion fixes text),Art & Design,Dance,Art & Design,Art & Design
+a85098e8-7b87-5be0-852a-40f31a6b6a40,The Complex Intersection Where Rap and the Legal System Collide,support (fusion fixes text),Music,Opinion,Theater,Music
+bd7f0f20-14d9-5687-addb-a62aa910dd95,Stephen Colbert Stands With Florida Students Fighting for Gun Control,support (fusion fixes text),Television,Opinion,Television,Television
+06cb27df-2b6e-5201-9897-b9427ab6bdc5,How Skipping Hotel Housekeeping Can Help the Environment and Your Wallet,harm (fusion breaks text),Travel,Travel,Real Estate,Your Money
+2a6b0801-bf30-5ef3-b27e-b6e8f9d3f715,Etan Thomas: Now a Different Kind of Player,harm (fusion breaks text),Books,Books,Sports,Sports
+33465e3c-85df-5f57-bd79-0469fb92a337,"Review: In 'Goldstone,' an Aboriginal Detective Digs Up Corruption",harm (fusion breaks text),Movies,Movies,Movies,Television
+fe61a11d-adc4-5d9d-9439-84ce7317e209,A Pioneering Times Square Asian-American Nightclub Closes,support (fusion fixes text),Style,Food,Media,Style
+38a4b18b-ae4b-529a-b8e8-819ad3a67eab,"Many Accusations, Few Apologies",support (fusion fixes text),Style,Food,Movies,Style
+b8a5db0c-9d0a-59fe-940d-69210704f247,Sweatpants Forever!,harm (fusion breaks text),Fashion & Style,Fashion & Style,Dance,Style
+60263389-de02-549a-a6d9-8979257cdf36,"Women Still Rule the Coyote Ugly Saloon, 25 Years Later",support (fusion fixes text),Style,Movies,Fashion & Style,Style
+b148593e-6449-5546-abf4-c1fee0546009,"Review: 'Eight Hours Don't Make a Day,' Another Fassbinder Masterpiece",support (fusion fixes text),Movies,Theater,Movies,Movies
+895c573e-32bd-5c08-8071-12219d2e2b44,"Shop, Eat, Envy",support (fusion fixes text),Fashion & Style,Style,Style,Fashion & Style
+4c552bff-41c9-5775-8546-9e1dd5ee697d,Rihanna Protests Ad on Snapchat That Mocks Domestic Violence,harm (fusion breaks text),Style,Style,Music,Media
+8518d306-b872-533f-bb83-224404f7f523,Art Dealer Donates James Joyce Trove to Morgan Library,harm (fusion breaks text),Books,Books,Books,Art & Design
+ea157872-1369-5bc9-a1fe-57789dbb605d,Take This App and Call Me in the Morning,support (fusion fixes text),Technology,Health,Your Money,Technology
+dfbec6eb-0768-5350-8ecb-54c282d061f7,How to Turn Your Renovation Into a Vacation,support (fusion fixes text),Real Estate,Your Money,Real Estate,Real Estate
+b3d40332-7d2c-59ff-a369-fcb06fb2123b,An 'It' Bag Faces Its Imitators,harm (fusion breaks text),Fashion & Style,Fashion & Style,Style,Style
+63ea2223-6eaf-5b47-a156-30d6e92bac78,Business Before Pleasure. But Both.,support (fusion fixes text),Fashion & Style,Style,Education,Fashion & Style
+0f0578f9-2c89-5bf1-aa06-8088469b1df0,This Woman Makes a Living Destroying Jeans and Fixing Houses,support (fusion fixes text),Style,Fashion & Style,Fashion & Style,Style
+f1e38ea6-af69-5e9c-be7c-9e14880a88d6,Walmart Pulls Cosmo From Checkout. Plus! Guess Who's Claiming Victory.,support (fusion fixes text),Media,Technology,Media,Media
+dde3d37d-ec6a-5fae-b712-14ce4da4c6c6,Review: 'The Gardener' Cultivates the Wealth of Nature,harm (fusion breaks text),Movies,Movies,Real Estate,Travel
+199addb0-de8b-57e2-8c7b-1978e4913c8d,I Spy at New York's Museum of Deception,harm (fusion breaks text),Art & Design,Art & Design,Style,Style
+fbebd8ca-2b0b-5753-9fce-cbcb395b072c,What Is Former Wonder Woman Lynda Carter Doing These Days?,support (fusion fixes text),Style,Music,Books,Style
+ded41c87-0d4b-50f6-a2ee-877c8eef19e1,The Unorthodox Matchmaker,support (fusion fixes text),Style,Real Estate,Opinion,Style
+cf3bd638-11a5-5dd0-aecb-69f98547025c,"Disgraced by Scandal, Mario Batali Is Eyeing His Second Act",harm (fusion breaks text),Food,Food,Theater,Style
+8a5c83cf-326d-58dc-a9b0-4f055900023b,"At Marni, Shopping the Good Shop Lollipop",harm (fusion breaks text),Fashion & Style,Fashion & Style,Health,Style
+3068c258-6469-5c07-8d1a-64fcd1eaf37e,Rent Control Campaign in California Is Taken to the Streets,harm (fusion breaks text),Economy,Economy,Technology,Real Estate
+9d82353d-ddc9-57c6-be24-5d2dc4d6f666,Cleo Wade Is Everybody's BFF,support (fusion fixes text),Style,Fashion & Style,Movies,Style
+0d2b0303-a366-58df-9685-238894fb0037,"Prince's Friends Fiercely Guarded His Privacy, Complicating Overdose Investigation",harm (fusion breaks text),Music,Music,Health,Health
+f3076ba5-7e20-5db5-be56-164739a5f480,Prince's Family Sues Hospital That Treated His First Opioid Overdose,support (fusion fixes text),Music,Health,Music,Music
+681c7cb7-1320-58a7-8fba-bf36c3de16c4,"Ashley Judd Sues Harvey Weinstein, Saying He Harmed Her Career",harm (fusion breaks text),Media,Media,Style,Movies
+21bfcfe2-dc82-5316-beb5-46816262954a,Bedford Cheese Shop Expands in Order to Compete,harm (fusion breaks text),Food,Food,Food,Travel
+a4737bf0-ce1e-54ac-b9e4-ef32d05eb9ff,Celebrities Prepping for the Met Gala,harm (fusion breaks text),Fashion & Style,Fashion & Style,Style,Style
+b83b2eed-ed40-59c3-aa98-06017e4e74e7,"'RuPaul's Drag Race' Season 10, Episode 8: The Generation Slap",harm (fusion breaks text),Television,Television,Dance,Dance
+b62bf2cc-46a8-5b83-adb3-bb07562e035e,Serena Williams Has a Genius Eyebrow Hack,support (fusion fixes text),Style,Fashion & Style,Movies,Style
+4bfe0ee5-7eca-5966-9e4e-161effce5e9c,"Coming Soon to the Bronx, a Long Overdue Book Festival",harm (fusion breaks text),Books,Books,Movies,Food
+4a16de15-318a-57ee-9455-0e40aa394282,The Jabberwocky in a Cancer Lab,harm (fusion breaks text),Well,Well,Science,Opinion
+c5f33434-6ab0-510f-b58e-5cdce68a2d04,"15 Summer Theater Festivals, From Stratford to Williamstown",harm (fusion breaks text),Theater,Theater,Dance,Dance
+ee92a9a3-d06b-59ee-97f3-adf48841fc74,Review: Isabella Rossellini as Ringmaster in 'Link Link Circus',harm (fusion breaks text),Theater,Theater,Theater,Dance
+0fbc3077-3c6a-5bfc-93ab-70e0fb6d741f,Meghan Markle: 10 Things to Know About the New Royal,harm (fusion breaks text),Style,Style,Fashion & Style,Fashion & Style
+33251f4f-47f6-56f1-a38b-d22bc7908099,A Blockchain Building in Bushwick,support (fusion fixes text),Real Estate,Technology,Real Estate,Real Estate
+39aa8967-12cd-54d8-8f32-1d19b7eba4cb,A Clueless Fan's Guide to the World Cup,harm (fusion breaks text),Style,Style,Sports,Sports
+4b46c5f4-a0f8-535a-83bf-b5d69c62b4d7,Review: Hope and Restraint at the Tonys. Then Came Robert De Niro.,harm (fusion breaks text),Theater,Theater,Television,Television
+81beefb9-e2c1-53bc-a363-db206cd2990c,From Diapers to Dance Floor,harm (fusion breaks text),Well,Well,Music,Fashion & Style
+77abdf1f-2c6c-53bb-9c4c-d6435bfad8da,"Nearly Eradicated in Humans, the Guinea Worm Finds New Victims: Dogs",support (fusion fixes text),Health,Science,Health,Health
+084a49a6-deb6-5d9a-a922-950cd2cceafc,"How Long Can We Live? The Limit Hasn't Been Reached, Study Finds",support (fusion fixes text),Science,Health,Travel,Science
+80889368-32a0-53f8-a3e4-0383779ae2af,"It Just Wasn't Meant to Be, Batman",support (fusion fixes text),Fashion & Style,Style,Art & Design,Fashion & Style
+14a0c195-cc15-50e4-b578-235b554cb609,Instagram Account That Sought Harassment Tales May Be Unmasked,support (fusion fixes text),Media,Style,Media,Media
+9116b30a-b876-5abc-962f-9c143ea45a64,How Sneakers Intersect With Recent American History,support (fusion fixes text),Books,Dance,Fashion & Style,Books
+7527760e-97f5-5071-8ba9-f5269a29d5ec,Disney Fires 'Guardians of the Galaxy' Director Over Offensive Tweets,support (fusion fixes text),Media,Movies,Media,Media
+53626198-01bd-5887-bf87-4c98ab36acbe,"St. Louis Uber and Lyft Driver Secretly Live-Streamed Passengers, Report Says",support (fusion fixes text),Technology,Media,Technology,Technology
+d7f57d0f-ec02-5b00-b867-3eabed51f207,A Vote Expanded Medicaid in Maine. The Governor Is Ignoring It.,support (fusion fixes text),Health,Opinion,Real Estate,Health
+7989ee5c-33f3-5040-b920-2f93f047465c,"5 Shows to See in New York: 'Pretty Woman,' 'Be More Chill' and More",support (fusion fixes text),Theater,Movies,Theater,Theater
+dfc14a03-227f-539a-9510-a60e675981ab,Battle Over Immigration Rattles Community Colleges,harm (fusion breaks text),Education,Education,Art & Design,Technology
+ad346185-f146-5ab6-afcb-32c28a495130,Dick Cavett's Best Outtakes,support (fusion fixes text),Style,Dance,Movies,Style
+b41ce334-85a3-5abd-8471-609299480731,Photoville to Include Images of Immigration and Gentrification,harm (fusion breaks text),Art & Design,Art & Design,Fashion & Style,Fashion & Style
+ab92bb42-7b01-5217-acc1-fc96150e27d4,Review: 'R.R.R.E.D' Is a Bad Hair Day,support (fusion fixes text),Theater,Movies,Theater,Theater
+449bf592-d915-584a-ad5f-4ec5d568888c,"If You Could Add One Book to the High School Curriculum, What Would It Be?",support (fusion fixes text),Books,Well,Art & Design,Books
+ecbbe3a8-cf3a-508a-b021-6e379491d724,"'The Big Bang Theory,' a Durable Hit for CBS, Will End in 2019",support (fusion fixes text),Media,Television,Television,Media
+580b95b2-f13e-5bce-b296-bd0bd1125ff9,An Artful Makeover for Two Bushwick Blocks,support (fusion fixes text),Real Estate,Art & Design,Real Estate,Real Estate
+f8599072-40d5-50dc-80f8-5568e397d1ce,"Review: In 'Private Peaceful,' a Night of Memories and a Death at Dawn",harm (fusion breaks text),Theater,Theater,Movies,Movies
+f99e03df-d793-5591-baa0-01be00ff0898,Victims of Sexual Violence Often Stay in Touch With Their Abusers. Here's Why.,support (fusion fixes text),Style,Movies,Fashion & Style,Style
+dfc62b4b-af05-5956-b903-a0ddeb8483fa,Fashion Week's a Drag at Opening Ceremony,harm (fusion breaks text),Fashion & Style,Fashion & Style,Theater,Style
+a2390088-a945-5678-8df2-31987e703792,Nathan Lane and Andrea Martin Will Star in New Taylor Mac Play,harm (fusion breaks text),Theater,Theater,Books,Movies
+13100425-9cb7-575c-a4dd-c0caede5ff75,Safe Mode in Milan,support (fusion fixes text),Fashion & Style,Style,Fashion & Style,Fashion & Style
+949e2a09-085e-5aa9-bedb-f52f1b8e3fe0,The Robin Williams Auction: On the Wall and Off the Wall,support (fusion fixes text),Art & Design,Style,Dance,Art & Design
+577bfce0-14f9-5eec-bd4b-0da9f31840c4,Review: Great Pretenders Pocket Laughs in 'The Nap',support (fusion fixes text),Theater,Movies,Style,Theater
+1034c680-6251-5b47-a999-17f0e877d260,"Housing Market Slows, as Rising Prices Outpace Wages",harm (fusion breaks text),Economy,Economy,Real Estate,Real Estate
+fcfe7520-9d36-5ace-916c-fed070fd643a,Is Milo Rau Really the Most Controversial Director in Theater?,harm (fusion breaks text),Theater,Theater,Theater,Style
+95430cd4-b00f-565a-a911-0ff5f69e0fd1,An Overnight Success Story That Took Decades,harm (fusion breaks text),Food,Food,Travel,Travel
+67c292fe-4ea1-5ad9-b591-f1094f3f678f,West Virginia's Small-Town Revival,support (fusion fixes text),Travel,Real Estate,Travel,Travel
+8706385d-aad2-509e-91e8-4ce2b632daab,New York City to Help Small Theaters Be More Accessible,harm (fusion breaks text),Theater,Theater,Theater,Media
+724cadec-0863-5bdb-af02-b059adf927fe,Met Costume Institute Embraces 'Camp' for 2019 Blockbuster Show,harm (fusion breaks text),Art & Design,Art & Design,Fashion & Style,Style
+12412e26-7df5-5782-9de9-dc8a5f4b22cf,"Strike Over, Lyric Opera of Chicago Can Resume Business",harm (fusion breaks text),Music,Music,Theater,Theater
+b271b82c-89d9-5a77-b48d-5e0e1abbf58a,"Tom Stoppard, Always Tackling 'The Hard Problem'",harm (fusion breaks text),Theater,Theater,Art & Design,Television
+32c00325-b8d9-568a-87e5-2780dcb4ae08,Married a Thousand Times (He's the Rabbi),harm (fusion breaks text),Fashion & Style,Fashion & Style,Fashion & Style,Style
+de3be9f2-5c72-558b-93e9-29826dce9315,Fancy Optician Dom Vetro Is the Anti-Warby Parker,harm (fusion breaks text),Style,Style,Health,Fashion & Style
+ab1ed165-d20a-5642-8da1-a01be78a8733,Can There Really Be Two Moms?,harm (fusion breaks text),Well,Well,Education,Opinion
+f7d2d7cf-6f78-55a2-99ef-64db6ddd0f71,A Broadway Actor Has a Heart-to-Heart About Life and Laundry,support (fusion fixes text),Real Estate,Style,Real Estate,Real Estate
+92863f89-d231-5733-a581-6a95713b86a0,"Russia Locked Him Up. But He's Directing an Opera 1,400 Miles Away.",harm (fusion breaks text),Music,Music,Technology,Theater
+11f2edda-f0a9-524e-87a7-fae420b66eb6,Is Agnes Gund the Last Good Rich Person?,support (fusion fixes text),Style,Your Money,Books,Style
+e2eaac0d-6bc5-565c-9f19-a3f979dc60ec,"Loaded With Data and Whiz-Bang Effects, Maps Are the Real Stars of Election-Night TV",support (fusion fixes text),Media,Television,Media,Media
+de7663fb-e457-587a-953b-006d71f3825e,"Wes Anderson, Curator? The Filmmaker Gives It a Try",harm (fusion breaks text),Art & Design,Art & Design,Television,Movies
+8a90646c-f92a-5184-a129-38340fe7d1ad,How 'A Chorus Line' Veterans Pass It on to a New Generation,harm (fusion breaks text),Theater,Theater,Dance,Dance
+c1200a7f-ec30-5f2c-8f75-f76e3d079574,A $2 Billion Question: Did New York and Virginia Overpay for Amazon?,support (fusion fixes text),Economy,Technology,Opinion,Economy
+479f9d06-a878-5f57-95cf-76a18050cade,Waterwell Names Lee Sunday Evans as Artistic Director,harm (fusion breaks text),Theater,Theater,Real Estate,Art & Design
+4e10eb1d-c470-56c3-b396-23cca65a8691,European River Cruises Hit a New Obstacle: Not Enough Water,support (fusion fixes text),Travel,Global Business,Travel,Travel
+06f9d0f5-a924-5560-a740-988ba764792f,Princeton Singers Abandon a 'Little Mermaid' Song Over Kissing Concerns,harm (fusion breaks text),Music,Music,Theater,Dance
+dafc32e7-d9de-54a1-93ca-d259d5790a5f,The Best Baking Cookbooks of 2018,support (fusion fixes text),Food,Books,Food,Food
+de222cb1-5360-5e99-88cc-10302c6a3850,Trump's Tawdry Tabloid Sagas Reveal Weightier Themes,harm (fusion breaks text),Media,Media,Media,Style
+f20d0b1f-8736-5ce8-b451-7e76dd651cbd,"If You Love 'The Marvelous Mrs. Maisel,' You'll Love These Books",harm (fusion breaks text),Books,Books,Movies,Television
+ac99360f-74aa-5126-8b05-0daedbfb9cb2,"For an Ohio Poet, Love Is What Gets Us Through",harm (fusion breaks text),Books,Books,Fashion & Style,Theater
+5a41f363-92ed-56b1-9e84-ea0c634414f0,Tops on the Wedding Playlist? An Original Song by Dad,harm (fusion breaks text),Fashion & Style,Fashion & Style,Music,Music
+9a624d13-def6-5829-96a4-90a7c0499cca,Is David Lee Roth the Estée Lauder of Tattoos?,support (fusion fixes text),Style,Fashion & Style,Fashion & Style,Style
+ad1157b0-01db-5d3d-93cd-37925c9a8cb1,"Doughnut Shops, Dive Bars and Diners",harm (fusion breaks text),Books,Books,Books,Travel
+8ad0f4f9-8939-56f1-b519-37c5e1b42003,Pop in the Era of Distraction,support (fusion fixes text),Music,Media,Music,Music
+6dc72a98-c9e6-59b8-b04c-fd572531913b,The 10 Biggest Upheavals of Lincoln Center's Tumultuous Year,support (fusion fixes text),Music,Art & Design,Books,Music
+21eb23d5-1308-5d4e-9ce4-7430a08087ef,A Family's Shared Defect Sheds Light on the Human Genome,harm (fusion breaks text),Science,Science,Health,Health
+ce8f1696-216d-5989-b67c-b72e91a313b6,Overrated? Loser? Not if It's Trump Who Calls You Out,support (fusion fixes text),Style,Media,Books,Style
+5a873996-d674-54c9-a384-d3f11d8e9f01,"Head of Sony Entertainment, Michael Lynton, to Step Down",harm (fusion breaks text),Media,Media,Technology,Technology
+1ef807b5-f69a-5476-b5be-06a02709e232,"He Changed the Way We Wear Jewelry, and Left It Behind",harm (fusion breaks text),Fashion & Style,Fashion & Style,Art & Design,Art & Design
+893a3243-8c68-5130-89b9-a62587840a13,The Wilder Side of Carmel,support (fusion fixes text),Travel,Real Estate,Travel,Travel
+ce8b3f85-75b4-5c49-9f87-cde4ea67b4ce,The Wide World of Emoji,support (fusion fixes text),Technology,Style,Technology,Technology
+de3a5cc1-cdde-52e3-9227-d775b1067000,"For Taste of Farm Life, There's No Place Like a Homestead",support (fusion fixes text),Travel,Real Estate,Science,Travel
+1c58cdbb-7ee2-56d6-ab7f-c54785017272,These Young Adult Novels Come With Back Stories: The Authors' Own,support (fusion fixes text),Fashion & Style,Books,Fashion & Style,Fashion & Style
+f0a0fe16-2488-5b7b-b22b-15126cde6c93,"François-Henri Pinault, Kering Chief, on Why Green Is the New Black",support (fusion fixes text),Fashion & Style,Global Business,Theater,Fashion & Style
+1367cd64-2b3a-5aa5-a9f1-468188d766d7,"Wanted: Factory Workers, Degree Required",harm (fusion breaks text),Education,Education,Economy,Your Money
+9619385a-4e48-5275-82a7-aca1ac7c3299,Fashion's Latest Obsession: Chips Off the Celebrity Block,harm (fusion breaks text),Fashion & Style,Fashion & Style,Books,Style
+fc280a58-a287-5420-9956-e3cf8dc0a401,Everything You Ever Wanted to Know About Manufacturing Wine,harm (fusion breaks text),Food,Food,Science,Science
+9e9b118b-48b8-5541-b918-371ad29a27b5,Santiago Calatrava to Design His First London Complex,harm (fusion breaks text),Art & Design,Art & Design,Real Estate,Real Estate
+a8a381e2-0f2a-5d92-9102-06fbf2a6decc,"Lena Dunham and Judd Apatow on 'Girls,' 'Geeks' and Trolls",support (fusion fixes text),Fashion & Style,Television,Fashion & Style,Fashion & Style
+a83c72f7-019d-58cb-960f-9334a423af82,A Gramercy Condo With a Three-Dimensional Glass Facade,support (fusion fixes text),Real Estate,Art & Design,Real Estate,Real Estate
+967a7a5a-6ba4-5931-89a7-21dc24645e81,How Kevin Durant Became Silicon Valley's Hottest Start-up,support (fusion fixes text),Style,Sports,Fashion & Style,Style
+d9bd18ae-a132-52bf-a0e2-6451e6082495,"PayPal Redirects Charitable Contributions Without Consent, Lawsuit Says",harm (fusion breaks text),Technology,Technology,Technology,Health
+17e6e2f5-c6be-55b6-ba72-3985a90a968f,Pressed Into Caregiving Sooner Than Expected,harm (fusion breaks text),Health,Health,Your Money,Your Money
+871ac9f9-cdd0-539f-8a7f-2417c548e156,"'Marsden Hartley's Maine,' His Muse, First and Last",support (fusion fixes text),Art & Design,Music,Art & Design,Art & Design
+7c73d588-499a-50f7-b434-aa4dea01ac30,"Well, Hello, Dollys!",harm (fusion breaks text),Theater,Theater,Fashion & Style,Style
+869c1af3-107d-5530-8c1e-74f2a4a964d8,Equal Pay for Men and Women? Iceland Wants Employers to Prove It,support (fusion fixes text),Economy,Global Business,Economy,Economy
+d516944a-7cbf-5400-a8a9-100a20a4a2c8,Elena Ferrante Series Coming to HBO,harm (fusion breaks text),Media,Media,Education,Television
+fc68ba2a-1e89-5c70-9736-42013f272215,"My Son, My Daughter: A Mother's Evolution",support (fusion fixes text),Style,Fashion & Style,Well,Style
+9f21776f-d001-5c07-a784-28b166506c39,Kansas House Narrowly Upholds Governor's Veto of Medicaid Expansion,harm (fusion breaks text),Health,Health,Economy,Education
+18cad8f8-931b-5ab8-a6c4-97057da998a7,"Women, Fashion Has You Covered",support (fusion fixes text),Fashion & Style,Style,Fashion & Style,Fashion & Style
+4d4a1ac7-a21f-5007-b48f-d5ea76335bbf,Well-Made Coffee Migrates to Midtown Manhattan,support (fusion fixes text),Travel,Food,Food,Travel
+07c7148a-3264-5ab9-a3da-63811368992d,Tips for Selling Something Online,support (fusion fixes text),Real Estate,Technology,Real Estate,Real Estate
+a05fb603-bfd6-5459-8492-7a8169e3f09c,"Museums, Mansions, Yacht Clubs: Finding a Grand Spot for a Party",harm (fusion breaks text),Your Money,Your Money,Fashion & Style,Fashion & Style
+802c611c-24b1-5b1f-80ed-fab66c059aaf,Short Answers to Hard Questions About HPV,harm (fusion breaks text),Health,Health,Health,Well
+3a0c9087-c78d-55f1-b5fa-0032947e1ddf,Review: Zayd Dohrn Plumbs Muslim-American Rifts in 'The Profane',harm (fusion breaks text),Theater,Theater,Television,Movies
+f06744fb-e618-5c60-b30c-8e7fca3de4df,"Volcanic Minerals, Not Worms, Caused Disease Outbreak in Uganda",harm (fusion breaks text),Health,Health,Science,Science
+f17471e5-34f1-5ce9-a938-b31dfb24254d,Jeff Koons's New Line,harm (fusion breaks text),Fashion & Style,Fashion & Style,Art & Design,Art & Design
+80ba4821-f8e9-521f-b764-6b5dff65c347,"'Locking Up Our Own,' What Led to Mass Incarceration of Black Men",support (fusion fixes text),Books,Economy,Books,Books
+2e5f6aaa-751b-53f4-b51c-76825b2eb545,A Gym Where Comic-Con Is the Reigning Spirit,support (fusion fixes text),Style,Art & Design,Theater,Style
+9f115de0-3180-5f20-8ef8-cf7e1173378f,What Is Hawaii?,harm (fusion breaks text),Travel,Travel,Travel,Opinion
+05f98879-0c67-5bff-bb77-86d64e3b317e,Dealing With an Ostomy,harm (fusion breaks text),Well,Well,Movies,Fashion & Style
+d3906f4e-8265-54fd-9e4c-4946ddb0e8b4,"On New Planes, American Airlines Will Add Seats and Reduce Space",support (fusion fixes text),Travel,Global Business,Travel,Travel
+77a701d8-9720-50d2-ad8c-dc5a5aa45261,Activism at the Met Gala,harm (fusion breaks text),Fashion & Style,Fashion & Style,Fashion & Style,Style
+1634e7f4-bda0-5dab-97fb-04e9288f663c,The Bloomsbury Bohemians in the British Countryside,support (fusion fixes text),Travel,Real Estate,Travel,Travel
+48a4f911-ebac-5d94-b780-acfd61d89ed0,"Allan H. Meltzer, Conservative Economist, Dies at 89",harm (fusion breaks text),Economy,Economy,Books,Opinion
+8fff91bd-4e68-59f0-b44c-6193cff60b3d,"Brenda Milner, Eminent Brain Scientist, Is 'Still Nosy' at 98",harm (fusion breaks text),Science,Science,Books,Health
+09e58359-a90d-57ec-9fef-f6966c39f284,"Pinball and Other Games at Fishbowl, a New Midtown Lounge",harm (fusion breaks text),Fashion & Style,Fashion & Style,Theater,Style
+41dcae1a-62b5-5572-8ec5-bec4c79ca374,How the Right and Left (and Everyone Else) Reacted to Roger Ailes's Death,harm (fusion breaks text),Media,Media,Television,Opinion
+c92076f6-7507-5248-8a88-df9f31664d93,Amber Tamblyn Rallies Her Troops to the Red Carpet,support (fusion fixes text),Style,Fashion & Style,Fashion & Style,Style
+196b1afa-ca81-5bc3-9841-e15e35620e66,"Inside the Studio of David Korins, Set Designer of 'Hamilton'",harm (fusion breaks text),Style,Style,Art & Design,Travel
+c934c51c-aca7-5928-b748-b0c22cc779d1,Is China Outsmarting America in A.I.?,support (fusion fixes text),Technology,Opinion,Technology,Technology
+e06dc318-d783-543b-a1a9-bc29797ceb34,Five Places to Go in Downtown Albuquerque,harm (fusion breaks text),Travel,Travel,Real Estate,Real Estate
+315f3193-12e2-5e88-a983-6319bf7d28f6,Hyundai Faces Tough Times as Buyers Go Big,harm (fusion breaks text),Automobiles,Automobiles,Technology,Your Money
+d6bf9962-13c9-58bb-b4e4-d1a5632e92c6,"Out With the New at E3, as the Old Stays in Play",harm (fusion breaks text),Technology,Technology,Media,Media
+7b7de530-bbff-55ae-a8fc-d2ec22e87221,Review: A Shaggy Fish Story With a Bounty of Questing Heroines,support (fusion fixes text),Theater,Books,Art & Design,Theater
+0b29b38d-0d38-5697-9ac9-d34ee9232de4,Karaoke Coast to Coast,support (fusion fixes text),Travel,Style,Travel,Travel
+097ebbad-78c9-506f-b2fd-3fd59093e75c,What Your Shopping Future Has in Store,support (fusion fixes text),Fashion & Style,Style,Fashion & Style,Fashion & Style
+c9ffa56a-436a-598b-ab85-8697f4737840,Smaller Brewers Relied on RateBeer.com. Now Bud's Maker Owns a Stake.,harm (fusion breaks text),Media,Media,Food,Technology
+fc31a578-ba33-593b-a139-928ca73aa468,"Middle Class, Not Poor, Could Suffer if Trump Ends Health Payments",support (fusion fixes text),Health,Economy,Economy,Health
+fbfda508-f6c7-5c59-9154-9e5c04bed4e7,"Oscars Voting Pool Expands, With Female and Minority Membership Expected to Rise",harm (fusion breaks text),Media,Media,Movies,Movies
+646280f3-e3d3-5baf-ae66-e7f662e2f4c1,Samsung Joins Ranks of Foreign Firms Adding Jobs in the U.S.,harm (fusion breaks text),Technology,Technology,Technology,Economy
+f3c02cb6-e0c4-58b6-ac01-6c41d573a61e,New Condo Complaints Heat Up,harm (fusion breaks text),Real Estate,Real Estate,Your Money,Your Money
+505ef56e-0ec0-5cfa-8d34-0cef4fee1435,"Amy Pascal's Hollywood Ending, Complete With Comeback Twist",harm (fusion breaks text),Media,Media,Dance,Fashion & Style
+f0eb38a9-de40-5b3b-b5c2-1854611549d0,Faherty Is Not for Men in Black,harm (fusion breaks text),Fashion & Style,Fashion & Style,Real Estate,Style
+c36eaf39-2a65-5966-983f-110efb33f321,What Robert De Niro and Nobu Matsuhisa Love About Hotels,harm (fusion breaks text),Travel,Travel,Media,Food
+e5e92313-0e11-5fb1-99f9-a85c8736209f,"Meechy Monroe, a YouTube Star for Her Natural Hair Lessons, Dies at 32",harm (fusion breaks text),Style,Style,Books,Fashion & Style
+f0a1b156-375c-5529-b819-23aa84a78d15,The Men Who Join the Fashion Circus,harm (fusion breaks text),Fashion & Style,Fashion & Style,Art & Design,Style
+21170c39-c82b-5e32-861c-6139db9d4872,"Review: 'Hi, Hitler' and Other Tales From a Lively Household",harm (fusion breaks text),Theater,Theater,Books,Books
+5ca678c8-bf27-5b76-8eec-8dab564e7077,"In New Condos, Art Is Now a Crucial Part of the Deal",harm (fusion breaks text),Real Estate,Real Estate,Art & Design,Art & Design
+c122604e-7b18-5e4c-899d-dadf10e37601,A Doctor Gives Gwyneth Paltrow's Goop an Examination,support (fusion fixes text),Style,Fashion & Style,Books,Style
+0e56e75b-ac1a-51d0-9c9c-7e967a1deb46,Eichmann in Manhattan: See the Glass Cage From His Trial,support (fusion fixes text),Art & Design,Movies,Art & Design,Art & Design
+4c5a980d-431e-5e26-894f-ee0f05016b4c,Of Mice and Men Like Mick Jagger: A Literary Scion Tells All,support (fusion fixes text),Style,Books,Style,Style
+333cf475-9c31-5af2-b133-c83fc6a61e0d,Editta Sherman's Long Reign as 'The Duchess of Carnegie Hall',harm (fusion breaks text),Art & Design,Art & Design,Books,Style
+9c268a11-171e-56b3-86b5-57bbb37a03e1,Maira Kalman and 'The Principles of Uncertainty' Head to Jacob's Pillow,harm (fusion breaks text),Dance,Dance,Art & Design,Art & Design
+b8e771e3-56b3-57c8-b73f-1c7ce7b84c26,Worried About Your Eyes After the Eclipse? Here's What You Should Know,harm (fusion breaks text),Science,Science,Opinion,Style
+a0e17f7e-1f92-5668-bb7f-ab5a5510b486,"In Social Media Era, Selfies Are the New Tupperware Party",harm (fusion breaks text),Media,Media,Style,Style
+e21f0cd7-8b6c-5981-b74e-692ecb5330cc,"Work, Work, Work. Love, Love, Love.",harm (fusion breaks text),Fashion & Style,Fashion & Style,Fashion & Style,Style
+8611d795-b782-5896-99e4-773b1359b30c,Milestone for BMI: More Than $1 Billion in Music Royalties,harm (fusion breaks text),Media,Media,Music,Music
+0d55dc4b-55c8-50e3-909e-8b2e47cf73fa,Postwar Art Gets a Nervy Makeover,support (fusion fixes text),Art & Design,Music,Movies,Art & Design
+c8cac920-f471-5313-b706-ff6309f0320c,"He Puts Bill Maher on TV, and Jefferson, Dickens and Tolstoy on Stage",harm (fusion breaks text),Theater,Theater,Science,Books
+1d0de86c-b32b-57e2-b189-eb7875660892,"Review: In 'Oh My Sweet Land,' Dinner Is Served. Don't Come Hungry.",support (fusion fixes text),Theater,Movies,Your Money,Theater
+442985eb-3e0e-59f0-bb15-d56dd2d83208,Chasing Fashion's Cutting Edge,support (fusion fixes text),Fashion & Style,Art & Design,Fashion & Style,Fashion & Style
+cf890973-f14f-57c8-8b06-7ab3866b54e6,A Chorus of Mazel Tovs in Uganda,support (fusion fixes text),Fashion & Style,Travel,Style,Fashion & Style
+63d32d23-92ae-55ba-9a80-0c4b80553479,Street-Style Photographers Unite to Proclaim #NoFreePhotos,support (fusion fixes text),Fashion & Style,Style,Style,Fashion & Style
+9ff4d6b1-4343-59d6-9ced-09e09938aa13,When Athletes Share Infections,support (fusion fixes text),Well,Sports,Sports,Well
+1c16118c-1e01-555e-863f-f7a5059b8d30,A Child's Death Brings 'Trauma That Doesn't Go Away',support (fusion fixes text),Health,Well,Books,Health
+ee362f4c-1c00-554b-8c4b-1a0e5a26b8b7,Ancient Viruses Are Buried in Your DNA,harm (fusion breaks text),Science,Science,Health,Health
+27974032-2472-59a5-8dd3-dd4a1c6168a7,"The Latest Act of a Designer Found, Lost and Found Again",harm (fusion breaks text),Fashion & Style,Fashion & Style,Books,Art & Design
+213f3d44-8d1f-5436-b76b-6fc1ac5b1bf8,Why Stanford Researchers Tried to Create a 'Gaydar' Machine,support (fusion fixes text),Science,Technology,Real Estate,Science
+5ffab239-8002-5a25-8289-6d89b7bb4894,Richard Thaler Talks About Silly (but Serious) Things,support (fusion fixes text),Economy,Your Money,Opinion,Economy
+a1816155-a8e0-577b-85f2-c00c86f0bd43,Twitter Plans to Open Ad Data to Users,support (fusion fixes text),Technology,Media,Technology,Technology
+e967c7f6-2978-53ac-913a-013ac5601dd5,Frank Stella's Favorite Cities for Art,harm (fusion breaks text),Travel,Travel,Art & Design,Art & Design
+1fa82fc3-42cf-558a-95ed-e2c0ba992f00,The Roots' Black Thought on Philadelphia Style. And His Beard.,harm (fusion breaks text),Fashion & Style,Fashion & Style,Movies,Style
+dc3b5b1c-d79c-5af0-9fbd-0cdfeabfff2c,"Louvre Abu Dhabi, a Cultural Cornerstone Where East Meets West",support (fusion fixes text),Art & Design,Travel,Fashion & Style,Art & Design
+66c858fd-277a-5e9b-8093-f7a54bc90ba8,A Cleveland Arts District Hustles and Rebounds,support (fusion fixes text),Travel,Real Estate,Travel,Travel
+6515a689-880e-5968-a1f1-7bda2db9478e,"'Gene Drives' Are Too Risky for Field Trials, Scientists Say",support (fusion fixes text),Science,Health,Science,Science
+cd26977b-741a-5fe9-847b-efb6fd7747fc,Americans Are Watching Netflix at Work and in the Bathroom,harm (fusion breaks text),Media,Media,Art & Design,Technology
+15935c5d-c500-53ed-9915-ae7e916637c4,Tax Cuts for Small-Business Owners? It's Complicated,support (fusion fixes text),Your Money,Economy,Health,Your Money
+9c62daf0-2284-5b9e-a1e0-a2489c9d1c05,Giving Thanks for Survivors,harm (fusion breaks text),Well,Well,Art & Design,Health
+2d3c1e1f-b5a9-55ac-8153-46cbacdc63d9,Meghan Markle Is Going to Make History,support (fusion fixes text),Fashion & Style,Style,Television,Fashion & Style
+79a0d304-496a-5197-af10-86346bfae351,Millennials See Paternity Leave as a Priority,support (fusion fixes text),Well,Your Money,Well,Well
+e28872f1-9328-5681-9988-d9a8a7f87d42,"It Could Happen to You: A Raw, Pointed Revival at Alvin Ailey",support (fusion fixes text),Dance,Theater,Dance,Dance
+6bc9555d-a1b0-5184-a527-b5984ef74762,Why Is Fashion Having an Astral Moment?,harm (fusion breaks text),Fashion & Style,Fashion & Style,Dance,Style
+fcc79d19-0c79-5301-9ff4-cf1b604d3e42,A Cavernous Indie Music Club Opens in Brooklyn,support (fusion fixes text),Style,Music,Style,Style
+be86b6e8-493b-59a9-8e59-1e9db66bb8ff,"In the Wake of the Equifax Breach, a Bank Pushes Credit Freezes",harm (fusion breaks text),Your Money,Your Money,Movies,Technology
+4f4edbca-ad2e-5a7d-85f8-497315a366bb,"President Trump, the Animatronic Version, Comes to Disney World",harm (fusion breaks text),Media,Media,Media,Art & Design
+63abceb9-3dc3-54d7-aadc-fd0d9a661415,Unions Are Gaining a Foothold at Digital Media Companies,harm (fusion breaks text),Media,Media,Technology,Technology
+8f078249-4fed-5c56-80c1-56a709270487,"Racial Identity, and Its Hostilities, Are on the Rise in American Politics",harm (fusion breaks text),Economy,Economy,Sports,Sports
+db27ec5d-8ac8-5279-9732-401a953592f6,Where Music Lovers Should Go in 2016,harm (fusion breaks text),Travel,Travel,Music,Music
+f18ee755-2ce4-5cde-a36c-35094df92ea7,"At the London Men's Shows, Sprinters and Marathoners Alike",support (fusion fixes text),Fashion & Style,Books,Fashion & Style,Fashion & Style
+5a33abcb-5577-51be-be12-367959b6ca5f,Caitlyn Jenner on a TV Road Less Traveled,harm (fusion breaks text),Media,Media,Media,Television
+a0a8b49d-a500-5b81-96ee-689838e6d0fa,Iowa's Heartland Beyond the Campaign Trail,support (fusion fixes text),Travel,Opinion,Travel,Travel
+0dccc256-9e38-5e5d-a145-6a6e02305848,"Small, Private Insurers Face Increasing Scrutiny on Avoided Taxes",support (fusion fixes text),Your Money,Economy,Economy,Your Money
+866ae52c-c304-595a-9194-07d09cf5a59f,"In Rio, the Work Goes in Before the Party Goes On",support (fusion fixes text),Travel,Education,Travel,Travel
+729cc2ce-9f50-57c0-a86e-a552139bb0e0,The View From the Back Row in Paris,harm (fusion breaks text),Fashion & Style,Fashion & Style,Style,Style
+459f98c7-a8fd-5668-afad-8bf3b7828dd2,"In Tokyo, Brand-Name Stores by Brand-Name Architects",harm (fusion breaks text),Travel,Travel,Health,Art & Design
+5576cfba-f54e-5a87-9957-3dc9729ee748,Zika Outbreak Could Be an Omen of the Global Warming Threat,harm (fusion breaks text),Science,Science,Health,Health
+2b7a1929-1985-591e-ba83-23cba32e6f08,Death Valley Is Experiencing a Colorful 'Superbloom',support (fusion fixes text),Science,Opinion,Travel,Science
+347ddab2-111f-55d1-ae52-572c3f96015e,"In Las Vegas, Live Music for the Coachella Crowd",harm (fusion breaks text),Travel,Travel,Theater,Style
+6351bfca-5922-50ff-97de-b653e78e7995,An Insurance Penalty From Postpartum Depression,harm (fusion breaks text),Your Money,Your Money,Real Estate,Health
+ce5d76bf-1c4b-5083-99c3-39d248e8bda5,Ad Watch: Under Armour Trains With Michael Phelps,harm (fusion breaks text),Media,Media,Music,Style
+dec350a9-8acf-5a3d-bb62-a5dd7a334be0,When Is Hulk Hogan Not Hulk Hogan?,harm (fusion breaks text),Media,Media,Sports,Style
+597da4c3-e5e3-59eb-9458-7f3b2428820e,Politics Invades Hollywood,harm (fusion breaks text),Media,Media,Science,Opinion
+710300ca-34b5-5672-89be-f67645370ad4,Wind Farm May Be Built Off Long Island,harm (fusion breaks text),Science,Science,Science,Real Estate
+df965728-bce5-5bec-ae29-7205fbedeca7,"The New Day, a British Upstart, Casts Its Fate to the Newsstand",support (fusion fixes text),Media,Technology,Media,Media
+4059f486-2cce-5b48-aae3-a68db4e9f0da,"The Incredible, Escalating Resort Game",support (fusion fixes text),Fashion & Style,Style,Fashion & Style,Fashion & Style
+8612a90d-3037-5da2-8a40-19fc33c5c6f4,Dyson Wants to Create a Hair Dryer Revolution,harm (fusion breaks text),Fashion & Style,Fashion & Style,Style,Style
+39b7255c-6d2d-54f1-b376-cbaa31b813a3,"Welcome Back, Chest Hair",support (fusion fixes text),Fashion & Style,Style,Fashion & Style,Fashion & Style
+e2bf0a68-dce1-5a8e-804c-25aaa105554d,"In the City of the Cheese Steak, Vegans Feel at Home",support (fusion fixes text),Travel,Food,Travel,Travel
+ec532135-d7a7-5f4c-8237-c382ec739456,The Roman Seasons of Tennessee Williams,support (fusion fixes text),Travel,Books,Travel,Travel
+40b50a8d-d4ed-54a4-bcfd-915ad142b1f6,The Lost Gardens of Emily Dickinson,support (fusion fixes text),Science,Travel,Science,Science
+cfa85d27-ce03-5b23-af40-6188eb60ac76,Review: Juliette Mapp's 'Luxury Rentals' Asks What Is Precious,harm (fusion breaks text),Dance,Dance,Theater,Theater
+88b7aae2-84ff-5d4b-ba2b-630811b6f66f,Katie Lee On Culture and Cuisine at the Beach,support (fusion fixes text),Travel,Food,Travel,Travel
+ff1de099-da20-58f9-9266-153e624115dc,"For Many Women, Adequate Pensions Are Still a Far Reach",support (fusion fixes text),Your Money,Economy,Health,Your Money
+da5760a9-6d40-5955-b5fa-42ee8ef9432f,Joel McHale Takes On the CFDA Awards: 'Everyone Should Be Ready',harm (fusion breaks text),Fashion & Style,Fashion & Style,Music,Style
+b5571e0d-c28e-5af3-aa16-fea420437ea2,Photos: The Arrivals at the 2016 Tony Awards Red Carpet,support (fusion fixes text),Fashion & Style,Theater,Fashion & Style,Fashion & Style
+bd2ad7e1-b893-5491-9e03-abf8a7dd794d,Birth Control via App Finds Footing Under Political Radar,support (fusion fixes text),Health,Technology,Art & Design,Health
+6cf75fe6-87d0-5d5f-a51b-918a6c80804e,Book Review: 'Ordinarily Well: The Case for Antidepressants',support (fusion fixes text),Health,Movies,Books,Health
+45861486-3f52-5e15-964e-f221422297c8,HBO Unexpectedly Cancels Low-Rated 'Vinyl' After One Season,harm (fusion breaks text),Media,Media,Movies,Television
+4bbf49eb-6933-52f0-a7db-69a21c586044,The Gang That Brought High Fashion to Hip-Hop,harm (fusion breaks text),Fashion & Style,Fashion & Style,Sports,Style
+8ec98a09-39b0-5527-a396-b5093bee2c76,"Audra McDonald and Zachary Quinto on Public, and Private, Drama",support (fusion fixes text),Fashion & Style,Theater,Food,Fashion & Style
+50a1cdce-8e78-5b46-a60b-2eb7b8d94587,On Tap: New Craft Beer Outposts,support (fusion fixes text),Travel,Food,Food,Travel
+bcdf4f01-5197-5de6-9232-24201680707a,Marissa Mayer's Media Problem at Yahoo Is Now Verizon's to Solve,support (fusion fixes text),Media,Technology,Your Money,Media
+d958506b-fc2c-5aec-b64b-c0a64b2ecd5e,Denmark: Where It Is Always Wedding Season,harm (fusion breaks text),Travel,Travel,Fashion & Style,Fashion & Style
+2a93f0c6-df99-5e70-b46a-405398e7091f,Yahoo and the Online Universe According to Verizon,harm (fusion breaks text),Media,Media,Science,Technology
+9776c914-cb0f-5474-80b5-fee9e1dc40da,Dental Floss May Not Improve Your Health. But What Else Can You Do With It?,support (fusion fixes text),Health,Science,Art & Design,Health
+4cc22399-aeff-5083-9fb1-99963fb6df33,How Lowering Crime Could Contribute to Global Warming,support (fusion fixes text),Science,Economy,Travel,Science
+954a7ec6-e795-5e36-bdf5-a8c7431a46e6,"A Better (Smelly) Mosquito Trap, but With Caveats",support (fusion fixes text),Health,Science,Health,Health
+18a11b04-6355-57f2-b623-5b32fe154cd0,Will Simone Manuel Inspire More Black Children to Swim?,harm (fusion breaks text),Well,Well,Health,Sports
+3eeef20a-8d50-5622-a60c-3f90ec69ea47,"The Known: Cancer Is Really, Really Old. The Unknown: How Common It Was.",harm (fusion breaks text),Science,Science,Science,Health
+eeb7d6f8-7b43-54fb-8470-ce088597efc7,Playing With a Concussion Doubles Recovery Time,harm (fusion breaks text),Well,Well,Sports,Sports
+2c393b86-e305-5fb5-9da5-dcb36040be6e,A Bali Restaurant With Laid-Back Appeal,harm (fusion breaks text),Travel,Travel,Food,Food
+745e572f-dc2e-507f-8730-343a0063a92e,Writing a 'Last Letter' When You're Healthy,harm (fusion breaks text),Well,Well,Education,Your Money
+cca16420-3fe8-5535-9c29-356f66a42888,"At Yosemite, a Mystery Bride and Groom Are Identified",harm (fusion breaks text),Fashion & Style,Fashion & Style,Travel,Travel
+db7113ce-5587-53e5-89af-33ce107ed20d,Behind the Scenes at British Vogue,harm (fusion breaks text),Fashion & Style,Fashion & Style,Style,Style
+507b2b65-77b9-58bc-85b3-c9dd72fc64a3,"Her U.S. Open Loss Behind Her, Serena Williams Turns to Fashion",harm (fusion breaks text),Fashion & Style,Fashion & Style,Style,Style
+1b8a8f26-905e-5ba6-aa5d-51a259814ce6,Alicia Keys and the 'Tyranny of Makeup',harm (fusion breaks text),Fashion & Style,Fashion & Style,Music,Style
+390a145a-0795-5650-aa54-6e2aab5d0092,Deborah S. Jin Dies at 47; Physicist Studied Matter in Extreme Cold,harm (fusion breaks text),Science,Science,Science,Health
+f9942c8f-a927-52ff-9754-48cecf6e4c15,Angelina Jolie Turns to Divorce Specialist Laura Wasser,support (fusion fixes text),Fashion & Style,Style,Fashion & Style,Fashion & Style
+2933e747-d15b-5a70-a8f9-bab839acb4b9,We Know What Lipstick You'll Wear This Fall,support (fusion fixes text),Fashion & Style,Style,Style,Fashion & Style
+e099a48f-74fc-5b75-820f-7cee2524a88c,"Trekking to the Toronto Suburbs for Excellent, Cheap Chinese Food",harm (fusion breaks text),Travel,Travel,Food,Food
+c89b824e-9bb7-5813-901b-305be1d21cc0,A Mother-Daughter Night With Melissa Etheridge,support (fusion fixes text),Fashion & Style,Style,Health,Fashion & Style
+b4036f44-2de2-5fd7-af2e-72761a784ef4,Can a Spoonful From Pepsi Help the Medicine Go Down?,support (fusion fixes text),Well,Food,Education,Well
+2e83c260-97a5-5808-8ded-9045ba23e549,"3-D Printing Pioneer Goes Low Tech, With a $5,800 Watch Made in Brooklyn",harm (fusion breaks text),Fashion & Style,Fashion & Style,Art & Design,Style
+31d93b28-da53-584f-9340-91ef2ed68af3,"Dominique Renaud, Revolutionary Watchmaker",harm (fusion breaks text),Fashion & Style,Fashion & Style,Health,Style
+951ff5b3-5524-5f5b-8db2-709384a58745,Lauren Graham's Taste of Tokyo,support (fusion fixes text),Fashion & Style,Style,Television,Fashion & Style
+0bede827-b5fd-5335-a127-32465a959225,"Peter Binzen, Dean of Philadelphia Journalism for Half a Century, Dies at 94",harm (fusion breaks text),Media,Media,Your Money,Books
+42b67237-1a5b-534a-adee-96d6636e1f2e,Jackie Kennedy: The First Instagram First Lady,harm (fusion breaks text),Fashion & Style,Fashion & Style,Your Money,Style
+3937f98c-70f4-5261-9d7d-5d45880c92f5,"Iceland Recovers, and Reykjavik Becomes a Hive of Development",harm (fusion breaks text),Real Estate,Real Estate,Art & Design,Travel
+951611d4-3078-511a-be3e-68e32b788874,At De Beers: Millennials and Diamonds,support (fusion fixes text),Fashion & Style,Style,Fashion & Style,Fashion & Style
+69af8c49-88bd-5af9-bf10-fa514eb95b75,Patek Philippe Plans a 400-Watch Exhibition in New York,harm (fusion breaks text),Fashion & Style,Fashion & Style,Art & Design,Art & Design
+689a1320-2e17-552d-8d7a-f910b893d471,Portland Adopts Surcharge on C.E.O. Pay in Move vs. Income Inequality,harm (fusion breaks text),Economy,Economy,Television,Technology
+921abb3f-1aec-5c38-9a9e-cb33124aa6f9,Critics' Choice Awards Red Carpet,support (fusion fixes text),Fashion & Style,Movies,Fashion & Style,Fashion & Style
+799a60fc-a24c-5829-b69e-623ba6e718b0,Free Cash in Finland. Must Be Jobless.,support (fusion fixes text),Economy,Global Business,Opinion,Economy
+608b2ab6-eb2c-596e-b557-0dd11f898ec7,Coachella Organizers in Deal With Hangout Music Festival,harm (fusion breaks text),Media,Media,Opinion,Music
+4c16a0e4-8fe1-58b4-9dfb-6b7cfb382c6b,"In Hong Kong, a World of Menus",harm (fusion breaks text),Travel,Travel,Food,Food
+a4a59af7-302c-591c-adce-9571b5fe8f81,A Night Out With One of Miami's Night Life Boosters,harm (fusion breaks text),Style,Style,Fashion & Style,Fashion & Style
+b9b663c7-a05b-5a53-99b5-a3539c589e4c,"Brioni, and a New Group of Front-Row Fans",support (fusion fixes text),Fashion & Style,Style,Opinion,Fashion & Style
+e21d9ddd-92a0-5ba6-bd9d-2e492ae5e91b,Finding a Nanny Who Fits With Your Family,harm (fusion breaks text),Your Money,Your Money,Style,Well
+07a4e1f4-f537-588a-9535-865d4a979a11,Alice K. Turner Dies at 75; Playboy Editor Kept Fiction Alive,support (fusion fixes text),Media,Books,Books,Media
+38f926df-afb5-537c-a481-e4e6ae7ff6fa,Jerome Jarre: The Making of a Vine Celebrity,support (fusion fixes text),Style,Fashion & Style,Technology,Style
+c88144d8-e278-518a-b1fc-2ca527bdd56f,What Travelers Need to Know About Measles,support (fusion fixes text),Travel,Well,Travel,Travel
+c67207ab-f86b-5930-870f-3cc546d10a21,Studying Oversize Brain Cells for Links to Exceptional Memory,harm (fusion breaks text),Science,Science,Books,Health
+e4a5100e-baac-5be9-bce8-943d1213ab5f,"Red-Light Camera Debate Is a Stew of Anger, Revenue and Safety",harm (fusion breaks text),Automobiles,Automobiles,Technology,Technology
+5a2aef91-b82e-5f8a-840c-210bf40b5675,"In Berkeley's Warehouses, Foodies Find a New Home",support (fusion fixes text),Travel,Food,Food,Travel
+f889bc88-5c49-5df0-b3fe-e3fae3dfa02f,"Two Maxims at Odds: Tell a Story, Tell the Truth",support (fusion fixes text),Media,Television,Television,Media
+d549e03f-23da-5ff0-9f48-0503a23ec56d,The Happiest Hour in Greenwich Village,harm (fusion breaks text),Style,Style,Fashion & Style,Fashion & Style
+942b25c5-d97c-527c-9808-fc89fba7d769,"Mark Morris's 'Spring, Spring, Spring' Heads to Brooklyn Academy of Music",support (fusion fixes text),Dance,Music,Dance,Dance
+e64c4536-9f96-5f94-9b4b-3180938812c4,Sweet and Salty: Majorca's Traditional Cuisine,support (fusion fixes text),Travel,Food,Travel,Travel
+af337ff2-9ae5-5c7c-914d-6b6dad657811,Walkabout: The Mystery of Kim Jong-un's Mountain Climb,harm (fusion breaks text),Travel,Travel,Opinion,Fashion & Style
+93d5b3d6-2a8e-5ba6-848f-86177ab7095b,'Galactic Hot Dogs' Hopes Readers on Funbrain Will Buy at Bookstores,harm (fusion breaks text),Media,Media,Books,Books
+4181c713-debe-5687-9574-44185e39927f,Study on Attitudes Toward Same-Sex Marriage Is Retracted by a Scientific Journal,support (fusion fixes text),Science,Health,Books,Science
+90ca24f0-4bd9-57c5-8ea1-3b45ec04d0d3,Strengthening Troubled Sibling Bonds to Deal With an Aging Parent,harm (fusion breaks text),Your Money,Your Money,Television,Well
+e71ac070-70d8-58d2-a94d-38c283800095,Using Dance to Connect With Locals,harm (fusion breaks text),Travel,Travel,Fashion & Style,Dance
+0dc7a970-e3ec-53e2-a77c-4264e13bca39,Paying Off the Mortgage Is Becoming Harder for Older Workers,harm (fusion breaks text),Your Money,Your Money,Real Estate,Economy
+25df805b-1661-5967-842b-7a28e05db7b2,"Review: Mark Morris Conducts at Tanglewood, and Offers a Debut",support (fusion fixes text),Dance,Music,Dance,Dance
+7ec76df2-a1a5-5136-bf7a-e71d29e9705c,Germans Forget Postwar History Lesson on Debt Relief in Greece Crisis,support (fusion fixes text),Economy,Global Business,Books,Economy
+214219cb-11f8-5d76-b26f-223d78557bb3,'The Amazing Acro-Cats' Visit New York,harm (fusion breaks text),Dance,Dance,Style,Style
+94a52ec3-fdf7-5534-8330-c7348e8a17e4,Calvin A. Ramsey on How Black Travel Has Changed Since Jim Crow,support (fusion fixes text),Travel,Books,Books,Travel
+d0ea6fa4-8672-50ce-9867-7881fba69154,"In California's Inland Empire, an Economic Recovery Brimming With Industrial Complexes",harm (fusion breaks text),Real Estate,Real Estate,Economy,Economy
+5900c01b-6362-5748-951c-e4174bf81dfa,"Near the End, It's Best to Be 'Friended'",support (fusion fixes text),Health,Your Money,Health,Health
+86bb0965-e09e-5ee3-b671-3b8a92eb4e1a,"Twyla Tharp on the Road: Homecoming, a Photo Essay",harm (fusion breaks text),Dance,Dance,Movies,Style
+8a458c51-a168-57e2-9549-4999e5e6c527,A Quick Look at the Fed's Interest Rate Increase,support (fusion fixes text),Economy,Your Money,Economy,Economy
+d473d25c-9862-59ca-855b-bbce99072ac8,Appeals Court Upholds Current Fees on Debit Card Purchases,harm (fusion breaks text),Your Money,Your Money,Technology,Technology
+c8b4e352-f891-5c10-af76-4eb70080ecfd,Manhattan Real Estate Feels a Russian Chill,support (fusion fixes text),Real Estate,Global Business,Real Estate,Real Estate
+4f67238e-5999-528e-8136-db91ec837374,Cartier Moves North From Perch on Fifth Avenue,harm (fusion breaks text),Real Estate,Real Estate,Media,Art & Design
+9970cf2f-2be6-560d-9cb4-a79a4b0b1980,A Tribute to Cannon Ball Baker's Century-Old Motorcycle Record Hits the Road,harm (fusion breaks text),Automobiles,Automobiles,Sports,Sports
+7b5e3f29-67ee-5fcf-aa36-5fb682c5d6a2,"Club Echoes, in Sounds and Moves",harm (fusion breaks text),Dance,Dance,Dance,Music
+b1e0792c-69ea-5ea7-b676-c74cab40e82e,Colorful Pairings From Many Nations,support (fusion fixes text),Dance,Food,Dance,Dance
+5a77f2a5-c831-5515-a253-c4b81e30a56f,A Navigation Program Switches to Maps Made by Volunteers,harm (fusion breaks text),Automobiles,Automobiles,Travel,Technology
+4fe40eb9-87e1-5682-9252-7be0737af3df,Hunter-Reay Takes Indy 500 Win; Johnson's Winless Streak Ends,support (fusion fixes text),Automobiles,Sports,Automobiles,Automobiles
+ae409e9b-4a1e-534c-a76f-b3cdb9667790,Middle-Class Lament: Rent,support (fusion fixes text),Real Estate,Economy,Real Estate,Real Estate
+39c210ab-d210-5d58-842f-5cd67b380707,Study Finds That Brains With Autism Fail to Trim Synapses as They Develop,harm (fusion breaks text),Health,Health,Science,Science
+2b84b7e3-6685-50d4-9e28-0cd96da6cd2d,A Toeshoe Marks the Spot of Color,support (fusion fixes text),Dance,Art & Design,Dance,Dance
+705bee34-6ffb-54cf-b7bd-64b337145db5,When Opposites Attract and Repel,support (fusion fixes text),Dance,Books,Dance,Dance
+750acf10-cd2d-5c91-a7aa-ae6824c2b33f,Space to Be Mindful,harm (fusion breaks text),Education,Education,Real Estate,Style
+9587a0aa-5dbd-59fb-8be1-b75d8fa3f2f1,"Monday Motorsports: Harvick Needed to Win, and Did",support (fusion fixes text),Automobiles,Sports,Automobiles,Automobiles
+039a53f9-3d91-5c0b-b9bf-3fdbc6fa87e4,Australia's Once-Vibrant Auto Industry Crashes in Slow Motion,support (fusion fixes text),Automobiles,Global Business,Automobiles,Automobiles
+fa310cac-29ec-5041-9da2-21ed522ef6a5,No Quality Problems Found at Battery Maker for 787,harm (fusion breaks text),Global Business,Global Business,Global Business,Automobiles
+336b17e2-1ef1-5561-8940-78606d2942d2,U.S. Signals Support for Japan's Yen Policy,harm (fusion breaks text),Global Business,Global Business,Global Business,Economy
+31fb325d-08c2-5094-bfb7-07a39cc412ec,"A Reunion, With Apologies for Last Time",support (fusion fixes text),Real Estate,Fashion & Style,Real Estate,Real Estate
+620d6df6-f036-5bfa-b405-ec967622d92e,Police Unsure of Klan Garb at Troubled College,harm (fusion breaks text),Education,Education,Education,Style
+36f89047-c592-5702-8828-c57536f9e259,An Energy Coup for Japan: 'Flammable Ice',support (fusion fixes text),Global Business,Science,Global Business,Global Business
+8d34943e-217a-5033-ad26-b57ec873e06d,Rental Investment May Seem Safer Than It Really Is,support (fusion fixes text),Your Money,Real Estate,Your Money,Your Money
+1d0e4fee-7697-5fbd-afdb-04a47b106c77,"Europe's Markets, No Longer in Lock Step",harm (fusion breaks text),Your Money,Your Money,Global Business,Global Business
+674e73da-7921-5520-acd2-90ffceae7a5e,Accord Aims to Create Trove of Genetic Data,harm (fusion breaks text),Health,Health,Real Estate,Science
+815c3a6a-dad7-5c9c-8965-48189e47141b,Buried Garage to Help Pay for New Park in Brooklyn,harm (fusion breaks text),Real Estate,Real Estate,Sports,Automobiles
+261ef776-ad02-533a-a315-7e4e7aac1ef1,A $147 Million Signal of Faith in Atlanta's Public Schools,harm (fusion breaks text),Education,Education,Real Estate,Art & Design
+2e09e8ed-8f5e-50b1-9979-5dc4a7750aa3,"John Kennell, Advocate of Infant Bonding, Dies at 91",harm (fusion breaks text),Health,Health,Books,Science
+9d51651c-fc49-5005-8a4b-5808a0a7f44f,"At the Glsen Respect Awards, Hollywood's Elite Is Shaken by a Story",support (fusion fixes text),Style,Movies,Your Money,Style
+3cd5e5f1-05a9-5c4e-82fa-a45b55bb5cee,Rewards for Showing Up,harm (fusion breaks text),Education,Education,Food,Well
+7608001b-5a89-593f-ad91-bf2c27152eff,"In the War on Poverty, a Dogged Adversary",harm (fusion breaks text),Economy,Economy,Opinion,Opinion
+e652ba44-a837-5d25-9d2e-c3fd257386b8,"With Olympus Managers Still Entrenched, an Ousted Chief Drops His Sword",support (fusion fixes text),Global Business,Media,Global Business,Global Business
+6ef02b48-b509-59ef-afd1-b62f1beea409,All Kinds of Kale,support (fusion fixes text),Health,Food,Food,Health
+d06e0e11-d645-569f-9e0e-0707a28e160b,U.S. Candidate Is Chosen to Lead the World Bank,support (fusion fixes text),Global Business,Economy,Global Business,Global Business
+245f7e49-29c5-5896-a97a-ae1da1dbe6d8,Finding Success on the Oil Frontier,harm (fusion breaks text),Global Business,Global Business,Global Business,Science
+d7179392-56d1-54f3-9397-482c472feea9,DreamWorks Animation Plans Shanghai Entertainment District,harm (fusion breaks text),Global Business,Global Business,Travel,Real Estate
+9fba9ea4-493c-5d61-9e4b-b4b0532322bc,When a Crisis Comes With a Reset Button,harm (fusion breaks text),Automobiles,Automobiles,Global Business,Global Business
+538f5268-059e-56a1-a7e0-27a01f2d7fd2,"Yes, Driverless Cars Know the Way to San Jose",support (fusion fixes text),Automobiles,Technology,Automobiles,Automobiles
+adc93883-a17f-5b07-82d5-4e0b2edf8d29,"Frustrations With Robocalls, and the Joy of the Ordinary",harm (fusion breaks text),Your Money,Your Money,Books,Books
+079a8e5d-53f8-5802-9194-ddf83a1e1e0a,"Brooklyn Teachers Joined at the Hip, and, to Some Pupils, by a Hyphen",support (fusion fixes text),Education,Fashion & Style,Economy,Education
+f8ef8a84-1d35-57ff-92a4-1df9fa3dab12,"A Family's Fellow Traveler, From Tropics to Tundra",support (fusion fixes text),Automobiles,Travel,Automobiles,Automobiles
+cb3d81d8-d9e5-59ea-91f8-9ee76b2a035a,Portland Plans for Transit All Powered by Electricity,support (fusion fixes text),Automobiles,Real Estate,Automobiles,Automobiles
+0065022e-1357-5ff4-bfeb-f2081e209556,Fewer People Late Paying Mortgage,support (fusion fixes text),Economy,Real Estate,Sports,Economy
+aabe3685-88f4-5245-baa1-70c29579dafb,Obama Asks G-20 States to Maintain Stimulus,harm (fusion breaks text),Global Business,Global Business,Opinion,Economy
+3c411d28-e8ca-533e-8734-a68e40fa012b,Racing Under a Watchful Eye That's Thousands of Miles Away,harm (fusion breaks text),Automobiles,Automobiles,Technology,Sports
+806a247d-bd3c-5e11-a03d-29fa5a063c03,Nespresso and Rivals Vie for Dominance in Coffee War,harm (fusion breaks text),Global Business,Global Business,Technology,Technology
+c06cd699-6820-5817-9b38-4b8240d90f2d,"To Conquer Wind Power, China Writes the Rules",support (fusion fixes text),Global Business,Technology,Economy,Global Business

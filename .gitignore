@@ -59,3 +59,7 @@ Thumbs.db
 
 # Checkpoints of Assignment 2
 Assignment2/checkpoints/
+
+# A3 M2: keep run logs (history.csv, metrics.json), not per-run weights or predictions
+Assignment3/outputs/metrics/m2/runs/**/model.pt
+Assignment3/outputs/metrics/m2/runs/**/*.npy

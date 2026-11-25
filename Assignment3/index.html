@@ -237,9 +237,15 @@
     <!-- TAB 3: Results & Baseline Comparison -->
     <div class="tab-content" id="tab-results">
       <div class="card">
-        <h2 class="section-title"><i class="fa-solid fa-table-list"></i> Unimodal vs. Multimodal Comparison Matrix</h2>
+        <h2 class="section-title"><i class="fa-solid fa-table-list"></i> Unimodal vs. Multimodal Comparison (A3-M2)</h2>
         <div class="card-body" style="margin-top: 1rem;">
-          
+
+          <p>
+            Test results on the duplicate-aware split (5,915 test articles), mean ± std over 3 seeds. Encoders are frozen;
+            each model trains the same MLP head (LayerNorm per modality → concat → 512 → 24) on cached features, with the
+            checkpoint selected on validation macro-F1.
+          </p>
+
           <div class="table-responsive">
             <table class="table">
               <thead>
@@ -248,40 +254,101 @@
                   <th>Modalities Used</th>
                   <th>Macro-F1 (primary)</th>
                   <th>Accuracy</th>
-                  <th>Parameters</th>
+                  <th>Head Parameters</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td><strong>1. Unimodal Baseline A</strong></td>
-                  <td>Text only (RoBERTa-base)</td>
-                  <td>--</td>
-                  <td>--</td>
-                  <td>--</td>
+                  <td>Text only (RoBERTa-base, mean pooling)</td>
+                  <td><strong>82.04 ± 0.31</strong></td>
+                  <td>83.65 ± 0.24</td>
+                  <td>407,576</td>
                 </tr>
                 <tr>
                   <td><strong>2. Unimodal Baseline B</strong></td>
                   <td>Image only (ViT-B/16, ImageNet)</td>
-                  <td>--</td>
-                  <td>--</td>
-                  <td>--</td>
+                  <td>46.26 ± 0.21</td>
+                  <td>48.61 ± 0.33</td>
+                  <td>407,576</td>
                 </tr>
                 <tr>
                   <td><strong>3. Simple Fusion Baseline</strong></td>
-                  <td>Modality A + B (Concat)</td>
-                  <td>--</td>
-                  <td>--</td>
-                  <td>--</td>
+                  <td>Text + image (concat, single CE loss)</td>
+                  <td>80.79 ± 0.23</td>
+                  <td>82.45 ± 0.25</td>
+                  <td>802,328</td>
                 </tr>
                 <tr>
                   <td><strong>4. Improved Multimodal Model</strong></td>
-                  <td>Modality A + B (Cross-Attention + Gated Fusion)</td>
-                  <td>--</td>
-                  <td>--</td>
-                  <td>--</td>
+                  <td>Text + image (cross-attention + gated fusion)</td>
+                  <td>M3</td>
+                  <td>M3</td>
+                  <td>M3</td>
                 </tr>
               </tbody>
             </table>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Text pooling (CLS 81.62 ± 0.24 vs. mean 82.04 ± 0.31) was chosen on validation macro-F1.
+            Head training takes 5–19 s per run on a T4; the cost is dominated by the one-off feature extraction.
+            Full tables: <a href="./outputs/metrics/m2/results.md" target="_blank">results.md</a> ·
+            <a href="./outputs/metrics/m2/per_class_f1.csv" target="_blank">per_class_f1.csv</a>.
+          </p>
+
+          <figure style="margin: 1.25rem 0 0.5rem;">
+            <img src="./outputs/metrics/m2/figures/model_comparison.png"
+                 alt="Horizontal bars of test macro-F1: text 82.04, image 46.26, concat fusion 80.79"
+                 loading="lazy"
+                 style="display: block; width: 100%; max-width: 760px; height: auto; margin: 0 auto; border-radius: var(--radius-md);">
+          </figure>
+
+          <div class="callout callout-warning" style="margin-top: 1.25rem;">
+            <div class="callout-title"><i class="fa-solid fa-triangle-exclamation"></i> Key finding: simple fusion is below text-only</div>
+            <p style="font-size: 0.9rem;">
+              Concatenation loses 1.25 macro-F1 points to the text model, about four times the seed standard deviation, so the
+              gap is not noise. The image branch is weak (46.3 macro-F1) and the concat head has no mechanism to down-weight it:
+              its validation loss starts rising after about five epochs while its training loss drops fastest, i.e. the head
+              overfits the extra 768 image dimensions. This motivates the M3 model (gated fusion, auxiliary unimodal losses,
+              modality dropout). Image-only is below the paper's 52.80 because our encoder is frozen, while the paper fine-tunes it.
+            </p>
+          </div>
+
+          <h3 style="margin-top: 1.5rem; color: var(--secondary-light); font-size: 1.15rem;">Training Behavior</h3>
+          <figure style="margin: 1rem 0 0.5rem;">
+            <img src="./outputs/metrics/m2/figures/learning_curves.png"
+                 alt="Validation macro-F1 and train/validation loss per epoch for the text, image and concat models"
+                 loading="lazy"
+                 style="display: block; width: 100%; max-width: 1100px; height: auto; margin: 0 auto; border-radius: var(--radius-md);">
+          </figure>
+
+          <h3 style="margin-top: 1.5rem; color: var(--secondary-light); font-size: 1.15rem;">Per-Category F1</h3>
+          <figure style="margin: 1rem 0 0.5rem;">
+            <img src="./outputs/metrics/m2/figures/per_class_f1.png"
+                 alt="Test F1 per category for text, image and fusion, and fusion minus text per category"
+                 loading="lazy"
+                 style="display: block; width: 100%; max-width: 1100px; height: auto; margin: 0 auto; border-radius: var(--radius-md);">
+          </figure>
+          <p style="font-size: 0.9rem;">
+            Fusion costs most on categories where the image carries little signal: Your Money (−6.0), Well (−3.9), Media (−3.3)
+            and Music (−3.0). Style and Well remain the hardest categories for every model (F1 below 55), mostly confused with
+            Fashion &amp; Style and Health.
+          </p>
+
+          <h3 style="margin-top: 1.5rem; color: var(--secondary-light); font-size: 1.15rem;">Confusion Matrices (test, row-normalized)</h3>
+          <div class="grid-3" style="margin-top: 1rem; gap: 1rem;">
+            <a href="./outputs/metrics/m2/figures/confusion_text.png" target="_blank">
+              <img src="./outputs/metrics/m2/figures/confusion_text.png" alt="Confusion matrix of the text model" loading="lazy"
+                   style="width: 100%; height: auto; border-radius: var(--radius-md);">
+            </a>
+            <a href="./outputs/metrics/m2/figures/confusion_image.png" target="_blank">
+              <img src="./outputs/metrics/m2/figures/confusion_image.png" alt="Confusion matrix of the image model" loading="lazy"
+                   style="width: 100%; height: auto; border-radius: var(--radius-md);">
+            </a>
+            <a href="./outputs/metrics/m2/figures/confusion_concat.png" target="_blank">
+              <img src="./outputs/metrics/m2/figures/confusion_concat.png" alt="Confusion matrix of the concat fusion model" loading="lazy"
+                   style="width: 100%; height: auto; border-radius: var(--radius-md);">
+            </a>
           </div>
 
         </div>
@@ -291,23 +358,46 @@
     <!-- TAB 4: Modality Support vs. Conflict -->
     <div class="tab-content" id="tab-interaction">
       <div class="card">
-        <h2 class="section-title"><i class="fa-solid fa-arrows-split-up-and-left"></i> Modality Interaction & Ablation Analysis</h2>
+        <h2 class="section-title"><i class="fa-solid fa-arrows-split-up-and-left"></i> Modality Support vs. Conflict (A3-M2)</h2>
         <div class="card-body" style="margin-top: 1rem;">
-          
-          <div class="grid-2">
+
+          <p>
+            For every test article we compare which of the text, image and concat models is correct (mean of 3 seeds, 5,915 articles).
+            The fusion model fixes 268 text errors but breaks 340 correct text predictions, so it is a net loss.
+          </p>
+
+          <figure style="margin: 1.25rem 0 0.5rem;">
+            <img src="./outputs/metrics/m2/figures/modality_agreement.png"
+                 alt="Counts of support, harm and conflict cases between the text, image and fusion models on the test set"
+                 loading="lazy"
+                 style="display: block; width: 100%; max-width: 1000px; height: auto; margin: 0 auto; border-radius: var(--radius-md);">
+          </figure>
+
+          <div class="grid-2" style="margin-top: 1.25rem;">
             <div class="callout callout-info">
-              <div class="callout-title"><i class="fa-solid fa-circle-check" style="color: var(--status-approved);"></i> Support Cases</div>
-              <p style="font-size: 0.9rem;">
-                Samples where combining both modalities corrects single-modality errors (e.g. ambiguous image clarified by text caption).
-              </p>
+              <div class="callout-title"><i class="fa-solid fa-circle-check" style="color: var(--status-approved);"></i> Support: fusion fixes the text model</div>
+              <p style="font-size: 0.9rem;">268 articles (4.5%), including 131 where only the image was right.</p>
+              <ul style="padding-left: 1.25rem; margin-top: 0.5rem; font-size: 0.875rem;">
+                <li><em>"Where Avocado Toast Shares a Menu With Yemeni Favorites"</em>: text → Travel, image → Food, fusion → <strong>Food</strong> ✓</li>
+                <li><em>"Overwhelmed by Medical Bills, and Finding Help on TikTok"</em>: text → Your Money, image → Health, fusion → <strong>Health</strong> ✓</li>
+                <li><em>"'Party of Five' and 'Little America': Immigrant Stories That Get the Job Done"</em>: text → Movies, image → Television, fusion → <strong>Television</strong> ✓</li>
+              </ul>
             </div>
             <div class="callout callout-warning">
-              <div class="callout-title"><i class="fa-solid fa-triangle-exclamation"></i> Conflict Cases</div>
-              <p style="font-size: 0.9rem;">
-                Samples where noisy or misleading information in one modality degrades multimodal accuracy below unimodal performance.
-              </p>
+              <div class="callout-title"><i class="fa-solid fa-triangle-exclamation"></i> Conflict: the image pulls fusion away</div>
+              <p style="font-size: 0.9rem;">340 articles (5.8%) where text was right and fusion is wrong; in 293 of them the image was also wrong.</p>
+              <ul style="padding-left: 1.25rem; margin-top: 0.5rem; font-size: 0.875rem;">
+                <li><em>"Eat Natto, Live Longer?"</em>: true Well, text → Well, image → Science, fusion → <strong>Health</strong> ✗</li>
+                <li><em>"The Lewis Prize Awards $1.75 Million for Music Education"</em>: true Music, text → Music, image → Books, fusion → <strong>Books</strong> ✗</li>
+                <li><em>"Oyo Scales Back as SoftBank-Funded Companies Retreat"</em>: true Technology, text → Technology, image → Media, fusion → <strong>Global Business</strong> ✗</li>
+              </ul>
             </div>
           </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.75rem;">
+            All 634 support/harm articles of the best fusion seed, with headlines and the three predictions:
+            <a href="./outputs/metrics/m2/fusion_cases.csv" target="_blank">fusion_cases.csv</a> ·
+            per-seed counts: <a href="./outputs/metrics/m2/modality_agreement.csv" target="_blank">modality_agreement.csv</a>.
+          </p>
 
         </div>
       </div>

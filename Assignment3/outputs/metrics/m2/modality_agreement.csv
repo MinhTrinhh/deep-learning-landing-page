@@ -1,0 +1,5 @@
+seed,n_test,all correct,"support: text wrong, fusion right","harm: text right, fusion wrong","conflict: text right, image wrong -> fusion right","conflict: text right, image wrong -> fusion wrong","conflict: image right, text wrong -> fusion right","conflict: image right, text wrong -> fusion wrong","both unimodal wrong, fusion right",all wrong
+0,5915,2583,285,349,2000,302,137,114,148,584
+1,5915,2599,261,324,2031,284,123,129,138,571
+2,5915,2539,258,348,2071,293,132,127,126,572
+mean,5915,2573.7,268,340.3,2034,293,130.7,123.3,137.3,575.7

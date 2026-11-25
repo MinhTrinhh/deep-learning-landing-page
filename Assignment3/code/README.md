@@ -13,6 +13,7 @@ N24News, 24-class news classification from headline + abstract (text) and the ar
 | `models.py` | `MLPHead`: per-modality LayerNorm → concat → MLP. Same head for text-only, image-only and concat fusion |
 | `train.py` | Trains one head on cached features; AdamW + cosine, early stopping on **val macro-F1**; test scored once with the selected checkpoint |
 | `evaluate.py` | mean ± std over seeds, per-class F1, confusion matrices, text/image/fusion agreement (support vs. conflict), copies best checkpoints |
+| `plot_m2.py` | Report / landing-page figures: learning curves, model comparison, per-class F1, modality agreement |
 
 ## Run on Colab (any account)
 
@@ -44,6 +45,7 @@ python code/train.py --features FEAT_DIR --out RUNS_DIR --model concat --text-fe
 
 # 4. tables + figures + checkpoints
 python code/evaluate.py --runs RUNS_DIR --out outputs/metrics/m2 --checkpoints checkpoints --data DATA_DIR
+python code/plot_m2.py --runs RUNS_DIR --results outputs/metrics/m2
 ```
 
 Every run stores its full configuration (all hyperparameters, seed, features) in `RUNS_DIR/<run>/seed<k>/metrics.json`,
